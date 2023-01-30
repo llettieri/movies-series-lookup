@@ -5,6 +5,7 @@ import {Credits} from "./PersonService";
 import {Media} from "./CollectionService";
 
 export interface TVShow extends Media {
+	name: string;
 	first_air_date: string;
 	networks: Network[];
 }
