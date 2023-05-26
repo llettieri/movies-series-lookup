@@ -49,7 +49,7 @@ export default function Home({popularMovies, popularShows, nowPlayingMovies, now
 	);
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
 	const popularMovies: Movie[] = await fetchPopularMovies(1);
 	const popularShows: TVShow[] = await fetchPopularShows(1);
 	const nowPlayingMovies: Movie[] = await fetchNowPlayingMovies(1);
