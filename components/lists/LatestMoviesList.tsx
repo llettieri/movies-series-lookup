@@ -1,13 +1,13 @@
-import { useMovieLists } from '@/app/api/hooks/useMovieLists';
+import { useMediaLists } from '@/app/api/hooks/useMediaLists';
 import MediaList from '@/components/lists/MediaList';
 import { ReactElement } from 'react';
 
 export default function LatestMoviesList(): ReactElement {
-    const { latestMovies, latestIsLoading } = useMovieLists();
+    const { latestMovies, latestIsLoading } = useMediaLists();
     return (
         <MediaList
             title="Latest Movies"
-            movies={latestMovies}
+            medias={latestMovies}
             isLoading={latestIsLoading}
         />
     );

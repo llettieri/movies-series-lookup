@@ -1,13 +1,13 @@
-import { useMovieLists } from '@/app/api/hooks/useMovieLists';
+import { useMediaLists } from '@/app/api/hooks/useMediaLists';
 import MediaList from '@/components/lists/MediaList';
 import React, { ReactElement } from 'react';
 export default function PopularMoviesList(): ReactElement {
-    const { popularMovies, popularIsLoading } = useMovieLists();
+    const { popularMovies, popularMoviesIsLoading } = useMediaLists();
     return (
         <MediaList
             title="Popular Movies"
-            movies={popularMovies}
-            isLoading={popularIsLoading}
+            medias={popularMovies}
+            isLoading={popularMoviesIsLoading}
         />
     );
 }

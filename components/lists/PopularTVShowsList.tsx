@@ -1,14 +1,14 @@
-import { useTVShowLists } from '@/app/api/hooks/useTVShowLists';
+import { useMediaLists } from '@/app/api/hooks/useMediaLists';
 import MediaList from '@/components/lists/MediaList';
 import { ReactElement } from 'react';
 
 export default function PopularTVShowsList(): ReactElement {
-    const { popularShows, popularIsLoading } = useTVShowLists();
+    const { popularShows, popularShowsIsLoading } = useMediaLists();
     return (
         <MediaList
             title="Popular TV Shows"
-            shows={popularShows}
-            isLoading={popularIsLoading}
+            medias={popularShows}
+            isLoading={popularShowsIsLoading}
         />
     );
 }

@@ -10,7 +10,7 @@ export default function PeopleList({
     return (
         <>
             {people.map((p, index, array) => (
-                <Link key={p.id} href={`/person/${p.id}`}>
+                <Link key={p.id} href={`/people/${p.id}`}>
                     <span className="font-bold text-gray-400">
                         {p.name} as {p.character}
                         {index < array.length - 1 ? ', ' : ''}

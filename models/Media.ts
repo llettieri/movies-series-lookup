@@ -1,12 +1,17 @@
+import { SimpleCollection } from '@/models/dto/MovieDto';
 import { Genre } from '@/models/Genre';
+import { MediaType } from '@/models/MediaType';
 
 export interface Media {
-    id: string;
-    title: string;
-    poster_path: string;
-    backdrop_path: string;
-    overview: string;
-    homepage: string;
+    backdrop: string | undefined;
+    collection: SimpleCollection | undefined;
     genres: Genre[];
-    media_type: string;
+    homepage: string;
+    id: string;
+    mediaType: MediaType;
+    overview: string;
+    poster: string | undefined;
+    releaseDate: string;
+    runtime?: number;
+    title: string;
 }

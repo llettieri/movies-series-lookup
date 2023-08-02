@@ -1,23 +1,23 @@
-import { routes } from '@/app/api/config/routes';
-import { TVShow } from '@/models/TVShow';
+import { Media } from '@/models/Media';
+import { MediaType } from '@/models/MediaType';
 import dayjs from 'dayjs';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { ReactElement } from 'react';
 
-interface ShowCardProps {
-    show: TVShow;
+interface MediaCardProps {
+    media: Media;
 }
 
-export default function ShowCard({ show }: ShowCardProps): ReactElement {
-    let image = '/placeholder.png';
-
-    if (show.poster_path) {
-        image = `${routes.images}${show.poster_path}`;
-    }
+export default function MediaCard({ media }: MediaCardProps): ReactElement {
+    const image = media.poster ?? '/placeholder.png';
 
     return (
-        <Link href={`/tv-shows/${show.id}`}>
+        <Link
+            href={`/${
+                media.mediaType === MediaType.MOVIE ? 'movies' : 'tv-shows'
+            }/${media.id}`}
+        >
             <div className="w-48 h-full flex flex-col bg-primary shadow-sm rounded-md cursor-pointer transition-transform hover:scale-110 hover:drop-shadow-lg duration-150">
                 <Image
                     src={image}
@@ -31,10 +31,10 @@ export default function ShowCard({ show }: ShowCardProps): ReactElement {
                 />
                 <div className="flex-1 flex flex-col justify-between px-6 py-2">
                     <h2 className="font-bold text-primaryText text-xl mb-1">
-                        {show.name}
+                        {media.title}
                     </h2>
                     <p className="text-primaryText text-base mb-1">
-                        {dayjs(show.first_air_date).format('MMMM DD, YYYY')}
+                        {dayjs(media.releaseDate).format('MMMM DD, YYYY')}
                     </p>
                 </div>
             </div>

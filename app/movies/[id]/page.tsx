@@ -35,8 +35,8 @@ export default async function MoviePage({
     const movie = await getMovieDetails(movieId);
     const similarMovies = await getSimilarMovies(movieId);
     const credits = await getMovieCredits(movieId);
-    const image = `${routes.images}${movie.backdrop_path ?? movie.poster_path}`;
-    const width = movie.backdrop_path ? 1000 : 500;
+    const image = `${routes.images}${movie.backdrop ?? movie.poster}`;
+    const width = movie.backdrop ? 1000 : 500;
 
     if (!movie) {
         return <Loading />;
@@ -66,12 +66,10 @@ export default async function MoviePage({
                             {movie.title} ({movie.runtime}min)
                         </h1>
                     </a>
-                    {movie.belongs_to_collection ? (
-                        <Link
-                            href={`/collection/${movie.belongs_to_collection.id}`}
-                        >
+                    {movie.collection ? (
+                        <Link href={`/collections/${movie.collection.id}`}>
                             <h2 className="text-secondary font-bold text-md my-2">
-                                {movie.belongs_to_collection.name}
+                                {movie.collection.name}
                             </h2>
                         </Link>
                     ) : (
@@ -91,7 +89,7 @@ export default async function MoviePage({
                     <p className="text-primaryText text-sm">
                         Release Date:{' '}
                         <span className="font-bold text-secondaryText">
-                            {dayjs(movie.release_date).format('MMMM DD, YYYY')}
+                            {dayjs(movie.releaseDate).format('MMMM DD, YYYY')}
                         </span>
                     </p>
                     {
@@ -102,7 +100,7 @@ export default async function MoviePage({
                 </div>
             </div>
             <div className="pt-2">
-                <MediaList title="Similar Movies" movies={similarMovies} />
+                <MediaList title="Similar Movies" medias={similarMovies} />
             </div>
         </div>
     );

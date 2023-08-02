@@ -23,7 +23,7 @@ export async function generateMetadata({
     params,
 }: TVShowPageProps): Promise<Metadata> {
     const show = await getTVShowDetails(params.id);
-    return Meta({ title: `${show.name} | Details` });
+    return Meta({ title: `${show.title} | Details` });
 }
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -35,8 +35,8 @@ export default async function TVShowPage({
     const show = await getTVShowDetails(showId);
     const similarShows = await getSimilarTVShows(showId);
     const credits = await getTVShowsCredits(showId);
-    const image = `${routes.images}${show.backdrop_path ?? show.poster_path}`;
-    const width = show.backdrop_path ? 1000 : 500;
+    const image = `${routes.images}${show.backdrop ?? show.poster}`;
+    const width = show.backdrop ? 1000 : 500;
 
     return (
         <div>
@@ -59,11 +59,11 @@ export default async function TVShowPage({
                         rel="noreferrer"
                     >
                         <h1 className="font-bold text-primary text-xl my-2">
-                            {show.name}
+                            {show.title}
                         </h1>
                     </a>
                     <h2 className="text-secondary font-bold text-md my-2">
-                        ({show.number_of_seasons} Seasons)
+                        ({show.seasonsCount} Seasons)
                     </h2>
                     <p className="text-primaryText text-sm mt-4">
                         {show.overview}
@@ -77,9 +77,19 @@ export default async function TVShowPage({
                     <p className="text-primaryText text-sm">
                         Release Date:{' '}
                         <span className="font-bold text-secondaryText">
-                            {dayjs(show.first_air_date).format('MMMM DD, YYYY')}
+                            {dayjs(show.releaseDate).format('MMMM DD, YYYY')}
                         </span>
                     </p>
+                    {show.lastAirDate ? (
+                        <p className="text-primaryText text-sm">
+                            Last Aired:{' '}
+                            <span className="font-bold text-secondaryText">
+                                {dayjs(show.lastAirDate).format(
+                                    'MMMM DD, YYYY',
+                                )}
+                            </span>
+                        </p>
+                    ) : null}
                     <p className="text-primaryText text-sm mt-12">
                         Cast: <PeopleList people={credits.cast} />
                     </p>
@@ -94,7 +104,7 @@ export default async function TVShowPage({
                 </div>
             </div>
             <div className="pt-2">
-                <MediaList title="Similar Shows" shows={similarShows} />
+                <MediaList title="Similar Shows" medias={similarShows} />
             </div>
         </div>
     );

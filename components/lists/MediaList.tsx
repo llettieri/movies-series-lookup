@@ -1,33 +1,28 @@
 import Loading from '@/components/Loading';
-import MovieCard from '@/components/MovieCard';
-import ShowCard from '@/components/ShowCard';
-import { Movie } from '@/models/Movie';
-import { TVShow } from '@/models/TVShow';
+import MediaCard from '@/components/MediaCard';
+import { Media } from '@/models/Media';
 import React, { ReactElement } from 'react';
 
-interface VideoListProps {
+interface MediaListProps {
     title: string;
-    movies?: Movie[];
-    shows?: TVShow[];
+    medias: Media[];
     isLoading?: boolean;
 }
 
 export default function MediaList({
     title,
-    movies,
-    shows,
+    medias,
     isLoading,
-}: VideoListProps): ReactElement {
+}: MediaListProps): ReactElement {
     return isLoading ? (
         <Loading />
     ) : (
         <div className="max-w-7xl mx-auto pb-10 px-4">
             <h1 className="text-primaryText text-2xl mt-8 mb-5">{title}</h1>
             <div className="flex flex-row flex-wrap gap-4">
-                {movies?.map((movie) => (
-                    <MovieCard key={movie.id} movie={movie} />
+                {medias.map((m) => (
+                    <MediaCard key={m.id} media={m} />
                 ))}
-                {shows?.map((show) => <ShowCard key={show.id} show={show} />)}
             </div>
         </div>
     );
