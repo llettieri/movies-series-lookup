@@ -4,8 +4,6 @@ import useSearch from '@/app/api/hooks/useSearch';
 import Hero from '@/components/Hero';
 import MediaList from '@/components/lists/MediaList';
 import Loading from '@/components/Loading';
-import { Movie } from '@/models/Movie';
-import { TVShow } from '@/models/TVShow';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { ReactNode, useEffect, useState } from 'react';
 import { useDebounce } from 'use-debounce';
@@ -15,7 +13,7 @@ export default function SearchPage(): ReactNode {
     const searchParams = useSearchParams();
     const [query, setQuery] = useState(searchParams.get('query') ?? '');
     const [debouncedQuery] = useDebounce(query, 1000);
-    const { mediaResults, isLoading } = useSearch(debouncedQuery);
+    const { searchResults, isLoading } = useSearch(debouncedQuery);
 
     useEffect(() => {
         router.replace(`?query=${debouncedQuery}`);
@@ -35,20 +33,11 @@ export default function SearchPage(): ReactNode {
                 />
             </div>
             {isLoading ? <Loading /> : null}
-            {mediaResults.length > 0 ? (
+            {searchResults.length > 0 ? (
                 <div className="pt-2">
                     <MediaList
                         title="Your search results"
-                        movies={
-                            mediaResults.filter(
-                                (m) => m.media_type === 'movie',
-                            ) as Movie[]
-                        }
-                        shows={
-                            mediaResults.filter(
-                                (m) => m.media_type === 'tv',
-                            ) as TVShow[]
-                        }
+                        medias={searchResults}
                     />
                 </div>
             ) : !isLoading && query && query === debouncedQuery ? (
