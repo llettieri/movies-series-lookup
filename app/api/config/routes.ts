@@ -3,6 +3,7 @@ const base = {
     tv: 'https://api.themoviedb.org/3/tv',
     search: 'https://api.themoviedb.org/3/search',
     person: 'https://api.themoviedb.org/3/person',
+    collection: 'https://api.themoviedb.org/3/collection',
 };
 
 export const routes = {
@@ -59,5 +60,8 @@ export const routes = {
             movieCredits: `${base.person}/${id}/movie_credits`,
             tvCredits: `${base.person}/${id}/tv_credits`,
         }),
+    },
+    collection: {
+        byId: (id: number): string => `${base.collection}/${id}`,
     },
 };
