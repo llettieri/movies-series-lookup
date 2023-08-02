@@ -28,7 +28,7 @@ export default function Home(): ReactNode {
         setCollection(collection);
         setListType(listType);
 
-        router.push(`?collection=${collection}&listType=${listType}`);
+        router.replace(`?collection=${collection}&listType=${listType}`);
     }, [searchParams, router]);
 
     const toggleHandler = (value: Collection | ListType, key: string): void => {
