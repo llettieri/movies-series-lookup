@@ -1,0 +1,22 @@
+# deps
+/node_modules
+
+# testing
+/coverage
+
+# next.js stuff
+/.next/
+/out/
+next-env.d.ts
+*.md
+
+# prod
+/build
+
+# env
+.env*
+
+# config
+*.config*
+.prettierrc.js
+.eslintrc.js

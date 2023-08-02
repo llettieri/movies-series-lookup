@@ -1,20 +1,18 @@
-import Head from "next/head";
-import React from "react";
+import { Metadata } from 'next';
 
-export default function Meta({keywords, description, title}: { keywords: string, description: string, title: string }) {
-	return (
-		<Head>
-			<meta name="viewport" content="width=device-width, initial-scale=1"/>
-			<meta name="keywords" content={keywords}/>
-			<meta name="description" content={description}/>
-			<meta charSet="utf-8"/>
-			<title>{title}</title>
-		</Head>
-	);
+interface MetaProps {
+    keywords?: string;
+    description?: string;
+    title?: string;
 }
 
-Meta.defaultProps = {
-	title: "Movies & Series Lookup",
-	keywords: "movie, tv, series, popular",
-	description: "browse movies and series"
-};
+export const Meta = ({
+    keywords = 'movie, tv, series, popular, tv-show, actors, collections',
+    description = 'Browse your favourite movies and series',
+    title = 'Movies & Series Lookup',
+}: MetaProps): Metadata => ({
+    title,
+    description,
+    keywords,
+    viewport: { width: 'device-width', initialScale: 1 },
+});
