@@ -100,7 +100,9 @@ export default async function MoviePage({
                 </div>
             </div>
             <div className="pt-2">
-                <MediaList title="Similar Movies" medias={similarMovies} />
+                {similarMovies.length > 0 ? (
+                    <MediaList title="Similar Movies" medias={similarMovies} />
+                ) : null}
             </div>
         </div>
     );

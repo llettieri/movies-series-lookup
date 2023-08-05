@@ -104,7 +104,9 @@ export default async function TVShowPage({
                 </div>
             </div>
             <div className="pt-2">
-                <MediaList title="Similar Shows" medias={similarShows} />
+                {similarShows.length > 0 ? (
+                    <MediaList title="Similar Shows" medias={similarShows} />
+                ) : null}
             </div>
         </div>
     );

@@ -19,7 +19,7 @@ export default function MediaList({
     ) : (
         <div className="max-w-7xl mx-auto pb-10 px-4">
             <h1 className="text-primaryText text-2xl mt-8 mb-5">{title}</h1>
-            <div className="flex flex-row flex-wrap gap-4">
+            <div className="flex flex-row flex-wrap gap-4 justify-center lg:justify-start">
                 {medias.map((m) => (
                     <MediaCard key={m.id} media={m} />
                 ))}

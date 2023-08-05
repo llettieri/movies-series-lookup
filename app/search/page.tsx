@@ -3,6 +3,7 @@
 import useSearch from '@/app/api/hooks/useSearch';
 import Hero from '@/components/Hero';
 import MediaList from '@/components/lists/MediaList';
+import PeopleList from '@/components/lists/PeopleList';
 import Loading from '@/components/Loading';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { ReactNode, useEffect, useState } from 'react';
@@ -13,11 +14,13 @@ export default function SearchPage(): ReactNode {
     const searchParams = useSearchParams();
     const [query, setQuery] = useState(searchParams.get('query') ?? '');
     const [debouncedQuery] = useDebounce(query, 1000);
-    const { searchResults, isLoading } = useSearch(debouncedQuery);
+    const { searchResults, totalSearchResults, isLoading } =
+        useSearch(debouncedQuery);
+    const isQueryValid = !!query && query === debouncedQuery;
 
     useEffect(() => {
-        router.replace(`?query=${debouncedQuery}`);
-    }, [debouncedQuery, router]);
+        router.replace(`?query=${query}`);
+    }, [query, router]);
 
     return (
         <>
@@ -33,14 +36,23 @@ export default function SearchPage(): ReactNode {
                 />
             </div>
             {isLoading ? <Loading /> : null}
-            {searchResults.length > 0 ? (
+            {searchResults.medias.length > 0 ? (
                 <div className="pt-2">
                     <MediaList
-                        title="Your search results"
-                        medias={searchResults}
+                        title="Media results"
+                        medias={searchResults.medias}
                     />
                 </div>
-            ) : !isLoading && query && query === debouncedQuery ? (
+            ) : null}
+            {searchResults.people.length > 0 ? (
+                <div className="pt-2">
+                    <PeopleList
+                        title="Person results"
+                        people={searchResults.people}
+                    />
+                </div>
+            ) : null}
+            {!isLoading && totalSearchResults === 0 && isQueryValid ? (
                 <h1 className="text-2xl text-primaryText mx-auto w-64 text-center my-16">
                     No results...
                 </h1>
