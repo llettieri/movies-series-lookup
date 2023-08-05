@@ -1,4 +1,3 @@
-import { routes } from '@/app/api/config/routes';
 import {
     getPersonDetails,
     getPersonMovies,
@@ -6,6 +5,7 @@ import {
 } from '@/app/api/services/PersonService';
 import MediaList from '@/components/lists/MediaList';
 import { Meta } from '@/components/Meta';
+import { Gender } from '@/models/Person';
 import dayjs from 'dayjs';
 import { Metadata } from 'next';
 import Image from 'next/image';
@@ -34,9 +34,9 @@ export default async function PersonPage({
     const showCredits = await getPersonTVShows(params.id);
     let pronoun: string;
 
-    if (person.gender === 1) {
+    if (person.gender === Gender.FEMALE) {
         pronoun = 'Her';
-    } else if (person.gender === 2) {
+    } else if (person.gender === Gender.MALE) {
         pronoun = 'His';
     } else {
         pronoun = 'The';
@@ -47,13 +47,13 @@ export default async function PersonPage({
             <div className="container max-w-4xl mx-auto py-6">
                 <div className="px-3">
                     <Image
-                        src={`${routes.images}${person.profile_path}`}
+                        src={person.portrait ?? '/placeholder.png'}
                         width={300}
                         height={100}
                         placeholder="blur"
                         blurDataURL="/placeholder.png"
                         loading="lazy"
-                        className="rounded-md mx-auto block"
+                        className="rounded-md mx-auto block h-auto"
                         alt="person Wallpaper"
                     />
                     <a
@@ -82,9 +82,7 @@ export default async function PersonPage({
                                 {dayjs(person.deathday).format('MMMM DD, YYYY')}
                             </span>
                         </p>
-                    ) : (
-                        ''
-                    )}
+                    ) : null}
                 </div>
             </div>
             <div className="pt-2">

@@ -1,11 +1,19 @@
+export enum Gender {
+    UNDEFINED,
+    FEMALE,
+    MALE,
+    NON_BINARY,
+}
+
 export interface Person {
     id: string;
     name: string;
     character: string;
     birthday: string;
-    gender: number;
-    profile_path: string;
-    deathday: string;
+    gender: Gender;
     biography: string;
     homepage: string;
+    portrait?: string;
+    deathday?: string;
+    department?: string;
 }
