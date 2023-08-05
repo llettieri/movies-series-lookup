@@ -8,6 +8,7 @@ import { TVShowDto } from '@/models/dto/TVShowDto';
 import { Media } from '@/models/Media';
 import { TVShow } from '@/models/TVShow';
 import useSWR from 'swr';
+import { parseTemplate } from 'url-template';
 
 interface UseMovieValues {
     latestIsLoading: boolean;
@@ -22,7 +23,7 @@ interface UseMovieValues {
 
 export const useMediaLists = (): UseMovieValues => {
     const { data: latestMovies, isLoading: latestIsLoading } = useSWR(
-        routes.movies.nowPlaying(),
+        parseTemplate(routes.movies.nowPlaying).expand({ page: 1 }),
         (url) =>
             api()
                 .get<ListDto<MovieDto>>(url)
@@ -31,7 +32,7 @@ export const useMediaLists = (): UseMovieValues => {
     );
 
     const { data: popularMovies, isLoading: popularMoviesIsLoading } = useSWR(
-        routes.movies.popular(),
+        parseTemplate(routes.movies.popular).expand({ page: 1 }),
         (url) =>
             api()
                 .get<ListDto<MovieDto>>(url)
@@ -40,7 +41,7 @@ export const useMediaLists = (): UseMovieValues => {
     );
 
     const { data: popularShows, isLoading: popularShowsIsLoading } = useSWR(
-        routes.tv.popular(),
+        parseTemplate(routes.tv.popular).expand({ page: 1 }),
         (url) =>
             api()
                 .get<ListDto<TVShowDto>>(url)
@@ -49,7 +50,7 @@ export const useMediaLists = (): UseMovieValues => {
     );
 
     const { data: airingTodayShows, isLoading: airingTodayIsLoading } = useSWR(
-        routes.tv.airingToday(),
+        parseTemplate(routes.tv.airingToday).expand({}),
         (url) =>
             api()
                 .get<ListDto<TVShowDto>>(url)

@@ -4,22 +4,28 @@ import { parseMovieDto } from '@/app/api/services/MovieService';
 import { parseTVShowDto } from '@/app/api/services/TVShowService';
 import { MediaCreditsDto } from '@/models/dto/MediaCreditsDto';
 import { MovieDto } from '@/models/dto/MovieDto';
+import { PersonDto } from '@/models/dto/PersonDto';
 import { TVShowDto } from '@/models/dto/TVShowDto';
 import { Media } from '@/models/Media';
 import { Person } from '@/models/Person';
 import { TVShow } from '@/models/TVShow';
+import { parseTemplate } from 'url-template';
 
 async function getPersonDetails(personId: number): Promise<Person> {
+    const url = parseTemplate(routes.person.byId.details).expand({
+        id: personId,
+    });
     return await api()
-        .get<Person>(routes.person.byId(personId).details)
-        .then((r) => r.data);
+        .get<PersonDto>(url)
+        .then((r) => parsePersonDto(r.data));
 }
 
 async function getPersonMovies(personId: number): Promise<Media[]> {
+    const url = parseTemplate(routes.person.byId.movieCredits).expand({
+        id: personId,
+    });
     return await api()
-        .get<MediaCreditsDto<MovieDto>>(
-            routes.person.byId(personId).movieCredits,
-        )
+        .get<MediaCreditsDto<MovieDto>>(url)
         .then((r) => {
             const results = [...r.data.crew, ...r.data.cast];
             const movies: Media[] = [];
@@ -33,8 +39,11 @@ async function getPersonMovies(personId: number): Promise<Media[]> {
 }
 
 async function getPersonTVShows(personId: number): Promise<TVShow[]> {
+    const url = parseTemplate(routes.person.byId.tvCredits).expand({
+        id: personId,
+    });
     return await api()
-        .get<MediaCreditsDto<TVShowDto>>(routes.person.byId(personId).tvCredits)
+        .get<MediaCreditsDto<TVShowDto>>(url)
         .then((r) => {
             const results = [...r.data.crew, ...r.data.cast];
             const shows: TVShow[] = [];
@@ -47,4 +56,21 @@ async function getPersonTVShows(personId: number): Promise<TVShow[]> {
         });
 }
 
-export { getPersonDetails, getPersonMovies, getPersonTVShows };
+function parsePersonDto(personDto: PersonDto): Person {
+    return {
+        id: personDto.id,
+        name: personDto.name,
+        birthday: personDto.birthday,
+        portrait: personDto.profile_path
+            ? `${routes.images}${personDto.profile_path}`
+            : undefined,
+        biography: personDto.biography,
+        character: personDto.character,
+        deathday: personDto.deathday,
+        gender: personDto.gender,
+        homepage: personDto.deathday,
+        department: personDto.known_for_department,
+    };
+}
+
+export { getPersonDetails, getPersonMovies, getPersonTVShows, parsePersonDto };

@@ -4,64 +4,96 @@ const base = {
     search: 'https://api.themoviedb.org/3/search',
     person: 'https://api.themoviedb.org/3/person',
     collection: 'https://api.themoviedb.org/3/collection',
+    discover: 'https://api.themoviedb.org/3/discover',
 };
 
 export const routes = {
     movies: {
-        byId: (
-            id: number,
-        ): {
-            details: string;
-            // eslint-disable-next-line no-unused-vars
-            similar: (page?: number) => string;
-            credits: string;
-        } => ({
-            details: `${base.movies}/${id}`,
-            similar: (page?: number): string =>
-                `${base.movies}/${id}/similar?page=${page ?? 1}`,
-            credits: `${base.movies}/${id}/credits`,
-        }),
-        popular: (page?: number): string =>
-            `${base.movies}/popular?page=${page ?? 1}`,
-        nowPlaying: (page?: number): string =>
-            `${base.movies}/now_playing?page=${page ?? 1}`,
+        byId: {
+            /**
+             * Params: id
+             */
+            details: `${base.movies}/{id}`,
+            /**
+             * Params: id
+             *
+             * QueryParams: page
+             */
+            similar: `${base.movies}/{id}/similar{?page}`,
+            /**
+             * Params: id
+             */
+            credits: `${base.movies}/{id}/credits`,
+        },
+        /**
+         * QueryParams: page
+         */
+        popular: `${base.movies}/popular{?page}`,
+        /**
+         * QueryParams: page
+         */
+        nowPlaying: `${base.movies}/now_playing{?page}`,
     },
     tv: {
-        byId: (
-            id: number,
-        ): {
-            details: string;
-            similar: () => string;
-            credits: string;
-        } => ({
-            details: `${base.tv}/${id}`,
-            similar: (page?: number): string =>
-                `${base.tv}/${id}/similar?page=${page ?? 1}`,
-            credits: `${base.tv}/${id}/credits`,
-        }),
-        popular: (page?: number): string =>
-            `${base.tv}/popular?page=${page ?? 1}`,
-        airingToday: (page?: number): string =>
-            `${base.tv}/airing_today?page=${page ?? 1}`,
+        byId: {
+            /**
+             * Params: id
+             */
+            details: `${base.tv}/{id}}`,
+            /**
+             * Params: id
+             *
+             * QueryParams: page
+             */
+            similar: `${base.tv}/{id}/similar{?page}`,
+            /**
+             * Params: id
+             */
+            credits: `${base.tv}/{id}/credits`,
+        },
+        /**
+         * QueryParams: page
+         */
+        popular: `${base.tv}/popular{?page}`,
+        /**
+         * QueryParams: page
+         */
+        airingToday: `${base.tv}/airing_today{?page}`,
+        /**
+         * QueryParams: include_adult, page, sort_by, air_date.lte, air_date.gte
+         */
+        discover: `${base.discover}/tv{?include_adult}{?page}{?sort_by}{?air_date.lte}{?air_date.gte}{?region}`,
     },
     images: 'https://image.tmdb.org/t/p/original',
+
     search: {
-        multi: (query: string): string => `${base.search}/multi?query=${query}`,
+        /**
+         * QueryParams: query
+         */
+        multi: `${base.search}/multi{?query}`,
     },
     person: {
-        byId: (
-            id: number,
-        ): {
-            details: string;
-            movieCredits: string;
-            tvCredits: string;
-        } => ({
-            details: `${base.person}/${id}`,
-            movieCredits: `${base.person}/${id}/movie_credits`,
-            tvCredits: `${base.person}/${id}/tv_credits`,
-        }),
+        byId: {
+            /**
+             * Params: id
+             */
+            details: `${base.person}/{id}`,
+            /**
+             * Params: id
+             */
+            movieCredits: `${base.person}/{id}/movie_credits`,
+            /**
+             * Params: id
+             */
+            tvCredits: `${base.person}/{id}}/tv_credits`,
+        },
     },
     collection: {
-        byId: (id: number): string => `${base.collection}/${id}`,
+        byId: {
+            /**
+             * Params: id
+             */
+            details: `${base.collection}/{id}`,
+        },
     },
 };
