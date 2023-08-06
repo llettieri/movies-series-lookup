@@ -1,6 +1,6 @@
 import { api } from '@/app/api/config/AxiosInstance';
 import { routes } from '@/app/api/config/routes';
-import { parseMovieDto } from '@/app/api/services/MovieService';
+import { parseMovieDto, parsePersonDto } from '@/app/api/services/ParseService';
 import { parseTVShowDto } from '@/app/api/services/TVShowService';
 import { MediaCreditsDto } from '@/models/dto/MediaCreditsDto';
 import { MovieDto } from '@/models/dto/MovieDto';
@@ -56,21 +56,4 @@ async function getPersonTVShows(personId: number): Promise<TVShow[]> {
         });
 }
 
-function parsePersonDto(personDto: PersonDto): Person {
-    return {
-        id: personDto.id,
-        name: personDto.name,
-        birthday: personDto.birthday,
-        portrait: personDto.profile_path
-            ? `${routes.images}${personDto.profile_path}`
-            : undefined,
-        biography: personDto.biography,
-        character: personDto.character,
-        deathday: personDto.deathday,
-        gender: personDto.gender,
-        homepage: personDto.deathday,
-        department: personDto.known_for_department,
-    };
-}
-
-export { getPersonDetails, getPersonMovies, getPersonTVShows, parsePersonDto };
+export { getPersonDetails, getPersonMovies, getPersonTVShows };

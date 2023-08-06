@@ -1,6 +1,8 @@
 import { api } from '@/app/api/config/AxiosInstance';
 import { routes } from '@/app/api/config/routes';
+import { parseCollectionDto } from '@/app/api/services/ParseService';
 import { Collection } from '@/models/Collection';
+import { CollectionDto } from '@/models/dto/CollectionDto';
 import { parseTemplate } from 'url-template';
 
 async function getCollectionDetails(collectionId: number): Promise<Collection> {
@@ -9,8 +11,8 @@ async function getCollectionDetails(collectionId: number): Promise<Collection> {
     });
 
     return await api()
-        .get<Collection>(url)
-        .then((r) => r.data);
+        .get<CollectionDto>(url)
+        .then((r) => parseCollectionDto(r.data));
 }
 
 export { getCollectionDetails };

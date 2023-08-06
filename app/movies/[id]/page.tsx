@@ -1,4 +1,3 @@
-import { routes } from '@/app/api/config/routes';
 import {
     getMovieCredits,
     getMovieDetails,
@@ -35,7 +34,7 @@ export default async function MoviePage({
     const movie = await getMovieDetails(movieId);
     const similarMovies = await getSimilarMovies(movieId);
     const credits = await getMovieCredits(movieId);
-    const image = `${routes.images}${movie.backdrop ?? movie.poster}`;
+    const image = movie.backdrop ?? movie.poster ?? '/placeholder.png';
     const width = movie.backdrop ? 1000 : 500;
 
     if (!movie) {

@@ -1,6 +1,9 @@
 import { api } from '@/app/api/config/AxiosInstance';
 import { routes } from '@/app/api/config/routes';
-import { parsePersonDto } from '@/app/api/services/PersonService';
+import {
+    parseMultiMediaDto,
+    parsePersonDto,
+} from '@/app/api/services/ParseService';
 import { ListDto } from '@/models/dto/ListDto';
 import { MultiMediaDto } from '@/models/dto/MultiMediaDto';
 import { PersonDto } from '@/models/dto/PersonDto';
@@ -56,24 +59,5 @@ export default function useSearch(query: string): useSearchValues {
             (searchResults?.medias.length ?? 0) +
             (searchResults?.people.length ?? 0),
         isLoading,
-    };
-}
-
-function parseMultiMediaDto(m: MultiMediaDto): Media {
-    const type = m.media_type as MediaType;
-    return {
-        id: m.id,
-        title: m.title ?? m.name ?? '',
-        backdrop: m.backdrop_path
-            ? `${routes.images}${m.backdrop_path}`
-            : undefined,
-        releaseDate: m.release_date,
-        mediaType: type,
-        poster: m.poster_path ? `${routes.images}${m.poster_path}` : undefined,
-        overview: m.overview,
-        runtime: undefined,
-        collection: undefined,
-        genres: [],
-        homepage: '',
     };
 }

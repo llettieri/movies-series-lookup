@@ -1,6 +1,6 @@
 import { api } from '@/app/api/config/AxiosInstance';
 import { routes } from '@/app/api/config/routes';
-import { parseMovieDto } from '@/app/api/services/MovieService';
+import { parseMovieDto } from '@/app/api/services/ParseService';
 import { parseTVShowDto } from '@/app/api/services/TVShowService';
 import { ListDto } from '@/models/dto/ListDto';
 import { MovieDto } from '@/models/dto/MovieDto';

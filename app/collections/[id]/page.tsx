@@ -30,7 +30,11 @@ export default async function CollectionPage({
             <div className="container max-w-4xl mx-auto py-6">
                 <div className="px-3">
                     <Image
-                        src={collection.backdrop ?? collection.poster}
+                        src={
+                            collection.backdrop ??
+                            collection.poster ??
+                            '/placeholder.png'
+                        }
                         width={1000}
                         height={600}
                         className="rounded-md"
