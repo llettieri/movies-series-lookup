@@ -49,7 +49,7 @@ export const routes = {
             /**
              * Params: id
              */
-            credits: `${base.tv}/{id}/credits`,
+            aggregateCredits: `${base.tv}/{id}/aggregate_credits`,
         },
         /**
          * QueryParams: page

@@ -1,7 +1,10 @@
 import { api } from '@/app/api/config/AxiosInstance';
 import { routes } from '@/app/api/config/routes';
-import { parseMovieDto, parsePersonDto } from '@/app/api/services/ParseService';
-import { parseTVShowDto } from '@/app/api/services/TVShowService';
+import {
+    parseMovieDto,
+    parsePersonDto,
+    parseTVShowDto,
+} from '@/app/api/services/ParseService';
 import { MediaCreditsDto } from '@/models/dto/MediaCreditsDto';
 import { MovieDto } from '@/models/dto/MovieDto';
 import { PersonDto } from '@/models/dto/PersonDto';

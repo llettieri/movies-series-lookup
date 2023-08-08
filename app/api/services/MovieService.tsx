@@ -1,9 +1,13 @@
 import { api } from '@/app/api/config/AxiosInstance';
 import { routes } from '@/app/api/config/routes';
-import { parseMovieDto } from '@/app/api/services/ParseService';
+import {
+    parseCreditsDto,
+    parseMovieDto,
+} from '@/app/api/services/ParseService';
+import { Credits } from '@/models/Credits';
+import { CreditsDto } from '@/models/dto/CreditsDto';
 import { ListDto } from '@/models/dto/ListDto';
 import { MovieDto } from '@/models/dto/MovieDto';
-import { PeopleCreditsDto } from '@/models/dto/PeopleCreditsDto';
 import { Media } from '@/models/Media';
 import { parseTemplate } from 'url-template';
 
@@ -29,13 +33,13 @@ async function getSimilarMovies(
         .then((r) => r.data.results.map(parseMovieDto));
 }
 
-async function getMovieCredits(movieId: number): Promise<PeopleCreditsDto> {
+async function getMovieCredits(movieId: number): Promise<Credits> {
     const url = parseTemplate(routes.movies.byId.credits).expand({
         id: movieId,
     });
     return await api()
-        .get<PeopleCreditsDto>(url)
-        .then((r) => r.data);
+        .get<CreditsDto>(url)
+        .then((r) => parseCreditsDto(r.data));
 }
 
 export { getMovieDetails, getSimilarMovies, getMovieCredits };

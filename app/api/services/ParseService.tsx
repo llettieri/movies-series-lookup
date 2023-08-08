@@ -1,85 +1,148 @@
 import { routes } from '@/app/api/config/routes';
 import { Collection } from '@/models/Collection';
+import { Credits } from '@/models/Credits';
 import { CollectionDto } from '@/models/dto/CollectionDto';
+import { CreditsDto } from '@/models/dto/CreditsDto';
 import { MovieDto } from '@/models/dto/MovieDto';
 import { MultiMediaDto } from '@/models/dto/MultiMediaDto';
-import { PersonDto } from '@/models/dto/PersonDto';
+import { JobDto, PersonDto, RoleDto } from '@/models/dto/PersonDto';
+import { TVShowDto } from '@/models/dto/TVShowDto';
 import { Media } from '@/models/Media';
 import { MediaType } from '@/models/MediaType';
-import { Person } from '@/models/Person';
+import { Job, Person } from '@/models/Person';
+import { TVShow } from '@/models/TVShow';
 
-function parseMultiMediaDto(m: MultiMediaDto): Media {
-    const type = m.media_type as MediaType;
+function parseMovieDto(dto: MovieDto): Media {
     return {
-        id: m.id,
-        title: m.title ?? m.name ?? '',
-        backdrop: m.backdrop_path
-            ? `${routes.images}${m.backdrop_path}`
+        averageVote: dto.vote_average * 10,
+        backdrop: dto.backdrop_path
+            ? `${routes.images}${dto.backdrop_path}`
             : undefined,
-        releaseDate: m.release_date,
-        mediaType: type,
-        poster: m.poster_path ? `${routes.images}${m.poster_path}` : undefined,
-        overview: m.overview,
-        runtime: undefined,
+        collection: dto.belongs_to_collection,
+        genres: dto.genres,
+        homepage: dto.homepage,
+        id: dto.id,
+        mediaType: MediaType.MOVIE,
+        overview: dto.overview,
+        poster: dto.poster_path
+            ? `${routes.images}${dto.poster_path}`
+            : undefined,
+        releaseDate: dto.release_date,
+        runtime: dto.runtime,
+        title: dto.title,
+    };
+}
+
+function parseTVShowDto(dto: TVShowDto): TVShow {
+    return {
+        averageVote: dto.vote_average * 10,
+        backdrop: dto.backdrop_path
+            ? `${routes.images}${dto.backdrop_path}`
+            : undefined,
+        collection: undefined,
+        genres: dto.genres,
+        homepage: dto.homepage,
+        id: dto.id,
+        mediaType: MediaType.TV,
+        overview: dto.overview,
+        poster: dto.poster_path
+            ? `${routes.images}${dto.poster_path}`
+            : undefined,
+        releaseDate: dto.first_air_date,
+        lastAirDate: dto.last_air_date ?? undefined,
+        networks: dto.networks,
+        seasonsCount: dto.number_of_seasons,
+        inProduction: dto.in_production,
+        episodeCount: dto.number_of_episodes,
+        title: dto.name,
+    };
+}
+
+function parseCollectionDto(dto: CollectionDto): Collection {
+    return {
+        id: dto.id,
+        name: dto.name,
+        overview: dto.overview,
+        poster: dto.poster_path
+            ? `${routes.images}${dto.poster_path}`
+            : undefined,
+        backdrop: dto.backdrop_path
+            ? `${routes.images}${dto.backdrop_path}`
+            : undefined,
+        parts: dto.parts.map(parseMultiMediaDto),
+    };
+}
+
+function parseMultiMediaDto(dto: MultiMediaDto): Media {
+    const type = dto.media_type as MediaType;
+    return {
+        averageVote: dto.vote_average * 10,
+        backdrop: dto.backdrop_path
+            ? `${routes.images}${dto.backdrop_path}`
+            : undefined,
         collection: undefined,
         genres: [],
         homepage: '',
+        id: dto.id,
+        mediaType: type,
+        overview: dto.overview,
+        poster: dto.poster_path
+            ? `${routes.images}${dto.poster_path}`
+            : undefined,
+        releaseDate: dto.release_date,
+        runtime: undefined,
+        title: dto.title ?? dto.name ?? '',
     };
 }
 
-function parseMovieDto(m: MovieDto): Media {
+function parsePersonDto(dto: PersonDto): Person {
     return {
-        backdrop: m.backdrop_path
-            ? `${routes.images}${m.backdrop_path}`
+        biography: dto.biography,
+        birthday: dto.birthday,
+        roles: dto.character
+            ? [{ name: dto.character, episodeCount: Number.NaN }]
+            : dto.roles?.map(parseRoleDto),
+        deathday: dto.deathday,
+        gender: dto.gender,
+        homepage: dto.deathday,
+        id: dto.id,
+        name: dto.name,
+        portrait: dto.profile_path
+            ? `${routes.images}${dto.profile_path}`
             : undefined,
-        collection: m.belongs_to_collection,
-        genres: m.genres,
-        homepage: m.homepage,
-        id: m.id,
-        mediaType: MediaType.MOVIE,
-        overview: m.overview,
-        poster: m.poster_path ? `${routes.images}${m.poster_path}` : undefined,
-        releaseDate: m.release_date,
-        runtime: m.runtime,
-        title: m.title,
+        department: dto.known_for_department ?? dto.department,
+        jobs: dto.job
+            ? [{ name: dto.job, episodeCount: Number.NaN }]
+            : dto.jobs?.map(parseJobDto),
     };
 }
 
-function parseCollectionDto(collectionDto: CollectionDto): Collection {
+function parseCreditsDto(dto: CreditsDto): Credits {
     return {
-        id: collectionDto.id,
-        name: collectionDto.name,
-        overview: collectionDto.overview,
-        poster: collectionDto.poster_path
-            ? `${routes.images}${collectionDto.poster_path}`
-            : undefined,
-        backdrop: collectionDto.backdrop_path
-            ? `${routes.images}${collectionDto.backdrop_path}`
-            : undefined,
-        parts: collectionDto.parts.map(parseMultiMediaDto),
+        cast: dto.cast.map(parsePersonDto),
+        crew: dto.crew.map(parsePersonDto),
     };
 }
 
-function parsePersonDto(personDto: PersonDto): Person {
+function parseRoleDto(dto: RoleDto): Job {
     return {
-        id: personDto.id,
-        name: personDto.name,
-        birthday: personDto.birthday,
-        portrait: personDto.profile_path
-            ? `${routes.images}${personDto.profile_path}`
-            : undefined,
-        biography: personDto.biography,
-        character: personDto.character,
-        deathday: personDto.deathday,
-        gender: personDto.gender,
-        homepage: personDto.deathday,
-        department: personDto.known_for_department,
+        name: dto.character,
+        episodeCount: dto.episode_count,
+    };
+}
+
+function parseJobDto(dto: JobDto): Job {
+    return {
+        name: dto.job,
+        episodeCount: dto.episode_count,
     };
 }
 
 export {
     parseMovieDto,
-    parsePersonDto,
+    parseTVShowDto,
     parseCollectionDto,
     parseMultiMediaDto,
+    parsePersonDto,
+    parseCreditsDto,
 };
