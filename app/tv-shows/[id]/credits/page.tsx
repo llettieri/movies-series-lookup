@@ -1,5 +1,7 @@
-import { getMovieDetails } from '@/app/api/services/MovieService';
-import { getTVShowsCredits } from '@/app/api/services/TVShowService';
+import {
+    getTVShowDetails,
+    getTVShowsCredits,
+} from '@/app/api/services/TVShowService';
 import { CreditsTable } from '@/components/CreditsTable';
 import { Meta } from '@/components/Meta';
 import { MediaType } from '@/models/MediaType';
@@ -15,7 +17,7 @@ interface TVShowCreditsPageProps {
 export const generateMetadata = async ({
     params,
 }: TVShowCreditsPageProps): Promise<Metadata> => {
-    const { title } = await getMovieDetails(params.id);
+    const { title } = await getTVShowDetails(params.id);
     return Meta({ title: `${title} | Credits` });
 };
 
