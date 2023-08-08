@@ -1,9 +1,9 @@
 'use client';
 
-import useSearch from '@/app/api/hooks/useSearch';
-import Hero from '@/components/Hero';
-import MediaList from '@/components/lists/MediaList';
-import PeopleList from '@/components/lists/PeopleList';
+import { useSearch } from '@/app/api/hooks/useSearch';
+import { Hero } from '@/components/Hero';
+import { MediaList } from '@/components/lists/MediaList';
+import { PeopleList } from '@/components/lists/PeopleList';
 import Loading from '@/components/Loading';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { ReactNode, useEffect, useState } from 'react';

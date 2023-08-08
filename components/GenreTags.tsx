@@ -6,7 +6,7 @@ interface GenreTagsProps {
     genres: Genre[];
 }
 
-export default function GenreTags({ genres }: GenreTagsProps): ReactElement {
+export const GenreTags = ({ genres }: GenreTagsProps): ReactElement => {
     return (
         <div className="my-2 flex flex-row-reverse gap-3">
             {genres.map((genre: Genre) => (
@@ -14,4 +14,4 @@ export default function GenreTags({ genres }: GenreTagsProps): ReactElement {
             ))}
         </div>
     );
-}
+};

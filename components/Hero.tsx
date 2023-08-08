@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { ReactElement } from 'react';
 
-export default function Hero(): ReactElement {
+export const Hero = (): ReactElement => {
     return (
         <div className="py-5 pb-10 text-center">
             <div className="mx-auto w-60">
@@ -18,4 +18,4 @@ export default function Hero(): ReactElement {
             </div>
         </div>
     );
-}
+};

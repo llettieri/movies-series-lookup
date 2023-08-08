@@ -1,11 +1,23 @@
-import { getMovieCredits } from '@/app/api/services/MovieService';
-import CreditsTable from '@/components/CreditsTable';
+import {
+    getMovieCredits,
+    getMovieDetails,
+} from '@/app/api/services/MovieService';
+import { CreditsTable } from '@/components/CreditsTable';
+import { Meta } from '@/components/Meta';
 import { MediaType } from '@/models/MediaType';
+import { Metadata } from 'next';
 import React, { ReactNode } from 'react';
 
 interface MovieCreditsPageProps {
     params: { id: number };
 }
+
+export const generateMetadata = async ({
+    params,
+}: MovieCreditsPageProps): Promise<Metadata> => {
+    const { title } = await getMovieDetails(params.id);
+    return Meta({ title: `${title} | Credits` });
+};
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore

@@ -3,7 +3,7 @@ import {
     getPersonMovies,
     getPersonTVShows,
 } from '@/app/api/services/PersonService';
-import MediaList from '@/components/lists/MediaList';
+import { MediaList } from '@/components/lists/MediaList';
 import { Meta } from '@/components/Meta';
 import { Gender } from '@/models/Person';
 import dayjs from 'dayjs';
@@ -17,12 +17,12 @@ interface PersonPageProps {
     };
 }
 
-export async function generateMetadata({
+export const generateMetadata = async ({
     params,
-}: PersonPageProps): Promise<Metadata> {
+}: PersonPageProps): Promise<Metadata> => {
     const person = await getPersonDetails(params.id);
     return Meta({ title: `${person.name} | Details` });
-}
+};
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore

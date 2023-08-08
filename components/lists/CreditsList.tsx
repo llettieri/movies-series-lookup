@@ -1,5 +1,5 @@
-import PersonCard from '@/components/cards/PersonCard';
-import HorizontalListBase from '@/components/lists/HorizontalListBase';
+import { PersonCard } from '@/components/cards/PersonCard';
+import { HorizontalListBase } from '@/components/lists/HorizontalListBase';
 import { Person } from '@/models/Person';
 import Link from 'next/link';
 import React, { ReactElement } from 'react';
@@ -9,10 +9,10 @@ interface CreditsListProps {
     baseRoute: string;
 }
 
-export default function CreditsList({
+export const CreditsList = ({
     cast,
     baseRoute,
-}: CreditsListProps): ReactElement {
+}: CreditsListProps): ReactElement => {
     return (
         <HorizontalListBase title="Credits">
             <>
@@ -35,4 +35,4 @@ export default function CreditsList({
             </>
         </HorizontalListBase>
     );
-}
+};

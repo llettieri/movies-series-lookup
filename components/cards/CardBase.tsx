@@ -11,12 +11,12 @@ interface CardBaseProps {
     size: CardSize;
 }
 
-export default function CardBase({
+export const CardBase = ({
     link,
     image,
     children,
     size,
-}: CardBaseProps): ReactElement {
+}: CardBaseProps): ReactElement => {
     if (size === 'normal') {
         return (
             <Link
@@ -58,4 +58,4 @@ export default function CardBase({
             </Link>
         );
     }
-}
+};

@@ -24,7 +24,7 @@ interface SearchResults {
     people: Person[];
 }
 
-export default function useSearch(query: string): useSearchValues {
+export const useSearch = (query: string): useSearchValues => {
     const { data: searchResults, isLoading } = useSWR<SearchResults>(
         parseTemplate(routes.search.multi).expand({ query }),
         (url) => {
@@ -60,4 +60,4 @@ export default function useSearch(query: string): useSearchValues {
             (searchResults?.people.length ?? 0),
         isLoading,
     };
-}
+};

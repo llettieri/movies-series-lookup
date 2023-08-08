@@ -4,9 +4,9 @@ import {
     getTVShowDetails,
     getTVShowsCredits,
 } from '@/app/api/services/TVShowService';
-import GenreTags from '@/components/GenreTags';
-import CreditsList from '@/components/lists/CreditsList';
-import MediaList from '@/components/lists/MediaList';
+import { GenreTags } from '@/components/GenreTags';
+import { CreditsList } from '@/components/lists/CreditsList';
+import { MediaList } from '@/components/lists/MediaList';
 import { Meta } from '@/components/Meta';
 import NetworkLogo from '@/components/NetworkLogo';
 import { Rating } from '@/components/Rating';
@@ -21,12 +21,12 @@ interface TVShowPageProps {
     };
 }
 
-export async function generateMetadata({
+export const generateMetadata = async ({
     params,
-}: TVShowPageProps): Promise<Metadata> {
+}: TVShowPageProps): Promise<Metadata> => {
     const show = await getTVShowDetails(params.id);
     return Meta({ title: `${show.title} | Details` });
-}
+};
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -61,10 +61,10 @@ export default async function TVShowPage({
                     <a
                         href={show.homepage}
                         target="_blank"
-                        className="text-primary underline"
+                        className="block w-fit text-primary underline"
                         rel="noreferrer"
                     >
-                        <h1 className="my-2 text-xl font-bold text-primary">
+                        <h1 className="mx-0 my-2 w-fit text-xl font-bold text-primary">
                             {show.title}
                         </h1>
                     </a>

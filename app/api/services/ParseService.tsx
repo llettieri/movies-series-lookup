@@ -12,7 +12,7 @@ import { MediaType } from '@/models/MediaType';
 import { Job, Person } from '@/models/Person';
 import { TVShow } from '@/models/TVShow';
 
-function parseMovieDto(dto: MovieDto): Media {
+const parseMovieDto = (dto: MovieDto): Media => {
     return {
         averageVote: dto.vote_average * 10,
         backdrop: dto.backdrop_path
@@ -31,9 +31,9 @@ function parseMovieDto(dto: MovieDto): Media {
         runtime: dto.runtime,
         title: dto.title,
     };
-}
+};
 
-function parseTVShowDto(dto: TVShowDto): TVShow {
+const parseTVShowDto = (dto: TVShowDto): TVShow => {
     return {
         averageVote: dto.vote_average * 10,
         backdrop: dto.backdrop_path
@@ -56,9 +56,9 @@ function parseTVShowDto(dto: TVShowDto): TVShow {
         episodeCount: dto.number_of_episodes,
         title: dto.name,
     };
-}
+};
 
-function parseCollectionDto(dto: CollectionDto): Collection {
+const parseCollectionDto = (dto: CollectionDto): Collection => {
     return {
         id: dto.id,
         name: dto.name,
@@ -71,9 +71,9 @@ function parseCollectionDto(dto: CollectionDto): Collection {
             : undefined,
         parts: dto.parts.map(parseMultiMediaDto),
     };
-}
+};
 
-function parseMultiMediaDto(dto: MultiMediaDto): Media {
+const parseMultiMediaDto = (dto: MultiMediaDto): Media => {
     const type = dto.media_type as MediaType;
     return {
         averageVote: dto.vote_average * 10,
@@ -93,9 +93,9 @@ function parseMultiMediaDto(dto: MultiMediaDto): Media {
         runtime: undefined,
         title: dto.title ?? dto.name ?? '',
     };
-}
+};
 
-function parsePersonDto(dto: PersonDto): Person {
+const parsePersonDto = (dto: PersonDto): Person => {
     return {
         biography: dto.biography,
         birthday: dto.birthday,
@@ -115,28 +115,28 @@ function parsePersonDto(dto: PersonDto): Person {
             ? [{ name: dto.job, episodeCount: Number.NaN }]
             : dto.jobs?.map(parseJobDto),
     };
-}
+};
 
-function parseCreditsDto(dto: CreditsDto): Credits {
+const parseCreditsDto = (dto: CreditsDto): Credits => {
     return {
         cast: dto.cast.map(parsePersonDto),
         crew: dto.crew.map(parsePersonDto),
     };
-}
+};
 
-function parseRoleDto(dto: RoleDto): Job {
+const parseRoleDto = (dto: RoleDto): Job => {
     return {
         name: dto.character,
         episodeCount: dto.episode_count,
     };
-}
+};
 
-function parseJobDto(dto: JobDto): Job {
+const parseJobDto = (dto: JobDto): Job => {
     return {
         name: dto.job,
         episodeCount: dto.episode_count,
     };
-}
+};
 
 export {
     parseMovieDto,

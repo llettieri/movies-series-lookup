@@ -1,4 +1,4 @@
-import CardBase, { CardSize } from '@/components/cards/CardBase';
+import { CardBase, CardSize } from '@/components/cards/CardBase';
 import { Media } from '@/models/Media';
 import { MediaType } from '@/models/MediaType';
 import dayjs from 'dayjs';
@@ -9,10 +9,7 @@ interface MediaCardProps {
     size: CardSize;
 }
 
-export default function MediaCard({
-    media,
-    size,
-}: MediaCardProps): ReactElement {
+export const MediaCard = ({ media, size }: MediaCardProps): ReactElement => {
     const image = media.poster ?? '/placeholder.png';
     return (
         <CardBase
@@ -32,4 +29,4 @@ export default function MediaCard({
             </div>
         </CardBase>
     );
-}
+};

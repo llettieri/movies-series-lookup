@@ -5,7 +5,9 @@ import { Collection } from '@/models/Collection';
 import { CollectionDto } from '@/models/dto/CollectionDto';
 import { parseTemplate } from 'url-template';
 
-async function getCollectionDetails(collectionId: number): Promise<Collection> {
+const getCollectionDetails = async (
+    collectionId: number,
+): Promise<Collection> => {
     const url = parseTemplate(routes.collection.byId.details).expand({
         id: collectionId,
     });
@@ -13,6 +15,6 @@ async function getCollectionDetails(collectionId: number): Promise<Collection> {
     return await api()
         .get<CollectionDto>(url)
         .then((r) => parseCollectionDto(r.data));
-}
+};
 
 export { getCollectionDetails };

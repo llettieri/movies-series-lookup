@@ -14,16 +14,16 @@ import { Person } from '@/models/Person';
 import { TVShow } from '@/models/TVShow';
 import { parseTemplate } from 'url-template';
 
-async function getPersonDetails(personId: number): Promise<Person> {
+const getPersonDetails = async (personId: number): Promise<Person> => {
     const url = parseTemplate(routes.person.byId.details).expand({
         id: personId,
     });
     return await api()
         .get<PersonDto>(url)
         .then((r) => parsePersonDto(r.data));
-}
+};
 
-async function getPersonMovies(personId: number): Promise<Media[]> {
+const getPersonMovies = async (personId: number): Promise<Media[]> => {
     const url = parseTemplate(routes.person.byId.movieCredits).expand({
         id: personId,
     });
@@ -39,9 +39,9 @@ async function getPersonMovies(personId: number): Promise<Media[]> {
             });
             return movies;
         });
-}
+};
 
-async function getPersonTVShows(personId: number): Promise<TVShow[]> {
+const getPersonTVShows = async (personId: number): Promise<TVShow[]> => {
     const url = parseTemplate(routes.person.byId.tvCredits).expand({
         id: personId,
     });
@@ -57,6 +57,6 @@ async function getPersonTVShows(personId: number): Promise<TVShow[]> {
             });
             return shows;
         });
-}
+};
 
 export { getPersonDetails, getPersonMovies, getPersonTVShows };

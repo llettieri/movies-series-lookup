@@ -5,10 +5,10 @@ interface HorizontalListBaseProps {
     title: string;
 }
 
-export default function HorizontalListBase({
+export const HorizontalListBase = ({
     children,
     title,
-}: HorizontalListBaseProps): ReactElement {
+}: HorizontalListBaseProps): ReactElement => {
     return (
         <div className="container">
             <h1 className="mt-8 text-2xl text-primaryText">{title}</h1>
@@ -17,4 +17,4 @@ export default function HorizontalListBase({
             </ul>
         </div>
     );
-}
+};

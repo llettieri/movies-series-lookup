@@ -1,11 +1,11 @@
 'use client';
 
 import { Button } from '@/components/Button';
-import Hero from '@/components/Hero';
-import AiringTodayTVShowsList from '@/components/lists/AiringTodayTVShowsList';
-import LatestMoviesList from '@/components/lists/LatestMoviesList';
-import PopularMoviesList from '@/components/lists/PopularMoviesList';
-import PopularTVShowsList from '@/components/lists/PopularTVShowsList';
+import { Hero } from '@/components/Hero';
+import { AiringTodayTVShowsList } from '@/components/lists/AiringTodayTVShowsList';
+import { LatestMoviesList } from '@/components/lists/LatestMoviesList';
+import { PopularMoviesList } from '@/components/lists/PopularMoviesList';
+import { PopularTVShowsList } from '@/components/lists/PopularTVShowsList';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { ReactNode, useEffect, useState } from 'react';
 

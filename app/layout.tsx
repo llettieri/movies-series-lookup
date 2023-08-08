@@ -1,8 +1,8 @@
 import './globals.css';
 
-import Footer from '@/components/Footer';
+import { Footer } from '@/components/Footer';
 import { Meta } from '@/components/Meta';
-import NavBar from '@/components/NavBar';
+import { NavBar } from '@/components/NavBar';
 import { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import React, { ReactNode } from 'react';

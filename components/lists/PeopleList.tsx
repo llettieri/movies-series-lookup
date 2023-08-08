@@ -1,5 +1,5 @@
-import PersonCard from '@/components/cards/PersonCard';
-import VerticalListBase from '@/components/lists/VerticalListBase';
+import { PersonCard } from '@/components/cards/PersonCard';
+import { VerticalListBase } from '@/components/lists/VerticalListBase';
 import Loading from '@/components/Loading';
 import { Person } from '@/models/Person';
 import React, { ReactElement } from 'react';
@@ -10,11 +10,11 @@ interface PeopleListProps {
     isLoading?: boolean;
 }
 
-export default function PeopleList({
+export const PeopleList = ({
     title,
     people,
     isLoading,
-}: PeopleListProps): ReactElement {
+}: PeopleListProps): ReactElement => {
     return isLoading ? (
         <Loading />
     ) : (
@@ -28,4 +28,4 @@ export default function PeopleList({
             </>
         </VerticalListBase>
     );
-}
+};

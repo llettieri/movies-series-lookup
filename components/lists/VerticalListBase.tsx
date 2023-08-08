@@ -5,10 +5,10 @@ interface VerticalListBaseProps {
     children: ReactElement;
 }
 
-export default function VerticalListBase({
+export const VerticalListBase = ({
     children,
     title,
-}: VerticalListBaseProps): ReactElement {
+}: VerticalListBaseProps): ReactElement => {
     return (
         <div className="container mx-auto max-w-7xl px-4 pb-10">
             <h1 className="mb-5 mt-8 text-2xl text-primaryText">{title}</h1>
@@ -17,4 +17,4 @@ export default function VerticalListBase({
             </ul>
         </div>
     );
-}
+};

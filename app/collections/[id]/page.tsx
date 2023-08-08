@@ -1,5 +1,5 @@
 import { getCollectionDetails } from '@/app/api/services/CollectionService';
-import MediaList from '@/components/lists/MediaList';
+import { MediaList } from '@/components/lists/MediaList';
 import { Meta } from '@/components/Meta';
 import { Metadata } from 'next';
 import Image from 'next/image';
@@ -11,12 +11,12 @@ interface CollectionPageProps {
     };
 }
 
-export async function generateMetadata({
+export const generateMetadata = async ({
     params,
-}: CollectionPageProps): Promise<Metadata> {
-    const collection = await getCollectionDetails(params.id);
-    return Meta({ title: `${collection.name} | Details` });
-}
+}: CollectionPageProps): Promise<Metadata> => {
+    const { name } = await getCollectionDetails(params.id);
+    return Meta({ title: `${name} | Details` });
+};
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore

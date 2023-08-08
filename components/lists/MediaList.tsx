@@ -1,5 +1,5 @@
-import MediaCard from '@/components/cards/MediaCard';
-import VerticalListBase from '@/components/lists/VerticalListBase';
+import { MediaCard } from '@/components/cards/MediaCard';
+import { VerticalListBase } from '@/components/lists/VerticalListBase';
 import Loading from '@/components/Loading';
 import { Media } from '@/models/Media';
 import React, { ReactElement } from 'react';
@@ -10,11 +10,11 @@ interface MediaListProps {
     isLoading?: boolean;
 }
 
-export default function MediaList({
+export const MediaList = ({
     title,
     medias,
     isLoading,
-}: MediaListProps): ReactElement {
+}: MediaListProps): ReactElement => {
     return isLoading ? (
         <Loading />
     ) : (
@@ -28,4 +28,4 @@ export default function MediaList({
             </>
         </VerticalListBase>
     );
-}
+};

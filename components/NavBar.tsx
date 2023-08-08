@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { ReactElement } from 'react';
 
-export default function NavBar(): ReactElement {
+export const NavBar = (): ReactElement => {
     return (
         <nav className="bg-navbar drop-shadow-2xl">
             <div className="container mx-auto flex max-w-7xl justify-between p-4 font-bold tracking-widest text-neutral-100">
@@ -27,4 +27,4 @@ export default function NavBar(): ReactElement {
             </div>
         </nav>
     );
-}
+};

@@ -1,4 +1,4 @@
-import CardBase, { CardSize } from '@/components/cards/CardBase';
+import { CardBase, CardSize } from '@/components/cards/CardBase';
 import { Person } from '@/models/Person';
 import React, { ReactElement } from 'react';
 
@@ -7,10 +7,7 @@ interface MediaCardProps {
     size: CardSize;
 }
 
-export default function PersonCard({
-    person,
-    size,
-}: MediaCardProps): ReactElement {
+export const PersonCard = ({ person, size }: MediaCardProps): ReactElement => {
     const image = person.portrait ?? '/placeholder.png';
 
     const getCountString = (count: number): string =>
@@ -58,4 +55,4 @@ export default function PersonCard({
             )}
         </CardBase>
     );
-}
+};

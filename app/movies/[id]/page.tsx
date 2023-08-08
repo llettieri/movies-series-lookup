@@ -3,9 +3,9 @@ import {
     getMovieDetails,
     getSimilarMovies,
 } from '@/app/api/services/MovieService';
-import GenreTags from '@/components/GenreTags';
-import CreditsList from '@/components/lists/CreditsList';
-import MediaList from '@/components/lists/MediaList';
+import { GenreTags } from '@/components/GenreTags';
+import { CreditsList } from '@/components/lists/CreditsList';
+import { MediaList } from '@/components/lists/MediaList';
 import Loading from '@/components/Loading';
 import { Meta } from '@/components/Meta';
 import { Rating } from '@/components/Rating';
@@ -19,12 +19,12 @@ interface MoviePageProps {
     params: { id: number };
 }
 
-export async function generateMetadata({
+export const generateMetadata = async ({
     params,
-}: MoviePageProps): Promise<Metadata> {
-    const movie = await getMovieDetails(params.id);
-    return Meta({ title: `${movie.title} | Details` });
-}
+}: MoviePageProps): Promise<Metadata> => {
+    const { title } = await getMovieDetails(params.id);
+    return Meta({ title: `${title} | Details` });
+};
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -63,10 +63,10 @@ export default async function MoviePage({
                     <a
                         href={movie.homepage}
                         target="_blank"
-                        className="text-primary underline"
+                        className="block w-fit text-primary underline"
                         rel="noreferrer"
                     >
-                        <h1 className="my-2 text-xl font-bold text-primary">
+                        <h1 className="my-2 w-fit text-xl font-bold text-primary">
                             {movie.title} ({movie.runtime}min)
                         </h1>
                     </a>
