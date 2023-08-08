@@ -15,6 +15,7 @@ module.exports = {
                 secondaryText: 'rgba(130,254,255,0.78)',
                 secondaryTint: '#00ffff',
                 mainBackground: '#333333',
+                tag: '#9E9E9E',
                 navbar: '#444444',
             },
         },
