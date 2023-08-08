@@ -1,5 +1,6 @@
+import MediaCard from '@/components/cards/MediaCard';
+import VerticalListBase from '@/components/lists/VerticalListBase';
 import Loading from '@/components/Loading';
-import MediaCard from '@/components/MediaCard';
 import { Media } from '@/models/Media';
 import React, { ReactElement } from 'react';
 
@@ -17,13 +18,14 @@ export default function MediaList({
     return isLoading ? (
         <Loading />
     ) : (
-        <div className="max-w-7xl mx-auto pb-10 px-4">
-            <h1 className="text-primaryText text-2xl mt-8 mb-5">{title}</h1>
-            <div className="flex flex-row flex-wrap gap-4 justify-center lg:justify-start">
+        <VerticalListBase title={title}>
+            <>
                 {medias.map((m) => (
-                    <MediaCard key={m.id} media={m} />
+                    <li key={m.id}>
+                        <MediaCard media={m} size="normal" />
+                    </li>
                 ))}
-            </div>
-        </div>
+            </>
+        </VerticalListBase>
     );
 }

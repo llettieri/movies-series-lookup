@@ -1,5 +1,6 @@
+import PersonCard from '@/components/cards/PersonCard';
+import VerticalListBase from '@/components/lists/VerticalListBase';
 import Loading from '@/components/Loading';
-import PersonCard from '@/components/PersonCard';
 import { Person } from '@/models/Person';
 import React, { ReactElement } from 'react';
 
@@ -17,13 +18,14 @@ export default function PeopleList({
     return isLoading ? (
         <Loading />
     ) : (
-        <div className="max-w-7xl mx-auto pb-10 px-4">
-            <h1 className="text-primaryText text-2xl mt-8 mb-5">{title}</h1>
-            <div className="flex flex-row flex-wrap gap-4 justify-center lg:justify-start">
+        <VerticalListBase title={title}>
+            <>
                 {people.map((p) => (
-                    <PersonCard key={p.id} person={p} />
+                    <li key={p.id}>
+                        <PersonCard key={p.id} person={p} size="normal" />
+                    </li>
                 ))}
-            </div>
-        </div>
+            </>
+        </VerticalListBase>
     );
 }
