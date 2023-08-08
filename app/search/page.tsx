@@ -32,7 +32,7 @@ export default function SearchPage(): ReactNode {
                     defaultValue={query}
                     placeholder="Search..."
                     autoFocus={true}
-                    className="mx-auto block form-input rounded-md w-80 shadow-sm mt-16 p-2 bg-gray-600 border-gray-500 border-2 text-primaryText outline-0"
+                    className="form-input mx-auto mt-16 block w-80 rounded-md border-2 border-gray-500 bg-gray-600 p-2 text-primaryText shadow-sm outline-0"
                 />
             </div>
             {isLoading ? <Loading /> : null}
@@ -53,7 +53,7 @@ export default function SearchPage(): ReactNode {
                 </div>
             ) : null}
             {!isLoading && totalSearchResults === 0 && isQueryValid ? (
-                <h1 className="text-2xl text-primaryText mx-auto w-64 text-center my-16">
+                <h1 className="mx-auto my-16 w-64 text-center text-2xl text-primaryText">
                     No results...
                 </h1>
             ) : null}

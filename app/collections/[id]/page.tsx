@@ -27,7 +27,7 @@ export default async function CollectionPage({
 
     return (
         <div>
-            <div className="container max-w-4xl mx-auto py-6">
+            <div className="container mx-auto max-w-4xl py-6">
                 <div className="px-3">
                     <Image
                         src={
@@ -43,10 +43,10 @@ export default async function CollectionPage({
                         loading="lazy"
                         alt="collection Wallpaper"
                     />
-                    <h1 className="font-bold text-primary text-xl my-2">
+                    <h1 className="my-2 text-xl font-bold text-primary">
                         {collection.name}
                     </h1>
-                    <p className="text-primaryText text-sm mt-4">
+                    <p className="mt-4 text-sm text-primaryText">
                         {collection.overview}
                     </p>
                 </div>

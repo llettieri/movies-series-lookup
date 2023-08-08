@@ -44,7 +44,7 @@ export default async function PersonPage({
 
     return (
         <div>
-            <div className="container max-w-4xl mx-auto py-6">
+            <div className="container mx-auto max-w-4xl py-6">
                 <div className="px-3">
                     <Image
                         src={person.portrait ?? '/placeholder.png'}
@@ -53,7 +53,7 @@ export default async function PersonPage({
                         placeholder="blur"
                         blurDataURL="/placeholder.png"
                         loading="lazy"
-                        className="rounded-md mx-auto block h-auto"
+                        className="mx-auto block h-auto rounded-md"
                         alt="person Wallpaper"
                     />
                     <a
@@ -62,21 +62,21 @@ export default async function PersonPage({
                         className={person.homepage ? 'underline' : ''}
                         rel="noreferrer"
                     >
-                        <h1 className="font-bold text-primary text-xl my-2">
+                        <h1 className="my-2 text-xl font-bold text-primary">
                             {person.name}
                         </h1>
                     </a>
-                    <p className="text-primaryText text-sm mt-4">
+                    <p className="mt-4 text-sm text-primaryText">
                         {person.biography}
                     </p>
-                    <p className="mt-5 text-primaryText text-sm">
+                    <p className="mt-5 text-sm text-primaryText">
                         Birthday:{' '}
                         <span className="font-bold text-secondaryText">
                             {dayjs(person.birthday).format('MMMM DD, YYYY')}
                         </span>
                     </p>
                     {person.deathday ? (
-                        <p className="text-primaryText text-sm">
+                        <p className="text-sm text-primaryText">
                             Death:{' '}
                             <span className="font-bold">
                                 {dayjs(person.deathday).format('MMMM DD, YYYY')}

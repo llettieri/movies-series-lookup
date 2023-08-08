@@ -4,5 +4,5 @@ module.exports = {
     singleQuote: true,
     trailingComma: "all",
     arrowParens: "always",
-    plugins: [require("prettier-plugin-import-sort")]
+    plugins: [require("prettier-plugin-import-sort"), "prettier-plugin-tailwindcss"]
 }

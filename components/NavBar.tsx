@@ -5,9 +5,9 @@ import React, { ReactElement } from 'react';
 export default function NavBar(): ReactElement {
     return (
         <nav className="bg-navbar drop-shadow-2xl">
-            <div className="font-bold text-neutral-100 p-4 max-w-7xl mx-auto container tracking-widest flex justify-between">
+            <div className="container mx-auto flex max-w-7xl justify-between p-4 font-bold tracking-widest text-neutral-100">
                 <Link
-                    className="text-base md:text-2xl transition-transform duration-100 hover:scale-110"
+                    className="text-base transition-transform duration-100 hover:scale-110 md:text-2xl"
                     href="/"
                 >
                     Movie & Series Lookup

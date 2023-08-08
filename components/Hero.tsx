@@ -3,16 +3,16 @@ import { ReactElement } from 'react';
 
 export default function Hero(): ReactElement {
     return (
-        <div className="text-center pb-10 py-5">
-            <div className="w-60 mx-auto">
+        <div className="py-5 pb-10 text-center">
+            <div className="mx-auto w-60">
                 <Image
-                    className="block mx-auto"
+                    className="mx-auto block"
                     src={'/media_illustration.svg'}
                     width={200}
                     height={200}
                     alt={'Videofiles'}
                 />
-                <h1 className="text-2xl text-primaryText uppercase font-bold">
+                <h1 className="text-2xl font-bold uppercase text-primaryText">
                     Welcome to your Movie / Series lookup
                 </h1>
             </div>

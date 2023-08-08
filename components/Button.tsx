@@ -18,11 +18,17 @@ export const Button = ({
 }: ButtonProps): ReactElement => {
     return (
         <button
-            className={`bg-primary text-primaryText py-2 px-3 rounded-md border-primaryTint border-2 hover:bg-secondary hover:text-black hover:border-secondaryTint transition-colors ease-in-out duration-300 ${className}`}
+            className={`rounded-md border-2 border-primaryTint bg-primary px-3 py-2 text-primaryText transition-colors duration-300 ease-in-out hover:border-secondaryTint hover:bg-secondary hover:text-black ${className}`}
             onClick={onClick}
             type={type ?? 'button'}
         >
-            {link ? <Link href={link}>{title}</Link> : title}
+            {link ? (
+                <Link href={link} prefetch={true}>
+                    {title}
+                </Link>
+            ) : (
+                title
+            )}
         </button>
     );
 };

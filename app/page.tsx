@@ -43,7 +43,7 @@ export default function Home(): ReactNode {
         <>
             <div>
                 <Hero />
-                <div className="flex gap-6 justify-center align-middle container mx-auto mt-4 w-72">
+                <div className="container mx-auto mt-4 flex w-72 justify-center gap-6 align-middle">
                     <Button
                         title="Movies"
                         onClick={(): void =>
@@ -63,7 +63,7 @@ export default function Home(): ReactNode {
                         }`}
                     />
                 </div>
-                <div className="flex gap-6 justify-center align-middle container mx-auto mt-4 w-72">
+                <div className="container mx-auto mt-4 flex w-72 justify-center gap-6 align-middle">
                     <Button
                         title="Popular"
                         onClick={(): void =>

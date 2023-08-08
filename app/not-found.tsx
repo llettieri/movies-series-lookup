@@ -16,7 +16,7 @@ export default function NotFound(): ReactNode {
                 height={250}
                 alt="404 Not found!"
             />
-            <Button title="Return to Home" link="/" className="w-64 mx-auto" />
+            <Button title="Return to Home" link="/" className="mx-auto w-64" />
         </div>
     );
 }
