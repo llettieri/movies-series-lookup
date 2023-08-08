@@ -5,15 +5,22 @@ export enum Gender {
     NON_BINARY,
 }
 
-export interface Person {
-    id: string;
+export interface Job {
     name: string;
-    character: string;
-    birthday: string;
-    gender: Gender;
+    episodeCount: number;
+}
+
+export interface Person {
     biography: string;
-    homepage: string;
-    portrait?: string;
+    birthday: string;
     deathday?: string;
     department?: string;
+    gender: Gender;
+    homepage: string;
+    id: string;
+    jobs?: Job[];
+    name: string;
+    portrait?: string;
+    roles?: Job[];
+    totalEpisodeCount?: number;
 }

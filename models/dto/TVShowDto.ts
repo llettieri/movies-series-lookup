@@ -16,4 +16,5 @@ export interface TVShowDto {
     overview: string;
     poster: string;
     poster_path: string;
+    vote_average: number;
 }

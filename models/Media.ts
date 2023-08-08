@@ -3,6 +3,7 @@ import { Genre } from '@/models/Genre';
 import { MediaType } from '@/models/MediaType';
 
 export interface Media {
+    averageVote: number;
     backdrop: string | undefined;
     collection: SimpleCollection | undefined;
     genres: Genre[];

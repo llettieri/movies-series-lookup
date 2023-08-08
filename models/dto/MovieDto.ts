@@ -6,14 +6,15 @@ export interface SimpleCollection {
 }
 
 export interface MovieDto {
-    id: string;
-    title: string;
-    poster_path: string;
     backdrop_path: string;
-    overview: string;
-    homepage: string;
+    belongs_to_collection: SimpleCollection;
     genres: Genre[];
+    homepage: string;
+    id: string;
+    overview: string;
+    poster_path: string;
     release_date: string;
     runtime: number;
-    belongs_to_collection: SimpleCollection;
+    title: string;
+    vote_average: number;
 }

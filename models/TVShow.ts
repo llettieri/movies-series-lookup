@@ -4,7 +4,7 @@ import { Network } from '@/models/Network';
 export interface TVShow extends Media {
     networks: Network[];
     seasonsCount: number;
-    episodesCount: number;
+    episodeCount: number;
     lastAirDate: string | undefined;
     inProduction: boolean;
 }
