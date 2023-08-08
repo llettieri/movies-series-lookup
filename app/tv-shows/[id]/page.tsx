@@ -4,10 +4,12 @@ import {
     getTVShowDetails,
     getTVShowsCredits,
 } from '@/app/api/services/TVShowService';
+import GenreTags from '@/components/GenreTags';
+import CreditsList from '@/components/lists/CreditsList';
 import MediaList from '@/components/lists/MediaList';
 import { Meta } from '@/components/Meta';
 import NetworkLogo from '@/components/NetworkLogo';
-import PeopleList from '@/components/PeopleList';
+import { Rating } from '@/components/Rating';
 import dayjs from 'dayjs';
 import { Metadata } from 'next';
 import Image from 'next/image';
@@ -40,48 +42,46 @@ export default async function TVShowPage({
 
     return (
         <div>
-            <div className="container max-w-4xl mx-auto py-6">
+            <div className="container mx-auto max-w-4xl py-6">
                 <div className="px-3">
-                    <Image
-                        src={image}
-                        width={width}
-                        height={600}
-                        className="rounded-md"
-                        placeholder="blur"
-                        blurDataURL="/placeholder.png"
-                        loading="lazy"
-                        alt="show Wallpaper"
-                    />
+                    <div className="relative">
+                        <Image
+                            src={image}
+                            width={width}
+                            height={600}
+                            className="rounded-md"
+                            placeholder="blur"
+                            blurDataURL="/placeholder.png"
+                            loading="lazy"
+                            alt="show Wallpaper"
+                        />
+                        <Rating value={Math.round(show.averageVote)} />
+                    </div>
+                    <GenreTags genres={show.genres} />
                     <a
                         href={show.homepage}
                         target="_blank"
-                        className="underline text-primary"
+                        className="text-primary underline"
                         rel="noreferrer"
                     >
-                        <h1 className="font-bold text-primary text-xl my-2">
+                        <h1 className="my-2 text-xl font-bold text-primary">
                             {show.title}
                         </h1>
                     </a>
-                    <h2 className="text-secondary font-bold text-md my-2">
+                    <h2 className="text-md my-2 font-bold text-secondary">
                         ({show.seasonsCount} Seasons)
                     </h2>
-                    <p className="text-primaryText text-sm mt-4">
+                    <p className="mt-4 text-sm text-primaryText">
                         {show.overview}
                     </p>
-                    <p className="text-primaryText text-sm mt-5">
-                        Genres:{' '}
-                        <span className="font-bold text-secondaryText">
-                            {show.genres.map((genre) => genre.name).join(', ')}
-                        </span>
-                    </p>
-                    <p className="text-primaryText text-sm">
+                    <p className="mt-4 text-sm text-primaryText">
                         Release Date:{' '}
                         <span className="font-bold text-secondaryText">
                             {dayjs(show.releaseDate).format('MMMM DD, YYYY')}
                         </span>
                     </p>
                     {show.lastAirDate ? (
-                        <p className="text-primaryText text-sm">
+                        <p className="text-sm text-primaryText">
                             Last Aired:{' '}
                             <span className="font-bold text-secondaryText">
                                 {dayjs(show.lastAirDate).format(
@@ -90,11 +90,12 @@ export default async function TVShowPage({
                             </span>
                         </p>
                     ) : null}
-                    <p className="text-primaryText text-sm mt-12">
-                        Cast: <PeopleList people={credits.cast} />
-                    </p>
-                    <div className="flex gap-4 mt-5 mx-auto align-middle container">
-                        <p className="text-primaryText text-md">
+                    <CreditsList
+                        cast={credits.cast}
+                        baseRoute={`/tv-shows/${showId}`}
+                    />
+                    <div className="container mx-auto flex gap-4 align-middle">
+                        <p className="text-md leading-[10] text-primaryText">
                             Streaming Platforms:{' '}
                         </p>
                         {show.networks.map((network) => (

@@ -3,11 +3,12 @@ import {
     getMovieDetails,
     getSimilarMovies,
 } from '@/app/api/services/MovieService';
+import GenreTags from '@/components/GenreTags';
+import CreditsList from '@/components/lists/CreditsList';
 import MediaList from '@/components/lists/MediaList';
 import Loading from '@/components/Loading';
 import { Meta } from '@/components/Meta';
-import PeopleList from '@/components/PeopleList';
-import { Genre } from '@/models/Genre';
+import { Rating } from '@/components/Rating';
 import dayjs from 'dayjs';
 import { Metadata } from 'next';
 import Image from 'next/image';
@@ -43,59 +44,52 @@ export default async function MoviePage({
 
     return (
         <div>
-            <div className="container max-w-4xl mx-auto py-6">
+            <div className="container mx-auto max-w-4xl py-6">
                 <div className="px-3">
-                    <Image
-                        src={image}
-                        width={width}
-                        height={600}
-                        className="rounded-md mx-auto"
-                        placeholder="blur"
-                        blurDataURL="/placeholder.png"
-                        loading="lazy"
-                        alt="Movie Wallpaper"
-                    />
+                    <div className="relative">
+                        <Image
+                            src={image}
+                            width={width}
+                            height={600}
+                            className="mx-auto rounded-md"
+                            placeholder="blur"
+                            blurDataURL="/placeholder.png"
+                            loading="lazy"
+                            alt="Movie Wallpaper"
+                        />
+                        <Rating value={movie.averageVote} />
+                    </div>
+                    <GenreTags genres={movie.genres} />
                     <a
                         href={movie.homepage}
                         target="_blank"
-                        className="underline text-primary"
+                        className="text-primary underline"
                         rel="noreferrer"
                     >
-                        <h1 className="font-bold text-primary text-xl my-2">
+                        <h1 className="my-2 text-xl font-bold text-primary">
                             {movie.title} ({movie.runtime}min)
                         </h1>
                     </a>
                     {movie.collection ? (
                         <Link href={`/collections/${movie.collection.id}`}>
-                            <h2 className="text-secondary font-bold text-md my-2">
+                            <h2 className="text-md my-2 font-bold text-secondary">
                                 {movie.collection.name}
                             </h2>
                         </Link>
-                    ) : (
-                        ''
-                    )}
-                    <p className="text-primaryText text-sm mt-4">
+                    ) : null}
+                    <p className="mt-4 text-sm text-primaryText">
                         {movie.overview}
                     </p>
-                    <p className="text-primaryText text-sm mt-5">
-                        Genres:{' '}
-                        <span className="font-bold text-secondaryText">
-                            {movie.genres
-                                .map((genre: Genre) => genre.name)
-                                .join(', ')}
-                        </span>
-                    </p>
-                    <p className="text-primaryText text-sm">
+                    <p className="mt-6 text-sm text-primaryText">
                         Release Date:{' '}
                         <span className="font-bold text-secondaryText">
                             {dayjs(movie.releaseDate).format('MMMM DD, YYYY')}
                         </span>
                     </p>
-                    {
-                        <p className="text-primaryText text-sm mt-12">
-                            Cast: <PeopleList people={credits.cast} />
-                        </p>
-                    }
+                    <CreditsList
+                        cast={credits.cast}
+                        baseRoute={`/movies/${movieId}`}
+                    />
                 </div>
             </div>
             <div className="pt-2">
