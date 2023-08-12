@@ -2,8 +2,8 @@
 const nextConfig = {
     images: {
         domains: ['image.tmdb.org'],
-        unoptimized: true
-    }
+    },
+    output: 'standalone',
 };
 
 module.exports = nextConfig;

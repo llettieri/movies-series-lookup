@@ -3,7 +3,6 @@ import './globals.css';
 import { Footer } from '@/components/Footer';
 import { Meta } from '@/components/Meta';
 import { NavBar } from '@/components/NavBar';
-import { Analytics } from '@vercel/analytics/react';
 import { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import React, { ReactNode } from 'react';
@@ -29,7 +28,6 @@ export default function RootLayout({
                         <Footer />
                     </div>
                 </div>
-                <Analytics />
             </body>
         </html>
     );
