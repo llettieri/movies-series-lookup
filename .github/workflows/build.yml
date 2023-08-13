@@ -14,9 +14,13 @@ jobs:
                   ssh-private-key: ${{secrets.KEY}}
 
             - name: Building docker image
-              run: docker -H ssh://${{secrets.REMOTE}} build -t movies-series:latest .
+              env:
+                DOCKER_HOST: ssh://${{secrets.REMOTE}}
+              run: docker build -t movies-series:latest .
             - name: Clear dangling images
-              run: docker -H ssh://${{secrets.REMOTE}} image prune
+              env:
+                DOCKER_HOST: ssh://${{secrets.REMOTE}}
+              run: docker image prune
 
     deploy:
         runs-on: ubuntu-latest
@@ -28,6 +32,10 @@ jobs:
                   ssh-private-key: ${{secrets.KEY}}
 
             - name: Stopping old application
-              run: docker -H ssh://${{secrets.REMOTE}} stop movies-series && docker -H ssh://${{secrets.REMOTE}} rm movies-series
+              env:
+                DOCKER_HOST: ssh://${{secrets.REMOTE}}
+              run: docker stop movies-series && docker rm movies-series
             - name: Deploying new application
-              run: docker -H ssh://${{secrets.REMOTE}} run -d --name movies-series -p 127.0.0.1:2082:3000 movies-series:latest
+              env:
+                DOCKER_HOST: ssh://${{secrets.REMOTE}}
+              run: docker run -d --name movies-series -p 127.0.0.1:2082:3000 movies-series:latest
