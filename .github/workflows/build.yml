@@ -11,7 +11,7 @@ jobs:
             - uses: actions/checkout@v3
             - name: Create SSH key
               run: | 
-                echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa 
+                echo "${{secrets.KEY}}" > ~/.ssh/id_rsa 
                 chmod 600 ~/.ssh/id_rsa
             - name: Building docker image
               env:
