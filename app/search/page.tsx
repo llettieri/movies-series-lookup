@@ -5,6 +5,7 @@ import { Hero } from '@/components/Hero';
 import { MediaList } from '@/components/lists/MediaList';
 import { PeopleList } from '@/components/lists/PeopleList';
 import Loading from '@/components/Loading';
+import { SearchBar } from '@/components/SearchBar';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { ReactNode, useEffect, useState } from 'react';
 import { useDebounce } from 'use-debounce';
@@ -26,13 +27,9 @@ export default function SearchPage(): ReactNode {
         <>
             <Hero />
             <div className="container mx-auto flex flex-col justify-center">
-                <input
-                    type="text"
-                    onChange={(event): void => setQuery(event.target.value)}
+                <SearchBar
                     defaultValue={query}
-                    placeholder="Search..."
-                    autoFocus={true}
-                    className="form-input mx-auto mt-16 block w-80 rounded-md border-2 border-gray-500 bg-gray-600 p-2 text-primaryText shadow-sm outline-0"
+                    onChange={(event): void => setQuery(event.target.value)}
                 />
             </div>
             {isLoading ? <Loading /> : null}

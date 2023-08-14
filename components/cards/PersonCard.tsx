@@ -38,7 +38,10 @@ export const PersonCard = ({ person, size }: MediaCardProps): ReactElement => {
                     )}
                 </div>
             ) : (
-                <div className="flex flex-col justify-center">
+                <div
+                    className="flex flex-col justify-center"
+                    id={person.name.replace(' ', '-').toLowerCase()}
+                >
                     <h2 className="text-md font-bold text-primaryText">
                         {person.name}
                     </h2>
