@@ -51,4 +51,4 @@ jobs:
           script: |
             docker stop ${{env.NAME}}
             docker rm ${{env.NAME}}
-            docker run -d --name ${{env.NAME}} -p 127.0.0.1:2082:3000 --pull always ${{env.NAME}}:latest
+            docker run -d --name ${{env.NAME}} -p 127.0.0.1:2082:3000 --pull always ${{env.REPO}}/${{env.NAME}}:latest
