@@ -19,7 +19,7 @@ jobs:
       - name: Login to registry
         uses: docker/login-action@v2
         with:
-          registry: $REPO
+          registry: ${{env.REPO}}
           username: ${{secrets.USER}}
           password: ${{secrets.PWD}}
 
@@ -32,7 +32,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: $REPO/$NAME:latest
+          tags: ${{env.REPO}}/${{env.NAME}}:latest
   deploy:
     runs-on: ubuntu-latest
     needs: [build]
@@ -49,6 +49,6 @@ jobs:
           key: ${{secrets.KEY}}
           port: ${{secrets.PORT}}
           script: |
-            docker stop $NAME
-            docker rm $NAME
-            docker run -d --name $NAME -p 127.0.0.1:2082:3000 --pull always $NAME:latest
+            docker stop ${{env.NAME}}
+            docker rm ${{env.NAME}}
+            docker run -d --name ${{env.NAME}} -p 127.0.0.1:2082:3000 --pull always ${{env.NAME}}:latest
