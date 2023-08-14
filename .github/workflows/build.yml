@@ -1,33 +1,54 @@
-name: Build and deploy app
+name: Build app
 
 on:
-    push:
-        branches:
-            - master
+  push:
+    branches:
+      - master
+
+env:
+  REPO: docker.nexus.themcbrothers.net
+  NAME: movies-series
+
 jobs:
-    build:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v3
-            - uses: webfactory/ssh-agent@v0.7.0
-              with:
-                  ssh-private-key: ${{secrets.KEY}}
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
 
-            - name: Building docker image
-              run: docker -H ssh://${{secret.REMOTE}} build -t movies-series:latest .
-            - name: Clear dangling images
-              run: docker -H ssh://${{secret.REMOTE}} image prune
+      - name: Login to registry
+        uses: docker/login-action@v2
+        with:
+          registry: ${{env.REPO}}
+          username: ${{secrets.USER}}
+          password: ${{secrets.PWD}}
 
-    deploy:
-        runs-on: ubuntu-latest
-        needs: build
-        steps:
-            - uses: actions/checkout@v3
-            - uses: webfactory/ssh-agent@v0.7.0
-              with:
-                  ssh-private-key: ${{secrets.KEY}}
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
 
-            - name: Stopping old application
-              run: docker -H ssh://${{secret.REMOTE}} stop movies-series && docker -H ssh://${{secret.REMOTE}} rm movies-series
-            - name: Deploying new application
-              run: docker -H ssh://${{secret.REMOTE}} run -d --name movies-series -p 127.0.0.1:2082:3000 movies-series:latest
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{env.REPO}}/${{env.NAME}}:latest
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [build]
+    environment: Production
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Deploy docker container
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{secrets.HOST}}
+          username: ${{secrets.HOST_USER}}
+          key: ${{secrets.KEY}}
+          port: ${{secrets.PORT}}
+          script: |
+            docker stop ${{env.NAME}}
+            docker rm ${{env.NAME}}
+            docker run -d --name ${{env.NAME}} -p 127.0.0.1:2082:3000 --pull always ${{env.REPO}}/${{env.NAME}}:latest
