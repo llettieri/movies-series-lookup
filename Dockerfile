@@ -2,10 +2,11 @@
 FROM node:18-alpine AS builder
 
 # Getting args
-ARG API_key
+ARG API_KEY
 
 # Setting env vars
 ENV NEXT_PUBLIC_API_KEY=$API_KEY
+RUN echo $NEXT_PUBLIC_API_KEY
 
 # Setting workdir
 WORKDIR /app
