@@ -1,5 +1,12 @@
 # Build Stage
 FROM node:18-alpine AS builder
+
+# Getting args
+ARG API_key
+
+# Setting env vars
+ENV NEXT_PUBLIC_API_KEY=$API_KEY
+
 # Setting workdir
 WORKDIR /app
 
@@ -12,8 +19,6 @@ RUN npm run build
 
 # Production Stage
 FROM node:18-alpine AS runner
-
-ARG API_KEY
 
 # Setting workdir
 WORKDIR /app
@@ -28,9 +33,7 @@ COPY --from=builder /app/.next/static ./.next/static
 # Expose prod build
 EXPOSE 3000
 
-# Setting env variables
+# Setting env vars
 ENV NODE_ENV=production
 ENV PORT=3000
-ENV NEXT_PUBLIC_API_KEY=$API_KEY
-
 CMD ["node", "server.js"]
