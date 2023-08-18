@@ -2,6 +2,7 @@ import React, { ChangeEvent, ReactElement } from 'react';
 
 interface SearchBarProps {
     defaultValue: string;
+    // eslint-disable-next-line no-unused-vars
     onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
