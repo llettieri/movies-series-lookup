@@ -13,6 +13,8 @@ RUN npm run build
 # Production Stage
 FROM node:18-alpine AS runner
 
+ARG API_KEY
+
 # Setting workdir
 WORKDIR /app
 
@@ -29,5 +31,6 @@ EXPOSE 3000
 # Setting env variables
 ENV NODE_ENV=production
 ENV PORT=3000
+ENV NEXT_PUBLIC_API_KEY=$API_KEY
 
 CMD ["node", "server.js"]
