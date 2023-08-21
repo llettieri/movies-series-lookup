@@ -3,12 +3,12 @@ import { MediaList } from '@/components/lists/MediaList';
 import { ReactElement } from 'react';
 
 export const PopularTVShowsList = (): ReactElement => {
-    const { popularShows, popularShowsIsLoading } = useMediaLists();
+    const { popularShows, loadingPopularShows } = useMediaLists();
     return (
         <MediaList
             title="Popular TV Shows"
             medias={popularShows}
-            isLoading={popularShowsIsLoading}
+            isLoading={loadingPopularShows}
         />
     );
 };

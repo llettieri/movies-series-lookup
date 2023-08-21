@@ -3,13 +3,13 @@ import { MediaList } from '@/components/lists/MediaList';
 import { ReactElement } from 'react';
 
 export const AiringTodayTVShowsList = (): ReactElement => {
-    const { airingTodayShows, airingTodayIsLoading } = useMediaLists();
+    const { airingTodayShows, loadingAiringToday } = useMediaLists();
 
     return (
         <MediaList
             title="Airing Today TV Shows"
             medias={airingTodayShows}
-            isLoading={airingTodayIsLoading}
+            isLoading={loadingAiringToday}
         />
     );
 };

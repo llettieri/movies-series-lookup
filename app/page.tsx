@@ -6,18 +6,30 @@ import { AiringTodayTVShowsList } from '@/components/lists/AiringTodayTVShowsLis
 import { LatestMoviesList } from '@/components/lists/LatestMoviesList';
 import { PopularMoviesList } from '@/components/lists/PopularMoviesList';
 import { PopularTVShowsList } from '@/components/lists/PopularTVShowsList';
+import Loading from '@/components/Loading';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { ReactNode, useEffect, useState } from 'react';
 
-type Collection = 'movies' | 'tvshows' | '';
-type ListType = 'popular' | 'nowPlaying' | '';
+type Collection = 'movies' | 'tvshows';
+type ListType = 'popular' | 'nowPlaying';
+
+const List = {
+    movies: {
+        popular: <PopularMoviesList />,
+        nowPlaying: <LatestMoviesList />,
+    },
+    tvshows: {
+        popular: <PopularTVShowsList />,
+        nowPlaying: <AiringTodayTVShowsList />,
+    },
+};
 
 export default function Home(): ReactNode {
     const router = useRouter();
     const searchParams = useSearchParams();
 
-    const [collection, setCollection] = useState<Collection>('');
-    const [listType, setListType] = useState<ListType>('');
+    const [collection, setCollection] = useState<Collection>();
+    const [listType, setListType] = useState<ListType>();
 
     useEffect(() => {
         const collection =
@@ -84,17 +96,7 @@ export default function Home(): ReactNode {
                     />
                 </div>
             </div>
-            {collection === 'movies' ? (
-                listType === 'popular' ? (
-                    <PopularMoviesList />
-                ) : (
-                    <LatestMoviesList />
-                )
-            ) : listType === 'popular' ? (
-                <PopularTVShowsList />
-            ) : (
-                <AiringTodayTVShowsList />
-            )}
+            {collection && listType ? List[collection][listType] : <Loading />}
         </>
     );
 }
