@@ -5,6 +5,7 @@ const base = {
     person: 'https://api.themoviedb.org/3/person',
     collection: 'https://api.themoviedb.org/3/collection',
     discover: 'https://api.themoviedb.org/3/discover',
+    ipApi: 'https://ipapi.co',
 };
 
 export const routes = {
@@ -53,16 +54,18 @@ export const routes = {
         },
         /**
          * QueryParams: page
+         * @deprecated
          */
         popular: `${base.tv}/popular{?page}`,
         /**
          * QueryParams: page
+         * @deprecated
          */
         airingToday: `${base.tv}/airing_today{?page}`,
         /**
-         * QueryParams: include_adult, page, sort_by, air_date.lte, air_date.gte
+         * QueryParams: page, sort_by, watch_region, with_watch_monetization_types, air_date.gte, air_date.lte
          */
-        discover: `${base.discover}/tv{?include_adult}{?page}{?sort_by}{?air_date.lte}{?air_date.gte}{?region}`,
+        discover: `${base.discover}/tv{?page,sort_by,watch_region,with_watch_monetization_types,air_date.gte,air_date.lte}`,
     },
     images: 'https://image.tmdb.org/t/p/original',
 
@@ -96,4 +99,5 @@ export const routes = {
             details: `${base.collection}/{id}`,
         },
     },
+    country: `${base.ipApi}/country`,
 };
