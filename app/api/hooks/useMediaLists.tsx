@@ -22,7 +22,7 @@ interface UseMovieValues {
     popularMovies: Media[];
     popularShows: TVShow[];
 }
-
+/* eslint-disable camelcase */
 export const useMediaLists = (): UseMovieValues => {
     const today = dayjs().format('YYYY-MM-DD');
     const { data: latestMovies, isLoading: loadingLatestMovies } = useSWR(
