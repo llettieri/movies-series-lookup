@@ -107,5 +107,5 @@ export const routes = {
             details: `${base.collection}/{id}`,
         },
     },
-    country: `${base.ipApi}/json`,
+    country: `${base.ipApi}`,
 };
