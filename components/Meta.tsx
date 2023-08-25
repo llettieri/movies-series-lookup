@@ -15,4 +15,8 @@ export const Meta = ({
     description,
     keywords,
     viewport: { width: 'device-width', initialScale: 1 },
+    manifest: '/manifest.json',
+    icons: {
+        apple: '/logo/icon/apple-touch-icon.png',
+    },
 });

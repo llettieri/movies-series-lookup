@@ -5,7 +5,7 @@ const base = {
     person: 'https://api.themoviedb.org/3/person',
     collection: 'https://api.themoviedb.org/3/collection',
     discover: 'https://api.themoviedb.org/3/discover',
-    ipApi: 'http://ip-api.com',
+    ipApi: 'https://ip.lore-le.ch',
 };
 
 export const routes = {
