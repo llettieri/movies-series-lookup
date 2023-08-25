@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import { Icon } from '@/icons/Icon';
 import Link from 'next/link';
 import React, { ReactElement } from 'react';
 
@@ -14,14 +14,9 @@ export const NavBar = (): ReactElement => {
                 </Link>
                 <Link
                     href="/search"
-                    className="flex gap-3 transition-transform duration-100 hover:scale-110"
+                    className="flex items-center gap-3 transition-transform duration-100 hover:scale-110"
                 >
-                    <Image
-                        width={30}
-                        height={30}
-                        src={'/search_icon.svg'}
-                        alt="Search Icon"
-                    />
+                    <Icon icon="SEARCH" width={25} />
                     <p className="align-middle leading-8">Search</p>
                 </Link>
             </div>
