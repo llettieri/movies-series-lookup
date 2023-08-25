@@ -2,14 +2,22 @@
 
 import { api } from '@/app/api/config/AxiosInstance';
 import { routes } from '@/app/api/config/routes';
-import { localSaveItem } from '@/app/api/config/Storage';
-import { StorageKeys } from '@/app/api/config/StorageKeys';
+import { localSaveItem } from '@/storage/Storage';
+import { StorageKeys } from '@/storage/StorageKeys';
 import { ReactElement } from 'react';
 
+interface GeoDataDto {
+    region: string;
+    country: string;
+    countryCode: string;
+}
+
 export const GeoInfo = (): ReactElement => {
-    api()
-        .get<string>(routes.country)
-        .then((r) => localSaveItem(StorageKeys.REGION, r.data));
+    if (typeof window !== 'undefined') {
+        api()
+            .get<GeoDataDto>(routes.country)
+            .then((r) => localSaveItem(StorageKeys.REGION, r.data.countryCode));
+    }
 
     return <></>;
 };
