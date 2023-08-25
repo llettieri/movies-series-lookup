@@ -10,7 +10,7 @@ export const NavBar = (): ReactElement => {
                     className="text-base transition-transform duration-100 hover:scale-110 md:text-2xl"
                     href="/"
                 >
-                    Movie & Series Lookup
+                    Movies & Series Lookup
                 </Link>
                 <Link
                     href="/search"

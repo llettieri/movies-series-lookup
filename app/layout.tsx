@@ -20,6 +20,11 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className={`${inter.className} overflow-hidden`}>
+                <link rel="manifest" href="/manifest.json" />
+                <link
+                    rel="apple-touch-icon"
+                    href="/logo/icon/apple-touch-icon.png"
+                />
                 <GeoInfo />
                 <ServiceWorker />
                 <div className="flex h-screen flex-col overflow-hidden">

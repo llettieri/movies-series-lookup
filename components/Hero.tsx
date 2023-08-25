@@ -13,7 +13,7 @@ export const Hero = (): ReactElement => {
                     alt={'Videofiles'}
                 />
                 <h1 className="text-2xl font-bold uppercase text-primaryText">
-                    Welcome to your Movie / Series lookup
+                    Welcome to your Movies / Series lookup
                 </h1>
             </div>
         </div>
