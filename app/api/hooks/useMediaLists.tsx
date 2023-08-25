@@ -1,13 +1,13 @@
 import { api } from '@/app/api/config/AxiosInstance';
 import { routes } from '@/app/api/config/routes';
-import { localGetItem } from '@/app/api/config/Storage';
-import { StorageKeys } from '@/app/api/config/StorageKeys';
 import { parseMovieDto, parseTVShowDto } from '@/app/api/services/ParseService';
 import { ListDto } from '@/models/dto/ListDto';
 import { MovieDto } from '@/models/dto/MovieDto';
 import { TVShowDto } from '@/models/dto/TVShowDto';
 import { Media } from '@/models/Media';
 import { TVShow } from '@/models/TVShow';
+import { localGetItem } from '@/storage/Storage';
+import { StorageKeys } from '@/storage/StorageKeys';
 import dayjs from 'dayjs';
 import useSWR from 'swr';
 import { parseTemplate } from 'url-template';

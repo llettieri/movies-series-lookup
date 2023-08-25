@@ -1,6 +1,6 @@
-import { StorageKeys } from '@/app/api/config/StorageKeys';
+import { StorageKeys } from '@/storage/StorageKeys';
 
-const getKey = (key: StorageKeys): string => `movies-series::${key}`;
+const getKey = (key: StorageKeys): string => `movies-series:${key}`;
 
 const localSaveItem = <T,>(key: StorageKeys, item: T): void =>
     localStorage.setItem(getKey(key), JSON.stringify(item));
