@@ -4,6 +4,7 @@ import { Footer } from '@/components/Footer';
 import { GeoInfo } from '@/components/GeoInfo';
 import { Meta } from '@/components/Meta';
 import { NavBar } from '@/components/NavBar';
+import { ServiceWorker } from '@/components/ServiceWorker';
 import { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import React, { ReactNode } from 'react';
@@ -20,6 +21,7 @@ export default function RootLayout({
         <html lang="en">
             <body className={`${inter.className} overflow-hidden`}>
                 <GeoInfo />
+                <ServiceWorker />
                 <div className="flex h-screen flex-col overflow-hidden">
                     <NavBar />
 
