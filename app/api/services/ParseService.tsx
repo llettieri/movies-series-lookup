@@ -6,10 +6,12 @@ import { CreditsDto } from '@/models/dto/CreditsDto';
 import { MovieDto } from '@/models/dto/MovieDto';
 import { MultiMediaDto } from '@/models/dto/MultiMediaDto';
 import { JobDto, PersonDto, RoleDto } from '@/models/dto/PersonDto';
+import { ProviderDto } from '@/models/dto/ProviderDto';
 import { TVShowDto } from '@/models/dto/TVShowDto';
 import { Media } from '@/models/Media';
 import { MediaType } from '@/models/MediaType';
 import { Job, Person } from '@/models/Person';
+import { Provider } from '@/models/Provider';
 import { TVShow } from '@/models/TVShow';
 
 const parseMovieDto = (dto: MovieDto): Media => {
@@ -138,6 +140,15 @@ const parseJobDto = (dto: JobDto): Job => {
     };
 };
 
+const parseProviderDto = (dto: ProviderDto): Provider => {
+    return {
+        id: dto.provider_id,
+        displayPriority: dto.display_priority,
+        name: dto.provider_name,
+        logo: `${routes.images}${dto.logo_path}`,
+    };
+};
+
 export {
     parseMovieDto,
     parseTVShowDto,
@@ -145,4 +156,5 @@ export {
     parseMultiMediaDto,
     parsePersonDto,
     parseCreditsDto,
+    parseProviderDto,
 };

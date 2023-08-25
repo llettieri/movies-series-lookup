@@ -5,7 +5,7 @@ const base = {
     person: 'https://api.themoviedb.org/3/person',
     collection: 'https://api.themoviedb.org/3/collection',
     discover: 'https://api.themoviedb.org/3/discover',
-    ipApi: 'https://ipapi.co',
+    ipApi: 'http://ip-api.com',
 };
 
 export const routes = {
@@ -25,6 +25,10 @@ export const routes = {
              * Params: id
              */
             credits: `${base.movies}/{id}/credits`,
+            /**
+             * Params: id
+             */
+            watchProviders: `${base.movies}/{id}/watch/providers`,
         },
         /**
          * QueryParams: page
@@ -51,6 +55,10 @@ export const routes = {
              * Params: id
              */
             aggregateCredits: `${base.tv}/{id}/aggregate_credits`,
+            /**
+             * Params: id
+             */
+            watchProviders: `${base.tv}/{id}/watch/providers`,
         },
         /**
          * QueryParams: page
@@ -99,5 +107,5 @@ export const routes = {
             details: `${base.collection}/{id}`,
         },
     },
-    country: `${base.ipApi}/country`,
+    country: `${base.ipApi}/json`,
 };

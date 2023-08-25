@@ -2,9 +2,12 @@ import { api } from '@/app/api/config/AxiosInstance';
 import { routes } from '@/app/api/config/routes';
 import {
     parseCreditsDto,
+    parseProviderDto,
     parseTVShowDto,
 } from '@/app/api/services/ParseService';
+import { CountryProviders } from '@/models/CountryProviders';
 import { Credits } from '@/models/Credits';
+import { CountryProvidersDto } from '@/models/dto/CountryProvidersDto';
 import { CreditsDto } from '@/models/dto/CreditsDto';
 import { ListDto } from '@/models/dto/ListDto';
 import { TVShowDto } from '@/models/dto/TVShowDto';
@@ -34,4 +37,37 @@ const getTVShowsCredits = async (showId: number): Promise<Credits> => {
         .then((r) => parseCreditsDto(r.data));
 };
 
-export { getTVShowDetails, getSimilarTVShows, getTVShowsCredits };
+const getTVShowWatchProviders = async (
+    showId: number,
+): Promise<Map<string, CountryProviders>> => {
+    const url = parseTemplate(routes.tv.byId.watchProviders).expand({
+        id: showId,
+    });
+
+    return await api()
+        .get(url)
+        .then((r) => {
+            const countryProviders: Map<string, CountryProvidersDto> = new Map(
+                Object.entries(r.data.results),
+            );
+            const parsedCountryProviders: Map<string, CountryProviders> =
+                new Map();
+            countryProviders.forEach((value, key) => {
+                parsedCountryProviders.set(key, {
+                    link: value.link,
+                    buy: value.buy?.map(parseProviderDto),
+                    flatrate: value.flatrate?.map(parseProviderDto),
+                    free: value.free?.map(parseProviderDto),
+                });
+            });
+
+            return parsedCountryProviders;
+        });
+};
+
+export {
+    getTVShowDetails,
+    getSimilarTVShows,
+    getTVShowsCredits,
+    getTVShowWatchProviders,
+};
