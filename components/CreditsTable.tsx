@@ -23,7 +23,7 @@ const GroupedCrewComponent = ({
                 </h2>
                 <ul className="flex flex-col flex-wrap gap-4">
                     {people.map((p) => (
-                        <li key={p.id}>
+                        <li key={`${p.id}_${Math.round(Math.random() * 1000)}`}>
                             <PersonCard person={p} size="small" />
                         </li>
                     ))}

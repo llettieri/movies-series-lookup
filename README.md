@@ -6,6 +6,7 @@ Die Idee ist, dass man die neusten Filme und Serien beim laden der Seite angezei
 - NodeJS
 - Tailwind (CSS Library)
 - ESLint
+- [Icons](https://fontawesome.com/icons)
 
 # API
 - [The Movie DB](https://www.themoviedb.org/?language=de)

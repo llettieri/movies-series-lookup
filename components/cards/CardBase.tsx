@@ -29,7 +29,7 @@ export const CardBase = ({
                     width={200}
                     height={300}
                     alt=""
-                    className="rounded-t-md"
+                    className="h-auto w-auto rounded-t-md"
                     placeholder="blur"
                     blurDataURL="/placeholder.png"
                     loading="lazy"
@@ -52,7 +52,7 @@ export const CardBase = ({
                     placeholder="blur"
                     blurDataURL="/placeholder.png"
                     loading="lazy"
-                    className="my-2 ml-2 max-h-24 rounded-md"
+                    className="my-2 ml-2 h-auto max-h-24 w-auto rounded-md"
                 />
                 <div className="mx-4 my-2">{children}</div>
             </Link>
