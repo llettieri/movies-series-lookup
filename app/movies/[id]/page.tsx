@@ -1,14 +1,14 @@
-import {
-    getMovieCredits,
-    getMovieDetails,
-    getSimilarMovies,
-} from '@/app/api/services/MovieService';
 import { GenreTags } from '@/components/GenreTags';
 import { CreditsList } from '@/components/lists/CreditsList';
 import { MediaList } from '@/components/lists/MediaList';
 import Loading from '@/components/Loading';
 import { Meta } from '@/components/Meta';
 import { Rating } from '@/components/Rating';
+import {
+    getMovieCredits,
+    getMovieDetails,
+    getSimilarMovies,
+} from '@/services/MovieService';
 import dayjs from 'dayjs';
 import { Metadata } from 'next';
 import Image from 'next/image';
@@ -71,7 +71,10 @@ export default async function MoviePage({
                         </h1>
                     </a>
                     {movie.collection ? (
-                        <Link href={`/collections/${movie.collection.id}`}>
+                        <Link
+                            href={`/collections/${movie.collection.id}`}
+                            prefetch
+                        >
                             <h2 className="text-md my-2 font-bold text-secondary">
                                 {movie.collection.name}
                             </h2>
@@ -86,10 +89,12 @@ export default async function MoviePage({
                             {dayjs(movie.releaseDate).format('MMMM DD, YYYY')}
                         </span>
                     </p>
-                    <CreditsList
-                        cast={credits.cast}
-                        baseRoute={`/movies/${movieId}`}
-                    />
+                    {credits.cast.length > 0 && (
+                        <CreditsList
+                            cast={credits.cast}
+                            baseRoute={`/movies/${movieId}`}
+                        />
+                    )}
                 </div>
             </div>
             <div className="pt-2">

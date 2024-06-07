@@ -1,10 +1,7 @@
-import {
-    getMovieCredits,
-    getMovieDetails,
-} from '@/app/api/services/MovieService';
 import { CreditsTable } from '@/components/CreditsTable';
 import { Meta } from '@/components/Meta';
 import { MediaType } from '@/models/MediaType';
+import { getMovieCredits, getMovieDetails } from '@/services/MovieService';
 import { Metadata } from 'next';
 import React, { ReactNode } from 'react';
 

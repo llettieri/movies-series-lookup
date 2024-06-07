@@ -1,6 +1,6 @@
-import { getCollectionDetails } from '@/app/api/services/CollectionService';
 import { MediaList } from '@/components/lists/MediaList';
 import { Meta } from '@/components/Meta';
+import { getCollectionDetails } from '@/services/CollectionService';
 import { Metadata } from 'next';
 import Image from 'next/image';
 import React, { ReactNode } from 'react';
