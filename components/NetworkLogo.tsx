@@ -1,4 +1,4 @@
-import { routes } from '@/app/api/config/routes';
+import { routes } from '@/config/routes';
 import { Network } from '@/models/Network';
 import Image from 'next/image';
 import { ReactElement } from 'react';

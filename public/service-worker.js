@@ -22,8 +22,12 @@ const cloneCache = async (e) => {
     const res = await fetch(req);
     const resClone = res.clone();
 
+    const url = req.url;
     const cache = caches.open(CACHE_NAME);
-    cache.then((c) => c.put(req, resClone));
+
+    if (!url.includes('chrome-extension')) {
+        cache.then((c) => c.put(req, resClone));
+    }
 
     return res;
 };

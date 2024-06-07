@@ -3,10 +3,10 @@ import React, { ReactElement } from 'react';
 
 export const Footer = (): ReactElement => {
     return (
-        <div className="flex h-24 flex-shrink-0 items-center justify-center bg-navbar text-center">
+        <div className="flex h-24 flex-shrink-0 items-center justify-center bg-neutral text-center">
             <Link href="https://lore-le.ch" target="_blank">
                 <p className="text-xl text-white">
-                    &copy; Copyright 2023{' '}
+                    &copy; Copyright 2024{' '}
                     <span className="font-bold">Lettieri Lorenzo</span>
                 </p>
             </Link>

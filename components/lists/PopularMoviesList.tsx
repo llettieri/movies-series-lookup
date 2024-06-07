@@ -1,5 +1,5 @@
-import { useMediaLists } from '@/app/api/hooks/useMediaLists';
 import { MediaList } from '@/components/lists/MediaList';
+import { useMediaLists } from '@/hooks/useMediaLists';
 import React, { ReactElement } from 'react';
 
 export const PopularMoviesList = (): ReactElement => {

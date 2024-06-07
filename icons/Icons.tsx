@@ -1,8 +1,9 @@
-import { ArrowIcon } from '@/icons/ArrowIcon';
+import { LeftArrowIcon, RightArrowIcon } from '@/icons/ArrowIcon';
 import { SearchIcon } from '@/icons/Search';
 
 const ICONS = {
-    ARROW: ArrowIcon,
+    RIGHT_ARROW: RightArrowIcon,
+    LEFT_ARROW: LeftArrowIcon,
     SEARCH: SearchIcon,
 };
 

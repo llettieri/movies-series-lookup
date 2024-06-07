@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/Button';
-import React, { ReactElement, useRef, useState } from 'react';
+import React, { ReactElement, useEffect, useRef, useState } from 'react';
 
 interface HorizontalListBaseProps {
     children: ReactElement;
@@ -15,6 +15,13 @@ export const HorizontalListBase = ({
     const [showPrevious, setShowPrevious] = useState(false);
     const [showNext, setShowNext] = useState(true);
     const scrollContainer = useRef<HTMLUListElement>(null);
+
+    useEffect(() => {
+        const ref = scrollContainer.current;
+        if (ref) {
+            setShowNext(ref.scrollWidth > ref.clientWidth);
+        }
+    }, [scrollContainer]);
 
     const scroll = (value: number): void =>
         scrollContainer.current?.scrollBy({
@@ -50,17 +57,17 @@ export const HorizontalListBase = ({
                 title="Next"
                 onClick={(): void => scroll(200)}
                 variant="icon"
-                icon="ARROW"
+                icon="RIGHT_ARROW"
                 className={`absolute right-3 top-1/2 text-primaryText ${
                     showNext ? '' : 'hidden'
                 }`}
             />
             <Button
-                title="Next"
+                title="Previous"
                 onClick={(): void => scroll(-200)}
                 variant="icon"
-                icon="ARROW"
-                className={`absolute left-3 top-1/2 rotate-180 ${
+                icon="LEFT_ARROW"
+                className={`absolute left-3 top-1/2 transition-none ${
                     showPrevious ? '' : 'hidden'
                 }`}
             />

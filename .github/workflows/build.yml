@@ -45,8 +45,8 @@ jobs:
             - name: Deploy docker container
               uses: appleboy/ssh-action@v1.0.0
               with:
-                host: ${{secrets.HOST}}
-                username: ${{secrets.HOST_USER}}
-                key: ${{secrets.KEY}}
-                port: ${{secrets.PORT}}
-                script: docker compose -f ./docker-compose/compose-movies-series.yaml -p ${{env.NAME}} up --pull always -d
+                  host: ${{secrets.HOST}}
+                  username: ${{secrets.HOST_USER}}
+                  key: ${{secrets.KEY}}
+                  port: ${{secrets.PORT}}
+                  script: docker compose -f ./docker-compose/compose-movies-series.yaml -p ${{env.NAME}} up --pull always -d

@@ -17,7 +17,7 @@ interface ButtonProps {
 export const Button = ({
     title,
     onClick,
-    type,
+    type = 'button',
     className,
     link,
     variant = 'default',
@@ -37,11 +37,11 @@ export const Button = ({
 
     return (
         <button
-            className={` border-2 border-primaryTint bg-primary py-2 text-primaryText transition-colors duration-300 ease-in-out hover:border-secondaryTint hover:bg-secondary hover:text-black ${
-                variant === 'icon' ? 'rounded-full px-2' : 'rounded-md px-3'
+            className={`btn btn-primary ${
+                variant === 'icon' ? 'btn-circle' : ''
             } ${className}`}
             onClick={onClick}
-            type={type ?? 'button'}
+            type={type}
         >
             {variants[variant]}
         </button>

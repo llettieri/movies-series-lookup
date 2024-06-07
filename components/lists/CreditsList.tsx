@@ -25,7 +25,7 @@ export const CreditsList = ({
                     <Link
                         href={`${baseRoute}/credits`}
                         className="hover:scale-105"
-                        prefetch={true}
+                        prefetch
                     >
                         <h1 className="w-32 text-center text-lg text-primaryText">
                             View more {'->'}

@@ -22,7 +22,7 @@ export const CardBase = ({
             <Link
                 href={link}
                 className="flex h-full w-48 cursor-pointer flex-col rounded-md bg-primary shadow-sm transition-transform duration-150 md:hover:scale-105 md:hover:drop-shadow-lg"
-                prefetch={true}
+                prefetch
             >
                 <Image
                     src={image}
@@ -42,18 +42,21 @@ export const CardBase = ({
             <Link
                 href={link}
                 className="flex h-full flex-row items-center rounded-md bg-primary shadow-sm transition-transform duration-150 md:hover:scale-105 md:hover:drop-shadow-lg"
-                prefetch={true}
+                prefetch
             >
-                <Image
-                    src={image}
-                    width={70}
-                    height={70}
-                    alt=""
-                    placeholder="blur"
-                    blurDataURL="/placeholder.png"
-                    loading="lazy"
-                    className="my-2 ml-2 h-auto max-h-24 w-auto rounded-md"
-                />
+                <div className="avatar">
+                    <div className="w-24 rounded-l-md">
+                        <Image
+                            src={image}
+                            width={70}
+                            height={70}
+                            alt=""
+                            placeholder="blur"
+                            blurDataURL="/placeholder.png"
+                            loading="lazy"
+                        />
+                    </div>
+                </div>
                 <div className="mx-4 my-2">{children}</div>
             </Link>
         );
