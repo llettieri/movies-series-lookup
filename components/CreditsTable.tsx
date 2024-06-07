@@ -68,14 +68,14 @@ export const CreditsTable = ({
 
     return (
         <>
-            <div className="container mx-auto flex justify-center p-8 ">
+            <div className="container mx-auto flex justify-center p-8">
                 <Button title="<- Go Back" link={link} className="w-64" />
             </div>
             <div className="container mx-auto grid grid-cols-1 gap-8 px-2 py-5 md:grid-cols-2 md:px-0">
                 <div>
                     <h1 className="mx-auto mb-3 w-fit text-xl font-bold text-primaryText md:w-full">
                         {title} Cast{' '}
-                        <span className="font-light text-tag">
+                        <span className="text-tag font-light">
                             ({cast.length})
                         </span>
                     </h1>
@@ -90,7 +90,7 @@ export const CreditsTable = ({
                 <div>
                     <h1 className="mx-auto mb-3 w-fit text-xl font-bold text-primaryText md:w-full">
                         {title} Crew{' '}
-                        <span className="font-light text-tag">
+                        <span className="text-tag font-light">
                             ({crew.length})
                         </span>
                     </h1>

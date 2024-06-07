@@ -1,15 +1,16 @@
 import axios, { AxiosError, AxiosInstance } from 'axios';
 
-export const api = (): AxiosInstance => {
+export const axiosInstance = (bearer?: string): AxiosInstance => {
     const instance = axios.create();
+
     instance.interceptors.request.use((r) => {
-        if (r.url?.includes('themoviedb')) {
-            r.headers.setAuthorization(
-                `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
-            );
+        if (bearer) {
+            r.headers.setAuthorization(`Bearer ${bearer}`);
         }
+
         return r;
     });
+
     instance.interceptors.response.use(
         (r) => r,
         (e: AxiosError) => {

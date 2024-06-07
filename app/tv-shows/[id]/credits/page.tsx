@@ -1,10 +1,7 @@
-import {
-    getTVShowDetails,
-    getTVShowsCredits,
-} from '@/app/api/services/TVShowService';
 import { CreditsTable } from '@/components/CreditsTable';
 import { Meta } from '@/components/Meta';
 import { MediaType } from '@/models/MediaType';
+import { getTVShowDetails, getTVShowsCredits } from '@/services/TVShowService';
 import { Metadata } from 'next';
 import { ReactNode } from 'react';
 

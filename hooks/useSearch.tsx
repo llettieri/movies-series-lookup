@@ -1,16 +1,13 @@
-import { api } from '@/app/api/config/AxiosInstance';
-import { routes } from '@/app/api/config/routes';
-import {
-    parseMultiMediaDto,
-    parsePersonDto,
-} from '@/app/api/services/ParseService';
+import { routes } from '@/config/routes';
+import { useAxios } from '@/hooks/useAxios';
 import { ListDto } from '@/models/dto/ListDto';
 import { MultiMediaDto } from '@/models/dto/MultiMediaDto';
 import { PersonDto } from '@/models/dto/PersonDto';
 import { Media } from '@/models/Media';
 import { MediaType } from '@/models/MediaType';
 import { Person } from '@/models/Person';
-import useSWR from 'swr';
+import { parseMultiMediaDto, parsePersonDto } from '@/services/ParseService';
+import { useQuery } from '@tanstack/react-query';
 import { parseTemplate } from 'url-template';
 
 interface useSearchValues {
@@ -25,12 +22,18 @@ interface SearchResults {
 }
 
 export const useSearch = (query: string): useSearchValues => {
-    const { data: searchResults, isLoading } = useSWR<SearchResults>(
-        parseTemplate(routes.search.multi).expand({ query }),
-        (url) => {
+    const axios = useAxios(process.env.NEXT_PUBLIC_API_KEY);
+
+    const { data: searchResults, isLoading } = useQuery<SearchResults>({
+        queryKey: ['search', query],
+        queryFn: () => {
             if (query && query !== '') {
-                return api()
-                    .get<ListDto<MultiMediaDto | PersonDto>>(url)
+                return axios
+                    .get<ListDto<MultiMediaDto | PersonDto>>(
+                        parseTemplate(routes.search.multi).expand({
+                            query,
+                        }),
+                    )
                     .then((r) => {
                         const medias = r.data.results.filter(
                             (m) => m.media_type !== MediaType.PERSON,
@@ -50,11 +53,11 @@ export const useSearch = (query: string): useSearchValues => {
                 people: [],
             };
         },
-        { keepPreviousData: false },
-    );
+        initialData: { people: [], medias: [] },
+    });
 
     return {
-        searchResults: searchResults ?? { people: [], medias: [] },
+        searchResults,
         totalSearchResults:
             (searchResults?.medias.length ?? 0) +
             (searchResults?.people.length ?? 0),

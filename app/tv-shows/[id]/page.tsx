@@ -1,15 +1,15 @@
-import { routes } from '@/app/api/config/routes';
-import {
-    getSimilarTVShows,
-    getTVShowDetails,
-    getTVShowsCredits,
-} from '@/app/api/services/TVShowService';
 import { GenreTags } from '@/components/GenreTags';
 import { CreditsList } from '@/components/lists/CreditsList';
 import { MediaList } from '@/components/lists/MediaList';
 import { Meta } from '@/components/Meta';
 import NetworkLogo from '@/components/NetworkLogo';
 import { Rating } from '@/components/Rating';
+import { routes } from '@/config/routes';
+import {
+    getSimilarTVShows,
+    getTVShowDetails,
+    getTVShowsCredits,
+} from '@/services/TVShowService';
 import dayjs from 'dayjs';
 import { Metadata } from 'next';
 import Image from 'next/image';
@@ -90,10 +90,12 @@ export default async function TVShowPage({
                             </span>
                         </p>
                     ) : null}
-                    <CreditsList
-                        cast={credits.cast}
-                        baseRoute={`/tv-shows/${showId}`}
-                    />
+                    {credits.cast.length > 0 && (
+                        <CreditsList
+                            cast={credits.cast}
+                            baseRoute={`/tv-shows/${showId}`}
+                        />
+                    )}
                     <div className="container mx-auto flex gap-4 align-middle">
                         <p className="text-md leading-[10] text-primaryText">
                             Streaming Platforms:{' '}

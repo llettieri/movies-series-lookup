@@ -1,11 +1,11 @@
+import { MediaList } from '@/components/lists/MediaList';
+import { Meta } from '@/components/Meta';
+import { Gender } from '@/models/Person';
 import {
     getPersonDetails,
     getPersonMovies,
     getPersonTVShows,
-} from '@/app/api/services/PersonService';
-import { MediaList } from '@/components/lists/MediaList';
-import { Meta } from '@/components/Meta';
-import { Gender } from '@/models/Person';
+} from '@/services/PersonService';
 import dayjs from 'dayjs';
 import { Metadata } from 'next';
 import Image from 'next/image';

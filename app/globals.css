@@ -12,3 +12,10 @@
         scrollbar-width: none;
     }
 }
+
+.btn-primary {
+    @apply border-2;
+    @apply border-primaryTint;
+
+    @apply hover:border-primary;
+}

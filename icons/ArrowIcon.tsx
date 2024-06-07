@@ -10,4 +10,10 @@ const Arrow = (): ReactElement => {
     );
 };
 
-export const ArrowIcon: IconType = withSVGIcon(Arrow, '0 0 320 512');
+export const RightArrowIcon: IconType = withSVGIcon(Arrow, '0 0 320 512');
+
+export const LeftArrowIcon: IconType = withSVGIcon(
+    Arrow,
+    '0 0 320 512',
+    'rotate(180)',
+);

@@ -1,4 +1,4 @@
-import { routes } from '@/app/api/config/routes';
+import { routes } from '@/config/routes';
 import { Collection } from '@/models/Collection';
 import { Credits } from '@/models/Credits';
 import { CollectionDto } from '@/models/dto/CollectionDto';
