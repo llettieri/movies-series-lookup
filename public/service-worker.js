@@ -5,14 +5,14 @@ const CACHE_NAME = 'v1';
 
 const installEvent = () => {
     self.addEventListener('install', () => {
-        console.log('ServiceWorker - Installed');
+        console.info('ServiceWorker - Installed');
     });
 };
 installEvent();
 
 const activateEvent = () => {
     self.addEventListener('activate', () => {
-        console.log('ServiceWorker - Activated!');
+        console.info('ServiceWorker - Activated!');
     });
 };
 activateEvent();

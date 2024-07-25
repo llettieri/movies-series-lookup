@@ -1,7 +1,7 @@
 import withSVGIcon from '@/icons/withSVGIcon';
-import { ReactElement } from 'react';
+import { ReactNode } from 'react';
 
-const Search = (): ReactElement => {
+const Search = (): ReactNode => {
     return (
         <path
             fill="currentColor"

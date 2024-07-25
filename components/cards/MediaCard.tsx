@@ -2,14 +2,14 @@ import { CardBase, CardSize } from '@/components/cards/CardBase';
 import { Media } from '@/models/Media';
 import { MediaType } from '@/models/MediaType';
 import dayjs from 'dayjs';
-import React, { ReactElement } from 'react';
+import React, { ReactNode } from 'react';
 
 interface MediaCardProps {
     media: Media;
     size: CardSize;
 }
 
-export const MediaCard = ({ media, size }: MediaCardProps): ReactElement => {
+export const MediaCard = ({ media, size }: MediaCardProps): ReactNode => {
     const image = media.poster ?? '/placeholder.png';
     return (
         <CardBase

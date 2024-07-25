@@ -2,7 +2,7 @@ import { PersonCard } from '@/components/cards/PersonCard';
 import { HorizontalListBase } from '@/components/lists/HorizontalListBase';
 import { Person } from '@/models/Person';
 import Link from 'next/link';
-import React, { ReactElement } from 'react';
+import React, { ReactNode } from 'react';
 
 interface CreditsListProps {
     cast: Person[];
@@ -12,7 +12,7 @@ interface CreditsListProps {
 export const CreditsList = ({
     cast,
     baseRoute,
-}: CreditsListProps): ReactElement => {
+}: CreditsListProps): ReactNode => {
     return (
         <HorizontalListBase title="Credits">
             <>

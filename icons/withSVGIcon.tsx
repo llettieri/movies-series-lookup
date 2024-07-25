@@ -14,7 +14,7 @@ export default function withSVGIcon(
     viewBox: string,
     rotate?: string,
 ): IconType {
-    const SvgIcon = (props: IconProps): React.ReactElement => {
+    const SvgIcon = (props: IconProps): React.ReactNode => {
         const { id, label, width, height } = props;
 
         return (

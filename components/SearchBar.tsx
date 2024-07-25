@@ -1,4 +1,4 @@
-import React, { ChangeEvent, ReactElement } from 'react';
+import React, { ChangeEvent, ReactNode } from 'react';
 
 interface SearchBarProps {
     defaultValue: string;
@@ -9,7 +9,7 @@ interface SearchBarProps {
 export const SearchBar = ({
     defaultValue,
     onChange,
-}: SearchBarProps): ReactElement => {
+}: SearchBarProps): ReactNode => {
     return (
         <input
             type="text"

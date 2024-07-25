@@ -6,7 +6,7 @@ import { TVShowDto } from '@/models/dto/TVShowDto';
 import { Media } from '@/models/Media';
 import { Person } from '@/models/Person';
 import { TVShow } from '@/models/TVShow';
-import { axiosInstance } from '@/services/AxiosService';
+import { get } from '@/services/AxiosService';
 import {
     parseMovieDto,
     parsePersonDto,
@@ -14,20 +14,18 @@ import {
 } from '@/services/ParseService';
 import { parseTemplate } from 'url-template';
 
-const axios = axiosInstance(process.env.NEXT_PUBLIC_API_KEY);
-
 const getPersonDetails = async (personId: number): Promise<Person> => {
     const url = parseTemplate(routes.person.byId.details).expand({
         id: personId,
     });
-    return await axios.get<PersonDto>(url).then((r) => parsePersonDto(r.data));
+    return await get<PersonDto>(url, true).then((r) => parsePersonDto(r.data));
 };
 
 const getPersonMovies = async (personId: number): Promise<Media[]> => {
     const url = parseTemplate(routes.person.byId.movieCredits).expand({
         id: personId,
     });
-    return await axios.get<MediaCreditsDto<MovieDto>>(url).then((r) => {
+    return await get<MediaCreditsDto<MovieDto>>(url, true).then((r) => {
         const results = [...r.data.crew, ...r.data.cast];
         const movies: Media[] = [];
         results.map(parseMovieDto).forEach((result) => {
@@ -43,7 +41,7 @@ const getPersonTVShows = async (personId: number): Promise<TVShow[]> => {
     const url = parseTemplate(routes.person.byId.tvCredits).expand({
         id: personId,
     });
-    return await axios.get<MediaCreditsDto<TVShowDto>>(url).then((r) => {
+    return await get<MediaCreditsDto<TVShowDto>>(url, true).then((r) => {
         const results = [...r.data.crew, ...r.data.cast];
         const shows: TVShow[] = [];
         results.map(parseTVShowDto).forEach((result) => {

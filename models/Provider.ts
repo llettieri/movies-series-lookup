@@ -1,6 +1,6 @@
 export interface Provider {
-    displayPriority: number;
     id: number;
+    displayPriority: number;
     logo: string;
     name: string;
 }

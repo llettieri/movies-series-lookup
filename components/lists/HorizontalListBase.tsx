@@ -1,17 +1,23 @@
 'use client';
 
 import { Button } from '@/components/Button';
-import React, { ReactElement, useEffect, useRef, useState } from 'react';
+import React, {
+    ReactNode,
+    ReactNode,
+    useEffect,
+    useRef,
+    useState,
+} from 'react';
 
 interface HorizontalListBaseProps {
-    children: ReactElement;
+    children: ReactNode;
     title: string;
 }
 
 export const HorizontalListBase = ({
     children,
     title,
-}: HorizontalListBaseProps): ReactElement => {
+}: HorizontalListBaseProps): ReactNode => {
     const [showPrevious, setShowPrevious] = useState(false);
     const [showNext, setShowNext] = useState(true);
     const scrollContainer = useRef<HTMLUListElement>(null);

@@ -22,13 +22,13 @@ export default function SearchPage(): ReactNode {
     const onSearch = debounce((query: string): void => {
         if (query == '') {
             setResult(EMPTY_SEARCH_RESULT);
-            updateSearchParams('query', query, router, searchParams);
+            updateSearchParams(router, searchParams, ['query', query]);
             return;
         }
 
         startSearch(async () => {
             setResult(await search(query));
-            updateSearchParams('query', query, router, searchParams);
+            updateSearchParams(router, searchParams, ['query', query]);
         });
     }, 500);
 

@@ -1,13 +1,13 @@
 import { CardBase, CardSize } from '@/components/cards/CardBase';
 import { Person } from '@/models/Person';
-import React, { ReactElement } from 'react';
+import React, { ReactNode } from 'react';
 
 interface MediaCardProps {
     person: Person;
     size: CardSize;
 }
 
-export const PersonCard = ({ person, size }: MediaCardProps): ReactElement => {
+export const PersonCard = ({ person, size }: MediaCardProps): ReactNode => {
     const image = person.portrait ?? '/placeholder.png';
 
     const getCountString = (count: number): string =>

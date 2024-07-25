@@ -18,8 +18,6 @@ export const generateMetadata = async ({
     return Meta({ title: `${name} | Details` });
 };
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 export default async function CollectionPage({
     params,
 }: CollectionPageProps): Promise<ReactNode> {

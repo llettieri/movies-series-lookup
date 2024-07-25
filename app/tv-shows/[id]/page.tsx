@@ -1,13 +1,14 @@
+import CompanyLogo from '@/components/CompanyLogo';
 import { GenreTags } from '@/components/GenreTags';
 import { CreditsList } from '@/components/lists/CreditsList';
 import { MediaList } from '@/components/lists/MediaList';
 import { Meta } from '@/components/Meta';
-import NetworkLogo from '@/components/NetworkLogo';
 import { Rating } from '@/components/Rating';
 import { routes } from '@/config/routes';
 import {
     getSimilarTVShows,
     getTVShowDetails,
+    getTVShowWatchProviders,
     getTVShowsCredits,
 } from '@/services/TVShowService';
 import dayjs from 'dayjs';
@@ -25,7 +26,10 @@ export const generateMetadata = async ({
     params,
 }: TVShowPageProps): Promise<Metadata> => {
     const show = await getTVShowDetails(params.id);
-    return Meta({ title: `${show.title} | Details` });
+    return Meta({
+        title: `${show.title} | Details`,
+        keywords: 'tv-show media streaming details',
+    });
 };
 
 export default async function TVShowPage({
@@ -35,6 +39,7 @@ export default async function TVShowPage({
     const show = await getTVShowDetails(showId);
     const similarShows = await getSimilarTVShows(showId);
     const credits = await getTVShowsCredits(showId);
+    const providerGroup = await getTVShowWatchProviders(showId);
     const image = `${routes.images}${show.backdrop ?? show.poster}`;
     const width = show.backdrop ? 1000 : 500;
 
@@ -99,15 +104,48 @@ export default async function TVShowPage({
                         )}
                         <div className="container mx-auto flex gap-4 align-middle">
                             <p className="text-md leading-[10] text-primaryText">
-                                Streaming Platforms:{' '}
+                                Networks:{' '}
                             </p>
                             {show.networks.map((network) => (
-                                <NetworkLogo
+                                <CompanyLogo
                                     key={network.id}
-                                    network={network}
+                                    image={network.logo}
+                                    alt={network.name}
+                                    externalLink={network.homepage}
                                 />
                             ))}
                         </div>
+                        {providerGroup ? (
+                            <>
+                                <div className="container mx-auto flex gap-4 align-middle">
+                                    <p className="text-md leading-[10] text-primaryText">
+                                        Watch Providers:{' '}
+                                    </p>
+                                    {providerGroup.providers.map((provider) => (
+                                        <CompanyLogo
+                                            key={provider.id}
+                                            image={provider.logo}
+                                            alt={provider.name}
+                                            externalLink={providerGroup.link}
+                                        />
+                                    ))}
+                                </div>
+                                <p className="mt-4 text-sm text-primaryText">
+                                    JustWatch makes it easy to find out where
+                                    you can legally watch your favorite movies &
+                                    TV shows online. Visit{' '}
+                                    <span className="underline">
+                                        <a
+                                            target="_blank"
+                                            href="https://www.justwatch.com"
+                                        >
+                                            JustWatch
+                                        </a>
+                                    </span>{' '}
+                                    for more information.
+                                </p>
+                            </>
+                        ) : null}
                     </Suspense>
                 </div>
             </div>

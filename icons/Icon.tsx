@@ -1,5 +1,5 @@
 import { ICONS, TIcons } from '@/icons/Icons';
-import { ReactElement } from 'react';
+import { ReactNode } from 'react';
 
 interface IconProps {
     icon: TIcons;
@@ -7,7 +7,7 @@ interface IconProps {
     height?: number;
 }
 
-const Icon = ({ icon, width = 30, height }: IconProps): ReactElement => {
+const Icon = ({ icon, width = 30, height }: IconProps): ReactNode => {
     const Element = ICONS[icon];
     return <Element width={width} height={height ?? width} />;
 };

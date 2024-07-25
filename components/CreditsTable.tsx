@@ -2,7 +2,7 @@ import { Button } from '@/components/Button';
 import { PersonCard } from '@/components/cards/PersonCard';
 import { MediaType } from '@/models/MediaType';
 import { Person } from '@/models/Person';
-import React, { ReactElement, Suspense } from 'react';
+import React, { ReactNode, Suspense } from 'react';
 
 interface GroupedCrewComponentProps {
     groupedCrew: Map<string, Person[]>;
@@ -10,8 +10,8 @@ interface GroupedCrewComponentProps {
 
 const GroupedCrewComponent = ({
     groupedCrew,
-}: GroupedCrewComponentProps): ReactElement => {
-    const groups: ReactElement[] = [];
+}: GroupedCrewComponentProps): ReactNode => {
+    const groups: ReactNode[] = [];
     groupedCrew.forEach((people, department) =>
         groups.push(
             <div className="mb-2">
@@ -46,7 +46,7 @@ export const CreditsTable = ({
     cast,
     crew,
     type,
-}: CreditsTableProps): ReactElement => {
+}: CreditsTableProps): ReactNode => {
     const title = type === MediaType.MOVIE ? 'Movie' : 'TV Show';
     const groupedCrew: Map<string, Person[]> = new Map();
 

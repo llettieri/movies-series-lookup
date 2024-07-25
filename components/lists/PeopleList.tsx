@@ -2,7 +2,7 @@ import { PersonCard } from '@/components/cards/PersonCard';
 import { VerticalListBase } from '@/components/lists/VerticalListBase';
 import Loading from '@/components/Loading';
 import { Person } from '@/models/Person';
-import React, { ReactElement } from 'react';
+import React, { ReactNode } from 'react';
 
 interface PeopleListProps {
     title: string;
@@ -14,7 +14,7 @@ export const PeopleList = ({
     title,
     people,
     isLoading,
-}: PeopleListProps): ReactElement => {
+}: PeopleListProps): ReactNode => {
     return isLoading ? (
         <Loading />
     ) : (

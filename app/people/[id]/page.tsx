@@ -21,7 +21,10 @@ export const generateMetadata = async ({
     params,
 }: PersonPageProps): Promise<Metadata> => {
     const person = await getPersonDetails(params.id);
-    return Meta({ title: `${person.name} | Details` });
+    return Meta({
+        title: `${person.name} | Details`,
+        keywords: 'person details biography movies tv-shows',
+    });
 };
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment

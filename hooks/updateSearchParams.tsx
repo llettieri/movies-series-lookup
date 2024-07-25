@@ -2,13 +2,12 @@ import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.share
 import { ReadonlyURLSearchParams } from 'next/navigation';
 
 export const updateSearchParams = (
-    key: string,
-    value: string,
     router: AppRouterInstance,
     currentSearchParams: ReadonlyURLSearchParams,
+    ...queryParams: [string, string][]
 ): void => {
     const params = new URLSearchParams(currentSearchParams);
-    params.set(key, value);
+    queryParams.forEach((p) => params.set(p[0], p[1]));
 
     router.replace(`?${params}`, { scroll: false });
 };

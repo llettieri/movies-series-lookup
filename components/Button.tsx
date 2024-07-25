@@ -1,7 +1,7 @@
 import { Icon } from '@/icons/Icon';
 import { TIcons } from '@/icons/Icons';
 import Link from 'next/link';
-import React, { ReactElement } from 'react';
+import React, { ReactNode } from 'react';
 
 interface ButtonProps {
     className?: string;
@@ -23,7 +23,7 @@ export const Button = ({
     variant = 'default',
     icon,
     iconSize,
-}: ButtonProps): ReactElement => {
+}: ButtonProps): ReactNode => {
     const variants = {
         default: link ? (
             <Link href={link} prefetch={true}>

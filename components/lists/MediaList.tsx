@@ -2,7 +2,7 @@ import { MediaCard } from '@/components/cards/MediaCard';
 import { VerticalListBase } from '@/components/lists/VerticalListBase';
 import Loading from '@/components/Loading';
 import { Media } from '@/models/Media';
-import React, { ReactElement } from 'react';
+import React, { ReactNode } from 'react';
 
 interface MediaListProps {
     title: string;
@@ -14,7 +14,7 @@ export const MediaList = ({
     title,
     medias,
     isLoading,
-}: MediaListProps): ReactElement => {
+}: MediaListProps): ReactNode => {
     return isLoading ? (
         <Loading />
     ) : (

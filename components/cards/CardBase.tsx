@@ -1,13 +1,13 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { ReactElement } from 'react';
+import React, { ReactNode, ReactNode } from 'react';
 
 export type CardSize = 'normal' | 'small';
 
 interface CardBaseProps {
     link: string;
     image: string;
-    children: ReactElement;
+    children: ReactNode;
     size: CardSize;
 }
 
@@ -16,7 +16,7 @@ export const CardBase = ({
     image,
     children,
     size,
-}: CardBaseProps): ReactElement => {
+}: CardBaseProps): ReactNode => {
     if (size === 'normal') {
         return (
             <Link
