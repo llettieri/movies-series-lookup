@@ -13,7 +13,10 @@ export const generateMetadata = async ({
     params,
 }: MovieCreditsPageProps): Promise<Metadata> => {
     const { title } = await getMovieDetails(params.id);
-    return Meta({ title: `${title} | Credits` });
+    return Meta({
+        title: `${title} | Credits`,
+        keywords: 'movie media streaming credits cast crew',
+    });
 };
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment

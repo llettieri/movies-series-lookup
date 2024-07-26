@@ -1,19 +1,16 @@
-'use client';
-
-import { CountryProviders } from '@/models/CountryProviders';
-import { localGetItem } from '@/storage/Storage';
-import { StorageKeys } from '@/storage/StorageKeys';
-import { ReactElement } from 'react';
+import { ProviderGroup } from '@/models/ProviderGroup';
+import { getSession } from '@/services/SessionService';
+import { ReactNode } from 'react';
 
 interface WatchProvidersProps {
-    providers: Map<string, CountryProviders>;
+    providers: Map<string, ProviderGroup>;
 }
 
-export const WatchProviders = ({
+export const WatchProviders = async ({
     providers,
-}: WatchProvidersProps): ReactElement => {
-    const region = localGetItem<string>(StorageKeys.REGION);
-    const localProviders = providers.get(region);
+}: WatchProvidersProps): Promise<ReactNode> => {
+    const session = await getSession();
+    const localProviders = providers.get(session?.locale ?? 'CH');
 
     return (
         <a href={localProviders?.link}>

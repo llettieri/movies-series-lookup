@@ -5,14 +5,39 @@ import { CollectionDto } from '@/models/dto/CollectionDto';
 import { CreditsDto } from '@/models/dto/CreditsDto';
 import { MovieDto } from '@/models/dto/MovieDto';
 import { MultiMediaDto } from '@/models/dto/MultiMediaDto';
+import { NetworkDto } from '@/models/dto/NetworkDto';
 import { JobDto, PersonDto, RoleDto } from '@/models/dto/PersonDto';
 import { ProviderDto } from '@/models/dto/ProviderDto';
 import { TVShowDto } from '@/models/dto/TVShowDto';
 import { Media } from '@/models/Media';
 import { MediaType } from '@/models/MediaType';
+import { Network } from '@/models/Network';
 import { Job, Person } from '@/models/Person';
 import { Provider } from '@/models/Provider';
 import { TVShow } from '@/models/TVShow';
+
+const parseRoleDto = (dto: RoleDto): Job => {
+    return {
+        name: dto.character,
+        episodeCount: dto.episode_count,
+    };
+};
+
+const parseJobDto = (dto: JobDto): Job => {
+    return {
+        name: dto.job,
+        episodeCount: dto.episode_count,
+    };
+};
+
+const parseNetworkDto = (dto: NetworkDto): Network => {
+    return {
+        id: dto.id,
+        name: dto.name,
+        homepage: dto.homepage,
+        logo: `${routes.images}${dto.logo_path}`,
+    };
+};
 
 const parseMovieDto = (dto: MovieDto): Media => {
     return {
@@ -52,7 +77,7 @@ const parseTVShowDto = (dto: TVShowDto): TVShow => {
             : undefined,
         releaseDate: dto.first_air_date,
         lastAirDate: dto.last_air_date ?? undefined,
-        networks: dto.networks,
+        networks: dto.networks?.map(parseNetworkDto) ?? [],
         seasonsCount: dto.number_of_seasons,
         inProduction: dto.in_production,
         episodeCount: dto.number_of_episodes,
@@ -123,20 +148,6 @@ const parseCreditsDto = (dto: CreditsDto): Credits => {
     return {
         cast: dto.cast.map(parsePersonDto),
         crew: dto.crew.map(parsePersonDto),
-    };
-};
-
-const parseRoleDto = (dto: RoleDto): Job => {
-    return {
-        name: dto.character,
-        episodeCount: dto.episode_count,
-    };
-};
-
-const parseJobDto = (dto: JobDto): Job => {
-    return {
-        name: dto.job,
-        episodeCount: dto.episode_count,
     };
 };
 

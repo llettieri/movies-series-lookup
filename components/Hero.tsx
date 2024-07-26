@@ -1,12 +1,12 @@
 import Image from 'next/image';
-import { ReactElement } from 'react';
+import { ReactNode } from 'react';
 
-export const Hero = (): ReactElement => {
+export const Hero = (): ReactNode => {
     return (
         <div className="py-5 pb-10 text-center">
             <div className="mx-auto w-60">
                 <Image
-                    className="mx-auto block"
+                    className="mx-auto block h-auto w-auto"
                     src={'/media_illustration.svg'}
                     width={200}
                     height={200}

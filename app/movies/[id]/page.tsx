@@ -23,7 +23,10 @@ export const generateMetadata = async ({
     params,
 }: MoviePageProps): Promise<Metadata> => {
     const { title } = await getMovieDetails(params.id);
-    return Meta({ title: `${title} | Details` });
+    return Meta({
+        title: `${title} | Details`,
+        keywords: 'movie media streaming details',
+    });
 };
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment

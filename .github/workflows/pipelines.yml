@@ -1,4 +1,4 @@
-name: Build app
+name: Build and deploy app
 
 on:
     push:
@@ -31,7 +31,6 @@ jobs:
               with:
                   context: .
                   file: ./Dockerfile
-                  build-args: API_KEY=${{secrets.API_KEY}}
                   push: true
                   tags: ${{env.REPO}}/${{env.NAME}}:latest
     deploy:

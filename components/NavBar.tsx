@@ -1,8 +1,8 @@
 import { Icon } from '@/icons/Icon';
 import Link from 'next/link';
-import React, { ReactElement } from 'react';
+import React, { ReactNode } from 'react';
 
-export const NavBar = (): ReactElement => {
+export const NavBar = (): ReactNode => {
     return (
         <nav className="bg-neutral drop-shadow-2xl">
             <div className="container mx-auto flex max-w-7xl justify-between p-4 font-bold tracking-widest text-neutral-100">

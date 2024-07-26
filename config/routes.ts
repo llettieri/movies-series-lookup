@@ -1,14 +1,33 @@
 const base = {
-    movies: 'https://api.themoviedb.org/3/movie',
-    tv: 'https://api.themoviedb.org/3/tv',
-    search: 'https://api.themoviedb.org/3/search',
-    person: 'https://api.themoviedb.org/3/person',
+    authentication: 'https://api.themoviedb.org/3/authentication',
     collection: 'https://api.themoviedb.org/3/collection',
     discover: 'https://api.themoviedb.org/3/discover',
     ipApi: 'https://ip.lore-le.ch',
+    movies: 'https://api.themoviedb.org/3/movie',
+    person: 'https://api.themoviedb.org/3/person',
+    search: 'https://api.themoviedb.org/3/search',
+    tv: 'https://api.themoviedb.org/3/tv',
 };
 
 export const routes = {
+    authentication: {
+        guest: {
+            new: `${base.authentication}/guest_session/new`,
+        },
+        token: {
+            new: `${base.authentication}/token/new`,
+        },
+    },
+    collection: {
+        byId: {
+            /**
+             * Params: id
+             */
+            details: `${base.collection}/{id}`,
+        },
+    },
+    country: `${base.ipApi}`,
+    images: 'https://image.tmdb.org/t/p/original',
     movies: {
         byId: {
             /**
@@ -39,6 +58,28 @@ export const routes = {
          */
         nowPlaying: `${base.movies}/now_playing{?page}`,
     },
+    person: {
+        byId: {
+            /**
+             * Params: id
+             */
+            details: `${base.person}/{id}`,
+            /**
+             * Params: id
+             */
+            movieCredits: `${base.person}/{id}/movie_credits`,
+            /**
+             * Params: id
+             */
+            tvCredits: `${base.person}/{id}}/tv_credits`,
+        },
+    },
+    search: {
+        /**
+         * QueryParams: query
+         */
+        multi: `${base.search}/multi{?query}`,
+    },
     tv: {
         byId: {
             /**
@@ -61,51 +102,8 @@ export const routes = {
             watchProviders: `${base.tv}/{id}/watch/providers`,
         },
         /**
-         * QueryParams: page
-         * @deprecated
-         */
-        popular: `${base.tv}/popular{?page}`,
-        /**
-         * QueryParams: page
-         * @deprecated
-         */
-        airingToday: `${base.tv}/airing_today{?page}`,
-        /**
          * QueryParams: page, sort_by, watch_region, with_watch_monetization_types, air_date.gte, air_date.lte
          */
         discover: `${base.discover}/tv{?page,sort_by,watch_region,with_watch_monetization_types,air_date.gte,air_date.lte}`,
     },
-    images: 'https://image.tmdb.org/t/p/original',
-
-    search: {
-        /**
-         * QueryParams: query
-         */
-        multi: `${base.search}/multi{?query}`,
-    },
-    person: {
-        byId: {
-            /**
-             * Params: id
-             */
-            details: `${base.person}/{id}`,
-            /**
-             * Params: id
-             */
-            movieCredits: `${base.person}/{id}/movie_credits`,
-            /**
-             * Params: id
-             */
-            tvCredits: `${base.person}/{id}}/tv_credits`,
-        },
-    },
-    collection: {
-        byId: {
-            /**
-             * Params: id
-             */
-            details: `${base.collection}/{id}`,
-        },
-    },
-    country: `${base.ipApi}`,
 };

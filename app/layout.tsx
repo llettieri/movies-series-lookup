@@ -1,14 +1,14 @@
 import './globals.css';
 
 import { Footer } from '@/components/Footer';
-import { GeoInfo } from '@/components/GeoInfo';
+import Loading from '@/components/Loading';
 import { Meta } from '@/components/Meta';
 import { NavBar } from '@/components/NavBar';
-import { Providers } from '@/components/Providers';
 import { ServiceWorker } from '@/components/ServiceWorker';
+import { SessionProvider } from '@/components/SessionProvider';
 import { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
-import React, { ReactNode } from 'react';
+import React, { ReactNode, Suspense } from 'react';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -23,14 +23,16 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className={`${inter.className} overflow-hidden`}>
-                <GeoInfo />
+                <SessionProvider />
                 <ServiceWorker />
                 <div className="flex h-screen flex-col overflow-hidden">
                     <NavBar />
 
                     <div className="flex flex-1 flex-col overflow-auto overscroll-y-none">
                         <main className="flex-1 bg-base100">
-                            <Providers>{children}</Providers>
+                            <Suspense fallback={<Loading />}>
+                                {children}
+                            </Suspense>
                         </main>
                         <Footer />
                     </div>

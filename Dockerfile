@@ -1,12 +1,5 @@
 # Build Stage
-FROM node:18-alpine AS builder
-
-# Getting args
-ARG API_KEY
-
-# Setting env vars
-ENV NEXT_PUBLIC_API_KEY=$API_KEY
-RUN echo $NEXT_PUBLIC_API_KEY
+FROM node:20-alpine AS builder
 
 # Setting workdir
 WORKDIR /app
@@ -17,9 +10,8 @@ RUN npm ci
 COPY . .
 RUN npm run build
 
-
 # Production Stage
-FROM node:18-alpine AS runner
+FROM node:20-alpine AS runner
 
 # Setting workdir
 WORKDIR /app

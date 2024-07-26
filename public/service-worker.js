@@ -5,14 +5,14 @@ const CACHE_NAME = 'v1';
 
 const installEvent = () => {
     self.addEventListener('install', () => {
-        console.log('ServiceWorker - Installed');
+        console.info('ServiceWorker - Installed');
     });
 };
 installEvent();
 
 const activateEvent = () => {
     self.addEventListener('activate', () => {
-        console.log('ServiceWorker - Activated!');
+        console.info('ServiceWorker - Activated!');
     });
 };
 activateEvent();
@@ -25,7 +25,7 @@ const cloneCache = async (e) => {
     const url = req.url;
     const cache = caches.open(CACHE_NAME);
 
-    if (!url.includes('chrome-extension')) {
+    if (!url.includes('chrome-extension') && req.method !== 'POST') {
         cache.then((c) => c.put(req, resClone));
     }
 

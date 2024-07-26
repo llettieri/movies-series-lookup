@@ -1,12 +1,12 @@
 'use client';
 
-import React, { ReactElement } from 'react';
+import React, { ReactNode } from 'react';
 
 interface RatingProps {
     value: number;
 }
 
-export function Rating({ value }: RatingProps): ReactElement {
+export function Rating({ value }: RatingProps): ReactNode {
     return (
         <div
             className="radial-progress absolute right-0 top-0 border-4 border-primary bg-primary text-primary-content"

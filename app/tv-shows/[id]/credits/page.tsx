@@ -15,11 +15,12 @@ export const generateMetadata = async ({
     params,
 }: TVShowCreditsPageProps): Promise<Metadata> => {
     const { title } = await getTVShowDetails(params.id);
-    return Meta({ title: `${title} | Credits` });
+    return Meta({
+        title: `${title} | Credits`,
+        keywords: 'tv-show media streaming credits cast crew',
+    });
 };
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 export default async function TVShowCreditsPage({
     params,
 }: TVShowCreditsPageProps): Promise<ReactNode> {

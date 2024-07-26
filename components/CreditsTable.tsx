@@ -2,7 +2,7 @@ import { Button } from '@/components/Button';
 import { PersonCard } from '@/components/cards/PersonCard';
 import { MediaType } from '@/models/MediaType';
 import { Person } from '@/models/Person';
-import React, { ReactElement } from 'react';
+import React, { ReactNode, Suspense } from 'react';
 
 interface GroupedCrewComponentProps {
     groupedCrew: Map<string, Person[]>;
@@ -10,8 +10,8 @@ interface GroupedCrewComponentProps {
 
 const GroupedCrewComponent = ({
     groupedCrew,
-}: GroupedCrewComponentProps): ReactElement => {
-    const groups: ReactElement[] = [];
+}: GroupedCrewComponentProps): ReactNode => {
+    const groups: ReactNode[] = [];
     groupedCrew.forEach((people, department) =>
         groups.push(
             <div className="mb-2">
@@ -46,7 +46,7 @@ export const CreditsTable = ({
     cast,
     crew,
     type,
-}: CreditsTableProps): ReactElement => {
+}: CreditsTableProps): ReactNode => {
     const title = type === MediaType.MOVIE ? 'Movie' : 'TV Show';
     const groupedCrew: Map<string, Person[]> = new Map();
 
@@ -72,32 +72,36 @@ export const CreditsTable = ({
                 <Button title="<- Go Back" link={link} className="w-64" />
             </div>
             <div className="container mx-auto grid grid-cols-1 gap-8 px-2 py-5 md:grid-cols-2 md:px-0">
-                <div>
-                    <h1 className="mx-auto mb-3 w-fit text-xl font-bold text-primaryText md:w-full">
-                        {title} Cast{' '}
-                        <span className="text-tag font-light">
-                            ({cast.length})
-                        </span>
-                    </h1>
-                    <ul className="flex flex-col justify-center gap-4 md:justify-start">
-                        {cast.map((p) => (
-                            <li key={p.id}>
-                                <PersonCard size="small" person={p} />
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-                <div>
-                    <h1 className="mx-auto mb-3 w-fit text-xl font-bold text-primaryText md:w-full">
-                        {title} Crew{' '}
-                        <span className="text-tag font-light">
-                            ({crew.length})
-                        </span>
-                    </h1>
-                    <div className="flex flex-col justify-center gap-4 md:justify-start">
-                        <GroupedCrewComponent groupedCrew={groupedCrew} />
+                <Suspense>
+                    <div>
+                        <h1 className="mx-auto mb-3 w-fit text-xl font-bold text-primaryText md:w-full">
+                            {title} Cast{' '}
+                            <span className="text-tag font-light">
+                                ({cast.length})
+                            </span>
+                        </h1>
+                        <ul className="flex flex-col justify-center gap-4 md:justify-start">
+                            {cast.map((p) => (
+                                <li key={p.id}>
+                                    <PersonCard size="small" person={p} />
+                                </li>
+                            ))}
+                        </ul>
                     </div>
-                </div>
+                </Suspense>
+                <Suspense>
+                    <div>
+                        <h1 className="mx-auto mb-3 w-fit text-xl font-bold text-primaryText md:w-full">
+                            {title} Crew{' '}
+                            <span className="text-tag font-light">
+                                ({crew.length})
+                            </span>
+                        </h1>
+                        <div className="flex flex-col justify-center gap-4 md:justify-start">
+                            <GroupedCrewComponent groupedCrew={groupedCrew} />
+                        </div>
+                    </div>
+                </Suspense>
             </div>
         </>
     );

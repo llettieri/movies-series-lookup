@@ -1,5 +1,5 @@
+import { NetworkDto } from '@/models/dto/NetworkDto';
 import { Genre } from '@/models/Genre';
-import { Network } from '@/models/Network';
 
 export interface TVShowDto {
     backdrop_path: string;
@@ -10,7 +10,7 @@ export interface TVShowDto {
     in_production: boolean;
     last_air_date: string;
     name: string;
-    networks: Network[];
+    networks: NetworkDto[] | null;
     number_of_episodes: number;
     number_of_seasons: number;
     overview: string;

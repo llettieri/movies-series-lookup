@@ -1,102 +1,61 @@
-'use client';
-
-import { Button } from '@/components/Button';
 import { Hero } from '@/components/Hero';
-import { AiringTodayTVShowsList } from '@/components/lists/AiringTodayTVShowsList';
-import { LatestMoviesList } from '@/components/lists/LatestMoviesList';
-import { PopularMoviesList } from '@/components/lists/PopularMoviesList';
-import { PopularTVShowsList } from '@/components/lists/PopularTVShowsList';
-import Loading from '@/components/Loading';
-import { useRouter, useSearchParams } from 'next/navigation';
-import React, { ReactNode, useEffect, useState } from 'react';
+import { HomeSubNav } from '@/components/HomeSubNav';
+import { MediaList } from '@/components/lists/MediaList';
+import { Media } from '@/models/Media';
+import { getLatestMovies, getPopularMovies } from '@/services/MovieService';
+import { getAiringTodayShows, getPopularShows } from '@/services/TVShowService';
+import React, { ReactNode } from 'react';
 
-type Collection = 'movies' | 'tvshows';
-type ListType = 'popular' | 'nowPlaying';
+export type CollectionType = 'movies' | 'tvshows';
+export type ListType = 'popular' | 'nowPlaying';
 
-const List = {
+type ListItem = {
+    data: Promise<Media[]>;
+    title: string;
+};
+
+const MediaData: Record<CollectionType, Record<ListType, ListItem>> = {
     movies: {
-        popular: <PopularMoviesList />,
-        nowPlaying: <LatestMoviesList />,
+        popular: {
+            data: getPopularMovies(),
+            title: 'Popular Movies',
+        },
+        nowPlaying: {
+            data: getLatestMovies(),
+            title: 'Latest Movies',
+        },
     },
     tvshows: {
-        popular: <PopularTVShowsList />,
-        nowPlaying: <AiringTodayTVShowsList />,
+        popular: {
+            data: getPopularShows(),
+            title: 'Popular TV Shows',
+        },
+        nowPlaying: {
+            data: getAiringTodayShows(),
+            title: 'Airing Today TV Shows',
+        },
     },
 };
 
-export default function Home(): ReactNode {
-    const router = useRouter();
-    const searchParams = useSearchParams();
+interface HomePageProps {
+    searchParams: { [key: string]: string };
+}
 
-    const [collection, setCollection] = useState<Collection>();
-    const [listType, setListType] = useState<ListType>();
-
-    useEffect(() => {
-        const collection =
-            (searchParams.get('collection') as Collection) ?? 'movies';
-        const listType =
-            (searchParams.get('listType') as ListType) ?? 'popular';
-
-        setCollection(collection);
-        setListType(listType);
-
-        router.replace(`?collection=${collection}&listType=${listType}`);
-    }, [searchParams, router]);
-
-    const toggleHandler = (value: Collection | ListType, key: string): void => {
-        if (key === 'collection') {
-            router.replace(`?collection=${value}&listType=${listType}`);
-        } else {
-            router.replace(`?collection=${collection}&listType=${value}`);
-        }
-    };
-
+export default async function HomePage({
+    searchParams,
+}: HomePageProps): Promise<ReactNode> {
+    const collection = (searchParams.collection as CollectionType) ?? 'movies';
+    const listType = (searchParams.listType as ListType) ?? 'nowPlaying';
     return (
         <>
             <div>
                 <Hero />
-                <div className="container mx-auto mt-4 flex w-72 justify-center gap-6 align-middle">
-                    <Button
-                        title="Movies"
-                        onClick={(): void =>
-                            toggleHandler('movies', 'collection')
-                        }
-                        className={`flex-1 ${
-                            collection === 'movies' ? 'font-bold' : ''
-                        }`}
-                    />
-                    <Button
-                        title="TV Series"
-                        onClick={(): void =>
-                            toggleHandler('tvshows', 'collection')
-                        }
-                        className={`flex-1 ${
-                            collection === 'tvshows' ? 'font-bold' : ''
-                        }`}
-                    />
-                </div>
-                <div className="container mx-auto mt-4 flex w-72 justify-center gap-6 align-middle">
-                    <Button
-                        title="Popular"
-                        onClick={(): void =>
-                            toggleHandler('popular', 'listType')
-                        }
-                        className={`flex-1 ${
-                            listType === 'popular' ? 'font-bold' : ''
-                        }`}
-                    />
-                    <Button
-                        title="Now Playing"
-                        onClick={(): void =>
-                            toggleHandler('nowPlaying', 'listType')
-                        }
-                        className={`flex-1 ${
-                            listType === 'nowPlaying' ? 'font-bold' : ''
-                        }`}
-                    />
-                </div>
+                <HomeSubNav />
             </div>
-            {collection && listType ? List[collection][listType] : <Loading />}
+            <MediaList
+                medias={await MediaData[collection][listType].data}
+                title={MediaData[collection][listType].title}
+            />
         </>
     );
 }
