@@ -2,7 +2,7 @@
 
 import { CollectionType, ListType } from '@/app/page';
 import { Button } from '@/components/Button';
-import { updateSearchParams } from '@/hooks/updateSearchParams';
+import { updateSearchParams } from '@/utils/updateSearchParams';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { ReactNode, useEffect, useState } from 'react';
 

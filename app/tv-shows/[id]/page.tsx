@@ -5,6 +5,7 @@ import { MediaList } from '@/components/lists/MediaList';
 import { Meta } from '@/components/Meta';
 import { Rating } from '@/components/Rating';
 import { routes } from '@/config/routes';
+import { getSession } from '@/services/SessionService';
 import {
     getSimilarTVShows,
     getTVShowDetails,
@@ -35,11 +36,15 @@ export const generateMetadata = async ({
 export default async function TVShowPage({
     params,
 }: TVShowPageProps): Promise<ReactNode> {
+    const session = await getSession();
     const showId = params.id;
     const show = await getTVShowDetails(showId);
     const similarShows = await getSimilarTVShows(showId);
     const credits = await getTVShowsCredits(showId);
-    const providerGroup = await getTVShowWatchProviders(showId);
+    const providerGroup = await getTVShowWatchProviders(
+        showId,
+        session?.locale ?? '',
+    );
     const image = `${routes.images}${show.backdrop ?? show.poster}`;
     const width = show.backdrop ? 1000 : 500;
 

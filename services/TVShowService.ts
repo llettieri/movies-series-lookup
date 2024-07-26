@@ -14,15 +14,13 @@ import {
     parseProviderDto,
     parseTVShowDto,
 } from '@/services/ParseService';
-import { getSession } from '@/services/SessionService';
 import dayjs from 'dayjs';
-import { parseTemplate } from 'url-template';
+import { parseTemplate } from 'url-template'; /* eslint-disable camelcase*/
 
-const getPopularShows = async (): Promise<TVShow[]> => {
-    const session = await getSession();
-
+/* eslint-disable camelcase */
+const getPopularShows = async (locale: string): Promise<TVShow[]> => {
     const url = parseTemplate(routes.tv.discover).expand({
-        watch_region: session?.locale ?? 'en-us',
+        watch_region: locale,
         with_watch_monetization_types: 'flatrate|free|ads|rent|buy',
     });
 
@@ -31,12 +29,11 @@ const getPopularShows = async (): Promise<TVShow[]> => {
     );
 };
 
-const getAiringTodayShows = async (): Promise<TVShow[]> => {
-    const session = await getSession();
+const getAiringTodayShows = async (locale: string): Promise<TVShow[]> => {
     const today = dayjs().format('YYYY-MM-DD');
 
     const url = parseTemplate(routes.tv.discover).expand({
-        watch_region: session?.locale ?? 'en-us',
+        watch_region: locale,
         with_watch_monetization_types: 'flatrate|free|ads|rent|buy',
         'air_date.gte': today,
         'air_date.lte': today,
@@ -69,8 +66,8 @@ const getTVShowsCredits = async (showId: number): Promise<Credits> => {
 
 const getTVShowWatchProviders = async (
     showId: number,
+    locale: string,
 ): Promise<ProviderGroup | undefined> => {
-    const session = await getSession();
     const url = parseTemplate(routes.tv.byId.watchProviders).expand({
         id: showId,
     });
@@ -93,7 +90,7 @@ const getTVShowWatchProviders = async (
             });
         });
 
-        return countryProviders.get(session?.locale ?? '');
+        return countryProviders.get(locale);
     });
 };
 

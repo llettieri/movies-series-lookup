@@ -1,4 +1,4 @@
-import React, { ReactNode, ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 
 interface VerticalListBaseProps {
     title: string;

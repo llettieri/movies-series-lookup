@@ -1,13 +1,7 @@
 'use client';
 
 import { Button } from '@/components/Button';
-import React, {
-    ReactNode,
-    ReactNode,
-    useEffect,
-    useRef,
-    useState,
-} from 'react';
+import React, { ReactNode, useEffect, useRef, useState } from 'react';
 
 interface HorizontalListBaseProps {
     children: ReactNode;
