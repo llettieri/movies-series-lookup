@@ -1,4 +1,4 @@
-import { GenreTags } from '@/components/GenreTags';
+import { GenreBadges } from '@/components/GenreBadges';
 import { CreditsList } from '@/components/lists/CreditsList';
 import { MediaList } from '@/components/lists/MediaList';
 import Loading from '@/components/Loading';
@@ -62,7 +62,7 @@ export default async function MoviePage({
                         />
                         <Rating value={movie.averageVote} />
                     </div>
-                    <GenreTags genres={movie.genres} />
+                    <GenreBadges genres={movie.genres} />
                     <a
                         href={movie.homepage}
                         target="_blank"

@@ -1,5 +1,5 @@
 import CompanyLogo from '@/components/CompanyLogo';
-import { GenreTags } from '@/components/GenreTags';
+import { GenreBadges } from '@/components/GenreBadges';
 import { CreditsList } from '@/components/lists/CreditsList';
 import { MediaList } from '@/components/lists/MediaList';
 import { Meta } from '@/components/Meta';
@@ -66,7 +66,7 @@ export default async function TVShowPage({
                             />
                             <Rating value={Math.round(show.averageVote)} />
                         </div>
-                        <GenreTags genres={show.genres} />
+                        <GenreBadges genres={show.genres} />
                         <a
                             href={show.homepage}
                             target="_blank"
