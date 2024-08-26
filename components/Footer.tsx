@@ -1,15 +1,20 @@
-import Link from 'next/link';
+import dayjs from 'dayjs';
+import { Footer as FBFooter, FooterCopyright } from 'flowbite-react';
 import React, { ReactNode } from 'react';
 
 export const Footer = (): ReactNode => {
+    const currentYear = dayjs().year();
     return (
-        <div className="flex h-24 flex-shrink-0 items-center justify-center bg-neutral text-center">
-            <Link href="https://lore-le.ch" target="_blank">
-                <p className="text-xl text-white">
-                    &copy; Copyright 2024{' '}
-                    <span className="font-bold">Lettieri Lorenzo</span>
-                </p>
-            </Link>
-        </div>
+        <FBFooter container className="rounded-none bg-neutral *:text-white">
+            <FooterCopyright
+                href="https://lore-le.ch"
+                by="Lettieri Lorenzo"
+                year={currentYear}
+            />
+            {/* <FooterLinkGroup>
+                <FooterLink href="#">Imprint</FooterLink>
+                <FooterLink href="#">Privacy Policy</FooterLink>
+            </FooterLinkGroup>*/}
+        </FBFooter>
     );
 };

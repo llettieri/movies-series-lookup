@@ -1,5 +1,4 @@
-import Image from 'next/image';
-import Link from 'next/link';
+import { Card, CustomFlowbiteTheme } from 'flowbite-react';
 import React, { ReactNode } from 'react';
 
 export type CardSize = 'normal' | 'small';
@@ -11,6 +10,31 @@ interface CardBaseProps {
     size: CardSize;
 }
 
+const normalCardTheme: CustomFlowbiteTheme['card'] = {
+    root: {
+        base: 'flex h-full rounded-md bg-primary shadow-md w-48 cursor-pointer',
+        href: 'md:hover:scale-105 transition-transform duration-150 md:hover:drop-shadow-lg',
+        children: 'flex flex-col h-full',
+    },
+};
+
+const smallCardTheme: CustomFlowbiteTheme['card'] = {
+    root: {
+        base: 'flex flex-row h-full items-center rounded-md bg-primary shadow-sm w-48 cursor-pointer',
+        href: 'md:hover:scale-105 transition-transform duration-150 md:hover:drop-shadow-lg',
+        children: 'flex flex-col h-full mx-4 my-2',
+        horizontal: {
+            on: 'w-full',
+        },
+    },
+    img: {
+        horizontal: {
+            off: 'rounded-t-lg',
+            on: 'h-full w-24 rounded-l-md object-cover max-h-24',
+        },
+    },
+};
+
 export const CardBase = ({
     link,
     image,
@@ -19,46 +43,15 @@ export const CardBase = ({
 }: CardBaseProps): ReactNode => {
     if (size === 'normal') {
         return (
-            <Link
-                href={link}
-                className="flex h-full w-48 cursor-pointer flex-col rounded-md bg-primary shadow-sm transition-transform duration-150 md:hover:scale-105 md:hover:drop-shadow-lg"
-                prefetch
-            >
-                <Image
-                    src={image}
-                    width={200}
-                    height={300}
-                    alt=""
-                    className="h-auto w-auto rounded-t-md"
-                    placeholder="blur"
-                    blurDataURL="/placeholder.png"
-                    loading="lazy"
-                />
+            <Card href={link} imgSrc={image} theme={normalCardTheme}>
                 {children}
-            </Link>
+            </Card>
         );
     } else {
         return (
-            <Link
-                href={link}
-                className="flex h-full flex-row items-center rounded-md bg-primary shadow-sm transition-transform duration-150 md:hover:scale-105 md:hover:drop-shadow-lg"
-                prefetch
-            >
-                <div className="avatar">
-                    <div className="w-24 rounded-l-md">
-                        <Image
-                            src={image}
-                            width={70}
-                            height={70}
-                            alt=""
-                            placeholder="blur"
-                            blurDataURL="/placeholder.png"
-                            loading="lazy"
-                        />
-                    </div>
-                </div>
-                <div className="mx-4 my-2">{children}</div>
-            </Link>
+            <Card href={link} imgSrc={image} theme={smallCardTheme} horizontal>
+                {children}
+            </Card>
         );
     }
 };

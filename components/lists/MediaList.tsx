@@ -5,7 +5,7 @@ import { Media } from '@/models/Media';
 import React, { ReactNode } from 'react';
 
 interface MediaListProps {
-    title: string;
+    title?: string;
     medias: Media[];
     isLoading?: boolean;
 }
