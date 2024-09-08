@@ -1,14 +1,14 @@
 {
     "name": "movies-series-lookup",
-    "version": "0.1.0",
+    "version": "2.0.0",
     "private": true,
     "scripts": {
         "dev": "next dev",
         "build": "next build",
         "start": "next start",
         "lint": "next lint --fix",
-        "prettier:check": "prettier . --check",
-        "prettier:write": "prettier . --write",
+        "prettier-check": "prettier . --check",
+        "prettier-write": "prettier . --write",
         "clean-win": "rmdir /s /q .next",
         "clean-mac": "rm -R .next"
     },
@@ -40,6 +40,7 @@
         "prettier": "^3",
         "prettier-plugin-import-sort": "^0.0.7",
         "prettier-plugin-tailwindcss": "^0.6",
+        "react-circular-progressbar": "^2.1.0",
         "react-icons": "^5",
         "safe-url-assembler": "^1",
         "sharp": "^0.32",
