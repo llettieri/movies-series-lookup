@@ -67,16 +67,21 @@ export default async function TVShowPage({
                             <Rating value={Math.round(show.averageVote)} />
                         </div>
                         <GenreBadges genres={show.genres} />
-                        <a
-                            href={show.homepage}
-                            target="_blank"
-                            className="block w-fit text-primary underline"
-                            rel="noreferrer"
-                        >
-                            <h1 className="mx-0 my-2 w-fit text-xl font-bold text-primary">
-                                {show.title}
-                            </h1>
-                        </a>
+
+                        <h1 className="mx-0 my-2 w-fit text-xl font-bold text-primary">
+                            {show.homepage ? (
+                                <a
+                                    href={show.homepage}
+                                    target="_blank"
+                                    className="underline"
+                                    rel="noreferrer"
+                                >
+                                    {show.title}
+                                </a>
+                            ) : (
+                                show.title
+                            )}
+                        </h1>
                         <h2 className="text-md my-2 font-bold text-secondary">
                             ({show.seasonsCount} Seasons)
                         </h2>

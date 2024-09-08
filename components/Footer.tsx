@@ -11,9 +11,11 @@ export const Footer = (): ReactNode => {
                 by="Lettieri Lorenzo"
                 year={currentYear}
             />
-            {/* <FooterLinkGroup>
-                <FooterLink href="#">Imprint</FooterLink>
-                <FooterLink href="#">Privacy Policy</FooterLink>
+            {/*
+             TODO add these pages in ticket: https://github.com/llettieri/movies-series-lookup/issues/5
+             <FooterLinkGroup>
+                <FooterLink href="/imprint">Imprint</FooterLink>
+                <FooterLink href="/privacy">Privacy Policy</FooterLink>
             </FooterLinkGroup>*/}
         </FBFooter>
     );

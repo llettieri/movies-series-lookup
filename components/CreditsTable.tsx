@@ -14,7 +14,7 @@ const GroupedCrewComponent = ({
     const groups: ReactNode[] = [];
     groupedCrew.forEach((people, department) =>
         groups.push(
-            <div className="mb-2">
+            <div key={department} className="mb-2">
                 <h2
                     className="text-lg font-bold text-primaryText"
                     id={department.toLowerCase()}
@@ -82,7 +82,9 @@ export const CreditsTable = ({
                         </h1>
                         <ul className="flex flex-col justify-center gap-4 md:justify-start">
                             {cast.map((p) => (
-                                <li key={p.id}>
+                                <li
+                                    key={`${p.id}_${Math.round(Math.random() * 1000)}`}
+                                >
                                     <PersonCard size="small" person={p} />
                                 </li>
                             ))}

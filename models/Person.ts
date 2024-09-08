@@ -16,7 +16,7 @@ export interface Person {
     deathday?: string;
     department?: string;
     gender: Gender;
-    homepage: string;
+    homepage?: string;
     id: string;
     jobs?: Job[];
     name: string;

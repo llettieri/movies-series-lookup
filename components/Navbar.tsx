@@ -5,6 +5,7 @@ import {
     NavbarCollapse,
     NavbarLink,
 } from 'flowbite-react';
+import Link from 'next/link';
 import React, { ReactNode } from 'react';
 import { IoSearch } from 'react-icons/io5';
 
@@ -23,11 +24,14 @@ const navbarTheme: CustomFlowbiteTheme['navbar'] = {
 export const Navbar = (): ReactNode => {
     return (
         <FBNavbar theme={navbarTheme}>
-            <NavbarBrand href="/">Movies & Series Lookup</NavbarBrand>
+            <NavbarBrand href="/" as={Link}>
+                Movies & Series Lookup
+            </NavbarBrand>
             <NavbarCollapse>
                 <NavbarLink
                     className="flex flex-row items-center gap-1.5"
                     href="/search"
+                    as={Link}
                 >
                     <IoSearch /> Search
                 </NavbarLink>

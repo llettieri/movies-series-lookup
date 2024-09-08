@@ -65,5 +65,6 @@ module.exports = {
         camelcase: ['warn'],
         '@typescript-eslint/explicit-function-return-type': ['warn'],
         '@typescript-eslint/method-signature-style': ['error']
-    }
+    },
+    ignorePatterns: ['manifest.ts']
 };

@@ -19,7 +19,13 @@ export default function CompanyLogo({
             className="my-auto"
             rel="noreferrer"
         >
-            <Image src={image} alt={alt} width={100} height={50} />
+            <Image
+                src={image}
+                alt={alt}
+                width={100}
+                height={50}
+                className="h-auto w-auto"
+            />
         </a>
     );
 }
