@@ -14,7 +14,7 @@ export const Meta = ({
     title,
     description,
     keywords,
-    manifest: '/manifest.json',
+    manifest: '/manifest.webmanifest',
     icons: {
         apple: '/logo/icon/apple-touch-icon.png',
     },
