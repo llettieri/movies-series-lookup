@@ -9,7 +9,7 @@ import {
 import dayjs from 'dayjs';
 import { Metadata } from 'next';
 import Image from 'next/image';
-import { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 
 interface PersonPageProps {
     params: {
@@ -59,16 +59,22 @@ export default async function PersonPage({
                         className="mx-auto block h-auto rounded-md"
                         alt="person Wallpaper"
                     />
-                    <a
-                        href={person.homepage}
-                        target="_blank"
-                        className={person.homepage ? 'underline' : ''}
-                        rel="noreferrer"
-                    >
-                        <h1 className="my-2 text-xl font-bold text-primary">
-                            {person.name}
-                        </h1>
-                    </a>
+
+                    <h1 className="my-2 text-xl font-bold text-primary">
+                        {person.homepage ? (
+                            <a
+                                href={person.homepage}
+                                target="_blank"
+                                className="underline"
+                                rel="noreferrer"
+                            >
+                                {person.name}
+                            </a>
+                        ) : (
+                            person.name
+                        )}
+                    </h1>
+
                     <p className="mt-4 text-sm text-primaryText">
                         {person.biography}
                     </p>

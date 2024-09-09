@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { ReactNode } from 'react';
 
-interface NetworkLogoProps {
+interface CompanyLogoProps {
     externalLink: string;
     alt: string;
     image: string;
@@ -11,7 +11,7 @@ export default function CompanyLogo({
     externalLink,
     alt,
     image,
-}: NetworkLogoProps): ReactNode {
+}: CompanyLogoProps): ReactNode {
     return (
         <a
             href={externalLink}
@@ -19,7 +19,13 @@ export default function CompanyLogo({
             className="my-auto"
             rel="noreferrer"
         >
-            <Image src={image} alt={alt} width={100} height={50} />
+            <Image
+                src={image}
+                alt={alt}
+                width={100}
+                height={50}
+                className="h-auto w-auto"
+            />
         </a>
     );
 }

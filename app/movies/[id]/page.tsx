@@ -1,4 +1,4 @@
-import { GenreTags } from '@/components/GenreTags';
+import { GenreBadges } from '@/components/GenreBadges';
 import { CreditsList } from '@/components/lists/CreditsList';
 import { MediaList } from '@/components/lists/MediaList';
 import Loading from '@/components/Loading';
@@ -62,17 +62,22 @@ export default async function MoviePage({
                         />
                         <Rating value={movie.averageVote} />
                     </div>
-                    <GenreTags genres={movie.genres} />
-                    <a
-                        href={movie.homepage}
-                        target="_blank"
-                        className="block w-fit text-primary underline"
-                        rel="noreferrer"
-                    >
-                        <h1 className="my-2 w-fit text-xl font-bold text-primary">
-                            {movie.title} ({movie.runtime}min)
-                        </h1>
-                    </a>
+                    <GenreBadges genres={movie.genres} />
+
+                    <h1 className="my-2 w-fit text-xl font-bold text-primary">
+                        {movie.homepage ? (
+                            <a
+                                href={movie.homepage}
+                                target="_blank"
+                                className="underline"
+                                rel="noreferrer"
+                            >
+                                {movie.title} ({movie.runtime}min)
+                            </a>
+                        ) : (
+                            `${movie.title} (${movie.runtime}min)`
+                        )}
+                    </h1>
                     {movie.collection ? (
                         <Link
                             href={`/collections/${movie.collection.id}`}

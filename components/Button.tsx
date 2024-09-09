@@ -1,12 +1,11 @@
-import { Icon } from '@/icons/Icon';
-import { TIcons } from '@/icons/Icons';
+import { Button as FBButton } from 'flowbite-react';
 import Link from 'next/link';
-import React, { ReactNode } from 'react';
+import React, { ReactElement, ReactNode } from 'react';
+import { IconType } from 'react-icons';
 
 interface ButtonProps {
     className?: string;
-    icon?: TIcons;
-    iconSize?: number;
+    icon?: ReactElement<IconType>;
     link?: string;
     onClick?: () => void;
     title: string;
@@ -22,7 +21,6 @@ export const Button = ({
     link,
     variant = 'default',
     icon,
-    iconSize,
 }: ButtonProps): ReactNode => {
     const variants = {
         default: link ? (
@@ -32,18 +30,17 @@ export const Button = ({
         ) : (
             title
         ),
-        icon: icon && <Icon icon={icon} width={iconSize} />,
+        icon,
     };
 
     return (
-        <button
-            className={`btn btn-primary ${
-                variant === 'icon' ? 'btn-circle' : ''
-            } ${className}`}
+        <FBButton
+            className={`bg-primary outline-none focus:ring-0 enabled:hover:bg-primaryHover ${className}`}
+            pill={variant === 'icon'}
             onClick={onClick}
             type={type}
         >
             {variants[variant]}
-        </button>
+        </FBButton>
     );
 };

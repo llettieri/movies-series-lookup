@@ -2,22 +2,22 @@ import { CardBase, CardSize } from '@/components/cards/CardBase';
 import { Person } from '@/models/Person';
 import React, { ReactNode } from 'react';
 
-interface MediaCardProps {
+interface PersonCardProps {
     person: Person;
     size: CardSize;
 }
 
-export const PersonCard = ({ person, size }: MediaCardProps): ReactNode => {
+export const PersonCard = ({ person, size }: PersonCardProps): ReactNode => {
     const image = person.portrait ?? '/placeholder.png';
 
     const getCountString = (count: number): string =>
         !isNaN(count) ? `(${count} Episode${count > 1 ? 's' : ''})` : '';
 
     const mappedRoles = person.roles
-        ? person.roles.map((j) => `${j.name} ${getCountString(j.episodeCount)}`)
+        ? person.roles.map((r) => `${r.name} ${getCountString(r.episodeCount)}`)
         : [];
     const mappedJobs = person.jobs
-        ? person.jobs.map((r) => `${r.name} ${getCountString(r.episodeCount)}`)
+        ? person.jobs.map((j) => `${j.name} ${getCountString(j.episodeCount)}`)
         : [];
 
     return (

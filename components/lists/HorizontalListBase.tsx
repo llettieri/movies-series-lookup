@@ -2,6 +2,7 @@
 
 import { Button } from '@/components/Button';
 import React, { ReactNode, useEffect, useRef, useState } from 'react';
+import { IoChevronBackOutline, IoChevronForwardOutline } from 'react-icons/io5';
 
 interface HorizontalListBaseProps {
     children: ReactNode;
@@ -57,7 +58,7 @@ export const HorizontalListBase = ({
                 title="Next"
                 onClick={(): void => scroll(200)}
                 variant="icon"
-                icon="RIGHT_ARROW"
+                icon={<IoChevronForwardOutline size="2em" />}
                 className={`absolute right-3 top-1/2 text-primaryText ${
                     showNext ? '' : 'hidden'
                 }`}
@@ -66,7 +67,7 @@ export const HorizontalListBase = ({
                 title="Previous"
                 onClick={(): void => scroll(-200)}
                 variant="icon"
-                icon="LEFT_ARROW"
+                icon={<IoChevronBackOutline size="2em" />}
                 className={`absolute left-3 top-1/2 transition-none ${
                     showPrevious ? '' : 'hidden'
                 }`}

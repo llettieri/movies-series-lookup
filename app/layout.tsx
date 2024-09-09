@@ -3,7 +3,7 @@ import './globals.css';
 import { Footer } from '@/components/Footer';
 import Loading from '@/components/Loading';
 import { Meta } from '@/components/Meta';
-import { NavBar } from '@/components/NavBar';
+import { Navbar } from '@/components/Navbar';
 import { ServiceWorker } from '@/components/ServiceWorker';
 import { SessionProvider } from '@/components/SessionProvider';
 import { Metadata, Viewport } from 'next';
@@ -26,7 +26,7 @@ export default function RootLayout({
                 <SessionProvider />
                 <ServiceWorker />
                 <div className="flex h-screen flex-col overflow-hidden">
-                    <NavBar />
+                    <Navbar />
 
                     <div className="flex flex-1 flex-col overflow-auto overscroll-y-none">
                         <main className="flex-1 bg-base100">

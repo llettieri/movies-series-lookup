@@ -7,7 +7,7 @@ export interface Media {
     backdrop: string | undefined;
     collection: SimpleCollection | undefined;
     genres: Genre[];
-    homepage: string;
+    homepage?: string;
     id: string;
     mediaType: MediaType;
     overview: string;
