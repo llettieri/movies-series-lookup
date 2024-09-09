@@ -14,10 +14,10 @@ export const PersonCard = ({ person, size }: PersonCardProps): ReactNode => {
         !isNaN(count) ? `(${count} Episode${count > 1 ? 's' : ''})` : '';
 
     const mappedRoles = person.roles
-        ? person.roles.map((j) => `${j.name} ${getCountString(j.episodeCount)}`)
+        ? person.roles.map((r) => `${r.name} ${getCountString(r.episodeCount)}`)
         : [];
     const mappedJobs = person.jobs
-        ? person.jobs.map((r) => `${r.name} ${getCountString(r.episodeCount)}`)
+        ? person.jobs.map((j) => `${j.name} ${getCountString(j.episodeCount)}`)
         : [];
 
     return (

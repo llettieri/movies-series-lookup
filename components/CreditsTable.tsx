@@ -22,11 +22,14 @@ const GroupedCrewComponent = ({
                     {department}
                 </h2>
                 <ul className="flex flex-col flex-wrap gap-4">
-                    {people.map((p) => (
-                        <li key={`${p.id}_${Math.round(Math.random() * 1000)}`}>
-                            <PersonCard person={p} size="small" />
-                        </li>
-                    ))}
+                    {people.map((p) => {
+                        const mappedJobs = p.jobs?.map((j) => j.name);
+                        return (
+                            <li key={`crew-${p.id}-${mappedJobs?.join('-')}`}>
+                                <PersonCard person={p} size="small" />
+                            </li>
+                        );
+                    })}
                 </ul>
             </div>,
         ),
@@ -82,9 +85,7 @@ export const CreditsTable = ({
                         </h1>
                         <ul className="flex flex-col justify-center gap-4 md:justify-start">
                             {cast.map((p) => (
-                                <li
-                                    key={`${p.id}_${Math.round(Math.random() * 1000)}`}
-                                >
+                                <li key={`cast-${p.id}`}>
                                     <PersonCard size="small" person={p} />
                                 </li>
                             ))}

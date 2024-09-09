@@ -25,7 +25,7 @@ const normalCardTheme: CustomFlowbiteTheme['card'] = {
 
 const smallCardTheme: CustomFlowbiteTheme['card'] = {
     root: {
-        base: 'flex flex-row h-full items-center rounded-md bg-primary shadow-sm w-48 cursor-pointer',
+        base: 'flex flex-row h-full items-center rounded-md bg-primary shadow-sm w-48 cursor-pointer md:hover:scale-105 transition-transform duration-150 md:hover:drop-shadow-lg',
         children: 'flex flex-col h-full mx-4 my-2',
         horizontal: {
             on: 'w-full',
