@@ -6,7 +6,6 @@ import { authTMDB } from '@/services/AxiosService';
 import dayjs from 'dayjs';
 import { SignJWT, jwtVerify } from 'jose';
 import { cookies } from 'next/headers';
-import { RedirectType, redirect } from 'next/navigation';
 
 type UserPayload = {
     user: string;
@@ -45,17 +44,30 @@ const createSession = async (locale: string): Promise<void> => {
         tmdbToken: reqToken.data.request_token,
     });
 
-    cookies().set('session', session, { expires, httpOnly: true });
+    cookies().set('session', session, {
+        expires,
+        httpOnly: true,
+    });
 };
 
 const getSession = async (): Promise<UserPayload | null> => {
     const session = cookies().get('session')?.value;
 
     if (!session) {
-        redirect('', RedirectType.replace);
+        return null;
     }
 
     return await decrypt(session);
 };
 
-export { createSession, getSession };
+const getLocale = async (): Promise<string> => {
+    const session = await getSession();
+
+    if (!session) {
+        return 'US';
+    }
+
+    return session.locale;
+};
+
+export { createSession, getSession, getLocale };

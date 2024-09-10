@@ -3,7 +3,7 @@ import { HomeSubNav } from '@/components/HomeSubNav';
 import { MediaList } from '@/components/lists/MediaList';
 import { Media } from '@/models/Media';
 import { getLatestMovies, getPopularMovies } from '@/services/MovieService';
-import { getSession } from '@/services/SessionService';
+import { getLocale } from '@/services/SessionService';
 import { getAiringTodayShows, getPopularShows } from '@/services/TVShowService';
 import React, { ReactNode } from 'react';
 
@@ -22,7 +22,7 @@ interface HomePageProps {
 export default async function HomePage({
     searchParams,
 }: HomePageProps): Promise<ReactNode> {
-    const session = await getSession();
+    const locale = await getLocale();
     const collection = (searchParams.collection as CollectionType) ?? 'movies';
     const listType = (searchParams.listType as ListType) ?? 'nowPlaying';
 
@@ -39,11 +39,11 @@ export default async function HomePage({
         },
         tvshows: {
             popular: {
-                data: getPopularShows(session?.locale ?? ''),
+                data: getPopularShows(locale),
                 title: 'Popular TV Shows',
             },
             nowPlaying: {
-                data: getAiringTodayShows(session?.locale ?? ''),
+                data: getAiringTodayShows(locale),
                 title: 'Airing Today TV Shows',
             },
         },
