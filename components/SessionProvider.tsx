@@ -13,9 +13,16 @@ interface GeoDataDto {
 
 export const SessionProvider = (): ReactNode => {
     useEffect(() => {
-        get<GeoDataDto>(routes.country).then((r) =>
-            createSession(r.data.countryCode),
-        );
+        get<GeoDataDto>(routes.country)
+            .then((r) => createSession(r.data.countryCode))
+            .catch((e) => {
+                // eslint-disable-next-line
+                console.error(
+                    'Something went wrong with checking your location: %s',
+                    e,
+                );
+                return createSession('US');
+            });
     }, []);
 
     return <></>;

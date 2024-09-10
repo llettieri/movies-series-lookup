@@ -36,7 +36,7 @@ const createSession = async (locale: string): Promise<void> => {
     const reqToken = await authTMDB<TMDBRequestTokenDto>(
         routes.authentication.token.new,
     );
-    const expires = dayjs(reqToken.data.expires_at, locale).toDate();
+    const expires = dayjs().add(12, 'h').toDate();
     const session = await encrypt({
         user,
         expires,
@@ -46,7 +46,7 @@ const createSession = async (locale: string): Promise<void> => {
 
     cookies().set('session', session, {
         expires,
-        httpOnly: true,
+        secure: true,
     });
 };
 
