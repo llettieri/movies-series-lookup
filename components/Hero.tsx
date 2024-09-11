@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 
 export const Hero = (): ReactNode => {
     return (
-        <div className="py-5 pb-10 text-center">
+        <div className="pb-10 text-center">
             <div className="mx-auto w-60">
                 <Image
                     className="mx-auto block h-auto w-auto"

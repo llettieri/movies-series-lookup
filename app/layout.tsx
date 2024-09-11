@@ -15,11 +15,11 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = Meta({});
 export const viewport: Viewport = { width: 'device-width', initialScale: 1 };
 
-export default function RootLayout({
-    children,
-}: {
+interface RootLayoutProps {
     children: ReactNode;
-}): ReactNode {
+}
+
+export default function RootLayout({ children }: RootLayoutProps): ReactNode {
     return (
         <html lang="en">
             <body className={`${inter.className} overflow-hidden`}>
@@ -29,7 +29,7 @@ export default function RootLayout({
                     <Navbar />
 
                     <div className="flex flex-1 flex-col overflow-auto overscroll-y-none">
-                        <main className="flex-1 bg-base100">
+                        <main className="flex-1 bg-base100 p-5 sm:p-10">
                             <Suspense fallback={<Loading />}>
                                 {children}
                             </Suspense>

@@ -10,11 +10,11 @@ export const VerticalListBase = ({
     title,
 }: VerticalListBaseProps): ReactNode => {
     return (
-        <div className="container mx-auto max-w-7xl px-4 pb-10">
+        <div className="container mx-auto max-w-7xl">
             {title && (
                 <h3 className="mb-5 mt-8 text-2xl text-primaryText">{title}</h3>
             )}
-            <ul className="flex flex-row flex-wrap justify-center gap-4 lg:justify-evenly xl:justify-start">
+            <ul className="grid grid-cols-1 justify-items-center gap-4 sm:grid-cols-3 xl:grid-cols-6">
                 {children}
             </ul>
         </div>
