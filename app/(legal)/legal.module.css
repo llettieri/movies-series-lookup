@@ -1,0 +1,42 @@
+.legal {
+    @apply max-w-3xl;
+    @apply p-4;
+    @apply text-left;
+    @apply text-white;
+}
+
+.legal ul {
+    @apply list-outside;
+    @apply list-disc;
+    @apply pl-5;
+}
+
+/*TODO specify global heading styling*/
+
+.legal h1 {
+    @apply text-5xl;
+    @apply mb-8;
+    @apply text-primary;
+    @apply font-black;
+}
+
+.legal h2 {
+    @apply text-3xl;
+    @apply mb-6;
+    @apply text-primary;
+    @apply font-black;
+}
+
+.legal h3 {
+    @apply text-xl;
+    @apply mb-4;
+    @apply text-primaryTint;
+    @apply font-black;
+}
+
+.legal h4 {
+    @apply text-lg;
+    @apply mb-4;
+    @apply text-primaryTint;
+    @apply font-black;
+}
