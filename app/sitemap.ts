@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next';
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default function Sitemap(): MetadataRoute.Sitemap {
     return [
         {
             url: 'https://movies-series.lore-le.ch/',

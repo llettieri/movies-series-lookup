@@ -17,7 +17,7 @@ export const SearchBar = ({
             defaultValue={defaultValue}
             placeholder="Search..."
             autoFocus={true}
-            className="mx-auto mt-16 block w-80 rounded-md border-0 bg-neutral p-2 text-primaryText shadow-md"
+            className="mx-auto mt-16 block w-80 rounded-md border-0 bg-neutral p-2 text-standard shadow-md"
         />
     );
 };

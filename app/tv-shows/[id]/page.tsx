@@ -46,7 +46,7 @@ export default async function TVShowPage({
     const width = show.backdrop ? 1000 : 500;
 
     return (
-        <div>
+        <>
             <div className="container mx-auto max-w-4xl py-6">
                 <div className="px-3">
                     <Suspense>
@@ -65,7 +65,7 @@ export default async function TVShowPage({
                         </div>
                         <GenreBadges genres={show.genres} />
 
-                        <h1 className="mx-0 my-2 w-fit text-xl font-bold text-primary">
+                        <h1>
                             {show.homepage ? (
                                 <a
                                     href={show.homepage}
@@ -79,13 +79,11 @@ export default async function TVShowPage({
                                 show.title
                             )}
                         </h1>
-                        <h2 className="text-md my-2 font-bold text-secondary">
+                        <h2 className="text-secondary">
                             ({show.seasonsCount} Seasons)
                         </h2>
-                        <p className="mt-4 text-sm text-primaryText">
-                            {show.overview}
-                        </p>
-                        <p className="mt-4 text-sm text-primaryText">
+                        <p className="mt-4 text-sm">{show.overview}</p>
+                        <p className="mt-4 text-sm">
                             Release Date:{' '}
                             <span className="font-bold text-secondaryText">
                                 {dayjs(show.releaseDate).format(
@@ -94,7 +92,7 @@ export default async function TVShowPage({
                             </span>
                         </p>
                         {show.lastAirDate ? (
-                            <p className="text-sm text-primaryText">
+                            <p className="text-sm">
                                 Last Aired:{' '}
                                 <span className="font-bold text-secondaryText">
                                     {dayjs(show.lastAirDate).format(
@@ -110,9 +108,7 @@ export default async function TVShowPage({
                             />
                         )}
                         <div className="container mx-auto flex gap-4 align-middle">
-                            <p className="text-md leading-[10] text-primaryText">
-                                Networks:{' '}
-                            </p>
+                            <p className="text-md leading-[10]">Networks: </p>
                             {show.networks.map((network) => (
                                 <CompanyLogo
                                     key={network.id}
@@ -125,7 +121,7 @@ export default async function TVShowPage({
                         {providerGroup ? (
                             <>
                                 <div className="container mx-auto flex gap-4 align-middle">
-                                    <p className="text-md leading-[10] text-primaryText">
+                                    <p className="text-md leading-[10]">
                                         Watch Providers:{' '}
                                     </p>
                                     {providerGroup.providers.map((provider) => (
@@ -137,7 +133,7 @@ export default async function TVShowPage({
                                         />
                                     ))}
                                 </div>
-                                <p className="mt-4 text-sm text-primaryText">
+                                <p className="mt-4 text-sm">
                                     JustWatch makes it easy to find out where
                                     you can legally watch your favorite movies &
                                     TV shows online. Visit{' '}
@@ -166,6 +162,6 @@ export default async function TVShowPage({
                     </div>
                 </Suspense>
             )}
-        </div>
+        </>
     );
 }

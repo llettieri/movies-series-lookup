@@ -45,9 +45,9 @@ export const HorizontalListBase = ({
 
     return (
         <div className="container relative">
-            <h1 className="mt-8 text-2xl text-primaryText">{title}</h1>
+            <h3 className="mt-8">{title}</h3>
             <ul
-                className="no-scrollbar flex h-full max-w-full flex-row gap-4 overflow-auto px-3 py-7"
+                className="no-scrollbar flex h-full max-w-full flex-row gap-4 overflow-auto p-4"
                 ref={scrollContainer}
                 onScroll={onScroll}
             >
@@ -59,7 +59,7 @@ export const HorizontalListBase = ({
                 onClick={(): void => scroll(200)}
                 variant="icon"
                 icon={<IoChevronForwardOutline size="2em" />}
-                className={`absolute right-3 top-1/2 text-primaryText ${
+                className={`absolute right-3 top-1/2 ${
                     showNext ? '' : 'hidden'
                 }`}
             />

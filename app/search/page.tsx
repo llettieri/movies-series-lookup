@@ -66,7 +66,7 @@ export default function SearchPage(): ReactNode {
                         </div>
                     )}
                     {!isLoading && result?.total === 0 && query !== '' && (
-                        <h1 className="mx-auto my-16 w-64 text-center text-2xl text-primaryText">
+                        <h1 className="mx-auto my-16 w-64 text-center text-standard">
                             No results...
                         </h1>
                     )}

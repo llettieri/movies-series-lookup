@@ -46,7 +46,7 @@ export default async function PersonPage({
     }
 
     return (
-        <div>
+        <>
             <div className="container mx-auto max-w-4xl py-6">
                 <div className="px-3">
                     <Image
@@ -60,7 +60,7 @@ export default async function PersonPage({
                         alt="person Wallpaper"
                     />
 
-                    <h1 className="my-2 text-xl font-bold text-primary">
+                    <h1>
                         {person.homepage ? (
                             <a
                                 href={person.homepage}
@@ -75,17 +75,15 @@ export default async function PersonPage({
                         )}
                     </h1>
 
-                    <p className="mt-4 text-sm text-primaryText">
-                        {person.biography}
-                    </p>
-                    <p className="mt-5 text-sm text-primaryText">
+                    <p className="mt-4 text-sm">{person.biography}</p>
+                    <p className="mt-5 text-sm">
                         Birthday:{' '}
                         <span className="font-bold text-secondaryText">
                             {dayjs(person.birthday).format('MMMM DD, YYYY')}
                         </span>
                     </p>
                     {person.deathday ? (
-                        <p className="text-sm text-primaryText">
+                        <p className="text-sm">
                             Death:{' '}
                             <span className="font-bold">
                                 {dayjs(person.deathday).format('MMMM DD, YYYY')}
@@ -98,6 +96,6 @@ export default async function PersonPage({
                 <MediaList title={`${pronoun} Movies`} medias={movieCredits} />
                 <MediaList title={`${pronoun} TV Shows`} medias={showCredits} />
             </div>
-        </div>
+        </>
     );
 }

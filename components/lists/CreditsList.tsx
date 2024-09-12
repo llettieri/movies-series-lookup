@@ -27,9 +27,9 @@ export const CreditsList = ({
                         className="hover:scale-105"
                         prefetch
                     >
-                        <h1 className="w-32 text-center text-lg text-primaryText">
+                        <p className="w-32 text-center text-lg">
                             View more {'->'}
-                        </h1>
+                        </p>
                     </Link>
                 </li>
             </>

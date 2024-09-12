@@ -20,10 +20,10 @@ export const MediaCard = ({ media, size }: MediaCardProps): ReactNode => {
             size={size}
         >
             <div className="flex flex-1 flex-col justify-between px-6 py-2">
-                <h2 className="mb-1 text-xl font-bold text-primaryText">
+                <h2 className="mb-1 text-xl font-bold text-standard">
                     {media.title}
                 </h2>
-                <p className="mb-1 text-base text-primaryText">
+                <p className="mb-1 text-base text-standard">
                     {dayjs(media.releaseDate).format('MMMM DD, YYYY')}
                 </p>
             </div>
