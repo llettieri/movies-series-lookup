@@ -23,13 +23,7 @@ export const Button = ({
     icon,
 }: ButtonProps): ReactNode => {
     const variants = {
-        default: link ? (
-            <Link href={link} prefetch={true}>
-                {title}
-            </Link>
-        ) : (
-            title
-        ),
+        default: title,
         icon,
     };
 
@@ -39,6 +33,8 @@ export const Button = ({
             pill={variant === 'icon'}
             onClick={onClick}
             type={type}
+            as={link ? Link : null}
+            href={link}
         >
             {variants[variant]}
         </FBButton>

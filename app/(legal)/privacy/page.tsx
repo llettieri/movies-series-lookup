@@ -185,8 +185,15 @@ export default function PrivacyPage(): ReactNode {
                     other legally prescribed measures). If our risk assessment
                     is negative, we take additional technical measures to
                     protect your data. You can access the EU Commission&apos;s
-                    standard contractual clauses at the following link.
-                    https://commission.europa.eu/publications/standard-contractual-clauses-controllers-and-processors-eueea_de
+                    standard contractual clauses at the following{' '}
+                    <a
+                        className="underline"
+                        target="_blank"
+                        href="https://commission.europa.eu/publications/standard-contractual-clauses-controllers-and-processors-eueea_de"
+                    >
+                        link
+                    </a>
+                    .
                 </p>
                 <br />
                 <h3>3.5 How long do we keep your data?</h3>

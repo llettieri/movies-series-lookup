@@ -5,7 +5,7 @@ export default function ImprintPage(): ReactNode {
     return (
         <div className="flex flex-col items-center">
             <h1>Imprint</h1>
-            <div className="content-generator-output w-[32rem]">
+            <div className="w-max-[32rem]">
                 <b>Responsible entity:</b>
                 <br />
                 Lorenzo Lettieri

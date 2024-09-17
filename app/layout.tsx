@@ -25,7 +25,7 @@ export default function RootLayout({ children }: RootLayoutProps): ReactNode {
             <body className={`${inter.className} overflow-hidden`}>
                 <SessionProvider />
                 <ServiceWorker />
-                <div className="flex h-screen flex-col overflow-hidden">
+                <div className="flex h-dvh flex-col overflow-hidden">
                     <Navbar />
 
                     <div className="flex flex-1 flex-col overflow-auto overscroll-y-none">

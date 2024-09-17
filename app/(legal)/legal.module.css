@@ -2,7 +2,6 @@
     @apply max-w-3xl;
     @apply p-4;
     @apply text-left;
-    @apply text-white;
 }
 
 .legal ul {

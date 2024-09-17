@@ -12,9 +12,9 @@ export const Hero = (): ReactNode => {
                     height={200}
                     alt={'Videofiles'}
                 />
-                <h1 className="uppercase text-standard">
+                <h2 className="uppercase text-standard">
                     Welcome to your Movies / Series lookup
-                </h1>
+                </h2>
             </div>
         </div>
     );

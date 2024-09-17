@@ -119,21 +119,27 @@ export default async function TVShowPage({
                             ))}
                         </div>
                         {providerGroup ? (
-                            <>
-                                <div className="container mx-auto flex gap-4 align-middle">
-                                    <p className="text-md leading-[10]">
+                            <div className="container mx-auto">
+                                <div className="flex flex-wrap items-center gap-4 align-middle">
+                                    <p className="text-md w-auto">
                                         Watch Providers:{' '}
                                     </p>
-                                    {providerGroup.providers.map((provider) => (
-                                        <CompanyLogo
-                                            key={provider.id}
-                                            image={provider.logo}
-                                            alt={provider.name}
-                                            externalLink={providerGroup.link}
-                                        />
-                                    ))}
+                                    <div className="flex gap-4">
+                                        {providerGroup.providers.map(
+                                            (provider) => (
+                                                <CompanyLogo
+                                                    key={provider.id}
+                                                    image={provider.logo}
+                                                    alt={provider.name}
+                                                    externalLink={
+                                                        providerGroup.link
+                                                    }
+                                                />
+                                            ),
+                                        )}
+                                    </div>
                                 </div>
-                                <p className="mt-4 text-sm">
+                                <p className="mt-6 text-sm">
                                     JustWatch makes it easy to find out where
                                     you can legally watch your favorite movies &
                                     TV shows online. Visit{' '}
@@ -147,7 +153,7 @@ export default async function TVShowPage({
                                     </span>{' '}
                                     for more information.
                                 </p>
-                            </>
+                            </div>
                         ) : null}
                     </Suspense>
                 </div>

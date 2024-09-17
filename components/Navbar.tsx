@@ -8,7 +8,7 @@ import {
 } from 'flowbite-react';
 import Link from 'next/link';
 import React, { ReactNode } from 'react';
-import { IoSearch } from 'react-icons/io5';
+import { IoHome, IoSearch } from 'react-icons/io5';
 
 const navbarTheme: CustomFlowbiteTheme['navbar'] = {
     root: {
@@ -35,6 +35,13 @@ export const Navbar = (): ReactNode => {
             </NavbarBrand>
             <NavbarToggle />
             <NavbarCollapse>
+                <NavbarLink
+                    className="flex flex-row items-center gap-1.5 md:hidden"
+                    href="/"
+                    as={Link}
+                >
+                    <IoHome /> Home
+                </NavbarLink>
                 <NavbarLink
                     className="flex flex-row items-center gap-1.5"
                     href="/search"
