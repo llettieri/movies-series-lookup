@@ -4,7 +4,6 @@ import { ReactNode } from 'react';
 export default function ImprintPage(): ReactNode {
     return (
         <div className="flex flex-col items-center">
-            {/*{TODO specify global heading styling}*/}
             <h1>Imprint</h1>
             <div className="content-generator-output w-[32rem]">
                 <b>Responsible entity:</b>
