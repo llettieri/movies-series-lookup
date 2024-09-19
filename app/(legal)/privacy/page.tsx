@@ -6,7 +6,6 @@ export default function PrivacyPage(): ReactNode {
         <>
             <h1>Privacy policy</h1>
             <div>
-                <br />
                 <p>Last updated on: 11.09.2024</p>
                 <br />
                 <p>

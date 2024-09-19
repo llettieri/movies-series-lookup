@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 
 export default function ImprintPage(): ReactNode {
     return (
-        <div className="flex flex-col items-center">
+        <>
             <h1>Imprint</h1>
             <div className="w-max-[32rem]">
                 <b>Responsible entity:</b>
@@ -62,6 +62,6 @@ export default function ImprintPage(): ReactNode {
                     BrainBox Solutions
                 </a>
             </div>
-        </div>
+        </>
     );
 }
