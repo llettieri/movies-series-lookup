@@ -24,7 +24,7 @@ export default async function CollectionPage({
     const collection = await getCollectionDetails(params.id);
 
     return (
-        <div>
+        <>
             <div className="container mx-auto max-w-4xl py-6">
                 <div className="px-3">
                     <Image
@@ -41,15 +41,11 @@ export default async function CollectionPage({
                         loading="lazy"
                         alt="collection Wallpaper"
                     />
-                    <h1 className="my-2 text-xl font-bold text-primary">
-                        {collection.name}
-                    </h1>
-                    <p className="mt-4 text-sm text-primaryText">
-                        {collection.overview}
-                    </p>
+                    <h1 className="mt-4">{collection.name}</h1>
+                    <p className="mt-4 text-sm">{collection.overview}</p>
                 </div>
-                <MediaList title="" medias={collection.parts} />
             </div>
-        </div>
+            <MediaList title="Movies" medias={collection.parts} />
+        </>
     );
 }

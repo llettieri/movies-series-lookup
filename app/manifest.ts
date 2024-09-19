@@ -1,6 +1,6 @@
 import { MetadataRoute } from 'next';
 
-export default function manifest(): MetadataRoute.Manifest {
+export default function Manifest(): MetadataRoute.Manifest {
     return {
         name: 'Movies and Series Lookup',
         short_name: 'Movies and Series',

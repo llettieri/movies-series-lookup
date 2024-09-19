@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 
 export const Hero = (): ReactNode => {
     return (
-        <div className="py-5 pb-10 text-center">
+        <div className="pb-10 text-center">
             <div className="mx-auto w-60">
                 <Image
                     className="mx-auto block h-auto w-auto"
@@ -12,9 +12,9 @@ export const Hero = (): ReactNode => {
                     height={200}
                     alt={'Videofiles'}
                 />
-                <h1 className="text-2xl font-bold uppercase text-primaryText">
+                <h2 className="uppercase text-standard">
                     Welcome to your Movies / Series lookup
-                </h1>
+                </h2>
             </div>
         </div>
     );

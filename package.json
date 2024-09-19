@@ -18,6 +18,7 @@
         "react-dom": "^18"
     },
     "devDependencies": {
+        "@south-paw/react-obfuscate-ts": "^2.0.0",
         "@types/lodash.debounce": "^4",
         "@types/node": "^20",
         "@types/react": "^18",

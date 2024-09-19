@@ -24,17 +24,13 @@ export const PersonCard = ({ person, size }: PersonCardProps): ReactNode => {
         <CardBase link={`/people/${person.id}`} image={image} size={size}>
             {size === 'normal' ? (
                 <div className="flex max-h-72 flex-1 flex-col overflow-hidden overflow-ellipsis px-6 py-2">
-                    <h2 className="text-xl font-bold text-primaryText">
-                        {person.name}
-                    </h2>
+                    <h3 className="text-standard">{person.name}</h3>
                     {person.roles ? (
-                        <h3 className="mb-1 line-clamp-6 overflow-hidden text-lg text-primaryText">
+                        <h4 className="mb-1 line-clamp-6 overflow-hidden font-medium text-standard">
                             {mappedRoles.join(', ')}
-                        </h3>
+                        </h4>
                     ) : (
-                        <p className="mb-1 text-base text-primaryText">
-                            {person.department}
-                        </p>
+                        <p className="mb-1 text-base">{person.department}</p>
                     )}
                 </div>
             ) : (
@@ -42,17 +38,15 @@ export const PersonCard = ({ person, size }: PersonCardProps): ReactNode => {
                     className="flex flex-col justify-center"
                     id={person.name.replace(' ', '-').toLowerCase()}
                 >
-                    <h2 className="text-md font-bold text-primaryText">
-                        {person.name}
-                    </h2>
+                    <h3 className="text-standard">{person.name}</h3>
                     {person.roles ? (
-                        <h3 className="text-sm text-primaryText">
+                        <h5 className="text-standard">
                             {mappedRoles.join(', ')}
-                        </h3>
+                        </h5>
                     ) : (
-                        <p className="text-base text-primaryText">
+                        <h5 className="text-standard">
                             {mappedJobs.join(', ')}
-                        </p>
+                        </h5>
                     )}
                 </div>
             )}

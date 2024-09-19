@@ -12,10 +12,43 @@
         scrollbar-width: none;
     }
 }
+* {
+    @apply text-standard;
+}
 
-.btn-primary {
-    @apply border-2;
-    @apply border-primaryTint;
+h1 {
+    @apply text-4xl;
+    @apply mb-8;
+    @apply text-primary;
+    @apply font-black;
+}
 
-    @apply hover:border-primary;
+h2 {
+    @apply text-2xl;
+    @apply mb-6;
+    @apply text-primary;
+    @apply font-black;
+}
+
+h3 {
+    @apply text-xl;
+    @apply mb-4;
+    @apply text-primaryTint;
+    @apply font-black;
+}
+
+h4 {
+    @apply text-lg;
+    @apply mb-4;
+    @apply text-primaryTint;
+    @apply font-black;
+}
+
+h5 {
+    @apply text-sm;
+    @apply text-primaryTint;
+}
+
+button {
+    @apply font-bold;
 }

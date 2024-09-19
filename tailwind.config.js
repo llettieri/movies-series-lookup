@@ -12,7 +12,7 @@ module.exports = {
             colors: {
                 primary: '#8a2be2',
                 primaryHover: '#671fa8',
-                primaryText: '#f5f5f5',
+                standard: '#f5f5f5',
                 primaryTint: '#b95eda',
                 secondary: '#00ced1',
                 secondaryText: 'rgba(130,254,255,0.78)',

@@ -13,7 +13,7 @@ import dayjs from 'dayjs';
 import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { ReactNode } from 'react';
+import React, { ReactNode, Suspense } from 'react';
 
 interface MoviePageProps {
     params: { id: number };
@@ -29,8 +29,6 @@ export const generateMetadata = async ({
     });
 };
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 export default async function MoviePage({
     params,
 }: MoviePageProps): Promise<ReactNode> {
@@ -46,70 +44,72 @@ export default async function MoviePage({
     }
 
     return (
-        <div>
+        <>
             <div className="container mx-auto max-w-4xl py-6">
-                <div className="px-3">
-                    <div className="relative">
-                        <Image
-                            src={image}
-                            width={width}
-                            height={600}
-                            className="mx-auto rounded-md"
-                            placeholder="blur"
-                            blurDataURL="/placeholder.png"
-                            loading="lazy"
-                            alt="Movie Wallpaper"
-                        />
-                        <Rating value={movie.averageVote} />
-                    </div>
-                    <GenreBadges genres={movie.genres} />
+                <Suspense>
+                    <div className="px-3">
+                        <div className="relative">
+                            <Image
+                                src={image}
+                                width={width}
+                                height={600}
+                                className="mx-auto rounded-md"
+                                placeholder="blur"
+                                blurDataURL="/placeholder.png"
+                                loading="lazy"
+                                alt="Movie Wallpaper"
+                            />
+                            <Rating value={movie.averageVote} />
+                        </div>
+                        <GenreBadges genres={movie.genres} />
 
-                    <h1 className="my-2 w-fit text-xl font-bold text-primary">
-                        {movie.homepage ? (
-                            <a
-                                href={movie.homepage}
-                                target="_blank"
-                                className="underline"
-                                rel="noreferrer"
+                        <h1>
+                            {movie.homepage ? (
+                                <a
+                                    href={movie.homepage}
+                                    target="_blank"
+                                    className="underline"
+                                    rel="noreferrer"
+                                >
+                                    {movie.title} ({movie.runtime}min)
+                                </a>
+                            ) : (
+                                `${movie.title} (${movie.runtime}min)`
+                            )}
+                        </h1>
+                        {movie.collection ? (
+                            <Link
+                                href={`/collections/${movie.collection.id}`}
+                                prefetch
                             >
-                                {movie.title} ({movie.runtime}min)
-                            </a>
-                        ) : (
-                            `${movie.title} (${movie.runtime}min)`
+                                <h2 className="text-secondary">
+                                    {movie.collection.name}
+                                </h2>
+                            </Link>
+                        ) : null}
+                        <p className="mt-4 text-sm">{movie.overview}</p>
+                        <p className="mt-6 text-sm">
+                            Release Date:{' '}
+                            <span className="font-bold text-secondaryText">
+                                {dayjs(movie.releaseDate).format(
+                                    'MMMM DD, YYYY',
+                                )}
+                            </span>
+                        </p>
+                        {credits.cast.length > 0 && (
+                            <CreditsList
+                                cast={credits.cast}
+                                baseRoute={`/movies/${movieId}`}
+                            />
                         )}
-                    </h1>
-                    {movie.collection ? (
-                        <Link
-                            href={`/collections/${movie.collection.id}`}
-                            prefetch
-                        >
-                            <h2 className="text-md my-2 font-bold text-secondary">
-                                {movie.collection.name}
-                            </h2>
-                        </Link>
-                    ) : null}
-                    <p className="mt-4 text-sm text-primaryText">
-                        {movie.overview}
-                    </p>
-                    <p className="mt-6 text-sm text-primaryText">
-                        Release Date:{' '}
-                        <span className="font-bold text-secondaryText">
-                            {dayjs(movie.releaseDate).format('MMMM DD, YYYY')}
-                        </span>
-                    </p>
-                    {credits.cast.length > 0 && (
-                        <CreditsList
-                            cast={credits.cast}
-                            baseRoute={`/movies/${movieId}`}
-                        />
-                    )}
-                </div>
+                    </div>
+                </Suspense>
             </div>
             <div className="pt-2">
                 {similarMovies.length > 0 ? (
                     <MediaList title="Similar Movies" medias={similarMovies} />
                 ) : null}
             </div>
-        </div>
+        </>
     );
 }
