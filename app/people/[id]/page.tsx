@@ -12,15 +12,15 @@ import Image from 'next/image';
 import React, { ReactNode } from 'react';
 
 interface PersonPageProps {
-    params: {
-        id: number;
-    };
+    params: Promise<{ id: number }>;
 }
 
 export const generateMetadata = async ({
     params,
 }: PersonPageProps): Promise<Metadata> => {
-    const person = await getPersonDetails(params.id);
+    const personId = (await params).id;
+    const person = await getPersonDetails(personId);
+
     return Meta({
         title: `${person.name} | Details`,
         keywords: 'person details biography movies tv-shows',
@@ -32,9 +32,10 @@ export const generateMetadata = async ({
 export default async function PersonPage({
     params,
 }: PersonPageProps): Promise<ReactNode> {
-    const person = await getPersonDetails(params.id);
-    const movieCredits = await getPersonMovies(params.id);
-    const showCredits = await getPersonTVShows(params.id);
+    const personId = (await params).id;
+    const person = await getPersonDetails(personId);
+    const movieCredits = await getPersonMovies(personId);
+    const showCredits = await getPersonTVShows(personId);
     let pronoun: string;
 
     if (person.gender === Gender.FEMALE) {
@@ -51,12 +52,12 @@ export default async function PersonPage({
                 <div className="px-3">
                     <Image
                         src={person.portrait ?? '/placeholder.png'}
-                        width={300}
-                        height={100}
+                        width={200}
+                        height={400}
                         placeholder="blur"
                         blurDataURL="/placeholder.png"
                         loading="lazy"
-                        className="mx-auto block h-auto rounded-md"
+                        className="mx-auto block h-auto w-auto rounded-md"
                         alt="person Wallpaper"
                     />
 
@@ -93,8 +94,18 @@ export default async function PersonPage({
                 </div>
             </div>
             <div className="pt-2">
-                <MediaList title={`${pronoun} Movies`} medias={movieCredits} />
-                <MediaList title={`${pronoun} TV Shows`} medias={showCredits} />
+                {movieCredits.length > 0 ? (
+                    <MediaList
+                        title={`${pronoun} Movies`}
+                        medias={movieCredits}
+                    />
+                ) : null}
+                {showCredits.length > 0 ? (
+                    <MediaList
+                        title={`${pronoun} TV Shows`}
+                        medias={showCredits}
+                    />
+                ) : null}
             </div>
         </>
     );

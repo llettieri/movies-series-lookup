@@ -6,15 +6,15 @@ import { Metadata } from 'next';
 import { ReactNode } from 'react';
 
 interface TVShowCreditsPageProps {
-    params: {
-        id: number;
-    };
+    params: Promise<{ id: number }>;
 }
 
 export const generateMetadata = async ({
     params,
 }: TVShowCreditsPageProps): Promise<Metadata> => {
-    const { title } = await getTVShowDetails(params.id);
+    const showId = (await params).id;
+    const { title } = await getTVShowDetails(showId);
+
     return Meta({
         title: `${title} | Credits`,
         keywords: 'tv-show media streaming credits cast crew',
@@ -24,11 +24,12 @@ export const generateMetadata = async ({
 export default async function TVShowCreditsPage({
     params,
 }: TVShowCreditsPageProps): Promise<ReactNode> {
-    const { cast, crew } = await getTVShowsCredits(params.id);
+    const showId = (await params).id;
+    const { cast, crew } = await getTVShowsCredits(showId);
 
     return (
         <CreditsTable
-            link={`/tv-shows/${params.id}`}
+            link={`/tv-shows/${showId}`}
             cast={cast}
             crew={crew}
             type={MediaType.TV}

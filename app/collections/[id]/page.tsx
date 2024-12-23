@@ -6,22 +6,23 @@ import Image from 'next/image';
 import React, { ReactNode } from 'react';
 
 interface CollectionPageProps {
-    params: {
-        id: number;
-    };
+    params: Promise<{ id: number }>;
 }
 
 export const generateMetadata = async ({
     params,
 }: CollectionPageProps): Promise<Metadata> => {
-    const { name } = await getCollectionDetails(params.id);
+    const collectionId = (await params).id;
+    const { name } = await getCollectionDetails(collectionId);
+
     return Meta({ title: `${name} | Details` });
 };
 
 export default async function CollectionPage({
     params,
 }: CollectionPageProps): Promise<ReactNode> {
-    const collection = await getCollectionDetails(params.id);
+    const collectionId = (await params).id;
+    const collection = await getCollectionDetails(collectionId);
 
     return (
         <>

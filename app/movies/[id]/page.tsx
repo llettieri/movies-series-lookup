@@ -16,13 +16,15 @@ import Link from 'next/link';
 import React, { ReactNode, Suspense } from 'react';
 
 interface MoviePageProps {
-    params: { id: number };
+    params: Promise<{ id: number }>;
 }
 
 export const generateMetadata = async ({
     params,
 }: MoviePageProps): Promise<Metadata> => {
-    const { title } = await getMovieDetails(params.id);
+    const movieId = (await params).id;
+    const { title } = await getMovieDetails(movieId);
+
     return Meta({
         title: `${title} | Details`,
         keywords: 'movie media streaming details',
@@ -32,7 +34,7 @@ export const generateMetadata = async ({
 export default async function MoviePage({
     params,
 }: MoviePageProps): Promise<ReactNode> {
-    const movieId = params.id;
+    const movieId = (await params).id;
     const movie = await getMovieDetails(movieId);
     const similarMovies = await getSimilarMovies(movieId);
     const credits = await getMovieCredits(movieId);

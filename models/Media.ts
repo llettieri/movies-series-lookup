@@ -12,7 +12,7 @@ export interface Media {
     mediaType: MediaType;
     overview: string;
     poster: string | undefined;
-    releaseDate: string;
+    releaseDate: string | undefined;
     runtime?: number;
     title: string;
 }

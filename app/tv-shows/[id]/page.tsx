@@ -18,15 +18,15 @@ import Image from 'next/image';
 import React, { ReactNode, Suspense } from 'react';
 
 interface TVShowPageProps {
-    params: {
-        id: number;
-    };
+    params: Promise<{ id: number }>;
 }
 
 export const generateMetadata = async ({
     params,
 }: TVShowPageProps): Promise<Metadata> => {
-    const show = await getTVShowDetails(params.id);
+    const showId = (await params).id;
+    const show = await getTVShowDetails(showId);
+
     return Meta({
         title: `${show.title} | Details`,
         keywords: 'tv-show media streaming details',
@@ -37,7 +37,7 @@ export default async function TVShowPage({
     params,
 }: TVShowPageProps): Promise<ReactNode> {
     const locale = await getLocale();
-    const showId = params.id;
+    const showId = (await params).id;
     const show = await getTVShowDetails(showId);
     const similarShows = await getSimilarTVShows(showId);
     const credits = await getTVShowsCredits(showId);

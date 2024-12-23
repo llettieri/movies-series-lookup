@@ -44,14 +44,16 @@ const createSession = async (locale: string): Promise<void> => {
         tmdbToken: reqToken.data.request_token,
     });
 
-    cookies().set('session', session, {
+    const requestCookies = await cookies();
+    requestCookies.set('session', session, {
         expires,
         secure: true,
     });
 };
 
 const getSession = async (): Promise<UserPayload | null> => {
-    const session = cookies().get('session')?.value;
+    const requestCookies = await cookies();
+    const session = requestCookies.get('session')?.value;
 
     if (!session) {
         return null;

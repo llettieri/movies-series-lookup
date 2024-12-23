@@ -16,15 +16,17 @@ type ListItem = {
 };
 
 interface HomePageProps {
-    searchParams: { [key: string]: string };
+    searchParams: Promise<{ [key: string]: string }>;
 }
 
 export default async function HomePage({
     searchParams,
 }: HomePageProps): Promise<ReactNode> {
     const locale = await getLocale();
-    const collection = (searchParams.collection as CollectionType) ?? 'movies';
-    const listType = (searchParams.listType as ListType) ?? 'nowPlaying';
+    const collection =
+        ((await searchParams).collection as CollectionType) ?? 'movies';
+    const listType =
+        ((await searchParams).listType as ListType) ?? 'nowPlaying';
 
     const MediaData: Record<CollectionType, Record<ListType, ListItem>> = {
         movies: {
