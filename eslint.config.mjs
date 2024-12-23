@@ -1,17 +1,36 @@
-module.exports = {
-    extends: [
-        'next/core-web-vitals',
-        'plugin:@typescript-eslint/recommended',
-        'plugin:prettier/recommended',
-        'prettier'
-    ],
-    parser: '@typescript-eslint/parser',
-    overrides: [],
-    parserOptions: {
-        ecmaVersion: 'latest',
-        sourceType: 'module'
+import prettier from 'eslint-plugin-prettier';
+import tsParser from '@typescript-eslint/parser';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
+import js from '@eslint/js';
+import {FlatCompat} from '@eslint/eslintrc';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const compat = new FlatCompat({
+    baseDirectory: __dirname,
+    recommendedConfig: js.configs.recommended,
+    allConfig: js.configs.all
+});
+
+export default [{
+    ignores: ['**/manifest.ts', '**/.github'],
+}, ...compat.extends(
+    'next/core-web-vitals',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:prettier/recommended',
+    'prettier',
+), {
+    plugins: {
+        prettier,
     },
-    plugins: ['prettier'],
+
+    languageOptions: {
+        parser: tsParser,
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+    },
+
     rules: {
         'no-empty': ['error'],
         'no-empty-character-class': ['error'],
@@ -64,7 +83,6 @@ module.exports = {
         'no-duplicate-imports': ['error'],
         camelcase: ['warn'],
         '@typescript-eslint/explicit-function-return-type': ['warn'],
-        '@typescript-eslint/method-signature-style': ['error']
+        '@typescript-eslint/method-signature-style': ['error'],
     },
-    ignorePatterns: ['manifest.ts', '.github']
-};
+}];
