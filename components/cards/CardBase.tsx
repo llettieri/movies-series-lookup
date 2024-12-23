@@ -1,4 +1,5 @@
 import { Card, CustomFlowbiteTheme } from 'flowbite-react';
+import Image from 'next/image';
 import Link from 'next/link';
 import React, { ReactNode } from 'react';
 
@@ -16,11 +17,6 @@ const normalCardTheme: CustomFlowbiteTheme['card'] = {
         base: 'flex h-full rounded-md bg-primary shadow-md w-48 cursor-pointer md:hover:scale-105 transition-transform duration-150 md:hover:drop-shadow-lg',
         children: 'flex flex-col h-full',
     },
-    img: {
-        horizontal: {
-            off: 'rounded-t-md',
-        },
-    },
 };
 
 const smallCardTheme: CustomFlowbiteTheme['card'] = {
@@ -29,11 +25,6 @@ const smallCardTheme: CustomFlowbiteTheme['card'] = {
         children: 'flex flex-col h-full mx-4 my-2',
         horizontal: {
             on: 'w-full',
-        },
-    },
-    img: {
-        horizontal: {
-            on: 'h-full w-24 rounded-l-md object-cover max-h-24',
         },
     },
 };
@@ -47,7 +38,18 @@ export const CardBase = ({
     if (size === 'normal') {
         return (
             <Link href={link}>
-                <Card imgSrc={image} theme={normalCardTheme}>
+                <Card
+                    renderImage={() => (
+                        <Image
+                            src={image}
+                            alt=""
+                            width={200}
+                            height={300}
+                            className="rounded-t-md"
+                        />
+                    )}
+                    theme={normalCardTheme}
+                >
                     {children}
                 </Card>
             </Link>
@@ -55,7 +57,19 @@ export const CardBase = ({
     } else {
         return (
             <Link href={link}>
-                <Card imgSrc={image} theme={smallCardTheme} horizontal>
+                <Card
+                    renderImage={() => (
+                        <Image
+                            src={image}
+                            alt=""
+                            width={200}
+                            height={300}
+                            className="h-full max-h-24 w-24 rounded-l-md object-cover"
+                        />
+                    )}
+                    theme={smallCardTheme}
+                    horizontal
+                >
                     {children}
                 </Card>
             </Link>

@@ -22,8 +22,8 @@ export default function CompanyLogo({
             <Image
                 src={image}
                 alt={alt}
-                width={100}
-                height={50}
+                width={50}
+                height={25}
                 className="h-auto w-auto"
             />
         </a>

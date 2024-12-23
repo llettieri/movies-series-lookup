@@ -24,7 +24,9 @@ export const MediaCard = ({ media, size }: MediaCardProps): ReactNode => {
                     {media.title}
                 </h2>
                 <p className="mb-1 text-base text-standard">
-                    {dayjs(media.releaseDate).format('MMMM DD, YYYY')}
+                    {media.releaseDate
+                        ? dayjs(media.releaseDate).format('MMMM DD, YYYY')
+                        : 'Unknown'}
                 </p>
             </div>
         </CardBase>
