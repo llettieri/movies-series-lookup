@@ -20,7 +20,7 @@ export default function SearchPage(): ReactNode {
     const [isLoading, startSearch] = useTransition();
 
     const onSearch = debounce((query: string): void => {
-        if (query == '') {
+        if (query.trim() == '') {
             setResult(EMPTY_SEARCH_RESULT);
             updateSearchParams(router, searchParams, ['query', query]);
             return;
@@ -28,13 +28,18 @@ export default function SearchPage(): ReactNode {
 
         startSearch(async () => {
             setResult(await search(query));
-            updateSearchParams(router, searchParams, ['query', query]);
+
+            if (searchParams.get('query') !== query) {
+                updateSearchParams(router, searchParams, ['query', query]);
+            }
         });
     }, 500);
 
-    useEffect(() => {
-        onSearch(query);
-    }, []);
+    useEffect(
+        () => onSearch(query),
+        // eslint-disable-next-line
+        [],
+    );
 
     return (
         <>
@@ -45,7 +50,7 @@ export default function SearchPage(): ReactNode {
                     onChange={(e) => onSearch(e.target.value)}
                 />
             </div>
-            {isLoading ? (
+            {isLoading && query.trim() !== '' ? (
                 <Loading />
             ) : (
                 <>
