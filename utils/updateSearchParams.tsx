@@ -7,7 +7,8 @@ export const updateSearchParams = (
     ...queryParams: [string, string][]
 ): void => {
     const params = new URLSearchParams(currentSearchParams);
-    queryParams.forEach((p) => params.set(p[0], p[1]));
+    queryParams.forEach(([key, value]) => params.set(key, value));
 
-    router.replace(`?${params}`, { scroll: false });
+    const newUrl = `?${params}`;
+    router.replace(newUrl, { scroll: false });
 };

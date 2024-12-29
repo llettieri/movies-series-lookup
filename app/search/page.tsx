@@ -10,7 +10,13 @@ import { EMPTY_SEARCH_RESULT, SearchResult } from '@/models/SearchResult';
 import { updateSearchParams } from '@/utils/updateSearchParams';
 import debounce from 'lodash.debounce';
 import { useRouter, useSearchParams } from 'next/navigation';
-import React, { ReactNode, useEffect, useState, useTransition } from 'react';
+import React, {
+    ReactNode,
+    useEffect,
+    useMemo,
+    useState,
+    useTransition,
+} from 'react';
 
 export default function SearchPage(): ReactNode {
     const router = useRouter();
@@ -19,22 +25,43 @@ export default function SearchPage(): ReactNode {
     const [result, setResult] = useState<SearchResult>(EMPTY_SEARCH_RESULT);
     const [isLoading, startSearch] = useTransition();
 
-    const onSearch = debounce((query: string): void => {
-        if (query == '') {
-            setResult(EMPTY_SEARCH_RESULT);
-            updateSearchParams(router, searchParams, ['query', query]);
-            return;
-        }
+    const debouncedSearch = useMemo(
+        () =>
+            debounce((query: string): void => {
+                setResult(EMPTY_SEARCH_RESULT);
 
-        startSearch(async () => {
-            setResult(await search(query));
-            updateSearchParams(router, searchParams, ['query', query]);
-        });
-    }, 500);
+                if (query.trim() == '') {
+                    updateSearchParams(router, searchParams, ['query', query]);
+                    return;
+                }
+
+                startSearch(async () => {
+                    try {
+                        const searchResult = await search(query);
+                        setResult(searchResult);
+
+                        if (searchParams.get('query') !== query) {
+                            updateSearchParams(router, searchParams, [
+                                'query',
+                                query,
+                            ]);
+                        }
+                    } catch (error: unknown) {
+                        // eslint-disable-next-line no-console
+                        console.error(
+                            `Search request with query ${query} failed because of: ${error}`,
+                        );
+                    }
+                });
+            }, 500),
+        [router, searchParams],
+    );
 
     useEffect(() => {
-        onSearch(query);
-    }, []);
+        debouncedSearch(query);
+
+        return (): void => debouncedSearch.cancel();
+    }, [debouncedSearch, query]);
 
     return (
         <>
@@ -42,10 +69,10 @@ export default function SearchPage(): ReactNode {
             <div className="container mx-auto flex flex-col justify-center">
                 <SearchBar
                     defaultValue={query}
-                    onChange={(e) => onSearch(e.target.value)}
+                    onChange={(e) => debouncedSearch(e.target.value)}
                 />
             </div>
-            {isLoading ? (
+            {isLoading && query.trim() !== '' ? (
                 <Loading />
             ) : (
                 <>
