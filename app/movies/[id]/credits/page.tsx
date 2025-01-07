@@ -1,5 +1,6 @@
 import { CreditsTable } from '@/components/CreditsTable';
 import { Meta } from '@/components/Meta';
+import { SearchHint } from '@/components/SearchHint';
 import { MediaType } from '@/models/MediaType';
 import { getMovieCredits, getMovieDetails } from '@/services/MovieService';
 import { Alert, Kbd } from 'flowbite-react';
@@ -29,25 +30,17 @@ export default async function MovieCreditsPage({
     params,
 }: MovieCreditsPageProps): Promise<ReactNode> {
     const readyOnlyHeaders = await headers();
-    const { os } = userAgent({ headers: readyOnlyHeaders });
+    const { os, device } = userAgent({ headers: readyOnlyHeaders });
     const movieId = (await params).id;
     const { cast, crew } = await getMovieCredits(movieId);
 
     return (
         <>
-            <div className="container mx-auto flex justify-end">
-                <Alert color="dark" icon={IoAlertCircleOutline}>
-                    <span>
-                        Please press{' '}
-                        {os.name?.toLowerCase().includes('mac') ? (
-                            <Kbd>Cmd</Kbd>
-                        ) : (
-                            <Kbd>Ctrl</Kbd>
-                        )}{' '}
-                        + <Kbd>F</Kbd> to search for an individual person.
-                    </span>
-                </Alert>
-            </div>
+            {device.type !== 'mobile' ? (
+                <div className="container mx-auto flex justify-end">
+                    <SearchHint os={os}></SearchHint>
+                </div>
+            ) : null}
             <CreditsTable
                 link={`/movies/${movieId}`}
                 cast={cast}
