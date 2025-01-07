@@ -3,12 +3,10 @@ import { Meta } from '@/components/Meta';
 import { SearchHint } from '@/components/SearchHint';
 import { MediaType } from '@/models/MediaType';
 import { getMovieCredits, getMovieDetails } from '@/services/MovieService';
-import { Alert, Kbd } from 'flowbite-react';
 import { Metadata } from 'next';
 import { headers } from 'next/headers';
 import { userAgent } from 'next/server';
 import React, { ReactNode } from 'react';
-import { IoAlertCircleOutline } from 'react-icons/io5';
 
 interface MovieCreditsPageProps {
     params: Promise<{ id: number }>;

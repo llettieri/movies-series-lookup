@@ -38,13 +38,13 @@ export const PersonCard = ({ person, size }: PersonCardProps): ReactNode => {
                     className="flex flex-col justify-center"
                     id={person.name.replace(' ', '-').toLowerCase()}
                 >
-                    <h3 className="text-standard">{person.name}</h3>
+                    <h4 className="text-standard">{person.name}</h4>
                     {person.roles ? (
-                        <h5 className="text-standard">
+                        <h5 className="line-clamp-1 overflow-hidden text-standard">
                             {mappedRoles.join(', ')}
                         </h5>
                     ) : (
-                        <h5 className="text-standard">
+                        <h5 className="line-clamp-1 overflow-hidden text-standard">
                             {mappedJobs.join(', ')}
                         </h5>
                     )}

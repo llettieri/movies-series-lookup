@@ -64,7 +64,7 @@ export const CardBase = ({
                             alt=""
                             width={200}
                             height={300}
-                            className="h-full max-h-24 w-24 rounded-l-md object-cover"
+                            className="h-full max-h-24 w-24 flex-shrink-0 rounded-l-md object-cover"
                         />
                     )}
                     theme={smallCardTheme}
