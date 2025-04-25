@@ -1,11 +1,11 @@
 import {
-    CustomFlowbiteTheme,
     Navbar as FBNavbar,
     NavbarBrand,
     NavbarCollapse,
     NavbarLink,
     NavbarToggle,
 } from 'flowbite-react';
+import { CustomFlowbiteTheme } from 'flowbite-react/types';
 import Link from 'next/link';
 import React, { ReactNode } from 'react';
 import { IoHome, IoSearch } from 'react-icons/io5';
@@ -17,19 +17,19 @@ const navbarTheme: CustomFlowbiteTheme['navbar'] = {
     link: {
         base: 'text-xl py-2 px-3',
         active: {
-            on: 'bg-primaryHover',
+            on: 'bg-primary-hover',
             off: 'text-standard border-b md:border-0',
         },
     },
     toggle: {
-        base: 'inline-flex items-center rounded-lg p-2 text-md text-standard focus:outline-none md:hidden',
+        base: 'inline-flex items-center rounded-lg p-2 text-md text-standard focus:outline-hidden md:hidden',
         icon: 'h-6 w-6 shrink-0',
     },
 };
 
 export const Navbar = (): ReactNode => {
     return (
-        <FBNavbar theme={navbarTheme}>
+        <FBNavbar theme={navbarTheme} applyTheme="replace">
             <NavbarBrand href="/" as={Link}>
                 Movies & Series Lookup
             </NavbarBrand>

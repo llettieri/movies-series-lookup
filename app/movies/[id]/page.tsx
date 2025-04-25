@@ -8,7 +8,7 @@ import {
     getMovieCredits,
     getMovieDetails,
     getSimilarMovies,
-} from '@/services/MovieService';
+} from '@/services/movie-service';
 import dayjs from 'dayjs';
 import { Metadata } from 'next';
 import Image from 'next/image';
@@ -38,7 +38,7 @@ export default async function MoviePage({
     const movie = await getMovieDetails(movieId);
     const similarMovies = await getSimilarMovies(movieId);
     const credits = await getMovieCredits(movieId);
-    const image = movie.backdrop ?? movie.poster ?? '/placeholder.png';
+    const image = movie.backdrop ?? movie.poster ?? '/placeholder.svg';
     const width = movie.backdrop ? 1000 : 500;
 
     if (!movie) {
@@ -55,10 +55,7 @@ export default async function MoviePage({
                                 src={image}
                                 width={width}
                                 height={600}
-                                className="mx-auto rounded-md"
-                                placeholder="blur"
-                                blurDataURL="/placeholder.png"
-                                loading="lazy"
+                                className="mx-auto rounded-md bg-white"
                                 alt="Movie Wallpaper"
                             />
                             <Rating value={movie.averageVote} />
@@ -92,7 +89,7 @@ export default async function MoviePage({
                         <p className="mt-4 text-sm">{movie.overview}</p>
                         <p className="mt-6 text-sm">
                             Release Date:{' '}
-                            <span className="font-bold text-secondaryText">
+                            <span className="text-secondary-text font-bold">
                                 {dayjs(movie.releaseDate).format(
                                     'MMMM DD, YYYY',
                                 )}

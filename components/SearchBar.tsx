@@ -1,23 +1,31 @@
+'use client';
+
+import debounce from 'lodash.debounce';
+import { RedirectType, redirect, useSearchParams } from 'next/navigation';
 import React, { ChangeEvent, ReactNode } from 'react';
 
-interface SearchBarProps {
-    defaultValue: string;
-    // eslint-disable-next-line no-unused-vars
-    onChange: (event: ChangeEvent<HTMLInputElement>) => void;
-}
+const debouncedSearch = debounce(
+    (query: string): void => redirect(`?query=${query}`, RedirectType.push),
+    500,
+);
 
-export const SearchBar = ({
-    defaultValue,
-    onChange,
-}: SearchBarProps): ReactNode => {
+const SearchBar = (): ReactNode => {
+    const searchParams = useSearchParams();
+    const query = searchParams.get('query') ?? '';
+
     return (
         <input
             type="text"
-            onChange={onChange}
-            defaultValue={defaultValue}
             placeholder="Search..."
             autoFocus={true}
-            className="mx-auto mt-16 block w-80 rounded-md border-0 bg-neutral p-2 shadow-md"
+            name="query"
+            defaultValue={query}
+            onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                debouncedSearch(event.target.value)
+            }
+            className="bg-neutral mx-auto mt-16 block w-80 rounded-md border-0 p-2 shadow-md outline-none"
         />
     );
 };
+
+export { SearchBar };

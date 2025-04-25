@@ -4,20 +4,26 @@ import { CreditsDto } from '@/models/dto/CreditsDto';
 import { ListDto } from '@/models/dto/ListDto';
 import { MovieDto } from '@/models/dto/MovieDto';
 import { Media } from '@/models/Media';
-import { get } from '@/services/AxiosService';
-import { parseCreditsDto, parseMovieDto } from '@/services/ParseService';
+import { TMDBApi } from '@/services/api';
+import { parseCreditsDto, parseMovieDto } from '@/services/parse-service';
 import { parseTemplate } from 'url-template';
 
-const getLatestMovies = async (): Promise<Media[]> => {
-    const url = parseTemplate(routes.movies.nowPlaying).expand({ page: 1 });
-    return await get<ListDto<MovieDto>>(url, true).then((r) =>
+const getLatestMovies = async (locale: string): Promise<Media[]> => {
+    const url = parseTemplate(routes.movies.nowPlaying).expand({
+        page: 1,
+        region: locale,
+    });
+    return await TMDBApi.get<ListDto<MovieDto>>(url).then((r) =>
         r.data.results.map(parseMovieDto),
     );
 };
 
-const getPopularMovies = async (): Promise<Media[]> => {
-    const url = parseTemplate(routes.movies.popular).expand({ page: 1 });
-    return await get<ListDto<MovieDto>>(url, true).then((r) =>
+const getPopularMovies = async (locale: string): Promise<Media[]> => {
+    const url = parseTemplate(routes.movies.popular).expand({
+        page: 1,
+        region: locale,
+    });
+    return await TMDBApi.get<ListDto<MovieDto>>(url).then((r) =>
         r.data.results.map(parseMovieDto),
     );
 };
@@ -27,7 +33,7 @@ const getMovieDetails = async (movieId: number): Promise<Media> => {
         id: movieId,
     });
 
-    return await get<MovieDto>(url, true).then((r) => parseMovieDto(r.data));
+    return await TMDBApi.get<MovieDto>(url).then((r) => parseMovieDto(r.data));
 };
 
 const getSimilarMovies = async (
@@ -38,7 +44,7 @@ const getSimilarMovies = async (
         id: movieId,
         page: page ?? 1,
     });
-    return await get<ListDto<MovieDto>>(url, true).then((r) =>
+    return await TMDBApi.get<ListDto<MovieDto>>(url).then((r) =>
         r.data.results.map(parseMovieDto),
     );
 };
@@ -47,7 +53,7 @@ const getMovieCredits = async (movieId: number): Promise<Credits> => {
     const url = parseTemplate(routes.movies.byId.credits).expand({
         id: movieId,
     });
-    return await get<CreditsDto>(url, true).then((r) =>
+    return await TMDBApi.get<CreditsDto>(url).then((r) =>
         parseCreditsDto(r.data),
     );
 };

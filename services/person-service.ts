@@ -6,26 +6,28 @@ import { TVShowDto } from '@/models/dto/TVShowDto';
 import { Media } from '@/models/Media';
 import { Person } from '@/models/Person';
 import { TVShow } from '@/models/TVShow';
-import { get } from '@/services/AxiosService';
+import { TMDBApi } from '@/services/api';
 import {
     parseMovieDto,
     parsePersonDto,
     parseTVShowDto,
-} from '@/services/ParseService';
+} from '@/services/parse-service';
 import { parseTemplate } from 'url-template';
 
 const getPersonDetails = async (personId: number): Promise<Person> => {
     const url = parseTemplate(routes.person.byId.details).expand({
         id: personId,
     });
-    return await get<PersonDto>(url, true).then((r) => parsePersonDto(r.data));
+    return await TMDBApi.get<PersonDto>(url).then((r) =>
+        parsePersonDto(r.data),
+    );
 };
 
 const getPersonMovies = async (personId: number): Promise<Media[]> => {
     const url = parseTemplate(routes.person.byId.movieCredits).expand({
         id: personId,
     });
-    return await get<MediaCreditsDto<MovieDto>>(url, true).then((r) => {
+    return await TMDBApi.get<MediaCreditsDto<MovieDto>>(url).then((r) => {
         const results = [...r.data.crew, ...r.data.cast];
         const movies: Media[] = [];
         results.map(parseMovieDto).forEach((result) => {
@@ -41,7 +43,7 @@ const getPersonTVShows = async (personId: number): Promise<TVShow[]> => {
     const url = parseTemplate(routes.person.byId.tvCredits).expand({
         id: personId,
     });
-    return await get<MediaCreditsDto<TVShowDto>>(url, true).then((r) => {
+    return await TMDBApi.get<MediaCreditsDto<TVShowDto>>(url).then((r) => {
         const results = [...r.data.crew, ...r.data.cast];
         const shows: TVShow[] = [];
         results.map(parseTVShowDto).forEach((result) => {

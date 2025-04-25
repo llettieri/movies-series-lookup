@@ -2,7 +2,7 @@
 
 import { routes } from '@/config/routes';
 import TMDBRequestTokenDto from '@/models/dto/TMDBAuthenticationDto';
-import { authTMDB } from '@/services/AxiosService';
+import { TMDBApi } from '@/services/api';
 import dayjs from 'dayjs';
 import { SignJWT, jwtVerify } from 'jose';
 import { cookies } from 'next/headers';
@@ -13,27 +13,31 @@ type UserPayload = {
     locale: string;
     tmdbToken: string;
 };
-
+const algorithm = process.env.JWT_ALGORITHM ?? 'HS256';
 const secret = new TextEncoder().encode(process.env.JWT_SECRET);
 
 const encrypt = async (payload: UserPayload): Promise<string> => {
     return await new SignJWT(payload)
-        .setProtectedHeader({ alg: 'HS256' })
+        .setProtectedHeader({ alg: algorithm })
         .setIssuedAt()
         .setExpirationTime(payload.expires)
         .sign(secret);
 };
 
-const decrypt = async (token: string): Promise<UserPayload> => {
-    const { payload } = await jwtVerify(token, secret, {
-        algorithms: ['HS256'],
-    });
-    return payload as UserPayload;
+const decrypt = async (token: string): Promise<UserPayload | null> => {
+    try {
+        const { payload } = await jwtVerify(token, secret, {
+            algorithms: [algorithm],
+        });
+        return payload as UserPayload;
+    } catch {
+        return null;
+    }
 };
 
 const createSession = async (locale: string): Promise<void> => {
     const user = crypto.randomUUID();
-    const reqToken = await authTMDB<TMDBRequestTokenDto>(
+    const reqToken = await TMDBApi.get<TMDBRequestTokenDto>(
         routes.authentication.token.new,
     );
     const expires = dayjs().add(12, 'h').toDate();

@@ -5,7 +5,7 @@ export default function ImprintPage(): ReactNode {
     return (
         <>
             <h1>Imprint</h1>
-            <div className="w-max-[32rem]">
+            <div className="max-w-lg">
                 <b>Responsible entity:</b>
                 <br />
                 Lorenzo Lettieri

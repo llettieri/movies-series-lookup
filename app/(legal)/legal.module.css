@@ -1,3 +1,5 @@
+@reference '../globals.css'
+
 .legal {
     @apply max-w-3xl;
     @apply p-4;

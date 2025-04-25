@@ -1,4 +1,7 @@
-import { Alert, CustomFlowbiteTheme, Kbd } from 'flowbite-react';
+'use client';
+
+import { Alert, Kbd } from 'flowbite-react';
+import { CustomFlowbiteTheme } from 'flowbite-react/types';
 import React, { ReactNode } from 'react';
 import { IoAlertCircleOutline } from 'react-icons/io5';
 
@@ -13,7 +16,7 @@ interface SearchHintProps {
 
 const alertTheme: CustomFlowbiteTheme['alert'] = {
     color: {
-        purple: 'bg-primary border-primaryTint text-white',
+        purple: 'bg-primary border-primary-tint text-standard',
     },
 };
 

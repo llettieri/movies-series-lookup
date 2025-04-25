@@ -29,7 +29,7 @@ export const Button = ({
 
     return (
         <FBButton
-            className={`bg-primary outline-none focus:ring-0 enabled:hover:bg-primaryHover ${className}`}
+            className={`bg-primary hover:bg-primary-hover cursor-pointer outline-hidden focus:ring-0 ${className}`}
             pill={variant === 'icon'}
             onClick={onClick}
             type={type}

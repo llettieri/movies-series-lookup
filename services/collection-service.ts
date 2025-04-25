@@ -1,10 +1,10 @@
 import { routes } from '@/config/routes';
 import { Collection } from '@/models/Collection';
 import { CollectionDto } from '@/models/dto/CollectionDto';
-import { parseCollectionDto } from '@/services/ParseService';
+import { parseCollectionDto } from '@/services/parse-service';
 import { parseTemplate } from 'url-template';
 
-import { get } from './AxiosService';
+import { TMDBApi } from './api';
 
 const getCollectionDetails = async (
     collectionId: number,
@@ -13,7 +13,7 @@ const getCollectionDetails = async (
         id: collectionId,
     });
 
-    return await get<CollectionDto>(url, true).then((r) =>
+    return await TMDBApi.get<CollectionDto>(url).then((r) =>
         parseCollectionDto(r.data),
     );
 };

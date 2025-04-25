@@ -5,7 +5,8 @@ export interface MultiMediaDto {
     name?: string;
     overview: string;
     poster_path: string;
-    release_date: string;
+    release_date?: string;
+    first_air_date?: string;
     title?: string;
     vote_average: number;
 }

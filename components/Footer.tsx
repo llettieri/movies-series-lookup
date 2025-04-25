@@ -11,7 +11,7 @@ import React, { ReactNode } from 'react';
 export const Footer = (): ReactNode => {
     const currentYear = dayjs().year();
     return (
-        <FBFooter container className="rounded-none bg-neutral">
+        <FBFooter container className="bg-neutral rounded-none">
             <div className="container mx-auto flex flex-row justify-between text-center *:text-lg *:text-white">
                 <FooterLinkGroup>
                     <FooterLink as={Link} href="/imprint">

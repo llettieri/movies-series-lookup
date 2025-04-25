@@ -2,32 +2,14 @@
 
 import { CollectionType, ListType } from '@/app/page';
 import { Button } from '@/components/Button';
-import { updateSearchParams } from '@/utils/updateSearchParams';
-import { useRouter, useSearchParams } from 'next/navigation';
-import React, { ReactNode, useEffect, useState } from 'react';
+import { redirect, useSearchParams } from 'next/navigation';
+import React, { ReactNode } from 'react';
 
 export const HomeSubNav = (): ReactNode => {
-    const router = useRouter();
     const searchParams = useSearchParams();
-    const [collection, setCollection] = useState<CollectionType>();
-    const [listType, setListType] = useState<ListType>();
-
-    useEffect(() => {
-        const collection =
-            (searchParams.get('collection') as CollectionType) ?? 'movies';
-        const listType =
-            (searchParams.get('listType') as ListType) ?? 'nowPlaying';
-
-        setCollection(collection);
-        setListType(listType);
-
-        updateSearchParams(
-            router,
-            searchParams,
-            ['collection', collection],
-            ['listType', listType],
-        );
-    }, [searchParams, router]);
+    const collection =
+        (searchParams.get('collection') as CollectionType) ?? 'movies';
+    const listType = (searchParams.get('listType') as ListType) ?? 'nowPlaying';
 
     return (
         <>
@@ -35,25 +17,19 @@ export const HomeSubNav = (): ReactNode => {
                 <Button
                     title="Movies"
                     onClick={(): void =>
-                        updateSearchParams(router, searchParams, [
-                            'collection',
-                            'movies',
-                        ])
+                        redirect(`?collection=movies&listType=${listType}`)
                     }
                     className={`flex-1 ${
-                        collection === 'movies' ? 'font-bold' : ''
+                        collection === 'movies' ? 'underline' : ''
                     }`}
                 />
                 <Button
                     title="TV Series"
                     onClick={(): void =>
-                        updateSearchParams(router, searchParams, [
-                            'collection',
-                            'tvshows',
-                        ])
+                        redirect(`?collection=tvshows&listType=${listType}`)
                     }
                     className={`flex-1 ${
-                        collection === 'tvshows' ? 'font-bold' : ''
+                        collection === 'tvshows' ? 'underline' : ''
                     }`}
                 />
             </div>
@@ -61,25 +37,21 @@ export const HomeSubNav = (): ReactNode => {
                 <Button
                     title="Popular"
                     onClick={(): void =>
-                        updateSearchParams(router, searchParams, [
-                            'listType',
-                            'popular',
-                        ])
+                        redirect(`?collection=${collection}&listType=popular`)
                     }
                     className={`flex-1 ${
-                        listType === 'popular' ? 'font-bold' : ''
+                        listType === 'popular' ? 'underline' : ''
                     }`}
                 />
                 <Button
                     title="Now Playing"
                     onClick={(): void =>
-                        updateSearchParams(router, searchParams, [
-                            'listType',
-                            'nowPlaying',
-                        ])
+                        redirect(
+                            `?collection=${collection}&listType=nowPlaying`,
+                        )
                     }
                     className={`flex-1 ${
-                        listType === 'nowPlaying' ? 'font-bold' : ''
+                        listType === 'nowPlaying' ? 'underline' : ''
                     }`}
                 />
             </div>

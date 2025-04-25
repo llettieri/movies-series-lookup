@@ -1,8 +1,8 @@
 'use client';
 
 import { routes } from '@/config/routes';
-import { get } from '@/services/AxiosService';
-import { createSession } from '@/services/SessionService';
+import { TMDBApi } from '@/services/api';
+import { createSession } from '@/services/session-service';
 import { ReactNode, useEffect } from 'react';
 
 interface GeoDataDto {
@@ -13,7 +13,7 @@ interface GeoDataDto {
 
 export const SessionProvider = (): ReactNode => {
     useEffect(() => {
-        get<GeoDataDto>(routes.country)
+        TMDBApi.get<GeoDataDto>(routes.country)
             .then((r) => createSession(r.data.countryCode))
             .catch((e) => {
                 // eslint-disable-next-line

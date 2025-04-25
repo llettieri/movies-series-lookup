@@ -1,6 +1,6 @@
 import { MediaList } from '@/components/lists/MediaList';
 import { Meta } from '@/components/Meta';
-import { getCollectionDetails } from '@/services/CollectionService';
+import { getCollectionDetails } from '@/services/collection-service';
 import { Metadata } from 'next';
 import Image from 'next/image';
 import React, { ReactNode } from 'react';
@@ -32,13 +32,11 @@ export default async function CollectionPage({
                         src={
                             collection.backdrop ??
                             collection.poster ??
-                            '/placeholder.png'
+                            '/placeholder.svg'
                         }
                         width={1000}
                         height={600}
                         className="rounded-md"
-                        placeholder="blur"
-                        blurDataURL="/placeholder.png"
                         loading="lazy"
                         alt="collection Wallpaper"
                     />

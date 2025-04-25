@@ -5,13 +5,13 @@ import { MediaList } from '@/components/lists/MediaList';
 import { Meta } from '@/components/Meta';
 import { Rating } from '@/components/Rating';
 import { routes } from '@/config/routes';
-import { getLocale } from '@/services/SessionService';
+import { getLocale } from '@/services/session-service';
 import {
     getSimilarTVShows,
     getTVShowDetails,
     getTVShowWatchProviders,
     getTVShowsCredits,
-} from '@/services/TVShowService';
+} from '@/services/tv-show-service';
 import dayjs from 'dayjs';
 import { Metadata } from 'next';
 import Image from 'next/image';
@@ -50,15 +50,12 @@ export default async function TVShowPage({
             <div className="container mx-auto max-w-4xl py-6">
                 <div className="px-3">
                     <Suspense>
-                        <div className="relative flex justify-center">
+                        <div className="relative flex justify-center bg-white">
                             <Image
                                 src={image}
                                 width={width}
                                 height={600}
                                 className="rounded-md"
-                                placeholder="blur"
-                                blurDataURL="/placeholder.png"
-                                loading="lazy"
                                 alt="show Wallpaper"
                             />
                             <Rating value={Math.round(show.averageVote)} />
@@ -85,7 +82,7 @@ export default async function TVShowPage({
                         <p className="mt-4 text-sm">{show.overview}</p>
                         <p className="mt-4 text-sm">
                             Release Date:{' '}
-                            <span className="font-bold text-secondaryText">
+                            <span className="text-secondary-text font-bold">
                                 {dayjs(show.releaseDate).format(
                                     'MMMM DD, YYYY',
                                 )}
@@ -94,7 +91,7 @@ export default async function TVShowPage({
                         {show.lastAirDate ? (
                             <p className="text-sm">
                                 Last Aired:{' '}
-                                <span className="font-bold text-secondaryText">
+                                <span className="text-secondary-text font-bold">
                                     {dayjs(show.lastAirDate).format(
                                         'MMMM DD, YYYY',
                                     )}

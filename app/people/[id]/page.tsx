@@ -5,7 +5,7 @@ import {
     getPersonDetails,
     getPersonMovies,
     getPersonTVShows,
-} from '@/services/PersonService';
+} from '@/services/person-service';
 import dayjs from 'dayjs';
 import { Metadata } from 'next';
 import Image from 'next/image';
@@ -51,13 +51,10 @@ export default async function PersonPage({
             <div className="container mx-auto max-w-4xl py-6">
                 <div className="px-3">
                     <Image
-                        src={person.portrait ?? '/placeholder.png'}
+                        src={person.portrait ?? '/placeholder.svg'}
                         width={200}
                         height={400}
-                        placeholder="blur"
-                        blurDataURL="/placeholder.png"
-                        loading="lazy"
-                        className="mx-auto block h-auto w-auto rounded-md"
+                        className="mx-auto block h-auto w-auto rounded-md bg-white"
                         alt="person Wallpaper"
                     />
 
@@ -79,7 +76,7 @@ export default async function PersonPage({
                     <p className="mt-4 text-sm">{person.biography}</p>
                     <p className="mt-5 text-sm">
                         Birthday:{' '}
-                        <span className="font-bold text-secondaryText">
+                        <span className="text-secondary-text font-bold">
                             {dayjs(person.birthday).format('MMMM DD, YYYY')}
                         </span>
                     </p>

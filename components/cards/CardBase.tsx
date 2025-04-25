@@ -1,4 +1,7 @@
-import { Card, CustomFlowbiteTheme } from 'flowbite-react';
+'use client';
+
+import { Card } from 'flowbite-react';
+import { CustomFlowbiteTheme } from 'flowbite-react/types';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { ReactNode } from 'react';
@@ -45,10 +48,11 @@ export const CardBase = ({
                             alt=""
                             width={200}
                             height={300}
-                            className="rounded-t-md"
+                            className="rounded-t-md bg-white"
                         />
                     )}
                     theme={normalCardTheme}
+                    applyTheme={'replace'}
                 >
                     {children}
                 </Card>
@@ -62,12 +66,13 @@ export const CardBase = ({
                         <Image
                             src={image}
                             alt=""
-                            width={200}
-                            height={300}
-                            className="h-full max-h-24 w-24 flex-shrink-0 rounded-l-md object-cover"
+                            width={100}
+                            height={100}
+                            className="h-full max-h-24 w-24 shrink-0 rounded-l-md bg-white object-cover"
                         />
                     )}
                     theme={smallCardTheme}
+                    applyTheme={'replace'}
                     horizontal
                 >
                     {children}

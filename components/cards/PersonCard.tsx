@@ -8,7 +8,7 @@ interface PersonCardProps {
 }
 
 export const PersonCard = ({ person, size }: PersonCardProps): ReactNode => {
-    const image = person.portrait ?? '/placeholder.png';
+    const image = person.portrait ?? '/placeholder.svg';
 
     const getCountString = (count: number): string =>
         !isNaN(count) ? `(${count} Episode${count > 1 ? 's' : ''})` : '';
@@ -23,10 +23,10 @@ export const PersonCard = ({ person, size }: PersonCardProps): ReactNode => {
     return (
         <CardBase link={`/people/${person.id}`} image={image} size={size}>
             {size === 'normal' ? (
-                <div className="flex max-h-72 flex-1 flex-col overflow-hidden overflow-ellipsis px-6 py-2">
-                    <h3 className="text-standard">{person.name}</h3>
+                <div className="flex max-h-72 flex-1 flex-col overflow-hidden px-6 py-2 text-ellipsis">
+                    <h3 className="text-standard!">{person.name}</h3>
                     {person.roles ? (
-                        <h4 className="mb-1 line-clamp-6 overflow-hidden font-medium text-standard">
+                        <h4 className="text-standard! mb-1 line-clamp-6 overflow-hidden font-medium!">
                             {mappedRoles.join(', ')}
                         </h4>
                     ) : (
@@ -38,13 +38,13 @@ export const PersonCard = ({ person, size }: PersonCardProps): ReactNode => {
                     className="flex flex-col justify-center"
                     id={person.name.replace(' ', '-').toLowerCase()}
                 >
-                    <h4 className="text-standard">{person.name}</h4>
+                    <h4 className="text-standard!">{person.name}</h4>
                     {person.roles ? (
-                        <h5 className="line-clamp-1 overflow-hidden text-standard">
+                        <h5 className="text-standard! line-clamp-1 overflow-hidden">
                             {mappedRoles.join(', ')}
                         </h5>
                     ) : (
-                        <h5 className="line-clamp-1 overflow-hidden text-standard">
+                        <h5 className="text-standard! line-clamp-1 overflow-hidden">
                             {mappedJobs.join(', ')}
                         </h5>
                     )}

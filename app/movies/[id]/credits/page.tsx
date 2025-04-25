@@ -2,7 +2,7 @@ import { CreditsTable } from '@/components/CreditsTable';
 import { Meta } from '@/components/Meta';
 import { SearchHint } from '@/components/SearchHint';
 import { MediaType } from '@/models/MediaType';
-import { getMovieCredits, getMovieDetails } from '@/services/MovieService';
+import { getMovieCredits, getMovieDetails } from '@/services/movie-service';
 import { Metadata } from 'next';
 import { headers } from 'next/headers';
 import { userAgent } from 'next/server';

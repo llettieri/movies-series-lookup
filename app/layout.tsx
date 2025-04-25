@@ -29,7 +29,7 @@ export default function RootLayout({ children }: RootLayoutProps): ReactNode {
                     <Navbar />
 
                     <div className="flex flex-1 flex-col overflow-auto overscroll-y-none">
-                        <main className="flex-1 bg-base100 p-5 sm:p-10">
+                        <main className="bg-dark flex-1 p-5 sm:p-10">
                             <Suspense fallback={<Loading />}>
                                 {children}
                             </Suspense>

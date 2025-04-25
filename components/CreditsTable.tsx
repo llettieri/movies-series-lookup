@@ -16,7 +16,7 @@ const GroupedCrewComponent = ({
         groups.push(
             <div key={department} className="mb-2">
                 <h2
-                    className="mb-0 text-standard"
+                    className="text-standard! mb-0!"
                     id={department.toLowerCase()}
                 >
                     {department}
@@ -77,7 +77,7 @@ export const CreditsTable = ({
             <div className="container mx-auto grid grid-cols-1 gap-8 px-2 py-5 md:grid-cols-2 md:px-0">
                 <Suspense>
                     <div>
-                        <h1 className="mx-auto mb-3 w-fit text-standard md:w-full">
+                        <h1 className="text-standard mx-auto mb-3 w-fit md:w-full">
                             {title} Cast{' '}
                             <span className="text-tag font-light">
                                 ({cast.length})
@@ -94,7 +94,7 @@ export const CreditsTable = ({
                 </Suspense>
                 <Suspense>
                     <div>
-                        <h1 className="mx-auto mb-3 w-fit text-standard md:w-full">
+                        <h1 className="text-standard mx-auto mb-3 w-fit md:w-full">
                             {title} Crew{' '}
                             <span className="text-tag font-light">
                                 ({crew.length})

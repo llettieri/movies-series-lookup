@@ -116,7 +116,7 @@ const parseMultiMediaDto = (dto: MultiMediaDto): Media => {
         poster: dto.poster_path
             ? `${routes.images}${dto.poster_path}`
             : undefined,
-        releaseDate: dto.release_date,
+        releaseDate: dto.release_date ?? dto.first_air_date,
         runtime: undefined,
         title: dto.title ?? dto.name ?? '',
     };
