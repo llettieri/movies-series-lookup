@@ -2,9 +2,12 @@ import { Hero } from '@/components/Hero';
 import { HomeSubNav } from '@/components/HomeSubNav';
 import { MediaList } from '@/components/lists/MediaList';
 import { Media } from '@/models/Media';
-import { getLatestMovies, getPopularMovies } from '@/services/MovieService';
-import { getLocale } from '@/services/SessionService';
-import { getAiringTodayShows, getPopularShows } from '@/services/TVShowService';
+import { getLatestMovies, getPopularMovies } from '@/services/movie-service';
+import { getLocale } from '@/services/session-service';
+import {
+    getAiringTodayShows,
+    getPopularShows,
+} from '@/services/tv-show-service';
 import React, { ReactNode } from 'react';
 
 export type CollectionType = 'movies' | 'tvshows';
@@ -16,26 +19,28 @@ type ListItem = {
 };
 
 interface HomePageProps {
-    searchParams: Promise<{ [key: string]: string }>;
+    searchParams: Promise<{
+        collection: CollectionType | undefined;
+        listType: ListType | undefined;
+    }>;
 }
 
 export default async function HomePage({
     searchParams,
 }: HomePageProps): Promise<ReactNode> {
     const locale = await getLocale();
-    const collection =
-        ((await searchParams).collection as CollectionType) ?? 'movies';
-    const listType =
-        ((await searchParams).listType as ListType) ?? 'nowPlaying';
+    const searchParamsList = await searchParams;
+    const collection = searchParamsList.collection ?? 'movies';
+    const listType = searchParamsList.listType ?? 'nowPlaying';
 
     const MediaData: Record<CollectionType, Record<ListType, ListItem>> = {
         movies: {
             popular: {
-                data: getPopularMovies(),
+                data: getPopularMovies(locale),
                 title: 'Popular Movies',
             },
             nowPlaying: {
-                data: getLatestMovies(),
+                data: getLatestMovies(locale),
                 title: 'Latest Movies',
             },
         },

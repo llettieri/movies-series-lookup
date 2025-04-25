@@ -52,11 +52,11 @@ export const routes = {
         /**
          * QueryParams: page
          */
-        popular: `${base.movies}/popular{?page}`,
+        popular: `${base.movies}/popular{?page,region}`,
         /**
-         * QueryParams: page
+         * QueryParams: page, region
          */
-        nowPlaying: `${base.movies}/now_playing{?page}`,
+        nowPlaying: `${base.movies}/now_playing{?page,region}`,
     },
     person: {
         byId: {
