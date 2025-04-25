@@ -1,11 +1,13 @@
+import withFlowbiteReact from 'flowbite-react/plugin/nextjs';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
         remotePatterns: [
-            { hostname: 'image.tmdb.org' },
+            {hostname: 'image.tmdb.org'},
         ],
     },
     output: 'standalone',
 };
 
-module.exports = nextConfig;
+export default withFlowbiteReact(nextConfig);
