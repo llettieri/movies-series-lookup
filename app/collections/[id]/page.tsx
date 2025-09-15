@@ -32,7 +32,7 @@ export default async function CollectionPage({
                         src={
                             collection.backdrop ??
                             collection.poster ??
-                            '/placeholder.svg'
+                            '/fallback.png'
                         }
                         width={1000}
                         height={600}

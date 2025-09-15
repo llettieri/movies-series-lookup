@@ -8,7 +8,7 @@ interface PersonCardProps {
 }
 
 export const PersonCard = ({ person, size }: PersonCardProps): ReactNode => {
-    const image = person.portrait ?? '/placeholder.svg';
+    const image = person.portrait ?? '/fallback.png';
 
     const getCountString = (count: number): string =>
         !isNaN(count) ? `(${count} Episode${count > 1 ? 's' : ''})` : '';

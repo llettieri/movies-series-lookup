@@ -51,7 +51,7 @@ export default async function PersonPage({
             <div className="container mx-auto max-w-4xl py-6">
                 <div className="px-3">
                     <Image
-                        src={person.portrait ?? '/placeholder.svg'}
+                        src={person.portrait ?? '/fallback.png'}
                         width={200}
                         height={400}
                         className="mx-auto block h-auto w-auto rounded-md"
