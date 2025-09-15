@@ -10,8 +10,7 @@
         "prettier-check": "prettier . --check",
         "prettier-write": "prettier . --write",
         "clean-win": "rmdir /s /q .next",
-        "clean-mac": "rm -R .next",
-        "postinstall": "flowbite-react patch"
+        "clean-mac": "rm -R .next"
     },
     "dependencies": {
         "next": "^15",

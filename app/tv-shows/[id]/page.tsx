@@ -50,7 +50,7 @@ export default async function TVShowPage({
             <div className="container mx-auto max-w-4xl py-6">
                 <div className="px-3">
                     <Suspense>
-                        <div className="relative flex justify-center bg-white">
+                        <div className="relative flex justify-center">
                             <Image
                                 src={image}
                                 width={width}

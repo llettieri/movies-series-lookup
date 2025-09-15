@@ -55,7 +55,7 @@ export default async function MoviePage({
                                 src={image}
                                 width={width}
                                 height={600}
-                                className="mx-auto rounded-md bg-white"
+                                className="mx-auto rounded-md"
                                 alt="Movie Wallpaper"
                             />
                             <Rating value={movie.averageVote} />

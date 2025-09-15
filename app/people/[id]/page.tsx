@@ -54,7 +54,7 @@ export default async function PersonPage({
                         src={person.portrait ?? '/placeholder.svg'}
                         width={200}
                         height={400}
-                        className="mx-auto block h-auto w-auto rounded-md bg-white"
+                        className="mx-auto block h-auto w-auto rounded-md"
                         alt="person Wallpaper"
                     />
 

@@ -1,5 +1,6 @@
 import './globals.css';
 
+import { ThemeInit } from '@/.flowbite-react/init';
 import { Footer } from '@/components/Footer';
 import Loading from '@/components/Loading';
 import { Meta } from '@/components/Meta';
@@ -25,6 +26,7 @@ export default function RootLayout({ children }: RootLayoutProps): ReactNode {
             <body className={`${inter.className} overflow-hidden`}>
                 <SessionProvider />
                 <ServiceWorker />
+                <ThemeInit />
                 <div className="flex h-dvh flex-col overflow-hidden">
                     <Navbar />
 
