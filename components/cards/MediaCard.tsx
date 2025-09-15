@@ -10,13 +10,13 @@ interface MediaCardProps {
 }
 
 export const MediaCard = ({ media, size }: MediaCardProps): ReactNode => {
-    const image = media.poster ?? '/placeholder.svg';
     return (
         <CardBase
             link={`/${
                 media.mediaType === MediaType.MOVIE ? 'movies' : 'tv-shows'
             }/${media.id}`}
-            image={image}
+            image={media.poster}
+            alt={media.title}
             size={size}
         >
             <div className="flex flex-1 flex-col justify-between px-6 py-2">

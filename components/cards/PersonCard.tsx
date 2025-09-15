@@ -21,7 +21,12 @@ export const PersonCard = ({ person, size }: PersonCardProps): ReactNode => {
         : [];
 
     return (
-        <CardBase link={`/people/${person.id}`} image={image} size={size}>
+        <CardBase
+            link={`/people/${person.id}`}
+            image={image}
+            size={size}
+            alt={person.name}
+        >
             {size === 'normal' ? (
                 <div className="flex max-h-72 flex-1 flex-col overflow-hidden px-6 py-2 text-ellipsis">
                     <h3 className="text-standard!">{person.name}</h3>

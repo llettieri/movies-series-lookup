@@ -60,7 +60,7 @@ export default async function HomePage({
         <>
             <div>
                 <Hero />
-                <HomeSubNav />
+                <HomeSubNav listType={listType} collection={collection} />
             </div>
             <MediaList
                 medias={await MediaData[collection][listType].data}

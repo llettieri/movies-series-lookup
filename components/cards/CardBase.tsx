@@ -10,7 +10,8 @@ export type CardSize = 'normal' | 'small';
 
 interface CardBaseProps {
     link: string;
-    image: string;
+    image?: string;
+    alt: string;
     children: ReactNode;
     size: CardSize;
 }
@@ -35,6 +36,7 @@ const smallCardTheme: CustomFlowbiteTheme['card'] = {
 export const CardBase = ({
     link,
     image,
+    alt,
     children,
     size,
 }: CardBaseProps): ReactNode => {
@@ -44,11 +46,11 @@ export const CardBase = ({
                 <Card
                     renderImage={() => (
                         <Image
-                            src={image}
-                            alt=""
+                            src={image ?? '/fallback.png'}
+                            alt={alt}
                             width={200}
                             height={300}
-                            className="rounded-t-md bg-white"
+                            className="rounded-t-md"
                         />
                     )}
                     theme={normalCardTheme}
@@ -64,11 +66,11 @@ export const CardBase = ({
                 <Card
                     renderImage={() => (
                         <Image
-                            src={image}
-                            alt=""
+                            src={image ?? ''}
+                            alt={alt}
                             width={100}
                             height={100}
-                            className="h-full max-h-24 w-24 shrink-0 rounded-l-md bg-white object-cover"
+                            className="h-full max-h-24 w-24 shrink-0 rounded-l-md object-cover"
                         />
                     )}
                     theme={smallCardTheme}
