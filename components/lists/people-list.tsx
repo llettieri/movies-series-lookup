@@ -1,7 +1,7 @@
-import { PersonCard } from '@/components/cards/PersonCard';
-import { VerticalListBase } from '@/components/lists/VerticalListBase';
-import Loading from '@/components/Loading';
-import { Person } from '@/models/Person';
+import { PersonCard } from '@/components/cards/person-card';
+import { VerticalListBase } from '@/components/lists/vertical-list-base';
+import Loading from '@/components/loading';
+import { Person } from '@/models/person';
 import React, { ReactNode } from 'react';
 
 interface PeopleListProps {

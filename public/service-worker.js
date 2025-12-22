@@ -1,8 +1,6 @@
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 
-const CACHE_NAME = 'v1';
-
 const installEvent = () => {
     self.addEventListener('install', () => {
         console.info('ServiceWorker - Installed');
@@ -23,7 +21,7 @@ const cloneCache = async (e) => {
     const resClone = res.clone();
 
     const url = req.url;
-    const cache = caches.open(CACHE_NAME);
+    const cache = caches.open(process.env.APP_VERSION);
 
     if (!url.includes('chrome-extension') && req.method !== 'POST') {
         cache.then((c) => c.put(req, resClone));

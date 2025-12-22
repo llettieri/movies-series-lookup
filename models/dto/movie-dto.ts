@@ -1,4 +1,4 @@
-import { Genre } from '@/models/Genre';
+import { Genre } from '@/models/genre';
 
 export interface SimpleCollection {
     id: string;

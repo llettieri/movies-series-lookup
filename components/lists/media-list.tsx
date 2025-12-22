@@ -1,7 +1,7 @@
-import { MediaCard } from '@/components/cards/MediaCard';
-import { VerticalListBase } from '@/components/lists/VerticalListBase';
-import Loading from '@/components/Loading';
-import { Media } from '@/models/Media';
+import { MediaCard } from '@/components/cards/media-card';
+import { VerticalListBase } from '@/components/lists/vertical-list-base';
+import Loading from '@/components/loading';
+import { Media } from '@/models/media';
 import React, { ReactNode } from 'react';
 
 interface MediaListProps {

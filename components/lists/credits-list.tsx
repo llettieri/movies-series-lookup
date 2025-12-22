@@ -1,6 +1,6 @@
-import { PersonCard } from '@/components/cards/PersonCard';
-import { HorizontalListBase } from '@/components/lists/HorizontalListBase';
-import { Person } from '@/models/Person';
+import { PersonCard } from '@/components/cards/person-card';
+import { HorizontalListBase } from '@/components/lists/horizontal-list-base';
+import { Person } from '@/models/person';
 import Link from 'next/link';
 import React, { ReactNode } from 'react';
 

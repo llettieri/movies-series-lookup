@@ -1,4 +1,4 @@
-import { CountryProvidersDto } from '@/models/dto/CountryProvidersDto';
+import { CountryProvidersDto } from '@/models/dto/country-providers-dto';
 
 export interface WatchProvidersDto {
     id: string;

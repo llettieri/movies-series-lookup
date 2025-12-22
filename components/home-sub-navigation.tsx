@@ -1,11 +1,11 @@
 'use client';
 
 import { CollectionType, ListType } from '@/app/page';
-import { Button } from '@/components/Button';
+import { Button } from '@/components/button';
 import { redirect, useSearchParams } from 'next/navigation';
 import React, { ReactNode } from 'react';
 
-export const HomeSubNav = (): ReactNode => {
+export const HomeSubNavigation = (): ReactNode => {
     const searchParams = useSearchParams();
     const collection =
         (searchParams.get('collection') as CollectionType) ?? 'movies';

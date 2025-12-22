@@ -1,5 +1,5 @@
-import { CardBase, CardSize } from '@/components/cards/CardBase';
-import { Person } from '@/models/Person';
+import { CardBase, CardSize } from '@/components/cards/card-base';
+import { Person } from '@/models/person';
 import React, { ReactNode } from 'react';
 
 interface PersonCardProps {

@@ -1,6 +1,6 @@
-import { CardBase, CardSize } from '@/components/cards/CardBase';
-import { Media } from '@/models/Media';
-import { MediaType } from '@/models/MediaType';
+import { CardBase, CardSize } from '@/components/cards/card-base';
+import { Media } from '@/models/media';
+import { MediaType } from '@/models/media-type';
 import dayjs from 'dayjs';
 import React, { ReactNode } from 'react';
 

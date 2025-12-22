@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '@/components/Button';
+import { Button } from '@/components/button';
 import React, { ReactNode, useEffect, useRef, useState } from 'react';
 import { IoChevronBackOutline, IoChevronForwardOutline } from 'react-icons/io5';
 

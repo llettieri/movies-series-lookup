@@ -1,7 +1,7 @@
-import { CreditsTable } from '@/components/CreditsTable';
-import { Meta } from '@/components/Meta';
-import { SearchHint } from '@/components/SearchHint';
-import { MediaType } from '@/models/MediaType';
+import { CreditsTable } from '@/components/credits-table';
+import { Meta } from '@/components/meta';
+import { SearchHint } from '@/components/search-hint';
+import { MediaType } from '@/models/media-type';
 import { getMovieCredits, getMovieDetails } from '@/services/movie-service';
 import { Metadata } from 'next';
 import { headers } from 'next/headers';

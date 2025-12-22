@@ -1,7 +1,7 @@
 import { routes } from '@/config/routes';
-import { ListDto } from '@/models/dto/ListDto';
-import { MultiMediaDto } from '@/models/dto/MultiMediaDto';
-import { PersonDto } from '@/models/dto/PersonDto';
+import { ListDto } from '@/models/dto/list-dto';
+import { MultiMediaDto } from '@/models/dto/multi-media-dto';
+import { PersonDto } from '@/models/dto/person-dto';
 import { TMDBApi } from '@/services/api';
 import { parseTemplate } from 'url-template';
 

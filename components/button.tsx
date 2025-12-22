@@ -33,7 +33,6 @@ export const Button = ({
             pill={variant === 'icon'}
             onClick={onClick}
             type={type}
-            as={link ? Link : null}
             href={link}
         >
             {variants[variant]}

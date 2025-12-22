@@ -1,10 +1,10 @@
 import { search } from '@/app/search/actions';
-import { Hero } from '@/components/Hero';
-import { MediaList } from '@/components/lists/MediaList';
-import { PeopleList } from '@/components/lists/PeopleList';
-import Loading from '@/components/Loading';
-import { SearchBar } from '@/components/SearchBar';
-import { SearchResult } from '@/models/SearchResult';
+import { Hero } from '@/components/hero';
+import { MediaList } from '@/components/lists/media-list';
+import { PeopleList } from '@/components/lists/people-list';
+import Loading from '@/components/loading';
+import { SearchBar } from '@/components/search-bar';
+import { SearchResult } from '@/models/search-result';
 import React, { ReactNode, Suspense } from 'react';
 
 interface SearchPageProps {

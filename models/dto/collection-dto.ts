@@ -1,4 +1,4 @@
-import { MultiMediaDto } from '@/models/dto/MultiMediaDto';
+import { MultiMediaDto } from '@/models/dto/multi-media-dto';
 
 export interface CollectionDto {
     id: string;

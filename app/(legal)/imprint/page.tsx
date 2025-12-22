@@ -1,4 +1,4 @@
-import { ObfuscateSensibleText } from '@/components/ObfuscateSensibleText';
+import { ObfuscateSensibleText } from '@/components/obfuscate-sensible-text';
 import { ReactNode } from 'react';
 
 export default function ImprintPage(): ReactNode {
@@ -17,7 +17,7 @@ export default function ImprintPage(): ReactNode {
                 Switzerland
                 <br />
                 <strong>Email</strong>:{' '}
-                <ObfuscateSensibleText email="me@lore-le.ch" />
+                <ObfuscateSensibleText content="me@lore-le.ch" type="email" />
                 <br />
                 <br />
                 <strong>Disclaimer</strong>

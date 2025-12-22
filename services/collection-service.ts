@@ -1,6 +1,6 @@
 import { routes } from '@/config/routes';
-import { Collection } from '@/models/Collection';
-import { CollectionDto } from '@/models/dto/CollectionDto';
+import { Collection } from '@/models/collection';
+import { CollectionDto } from '@/models/dto/collection-dto';
 import { parseCollectionDto } from '@/services/parse-service';
 import { parseTemplate } from 'url-template';
 

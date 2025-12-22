@@ -1,6 +1,6 @@
-import { SimpleCollection } from '@/models/dto/MovieDto';
-import { Genre } from '@/models/Genre';
-import { MediaType } from '@/models/MediaType';
+import { SimpleCollection } from '@/models/dto/movie-dto';
+import { Genre } from '@/models/genre';
+import { MediaType } from '@/models/media-type';
 
 export interface Media {
     averageVote: number;

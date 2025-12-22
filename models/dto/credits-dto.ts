@@ -1,4 +1,4 @@
-import { PersonDto } from '@/models/dto/PersonDto';
+import { PersonDto } from '@/models/dto/person-dto';
 
 export interface CreditsDto {
     cast: PersonDto[];

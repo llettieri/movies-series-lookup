@@ -14,12 +14,8 @@ export const Footer = (): ReactNode => {
         <FBFooter container className="bg-neutral rounded-none">
             <div className="container mx-auto flex flex-row justify-between text-center *:text-lg *:text-white">
                 <FooterLinkGroup>
-                    <FooterLink as={Link} href="/imprint">
-                        Imprint
-                    </FooterLink>
-                    <FooterLink as={Link} href="/privacy">
-                        Privacy Policy
-                    </FooterLink>
+                    <FooterLink href="/imprint">Imprint</FooterLink>
+                    <FooterLink href="/privacy">Privacy Policy</FooterLink>
                 </FooterLinkGroup>
                 <FooterCopyright
                     href="https://lore-le.ch"

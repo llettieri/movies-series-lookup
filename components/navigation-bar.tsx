@@ -6,7 +6,6 @@ import {
     NavbarToggle,
 } from 'flowbite-react';
 import { CustomFlowbiteTheme } from 'flowbite-react/types';
-import Link from 'next/link';
 import React, { ReactNode } from 'react';
 import { IoHome, IoSearch } from 'react-icons/io5';
 
@@ -27,25 +26,21 @@ const navbarTheme: CustomFlowbiteTheme['navbar'] = {
     },
 };
 
-export const Navbar = (): ReactNode => {
+export const NavigationBar = (): ReactNode => {
     return (
         <FBNavbar theme={navbarTheme} applyTheme="replace">
-            <NavbarBrand href="/" as={Link}>
-                Movies & Series Lookup
-            </NavbarBrand>
+            <NavbarBrand href="/">Movies & Series Lookup</NavbarBrand>
             <NavbarToggle />
             <NavbarCollapse>
                 <NavbarLink
                     className="flex flex-row items-center gap-1.5 md:hidden"
                     href="/"
-                    as={Link}
                 >
                     <IoHome /> Home
                 </NavbarLink>
                 <NavbarLink
                     className="flex flex-row items-center gap-1.5"
                     href="/search"
-                    as={Link}
                 >
                     <IoSearch /> Search
                 </NavbarLink>

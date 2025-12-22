@@ -1,5 +1,5 @@
-import { NetworkDto } from '@/models/dto/NetworkDto';
-import { Genre } from '@/models/Genre';
+import { NetworkDto } from '@/models/dto/network-dto';
+import { Genre } from '@/models/genre';
 
 export interface TVShowDto {
     backdrop_path: string;

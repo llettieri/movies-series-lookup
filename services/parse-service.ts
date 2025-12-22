@@ -1,20 +1,20 @@
 import { routes } from '@/config/routes';
-import { Collection } from '@/models/Collection';
-import { Credits } from '@/models/Credits';
-import { CollectionDto } from '@/models/dto/CollectionDto';
-import { CreditsDto } from '@/models/dto/CreditsDto';
-import { MovieDto } from '@/models/dto/MovieDto';
-import { MultiMediaDto } from '@/models/dto/MultiMediaDto';
-import { NetworkDto } from '@/models/dto/NetworkDto';
-import { JobDto, PersonDto, RoleDto } from '@/models/dto/PersonDto';
-import { ProviderDto } from '@/models/dto/ProviderDto';
-import { TVShowDto } from '@/models/dto/TVShowDto';
-import { Media } from '@/models/Media';
-import { MediaType } from '@/models/MediaType';
-import { Network } from '@/models/Network';
-import { Job, Person } from '@/models/Person';
-import { Provider } from '@/models/Provider';
-import { TVShow } from '@/models/TVShow';
+import { Collection } from '@/models/collection';
+import { Credits } from '@/models/credits';
+import { CollectionDto } from '@/models/dto/collection-dto';
+import { CreditsDto } from '@/models/dto/credits-dto';
+import { MovieDto } from '@/models/dto/movie-dto';
+import { MultiMediaDto } from '@/models/dto/multi-media-dto';
+import { NetworkDto } from '@/models/dto/network-dto';
+import { JobDto, PersonDto, RoleDto } from '@/models/dto/person-dto';
+import { ProviderDto } from '@/models/dto/provider-dto';
+import { TVShowDto } from '@/models/dto/tv-show-dto';
+import { Media } from '@/models/media';
+import { MediaType } from '@/models/media-type';
+import { Network } from '@/models/network';
+import { Job, Person } from '@/models/person';
+import { Provider } from '@/models/provider';
+import { TVShow } from '@/models/tv-show';
 
 const parseRoleDto = (dto: RoleDto): Job => {
     return {
@@ -35,25 +35,21 @@ const parseNetworkDto = (dto: NetworkDto): Network => {
         id: dto.id,
         name: dto.name,
         homepage: dto.homepage,
-        logo: `${routes.images}${dto.logo_path}`,
+        logo: dto.logo_path,
     };
 };
 
 const parseMovieDto = (dto: MovieDto): Media => {
     return {
         averageVote: dto.vote_average * 10,
-        backdrop: dto.backdrop_path
-            ? `${routes.images}${dto.backdrop_path}`
-            : undefined,
+        backdrop: dto.backdrop_path,
         collection: dto.belongs_to_collection,
         genres: dto.genres,
         homepage: dto.homepage,
         id: dto.id,
         mediaType: MediaType.MOVIE,
         overview: dto.overview,
-        poster: dto.poster_path
-            ? `${routes.images}${dto.poster_path}`
-            : undefined,
+        poster: dto.poster_path,
         releaseDate: dto.release_date,
         runtime: dto.runtime,
         title: dto.title,
@@ -63,18 +59,14 @@ const parseMovieDto = (dto: MovieDto): Media => {
 const parseTVShowDto = (dto: TVShowDto): TVShow => {
     return {
         averageVote: dto.vote_average * 10,
-        backdrop: dto.backdrop_path
-            ? `${routes.images}${dto.backdrop_path}`
-            : undefined,
+        backdrop: dto.backdrop_path,
         collection: undefined,
         genres: dto.genres,
         homepage: dto.homepage,
         id: dto.id,
         mediaType: MediaType.TV,
         overview: dto.overview,
-        poster: dto.poster_path
-            ? `${routes.images}${dto.poster_path}`
-            : undefined,
+        poster: dto.poster_path,
         releaseDate: dto.first_air_date,
         lastAirDate: dto.last_air_date ?? undefined,
         networks: dto.networks?.map(parseNetworkDto) ?? [],
@@ -90,12 +82,8 @@ const parseCollectionDto = (dto: CollectionDto): Collection => {
         id: dto.id,
         name: dto.name,
         overview: dto.overview,
-        poster: dto.poster_path
-            ? `${routes.images}${dto.poster_path}`
-            : undefined,
-        backdrop: dto.backdrop_path
-            ? `${routes.images}${dto.backdrop_path}`
-            : undefined,
+        poster: dto.poster_path,
+        backdrop: dto.backdrop_path,
         parts: dto.parts.map(parseMultiMediaDto),
     };
 };
@@ -104,18 +92,14 @@ const parseMultiMediaDto = (dto: MultiMediaDto): Media => {
     const type = dto.media_type as MediaType;
     return {
         averageVote: dto.vote_average * 10,
-        backdrop: dto.backdrop_path
-            ? `${routes.images}${dto.backdrop_path}`
-            : undefined,
+        backdrop: dto.backdrop_path,
         collection: undefined,
         genres: [],
         homepage: '',
         id: dto.id,
         mediaType: type,
         overview: dto.overview,
-        poster: dto.poster_path
-            ? `${routes.images}${dto.poster_path}`
-            : undefined,
+        poster: dto.poster_path,
         releaseDate: dto.release_date ?? dto.first_air_date,
         runtime: undefined,
         title: dto.title ?? dto.name ?? '',
@@ -134,9 +118,7 @@ const parsePersonDto = (dto: PersonDto): Person => {
         homepage: dto.deathday,
         id: dto.id,
         name: dto.name,
-        portrait: dto.profile_path
-            ? `${routes.images}${dto.profile_path}`
-            : undefined,
+        portrait: dto.profile_path,
         department: dto.known_for_department ?? dto.department,
         jobs: dto.job
             ? [{ name: dto.job, episodeCount: Number.NaN }]
@@ -156,7 +138,7 @@ const parseProviderDto = (dto: ProviderDto): Provider => {
         id: dto.provider_id,
         displayPriority: dto.display_priority,
         name: dto.provider_name,
-        logo: `${routes.images}${dto.logo_path}`,
+        logo: dto.logo_path,
     };
 };
 

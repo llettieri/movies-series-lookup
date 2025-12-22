@@ -1,7 +1,7 @@
 'use server';
 
 import { routes } from '@/config/routes';
-import TMDBRequestTokenDto from '@/models/dto/TMDBAuthenticationDto';
+import TMDBRequestTokenDto from '@/models/dto/tmdb-authentication-dto';
 import { TMDBApi } from '@/services/api';
 import dayjs from 'dayjs';
 import { SignJWT, jwtVerify } from 'jose';

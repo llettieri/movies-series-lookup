@@ -1,4 +1,4 @@
-import { Genre } from '@/models/Genre';
+import { Genre } from '@/models/genre';
 import { Badge } from 'flowbite-react';
 import React, { ReactNode } from 'react';
 

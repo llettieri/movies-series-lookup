@@ -1,4 +1,4 @@
-import { ProviderDto } from '@/models/dto/ProviderDto';
+import { ProviderDto } from '@/models/dto/provider-dto';
 
 export interface CountryProvidersDto {
     link: string;

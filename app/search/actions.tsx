@@ -1,9 +1,9 @@
 'use server';
 
-import { MultiMediaDto } from '@/models/dto/MultiMediaDto';
-import { PersonDto } from '@/models/dto/PersonDto';
-import { MediaType } from '@/models/MediaType';
-import { SearchResult } from '@/models/SearchResult';
+import { MultiMediaDto } from '@/models/dto/multi-media-dto';
+import { PersonDto } from '@/models/dto/person-dto';
+import { MediaType } from '@/models/media-type';
+import { SearchResult } from '@/models/search-result';
 import { parseMultiMediaDto, parsePersonDto } from '@/services/parse-service';
 import { multiSearch } from '@/services/search-service';
 

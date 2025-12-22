@@ -11,6 +11,7 @@ export const Hero = (): ReactNode => {
                     width={200}
                     height={200}
                     alt={'Videofiles'}
+                    loading="eager"
                 />
                 <h2 className="text-standard uppercase">
                     Welcome to your Movies / Series lookup

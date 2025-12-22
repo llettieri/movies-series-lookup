@@ -1,7 +1,7 @@
-import { Button } from '@/components/Button';
-import { PersonCard } from '@/components/cards/PersonCard';
-import { MediaType } from '@/models/MediaType';
-import { Person } from '@/models/Person';
+import { Button } from '@/components/button';
+import { PersonCard } from '@/components/cards/person-card';
+import { MediaType } from '@/models/media-type';
+import { Person } from '@/models/person';
 import React, { ReactNode, Suspense } from 'react';
 
 interface GroupedCrewComponentProps {
