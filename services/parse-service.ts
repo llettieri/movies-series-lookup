@@ -1,4 +1,3 @@
-import { routes } from '@/config/routes';
 import { Collection } from '@/models/collection';
 import { Credits } from '@/models/credits';
 import { CollectionDto } from '@/models/dto/collection-dto';

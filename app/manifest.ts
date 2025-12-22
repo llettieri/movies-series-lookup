@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { MetadataRoute } from 'next';
 
 export default function Manifest(): MetadataRoute.Manifest {

@@ -8,7 +8,6 @@ import {
 } from '@/services/person-service';
 import dayjs from 'dayjs';
 import { Metadata } from 'next';
-import Image from 'next/image';
 import React, { ReactNode } from 'react';
 import { TMDBImage } from '@/components/image';
 

@@ -5,7 +5,6 @@ import {
     FooterLink,
     FooterLinkGroup,
 } from 'flowbite-react';
-import Link from 'next/link';
 import React, { ReactNode } from 'react';
 
 export const Footer = (): ReactNode => {
