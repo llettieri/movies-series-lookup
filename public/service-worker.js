@@ -1,6 +1,16 @@
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 
+let CACHE_NAME = 'unknown'; // fallback
+
+// Fetch version on first run
+fetch('/version.json')
+    .then((r) => r.json())
+    .then(({ version }) => {
+        CACHE_NAME = version;
+        console.warn(`ServiceWorker - Using cache: ${CACHE_NAME}`);
+    });
+
 const installEvent = () => {
     self.addEventListener('install', () => {
         console.info('ServiceWorker - Installed');
@@ -9,8 +19,20 @@ const installEvent = () => {
 installEvent();
 
 const activateEvent = () => {
-    self.addEventListener('activate', () => {
+    self.addEventListener('activate', (event) => {
         console.info('ServiceWorker - Activated!');
+
+        event.waitUntil(
+            caches
+                .keys()
+                .then((cacheNames) =>
+                    Promise.all(
+                        cacheNames
+                            .filter((name) => name !== CACHE_NAME)
+                            .map((name) => caches.delete(name)),
+                    ),
+                ),
+        );
     });
 };
 activateEvent();
@@ -21,7 +43,7 @@ const cloneCache = async (e) => {
     const resClone = res.clone();
 
     const url = req.url;
-    const cache = caches.open(process.env.APP_VERSION);
+    const cache = caches.open(CACHE_NAME);
 
     if (!url.includes('chrome-extension') && req.method !== 'POST') {
         cache.then((c) => c.put(req, resClone));
