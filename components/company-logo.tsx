@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { ReactNode } from 'react';
+import { TMDBImage } from '@/components/image';
 
 interface CompanyLogoProps {
     externalLink: string;
@@ -19,12 +20,13 @@ export default function CompanyLogo({
             className="my-auto"
             rel="noreferrer"
         >
-            <Image
+            <TMDBImage
                 src={image}
                 alt={alt}
                 width={50}
                 height={25}
                 className="h-auto w-auto"
+                scope="logo"
             />
         </a>
     );

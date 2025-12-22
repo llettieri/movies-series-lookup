@@ -2,9 +2,9 @@
 
 import { Card } from 'flowbite-react';
 import { CustomFlowbiteTheme } from 'flowbite-react/types';
-import Image from 'next/image';
 import Link from 'next/link';
 import React, { ReactNode } from 'react';
+import { TMDBImage } from '@/components/image';
 
 export type CardSize = 'normal' | 'small';
 
@@ -45,12 +45,13 @@ export const CardBase = ({
             <Link href={link}>
                 <Card
                     renderImage={() => (
-                        <Image
+                        <TMDBImage
                             src={image ?? '/fallback.png'}
                             alt={alt}
+                            className="rounded-t-md"
                             width={200}
                             height={300}
-                            className="rounded-t-md"
+                            scope="poster"
                         />
                     )}
                     theme={normalCardTheme}
@@ -65,12 +66,13 @@ export const CardBase = ({
             <Link href={link}>
                 <Card
                     renderImage={() => (
-                        <Image
+                        <TMDBImage
                             src={image ?? ''}
                             alt={alt}
-                            width={100}
-                            height={100}
+                            width={200}
+                            height={200}
                             className="h-full max-h-24 w-24 shrink-0 rounded-l-md object-cover"
+                            scope="profile"
                         />
                     )}
                     theme={smallCardTheme}

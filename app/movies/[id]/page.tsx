@@ -1,9 +1,9 @@
-import { GenreBadges } from '@/components/GenreBadges';
-import { CreditsList } from '@/components/lists/CreditsList';
-import { MediaList } from '@/components/lists/MediaList';
-import Loading from '@/components/Loading';
-import { Meta } from '@/components/Meta';
-import { Rating } from '@/components/Rating';
+import { GenreBadges } from '@/components/genre-badges';
+import { CreditsList } from '@/components/lists/credits-list';
+import { MediaList } from '@/components/lists/media-list';
+import Loading from '@/components/loading';
+import { Meta } from '@/components/meta';
+import { Rating } from '@/components/rating';
 import {
     getMovieCredits,
     getMovieDetails,
@@ -11,9 +11,9 @@ import {
 } from '@/services/movie-service';
 import dayjs from 'dayjs';
 import { Metadata } from 'next';
-import Image from 'next/image';
 import Link from 'next/link';
 import React, { ReactNode, Suspense } from 'react';
+import { TMDBImage } from '@/components/image';
 
 interface MoviePageProps {
     params: Promise<{ id: number }>;
@@ -51,12 +51,14 @@ export default async function MoviePage({
                 <Suspense>
                     <div className="px-3">
                         <div className="relative">
-                            <Image
+                            <TMDBImage
                                 src={image}
                                 width={width}
-                                height={600}
+                                height={width / 1.5}
                                 className="mx-auto rounded-md"
                                 alt="Movie Wallpaper"
+                                scope={movie.backdrop ? 'backdrop' : 'poster'}
+                                loading="eager"
                             />
                             <Rating value={movie.averageVote} />
                         </div>
