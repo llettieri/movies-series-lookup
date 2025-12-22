@@ -16,10 +16,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Linting checks
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: '24.x'
+
       - run: npm i
       - run: npm run prettier-check
       - run: npm run lint
@@ -28,7 +30,7 @@ jobs:
     needs: [ test ]
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
 
       - name: Login to registry
         uses: docker/login-action@v2
@@ -55,7 +57,7 @@ jobs:
     environment: Production
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
 
       - name: Deploy stack
         uses: distributhor/workflow-webhook@v3
