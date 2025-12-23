@@ -33,7 +33,6 @@
         "jiti": "^2",
         "jose": "^5",
         "lodash.debounce": "^4",
-        "plaiceholder": "^3",
         "postcss": "^8",
         "prettier": "^3",
         "prettier-plugin-import-sort": "^0",

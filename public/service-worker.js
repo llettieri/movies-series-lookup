@@ -6,13 +6,12 @@ let CACHE_NAME = 'unknown'; // fallback
 // Fetch version on first run
 fetch('/version.json')
     .then((r) => r.json())
-    .then(({ version }) => {
-        CACHE_NAME = version;
-        console.warn(`ServiceWorker - Using cache: ${CACHE_NAME}`);
-    });
+    .then(({ version }) => (CACHE_NAME = version));
 
 const installEvent = () => {
     self.addEventListener('install', () => {
+        self.skipWaiting();
+
         console.info('ServiceWorker - Installed');
     });
 };
@@ -20,8 +19,6 @@ installEvent();
 
 const activateEvent = () => {
     self.addEventListener('activate', (event) => {
-        console.info('ServiceWorker - Activated!');
-
         event.waitUntil(
             caches
                 .keys()
@@ -33,6 +30,10 @@ const activateEvent = () => {
                     ),
                 ),
         );
+
+        clients.claim();
+
+        console.info(`ServiceWorker - ${CACHE_NAME} - Activated!`);
     });
 };
 activateEvent();
