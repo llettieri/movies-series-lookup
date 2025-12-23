@@ -1,4 +1,4 @@
-import { ObfuscateSensibleText } from '@/components/ObfuscateSensibleText';
+import { ObfuscateSensibleText } from '@/components/obfuscate-sensible-text';
 import React, { ReactNode } from 'react';
 
 export default function PrivacyPage(): ReactNode {
@@ -28,8 +28,12 @@ export default function PrivacyPage(): ReactNode {
                 <p>
                     If you have any questions or concerns about our protection
                     of your data, you can always reach us by email at{' '}
-                    <ObfuscateSensibleText email="me@lore-le.ch" />. Responsible
-                    for data processing done through this website is:
+                    <ObfuscateSensibleText
+                        content="me@lore-le.ch"
+                        type="email"
+                    />
+                    . Responsible for data processing done through this website
+                    is:
                 </p>
                 <br />
                 <p>
@@ -46,7 +50,10 @@ export default function PrivacyPage(): ReactNode {
                     <br />
                     Lorenzo Lettieri
                     <br />
-                    <ObfuscateSensibleText email="me@lore-le.ch" />
+                    <ObfuscateSensibleText
+                        content="me@lore-le.ch"
+                        type="email"
+                    />
                 </p>
                 <br />
                 <h2>3. General principles</h2>
@@ -241,7 +248,10 @@ export default function PrivacyPage(): ReactNode {
                     You can request information about the data we have stored
                     about you at any time. We ask you to send your request for
                     information together with proof of identity to{' '}
-                    <ObfuscateSensibleText email="me@lore-le.ch" />.
+                    <ObfuscateSensibleText
+                        content="me@lore-le.ch"
+                        type="email"
+                    />
                     <br />
                     <br />
                     You also have the right to receive your data in a common

@@ -1,9 +1,9 @@
 import { routes } from '@/config/routes';
-import { Credits } from '@/models/Credits';
-import { CreditsDto } from '@/models/dto/CreditsDto';
-import { ListDto } from '@/models/dto/ListDto';
-import { MovieDto } from '@/models/dto/MovieDto';
-import { Media } from '@/models/Media';
+import { Credits } from '@/models/credits';
+import { CreditsDto } from '@/models/dto/credits-dto';
+import { ListDto } from '@/models/dto/list-dto';
+import { MovieDto } from '@/models/dto/movie-dto';
+import { Media } from '@/models/media';
 import { TMDBApi } from '@/services/api';
 import { parseCreditsDto, parseMovieDto } from '@/services/parse-service';
 import { parseTemplate } from 'url-template';

@@ -1,18 +1,36 @@
-/* eslint-disable no-console */
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
+let CACHE_NAME = 'unknown'; // fallback
 
-const CACHE_NAME = 'v1';
+// Fetch version on first run
+fetch('/version.json')
+    .then((r) => r.json())
+    .then(({ version }) => (CACHE_NAME = version));
 
 const installEvent = () => {
     self.addEventListener('install', () => {
+        self.skipWaiting();
+
         console.info('ServiceWorker - Installed');
     });
 };
 installEvent();
 
 const activateEvent = () => {
-    self.addEventListener('activate', () => {
-        console.info('ServiceWorker - Activated!');
+    self.addEventListener('activate', (event) => {
+        event.waitUntil(
+            caches
+                .keys()
+                .then((cacheNames) =>
+                    Promise.all(
+                        cacheNames
+                            .filter((name) => name !== CACHE_NAME)
+                            .map((name) => caches.delete(name)),
+                    ),
+                ),
+        );
+
+        clients.claim();
+
+        console.info(`ServiceWorker - ${CACHE_NAME} - Activated!`);
     });
 };
 activateEvent();

@@ -1,11 +1,11 @@
 import { routes } from '@/config/routes';
-import { MediaCreditsDto } from '@/models/dto/MediaCreditsDto';
-import { MovieDto } from '@/models/dto/MovieDto';
-import { PersonDto } from '@/models/dto/PersonDto';
-import { TVShowDto } from '@/models/dto/TVShowDto';
-import { Media } from '@/models/Media';
-import { Person } from '@/models/Person';
-import { TVShow } from '@/models/TVShow';
+import { MediaCreditsDto } from '@/models/dto/media-credits-dto';
+import { MovieDto } from '@/models/dto/movie-dto';
+import { PersonDto } from '@/models/dto/person-dto';
+import { TVShowDto } from '@/models/dto/tv-show-dto';
+import { Media } from '@/models/media';
+import { Person } from '@/models/person';
+import { TVShow } from '@/models/tv-show';
 import { TMDBApi } from '@/services/api';
 import {
     parseMovieDto,

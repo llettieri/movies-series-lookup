@@ -1,7 +1,7 @@
-import { Hero } from '@/components/Hero';
-import { HomeSubNav } from '@/components/HomeSubNav';
-import { MediaList } from '@/components/lists/MediaList';
-import { Media } from '@/models/Media';
+import { Hero } from '@/components/hero';
+import { HomeSubNavigation } from '@/components/home-sub-navigation';
+import { MediaList } from '@/components/lists/media-list';
+import { Media } from '@/models/media';
 import { getLatestMovies, getPopularMovies } from '@/services/movie-service';
 import { getLocale } from '@/services/session-service';
 import {
@@ -60,7 +60,7 @@ export default async function HomePage({
         <>
             <div>
                 <Hero />
-                <HomeSubNav />
+                <HomeSubNavigation />
             </div>
             <MediaList
                 medias={await MediaData[collection][listType].data}

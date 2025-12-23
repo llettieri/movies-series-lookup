@@ -1,6 +1,6 @@
 @import 'tailwindcss';
+@import 'flowbite-react/plugin/tailwindcss';
 
-@plugin 'flowbite-react/plugin/tailwindcss';
 @source '../.flowbite-react/class-list.json';
 
 @theme {
@@ -61,6 +61,13 @@
 
     button {
         @apply font-bold;
+    }
+}
+
+@layer utilities {
+    .obfuscated {
+        unicode-bidi: bidi-override;
+        direction: rtl;
     }
 }
 

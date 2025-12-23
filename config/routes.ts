@@ -27,7 +27,10 @@ export const routes = {
         },
     },
     country: `${base.ipApi}`,
-    images: 'https://image.tmdb.org/t/p/original',
+    /**
+     * Params: size
+     */
+    images: 'https://image.tmdb.org/t/p/{size}',
     movies: {
         byId: {
             /**

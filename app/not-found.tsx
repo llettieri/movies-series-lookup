@@ -1,5 +1,5 @@
-import { Button } from '@/components/Button';
-import { Meta } from '@/components/Meta';
+import { Button } from '@/components/button';
+import { Meta } from '@/components/meta';
 import { Metadata } from 'next';
 import Image from 'next/image';
 import React, { ReactNode } from 'react';

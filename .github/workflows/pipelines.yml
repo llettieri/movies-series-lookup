@@ -1,66 +1,66 @@
 name: CI / CD | Build and Deploy
 
 on:
-    push:
-        tags:
-            - 'v[0-9]+.[0-9]+.[0-9]+'
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+      - 'v[0-9]+.[0-9]+.[0-9]+-*'
 
 env:
-    REPO: docker.nexus.themcbrothers.net
-    NAME: movies-series
+  REPO: docker.nexus.themcbrothers.net
+  NAME: movies-series
 
 jobs:
-    test:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v4
-            - name: Linting checks
-              uses: actions/setup-node@v4
-              with:
-                  node-version: '20.x'
-            - run: npm i
-            - run: npm run prettier-check
-            - run: npm run lint
-    build:
-        runs-on: ubuntu-latest
-        needs: [test]
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v3
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-            - name: Login to registry
-              uses: docker/login-action@v2
-              with:
-                  registry: ${{env.REPO}}
-                  username: ${{secrets.USER}}
-                  password: ${{secrets.PWD}}
+      - name: Linting checks
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24.x'
 
-            - name: Set up Docker Buildx
-              uses: docker/setup-buildx-action@v2
+      - run: npm i
+      - run: npm run prettier-check
+      - run: npm run lint
+  build:
+    runs-on: ubuntu-latest
+    needs: [ test ]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-            - name: Build and push
-              uses: docker/build-push-action@v4
-              with:
-                  context: .
-                  file: ./Dockerfile
-                  push: true
-                  tags: |
-                      ${{env.REPO}}/${{env.NAME}}:latest
-                      ${{env.REPO}}/${{env.NAME}}:${{github.ref_name}}
-    deploy:
-        runs-on: ubuntu-latest
-        needs: [build]
-        environment: Production
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v3
+      - name: Login to registry
+        uses: docker/login-action@v2
+        with:
+          registry: ${{env.REPO}}
+          username: ${{secrets.USER}}
+          password: ${{secrets.PWD}}
 
-            - name: Deploy docker container
-              uses: appleboy/ssh-action@v1.0.0
-              with:
-                  host: ${{secrets.HOST}}
-                  username: ${{secrets.HOST_USER}}
-                  key: ${{secrets.KEY}}
-                  port: ${{secrets.PORT}}
-                  script: docker compose -f ./docker-compose/compose-movies-series.yaml -p ${{env.NAME}} up --pull always -d
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: |
+            ${{env.REPO}}/${{env.NAME}}:latest
+            ${{env.REPO}}/${{env.NAME}}:${{github.ref_name}}
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [ build ]
+    environment: Production
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy stack
+        uses: distributhor/workflow-webhook@v3
+        with:
+          webhook_url: ${{ secrets.DEPLOY_WEBHOOK_URL }}
+          silent: true

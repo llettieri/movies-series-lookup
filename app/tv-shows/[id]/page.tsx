@@ -1,21 +1,20 @@
-import CompanyLogo from '@/components/CompanyLogo';
-import { GenreBadges } from '@/components/GenreBadges';
-import { CreditsList } from '@/components/lists/CreditsList';
-import { MediaList } from '@/components/lists/MediaList';
-import { Meta } from '@/components/Meta';
-import { Rating } from '@/components/Rating';
-import { routes } from '@/config/routes';
+import CompanyLogo from '@/components/company-logo';
+import { GenreBadges } from '@/components/genre-badges';
+import { CreditsList } from '@/components/lists/credits-list';
+import { MediaList } from '@/components/lists/media-list';
+import { Meta } from '@/components/meta';
+import { Rating } from '@/components/rating';
 import { getLocale } from '@/services/session-service';
 import {
     getSimilarTVShows,
     getTVShowDetails,
-    getTVShowWatchProviders,
     getTVShowsCredits,
+    getTVShowWatchProviders,
 } from '@/services/tv-show-service';
 import dayjs from 'dayjs';
 import { Metadata } from 'next';
-import Image from 'next/image';
 import React, { ReactNode, Suspense } from 'react';
+import { TMDBImage } from '@/components/image';
 
 interface TVShowPageProps {
     params: Promise<{ id: number }>;
@@ -38,12 +37,24 @@ export default async function TVShowPage({
 }: TVShowPageProps): Promise<ReactNode> {
     const locale = await getLocale();
     const showId = (await params).id;
-    const show = await getTVShowDetails(showId);
+    const {
+        averageVote,
+        backdrop,
+        genres,
+        homepage,
+        lastAirDate,
+        networks,
+        overview,
+        poster,
+        releaseDate,
+        seasonsCount,
+        title,
+    } = await getTVShowDetails(showId);
     const similarShows = await getSimilarTVShows(showId);
     const credits = await getTVShowsCredits(showId);
     const providerGroup = await getTVShowWatchProviders(showId, locale);
-    const image = `${routes.images}${show.backdrop ?? show.poster}`;
-    const width = show.backdrop ? 1000 : 500;
+    const image = backdrop ?? poster;
+    const width = backdrop ? 1000 : 500;
 
     return (
         <>
@@ -51,50 +62,48 @@ export default async function TVShowPage({
                 <div className="px-3">
                     <Suspense>
                         <div className="relative flex justify-center">
-                            <Image
+                            <TMDBImage
                                 src={image}
                                 width={width}
                                 height={600}
                                 className="rounded-md"
                                 alt="show Wallpaper"
+                                scope={backdrop ? 'backdrop' : 'poster'}
+                                loading="eager"
                             />
-                            <Rating value={Math.round(show.averageVote)} />
+                            <Rating value={Math.round(averageVote)} />
                         </div>
-                        <GenreBadges genres={show.genres} />
+                        <GenreBadges genres={genres} />
 
                         <h1>
-                            {show.homepage ? (
+                            {homepage ? (
                                 <a
-                                    href={show.homepage}
+                                    href={homepage}
                                     target="_blank"
                                     className="underline"
                                     rel="noreferrer"
                                 >
-                                    {show.title}
+                                    {title}
                                 </a>
                             ) : (
-                                show.title
+                                title
                             )}
                         </h1>
                         <h2 className="text-secondary">
-                            ({show.seasonsCount} Seasons)
+                            ({seasonsCount} Seasons)
                         </h2>
-                        <p className="mt-4 text-sm">{show.overview}</p>
+                        <p className="mt-4 text-sm">{overview}</p>
                         <p className="mt-4 text-sm">
                             Release Date:{' '}
                             <span className="text-secondary-text font-bold">
-                                {dayjs(show.releaseDate).format(
-                                    'MMMM DD, YYYY',
-                                )}
+                                {dayjs(releaseDate).format('MMMM DD, YYYY')}
                             </span>
                         </p>
-                        {show.lastAirDate ? (
+                        {lastAirDate ? (
                             <p className="text-sm">
                                 Last Aired:{' '}
                                 <span className="text-secondary-text font-bold">
-                                    {dayjs(show.lastAirDate).format(
-                                        'MMMM DD, YYYY',
-                                    )}
+                                    {dayjs(lastAirDate).format('MMMM DD, YYYY')}
                                 </span>
                             </p>
                         ) : null}
@@ -106,7 +115,7 @@ export default async function TVShowPage({
                         )}
                         <div className="container mx-auto flex gap-4 align-middle">
                             <p className="text-md leading-[10]">Networks: </p>
-                            {show.networks.map((network) => (
+                            {networks.map((network) => (
                                 <CompanyLogo
                                     key={network.id}
                                     image={network.logo}

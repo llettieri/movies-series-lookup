@@ -1,13 +1,13 @@
 import { routes } from '@/config/routes';
-import { Credits } from '@/models/Credits';
-import { CountryProvidersDto } from '@/models/dto/CountryProvidersDto';
-import { CreditsDto } from '@/models/dto/CreditsDto';
-import { ListDto } from '@/models/dto/ListDto';
-import { TVShowDto } from '@/models/dto/TVShowDto';
-import { WatchProvidersDto } from '@/models/dto/WatchProvidersDto';
-import { Provider } from '@/models/Provider';
-import { ProviderGroup } from '@/models/ProviderGroup';
-import { TVShow } from '@/models/TVShow';
+import { Credits } from '@/models/credits';
+import { CountryProvidersDto } from '@/models/dto/country-providers-dto';
+import { CreditsDto } from '@/models/dto/credits-dto';
+import { ListDto } from '@/models/dto/list-dto';
+import { TVShowDto } from '@/models/dto/tv-show-dto';
+import { WatchProvidersDto } from '@/models/dto/watch-providers-dto';
+import { Provider } from '@/models/provider';
+import { ProviderGroup } from '@/models/provider-group';
+import { TVShow } from '@/models/tv-show';
 import { TMDBApi } from '@/services/api';
 import {
     parseCreditsDto,

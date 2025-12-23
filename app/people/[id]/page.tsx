@@ -1,6 +1,6 @@
-import { MediaList } from '@/components/lists/MediaList';
-import { Meta } from '@/components/Meta';
-import { Gender } from '@/models/Person';
+import { MediaList } from '@/components/lists/media-list';
+import { Meta } from '@/components/meta';
+import { Gender } from '@/models/person';
 import {
     getPersonDetails,
     getPersonMovies,
@@ -8,8 +8,8 @@ import {
 } from '@/services/person-service';
 import dayjs from 'dayjs';
 import { Metadata } from 'next';
-import Image from 'next/image';
 import React, { ReactNode } from 'react';
+import { TMDBImage } from '@/components/image';
 
 interface PersonPageProps {
     params: Promise<{ id: number }>;
@@ -33,58 +33,59 @@ export default async function PersonPage({
     params,
 }: PersonPageProps): Promise<ReactNode> {
     const personId = (await params).id;
-    const person = await getPersonDetails(personId);
+    const { biography, birthday, deathday, gender, homepage, name, portrait } =
+        await getPersonDetails(personId);
     const movieCredits = await getPersonMovies(personId);
     const showCredits = await getPersonTVShows(personId);
-    let pronoun: string;
+    let pronoun: string = 'The';
 
-    if (person.gender === Gender.FEMALE) {
+    if (gender === Gender.FEMALE) {
         pronoun = 'Her';
-    } else if (person.gender === Gender.MALE) {
+    } else if (gender === Gender.MALE) {
         pronoun = 'His';
-    } else {
-        pronoun = 'The';
     }
 
     return (
         <>
             <div className="container mx-auto max-w-4xl py-6">
                 <div className="px-3">
-                    <Image
-                        src={person.portrait ?? '/fallback.png'}
-                        width={200}
-                        height={400}
+                    <TMDBImage
+                        src={portrait}
+                        width={600 / 1.5}
+                        height={600}
                         className="mx-auto block h-auto w-auto rounded-md"
                         alt="person Wallpaper"
+                        scope="profile"
+                        loading="eager"
                     />
 
                     <h1>
-                        {person.homepage ? (
+                        {homepage ? (
                             <a
-                                href={person.homepage}
+                                href={homepage}
                                 target="_blank"
                                 className="underline"
                                 rel="noreferrer"
                             >
-                                {person.name}
+                                {name}
                             </a>
                         ) : (
-                            person.name
+                            name
                         )}
                     </h1>
 
-                    <p className="mt-4 text-sm">{person.biography}</p>
+                    <p className="mt-4 text-sm">{biography}</p>
                     <p className="mt-5 text-sm">
                         Birthday:{' '}
                         <span className="text-secondary-text font-bold">
-                            {dayjs(person.birthday).format('MMMM DD, YYYY')}
+                            {dayjs(birthday).format('MMMM DD, YYYY')}
                         </span>
                     </p>
-                    {person.deathday ? (
+                    {deathday ? (
                         <p className="text-sm">
                             Death:{' '}
                             <span className="font-bold">
-                                {dayjs(person.deathday).format('MMMM DD, YYYY')}
+                                {dayjs(deathday).format('MMMM DD, YYYY')}
                             </span>
                         </p>
                     ) : null}
