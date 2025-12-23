@@ -22,7 +22,7 @@ export interface Person {
     id: string;
     jobs?: Job[];
     name: string;
-    portrait?: string;
+    portrait: string;
     roles?: Job[];
     totalEpisodeCount?: number;
 }

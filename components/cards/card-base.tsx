@@ -4,7 +4,7 @@ import { Card } from 'flowbite-react';
 import { CustomFlowbiteTheme } from 'flowbite-react/types';
 import Link from 'next/link';
 import React, { ReactNode } from 'react';
-import { TMDBImage } from '@/components/image';
+import { FALLBACK_IMAGE, TMDBImage } from '@/components/image';
 
 export type CardSize = 'normal' | 'small';
 
@@ -46,7 +46,7 @@ export const CardBase = ({
                 <Card
                     renderImage={() => (
                         <TMDBImage
-                            src={image ?? '/fallback.png'}
+                            src={image ?? FALLBACK_IMAGE}
                             alt={alt}
                             className="rounded-t-md"
                             width={200}

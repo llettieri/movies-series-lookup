@@ -83,10 +83,6 @@ const tmdbLoader = ({
     src,
     width,
 }: TMDBLoaderProps & ImageLoaderProps): string => {
-    if (src === '/fallback.png') {
-        return src;
-    }
-
     const baseUrl = parseTemplate(routes.images).expand({
         size: parseWidth(scope, width),
     });

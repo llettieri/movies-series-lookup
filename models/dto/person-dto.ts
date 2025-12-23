@@ -22,7 +22,7 @@ export interface PersonDto {
     known_for_department?: string;
     media_type?: string;
     name: string;
-    profile_path: string;
+    profile_path?: string;
     roles?: RoleDto[];
     total_episode_count: number;
 }

@@ -4,15 +4,15 @@ import { MediaType } from '@/models/media-type';
 
 export interface Media {
     averageVote: number;
-    backdrop: string | undefined;
-    collection: SimpleCollection | undefined;
+    backdrop?: string;
+    collection?: SimpleCollection;
     genres: Genre[];
     homepage?: string;
     id: string;
     mediaType: MediaType;
     overview: string;
-    poster: string | undefined;
-    releaseDate: string | undefined;
+    poster: string;
+    releaseDate?: string;
     runtime?: number;
     title: string;
 }

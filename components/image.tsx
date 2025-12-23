@@ -1,8 +1,10 @@
 'use client';
 
 import Image, { ImageProps } from 'next/image';
-import { ReactElement } from 'react';
+import { ReactElement, use } from 'react';
 import tmdbLoader, { Scope } from '@/lib/image-loader/tmdb';
+
+const FALLBACK_IMAGE = '/fallback.png';
 
 interface TMDBImageProps {
     scope: Scope;
@@ -11,7 +13,7 @@ interface TMDBImageProps {
 const TMDBImage = (
     imageProps: Omit<ImageProps, 'loader'> & TMDBImageProps,
 ): ReactElement => {
-    const isFallback = imageProps.src == '/fallback.png';
+    const isFallback = imageProps.src == FALLBACK_IMAGE;
 
     return isFallback ? (
         // eslint-disable-next-line jsx-a11y/alt-text
@@ -30,4 +32,4 @@ const TMDBImage = (
     );
 };
 
-export { TMDBImage };
+export { TMDBImage, FALLBACK_IMAGE };

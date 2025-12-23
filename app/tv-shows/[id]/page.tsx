@@ -53,7 +53,7 @@ export default async function TVShowPage({
     const similarShows = await getSimilarTVShows(showId);
     const credits = await getTVShowsCredits(showId);
     const providerGroup = await getTVShowWatchProviders(showId, locale);
-    const image = backdrop ?? poster ?? '/fallback.png';
+    const image = backdrop ?? poster;
     const width = backdrop ? 1000 : 500;
 
     return (

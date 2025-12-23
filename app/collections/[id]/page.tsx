@@ -24,7 +24,7 @@ export default async function CollectionPage({
     const collectionId = (await params).id;
     const { backdrop, name, overview, parts, poster } =
         await getCollectionDetails(collectionId);
-    const image = backdrop ?? poster ?? '/fallback.png';
+    const image = backdrop ?? poster;
 
     return (
         <>

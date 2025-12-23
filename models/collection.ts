@@ -5,6 +5,6 @@ export interface Collection {
     name: string;
     overview: string;
     parts: Media[];
-    poster?: string;
+    poster: string;
     backdrop?: string;
 }

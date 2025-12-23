@@ -38,7 +38,7 @@ export default async function MoviePage({
     const movie = await getMovieDetails(movieId);
     const similarMovies = await getSimilarMovies(movieId);
     const credits = await getMovieCredits(movieId);
-    const image = movie.backdrop ?? movie.poster ?? '/fallback.png';
+    const image = movie.backdrop ?? movie.poster;
     const width = movie.backdrop ? 1000 : 500;
 
     if (!movie) {

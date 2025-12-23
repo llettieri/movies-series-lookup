@@ -37,7 +37,6 @@ export default async function PersonPage({
         await getPersonDetails(personId);
     const movieCredits = await getPersonMovies(personId);
     const showCredits = await getPersonTVShows(personId);
-    const image = portrait ?? '/fallback.png';
     let pronoun: string = 'The';
 
     if (gender === Gender.FEMALE) {
@@ -51,7 +50,7 @@ export default async function PersonPage({
             <div className="container mx-auto max-w-4xl py-6">
                 <div className="px-3">
                     <TMDBImage
-                        src={image}
+                        src={portrait}
                         width={600 / 1.5}
                         height={600}
                         className="mx-auto block h-auto w-auto rounded-md"

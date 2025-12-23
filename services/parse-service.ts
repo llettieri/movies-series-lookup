@@ -14,6 +14,7 @@ import { Network } from '@/models/network';
 import { Job, Person } from '@/models/person';
 import { Provider } from '@/models/provider';
 import { TVShow } from '@/models/tv-show';
+import { FALLBACK_IMAGE } from '@/components/image';
 
 const parseRoleDto = (dto: RoleDto): Job => {
     return {
@@ -48,7 +49,7 @@ const parseMovieDto = (dto: MovieDto): Media => {
         id: dto.id,
         mediaType: MediaType.MOVIE,
         overview: dto.overview,
-        poster: dto.poster_path,
+        poster: dto.poster_path ?? FALLBACK_IMAGE,
         releaseDate: dto.release_date,
         runtime: dto.runtime,
         title: dto.title,
@@ -58,14 +59,14 @@ const parseMovieDto = (dto: MovieDto): Media => {
 const parseTVShowDto = (dto: TVShowDto): TVShow => {
     return {
         averageVote: dto.vote_average * 10,
-        backdrop: dto.backdrop_path,
+        backdrop: dto.backdrop_path ?? FALLBACK_IMAGE,
         collection: undefined,
         genres: dto.genres,
         homepage: dto.homepage,
         id: dto.id,
         mediaType: MediaType.TV,
         overview: dto.overview,
-        poster: dto.poster_path,
+        poster: dto.poster_path ?? FALLBACK_IMAGE,
         releaseDate: dto.first_air_date,
         lastAirDate: dto.last_air_date ?? undefined,
         networks: dto.networks?.map(parseNetworkDto) ?? [],
@@ -81,7 +82,7 @@ const parseCollectionDto = (dto: CollectionDto): Collection => {
         id: dto.id,
         name: dto.name,
         overview: dto.overview,
-        poster: dto.poster_path,
+        poster: dto.poster_path ?? FALLBACK_IMAGE,
         backdrop: dto.backdrop_path,
         parts: dto.parts.map(parseMultiMediaDto),
     };
@@ -98,7 +99,7 @@ const parseMultiMediaDto = (dto: MultiMediaDto): Media => {
         id: dto.id,
         mediaType: type,
         overview: dto.overview,
-        poster: dto.poster_path,
+        poster: dto.poster_path ?? FALLBACK_IMAGE,
         releaseDate: dto.release_date ?? dto.first_air_date,
         runtime: undefined,
         title: dto.title ?? dto.name ?? '',
@@ -117,7 +118,7 @@ const parsePersonDto = (dto: PersonDto): Person => {
         homepage: dto.deathday,
         id: dto.id,
         name: dto.name,
-        portrait: dto.profile_path,
+        portrait: dto.profile_path ?? FALLBACK_IMAGE,
         department: dto.known_for_department ?? dto.department,
         jobs: dto.job
             ? [{ name: dto.job, episodeCount: Number.NaN }]
