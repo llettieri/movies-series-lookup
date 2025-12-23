@@ -1,6 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
-
 let CACHE_NAME = 'unknown'; // fallback
 
 // Fetch version on first run

@@ -1,7 +1,7 @@
 'use client';
 
 import Image, { ImageProps } from 'next/image';
-import { ReactElement, use } from 'react';
+import { ReactElement } from 'react';
 import tmdbLoader, { Scope } from '@/lib/image-loader/tmdb';
 
 const FALLBACK_IMAGE = '/fallback.png';
