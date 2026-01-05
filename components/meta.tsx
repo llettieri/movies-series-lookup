@@ -15,6 +15,11 @@ export const Meta = ({
     description,
     keywords,
     manifest: '/manifest.webmanifest',
+    appleWebApp: {
+        title,
+        capable: true,
+        statusBarStyle: 'black-translucent',
+    },
     icons: {
         apple: '/logo/icon/apple-touch-icon.png',
     },

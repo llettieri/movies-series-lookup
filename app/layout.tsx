@@ -23,7 +23,7 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps): ReactNode {
     return (
         <html lang="en">
-            <body className={`${inter.className} overflow-hidden`}>
+            <body className={`${inter.className} bg-neutral overflow-hidden`}>
                 <SessionProvider />
                 <ServiceWorker />
                 <ThemeInit />
