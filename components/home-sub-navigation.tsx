@@ -2,10 +2,11 @@
 
 import { CollectionType, ListType } from '@/app/page';
 import { Button } from '@/components/button';
-import { redirect, useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import React, { ReactNode } from 'react';
 
 export const HomeSubNavigation = (): ReactNode => {
+    const router = useRouter();
     const searchParams = useSearchParams();
     const collection =
         (searchParams.get('collection') as CollectionType) ?? 'movies';
@@ -17,7 +18,10 @@ export const HomeSubNavigation = (): ReactNode => {
                 <Button
                     title="Movies"
                     onClick={(): void =>
-                        redirect(`?collection=movies&listType=${listType}`)
+                        router.replace(
+                            `?collection=movies&listType=${listType}`,
+                            { scroll: false },
+                        )
                     }
                     className={`flex-1 ${
                         collection === 'movies' ? 'underline' : ''
@@ -26,7 +30,10 @@ export const HomeSubNavigation = (): ReactNode => {
                 <Button
                     title="TV Series"
                     onClick={(): void =>
-                        redirect(`?collection=tvshows&listType=${listType}`)
+                        router.replace(
+                            `?collection=tvshows&listType=${listType}`,
+                            { scroll: false },
+                        )
                     }
                     className={`flex-1 ${
                         collection === 'tvshows' ? 'underline' : ''
@@ -37,7 +44,10 @@ export const HomeSubNavigation = (): ReactNode => {
                 <Button
                     title="Popular"
                     onClick={(): void =>
-                        redirect(`?collection=${collection}&listType=popular`)
+                        router.replace(
+                            `?collection=${collection}&listType=popular`,
+                            { scroll: false },
+                        )
                     }
                     className={`flex-1 ${
                         listType === 'popular' ? 'underline' : ''
@@ -46,8 +56,9 @@ export const HomeSubNavigation = (): ReactNode => {
                 <Button
                     title="Now Playing"
                     onClick={(): void =>
-                        redirect(
+                        router.replace(
                             `?collection=${collection}&listType=nowPlaying`,
+                            { scroll: false },
                         )
                     }
                     className={`flex-1 ${

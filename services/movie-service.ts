@@ -28,7 +28,7 @@ const getPopularMovies = async (locale: string): Promise<Media[]> => {
     );
 };
 
-const getMovieDetails = async (movieId: number): Promise<Media> => {
+const getMovieDetails = async (movieId: string): Promise<Media> => {
     const url = parseTemplate(routes.movies.byId.details).expand({
         id: movieId,
     });
@@ -37,7 +37,7 @@ const getMovieDetails = async (movieId: number): Promise<Media> => {
 };
 
 const getSimilarMovies = async (
-    movieId: number,
+    movieId: string,
     page?: number,
 ): Promise<Media[]> => {
     const url = parseTemplate(routes.movies.byId.similar).expand({
@@ -49,7 +49,7 @@ const getSimilarMovies = async (
     );
 };
 
-const getMovieCredits = async (movieId: number): Promise<Credits> => {
+const getMovieCredits = async (movieId: string): Promise<Credits> => {
     const url = parseTemplate(routes.movies.byId.credits).expand({
         id: movieId,
     });

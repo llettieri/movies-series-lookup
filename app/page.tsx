@@ -18,18 +18,16 @@ type ListItem = {
     title: string;
 };
 
-interface HomePageProps {
-    searchParams: Promise<{
-        collection: CollectionType | undefined;
-        listType: ListType | undefined;
-    }>;
-}
+type SearchParams = {
+    collection: CollectionType | undefined;
+    listType: ListType | undefined;
+};
 
 export default async function HomePage({
     searchParams,
-}: HomePageProps): Promise<ReactNode> {
+}: PageProps<'/'>): Promise<ReactNode> {
     const locale = await getLocale();
-    const searchParamsList = await searchParams;
+    const searchParamsList = (await searchParams) as SearchParams;
     const collection = searchParamsList.collection ?? 'movies';
     const listType = searchParamsList.listType ?? 'nowPlaying';
 

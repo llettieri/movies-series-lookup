@@ -1,13 +1,12 @@
 import {
     Navbar as FBNavbar,
-    NavbarBrand,
     NavbarCollapse,
-    NavbarLink,
     NavbarToggle,
 } from 'flowbite-react';
 import { CustomFlowbiteTheme } from 'flowbite-react/types';
 import React, { ReactNode } from 'react';
 import { IoHome, IoSearch } from 'react-icons/io5';
+import { NavbarBrand, NavbarLink } from '@/components/flowbite-extensions';
 
 const navbarTheme: CustomFlowbiteTheme['navbar'] = {
     root: {

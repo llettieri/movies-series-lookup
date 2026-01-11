@@ -5,13 +5,9 @@ import { Metadata } from 'next';
 import React, { ReactNode } from 'react';
 import { TMDBImage } from '@/components/image';
 
-interface CollectionPageProps {
-    params: Promise<{ id: number }>;
-}
-
 export const generateMetadata = async ({
     params,
-}: CollectionPageProps): Promise<Metadata> => {
+}: PageProps<'/collections/[id]'>): Promise<Metadata> => {
     const collectionId = (await params).id;
     const { name } = await getCollectionDetails(collectionId);
 
@@ -20,7 +16,7 @@ export const generateMetadata = async ({
 
 export default async function CollectionPage({
     params,
-}: CollectionPageProps): Promise<ReactNode> {
+}: PageProps<'/collections/[id]'>): Promise<ReactNode> {
     const collectionId = (await params).id;
     const { backdrop, name, overview, parts, poster } =
         await getCollectionDetails(collectionId);

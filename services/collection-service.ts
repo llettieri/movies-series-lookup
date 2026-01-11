@@ -7,7 +7,7 @@ import { parseTemplate } from 'url-template';
 import { TMDBApi } from './api';
 
 const getCollectionDetails = async (
-    collectionId: number,
+    collectionId: string,
 ): Promise<Collection> => {
     const url = parseTemplate(routes.collection.byId.details).expand({
         id: collectionId,

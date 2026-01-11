@@ -8,13 +8,9 @@ import { headers } from 'next/headers';
 import { userAgent } from 'next/server';
 import React, { ReactNode } from 'react';
 
-interface MovieCreditsPageProps {
-    params: Promise<{ id: number }>;
-}
-
 export const generateMetadata = async ({
     params,
-}: MovieCreditsPageProps): Promise<Metadata> => {
+}: PageProps<'/movies/[id]/credits'>): Promise<Metadata> => {
     const movieId = (await params).id;
     const { title } = await getMovieDetails(movieId);
 
@@ -26,7 +22,7 @@ export const generateMetadata = async ({
 
 export default async function MovieCreditsPage({
     params,
-}: MovieCreditsPageProps): Promise<ReactNode> {
+}: PageProps<'/movies/[id]/credits'>): Promise<ReactNode> {
     const readyOnlyHeaders = await headers();
     const { os, device } = userAgent({ headers: readyOnlyHeaders });
     const movieId = (await params).id;

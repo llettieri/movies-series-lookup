@@ -14,7 +14,7 @@ import {
 } from '@/services/parse-service';
 import { parseTemplate } from 'url-template';
 
-const getPersonDetails = async (personId: number): Promise<Person> => {
+const getPersonDetails = async (personId: string): Promise<Person> => {
     const url = parseTemplate(routes.person.byId.details).expand({
         id: personId,
     });
@@ -23,7 +23,7 @@ const getPersonDetails = async (personId: number): Promise<Person> => {
     );
 };
 
-const getPersonMovies = async (personId: number): Promise<Media[]> => {
+const getPersonMovies = async (personId: string): Promise<Media[]> => {
     const url = parseTemplate(routes.person.byId.movieCredits).expand({
         id: personId,
     });
@@ -39,7 +39,7 @@ const getPersonMovies = async (personId: number): Promise<Media[]> => {
     });
 };
 
-const getPersonTVShows = async (personId: number): Promise<TVShow[]> => {
+const getPersonTVShows = async (personId: string): Promise<TVShow[]> => {
     const url = parseTemplate(routes.person.byId.tvCredits).expand({
         id: personId,
     });

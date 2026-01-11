@@ -16,11 +16,7 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = Meta({});
 export const viewport: Viewport = { width: 'device-width', initialScale: 1 };
 
-interface RootLayoutProps {
-    children: ReactNode;
-}
-
-export default function RootLayout({ children }: RootLayoutProps): ReactNode {
+export default function RootLayout({ children }: LayoutProps<'/'>): ReactNode {
     return (
         <html lang="en">
             <body className={`${inter.className} bg-neutral overflow-hidden`}>

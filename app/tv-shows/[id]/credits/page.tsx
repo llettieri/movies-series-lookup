@@ -11,13 +11,9 @@ import { headers } from 'next/headers';
 import { userAgent } from 'next/server';
 import React, { ReactNode } from 'react';
 
-interface TVShowCreditsPageProps {
-    params: Promise<{ id: number }>;
-}
-
 export const generateMetadata = async ({
     params,
-}: TVShowCreditsPageProps): Promise<Metadata> => {
+}: PageProps<'/tv-shows/[id]/credits'>): Promise<Metadata> => {
     const showId = (await params).id;
     const { title } = await getTVShowDetails(showId);
 
@@ -29,7 +25,7 @@ export const generateMetadata = async ({
 
 export default async function TVShowCreditsPage({
     params,
-}: TVShowCreditsPageProps): Promise<ReactNode> {
+}: PageProps<'/tv-shows/[id]/credits'>): Promise<ReactNode> {
     const readyOnlyHeaders = await headers();
     const { os, device } = userAgent({ headers: readyOnlyHeaders });
     const showId = (await params).id;

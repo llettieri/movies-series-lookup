@@ -1,4 +1,4 @@
-import { Button as FBButton } from 'flowbite-react';
+import { Button as FBButton } from '@/components/flowbite-extensions';
 import React, { ReactElement, ReactNode } from 'react';
 import { IconType } from 'react-icons';
 

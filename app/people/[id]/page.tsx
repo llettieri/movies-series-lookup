@@ -11,13 +11,9 @@ import { Metadata } from 'next';
 import React, { ReactNode } from 'react';
 import { TMDBImage } from '@/components/image';
 
-interface PersonPageProps {
-    params: Promise<{ id: number }>;
-}
-
 export const generateMetadata = async ({
     params,
-}: PersonPageProps): Promise<Metadata> => {
+}: PageProps<'/people/[id]'>): Promise<Metadata> => {
     const personId = (await params).id;
     const person = await getPersonDetails(personId);
 
@@ -31,7 +27,7 @@ export const generateMetadata = async ({
 // @ts-ignore
 export default async function PersonPage({
     params,
-}: PersonPageProps): Promise<ReactNode> {
+}: PageProps<'/people/[id]'>): Promise<ReactNode> {
     const personId = (await params).id;
     const { biography, birthday, deathday, gender, homepage, name, portrait } =
         await getPersonDetails(personId);

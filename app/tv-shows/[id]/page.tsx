@@ -16,13 +16,9 @@ import { Metadata } from 'next';
 import React, { ReactNode, Suspense } from 'react';
 import { TMDBImage } from '@/components/image';
 
-interface TVShowPageProps {
-    params: Promise<{ id: number }>;
-}
-
 export const generateMetadata = async ({
     params,
-}: TVShowPageProps): Promise<Metadata> => {
+}: PageProps<'/tv-shows/[id]'>): Promise<Metadata> => {
     const showId = (await params).id;
     const show = await getTVShowDetails(showId);
 
@@ -34,7 +30,7 @@ export const generateMetadata = async ({
 
 export default async function TVShowPage({
     params,
-}: TVShowPageProps): Promise<ReactNode> {
+}: PageProps<'/tv-shows/[id]'>): Promise<ReactNode> {
     const locale = await getLocale();
     const showId = (await params).id;
     const {

@@ -15,13 +15,9 @@ import Link from 'next/link';
 import React, { ReactNode, Suspense } from 'react';
 import { TMDBImage } from '@/components/image';
 
-interface MoviePageProps {
-    params: Promise<{ id: number }>;
-}
-
 export const generateMetadata = async ({
     params,
-}: MoviePageProps): Promise<Metadata> => {
+}: PageProps<'/movies/[id]'>): Promise<Metadata> => {
     const movieId = (await params).id;
     const { title } = await getMovieDetails(movieId);
 
@@ -33,7 +29,7 @@ export const generateMetadata = async ({
 
 export default async function MoviePage({
     params,
-}: MoviePageProps): Promise<ReactNode> {
+}: PageProps<'/movies/[id]'>): Promise<ReactNode> {
     const movieId = (await params).id;
     const movie = await getMovieDetails(movieId);
     const similarMovies = await getSimilarMovies(movieId);

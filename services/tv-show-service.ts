@@ -43,21 +43,21 @@ const getAiringTodayShows = async (locale: string): Promise<TVShow[]> => {
     );
 };
 
-const getTVShowDetails = async (showId: number): Promise<TVShow> => {
+const getTVShowDetails = async (showId: string): Promise<TVShow> => {
     const url = parseTemplate(routes.tv.byId.details).expand({ id: showId });
     return await TMDBApi.get<TVShowDto>(url).then((r) =>
         parseTVShowDto(r.data),
     );
 };
 
-const getSimilarTVShows = async (showId: number): Promise<TVShow[]> => {
+const getSimilarTVShows = async (showId: string): Promise<TVShow[]> => {
     const url = parseTemplate(routes.tv.byId.similar).expand({ id: showId });
     return await TMDBApi.get<ListDto<TVShowDto>>(url).then((r) =>
         r.data.results.map(parseTVShowDto),
     );
 };
 
-const getTVShowsCredits = async (showId: number): Promise<Credits> => {
+const getTVShowsCredits = async (showId: string): Promise<Credits> => {
     const url = parseTemplate(routes.tv.byId.aggregateCredits).expand({
         id: showId,
     });
@@ -67,7 +67,7 @@ const getTVShowsCredits = async (showId: number): Promise<Credits> => {
 };
 
 const getTVShowWatchProviders = async (
-    showId: number,
+    showId: string,
     locale: string,
 ): Promise<ProviderGroup | undefined> => {
     const url = parseTemplate(routes.tv.byId.watchProviders).expand({

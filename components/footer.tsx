@@ -2,10 +2,10 @@ import dayjs from 'dayjs';
 import {
     Footer as FBFooter,
     FooterCopyright,
-    FooterLink,
     FooterLinkGroup,
 } from 'flowbite-react';
 import React, { ReactNode } from 'react';
+import { FooterLink } from '@/components/flowbite-extensions/footer-link';
 
 export const Footer = (): ReactNode => {
     const currentYear = dayjs().year();

@@ -7,14 +7,12 @@ import { SearchBar } from '@/components/search-bar';
 import { SearchResult } from '@/models/search-result';
 import React, { ReactNode, Suspense } from 'react';
 
-interface SearchPageProps {
-    searchParams: Promise<{ query: string | undefined }>;
-}
+type SearchParams = { query: string | undefined };
 
 export default async function SearchPage({
     searchParams,
-}: SearchPageProps): Promise<ReactNode> {
-    const { query } = await searchParams;
+}: PageProps<'/search'>): Promise<ReactNode> {
+    const { query } = (await searchParams) as SearchParams;
 
     let result: SearchResult | undefined = undefined;
 
