@@ -53,6 +53,8 @@ jobs:
             ${{env.REPO}}/${{env.NAME}}:${{github.ref_name}}
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     needs: [ build ]
     environment: Production
     steps:
