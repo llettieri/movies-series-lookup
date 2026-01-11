@@ -64,3 +64,11 @@ jobs:
         with:
           webhook_url: ${{ secrets.DEPLOY_WEBHOOK_URL }}
           silent: true
+
+      - name: GitHub Release
+        uses: ncipollo/release-action@v1.20.0
+        with:
+          allowUpdates: true
+          generateReleaseNotes: true
+          removeArtifacts: true
+          replacesArtifacts: true

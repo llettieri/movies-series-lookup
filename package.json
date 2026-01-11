@@ -9,8 +9,7 @@
         "lint": "eslint --fix",
         "prettier-check": "prettier . --check",
         "prettier-write": "prettier . --write",
-        "clean-win": "rmdir /s /q .next",
-        "clean-mac": "rm -R .next"
+        "create-env": "if [ ! -f .env ]; then echo \"$(cat .env.example)\" > .env; else echo \"Attention the .env file already exists!\"; fi"
     },
     "dependencies": {
         "next": "^16",
