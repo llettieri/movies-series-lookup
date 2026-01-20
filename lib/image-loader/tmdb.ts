@@ -66,14 +66,14 @@ const parseProfileWidth = (width: number): string => {
 
 const parseWidth = (scope: Scope, width: number): string => {
     switch (scope) {
-    case 'poster':
-        return parsePosterWidth(width);
-    case 'logo':
-        return parseLogoWidth(width);
-    case 'backdrop':
-        return parseBackdropWidth(width);
-    case 'profile':
-        return parseProfileWidth(width);
+        case 'poster':
+            return parsePosterWidth(width);
+        case 'logo':
+            return parseLogoWidth(width);
+        case 'backdrop':
+            return parseBackdropWidth(width);
+        case 'profile':
+            return parseProfileWidth(width);
     }
 };
 
