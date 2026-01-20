@@ -1,4 +1,4 @@
-import { routes } from '@/config/routes';
+import { apiRoutes } from '@/config/api-routes';
 import { Credits } from '@/models/credits';
 import { CreditsDto } from '@/models/dto/credits-dto';
 import { ListDto } from '@/models/dto/list-dto';
@@ -6,10 +6,9 @@ import { MovieDto } from '@/models/dto/movie-dto';
 import { Media } from '@/models/media';
 import { TMDBApi } from '@/services/api';
 import { parseCreditsDto, parseMovieDto } from '@/services/parse-service';
-import { parseTemplate } from 'url-template';
 
 const getLatestMovies = async (locale: string): Promise<Media[]> => {
-    const url = parseTemplate(routes.movies.nowPlaying).expand({
+    const url = apiRoutes.movies.nowPlaying.expand({
         page: 1,
         region: locale,
     });
@@ -19,7 +18,7 @@ const getLatestMovies = async (locale: string): Promise<Media[]> => {
 };
 
 const getPopularMovies = async (locale: string): Promise<Media[]> => {
-    const url = parseTemplate(routes.movies.popular).expand({
+    const url = apiRoutes.movies.popular.expand({
         page: 1,
         region: locale,
     });
@@ -29,7 +28,7 @@ const getPopularMovies = async (locale: string): Promise<Media[]> => {
 };
 
 const getMovieDetails = async (movieId: string): Promise<Media> => {
-    const url = parseTemplate(routes.movies.byId.details).expand({
+    const url = apiRoutes.movies.byId.details.expand({
         id: movieId,
     });
 
@@ -40,7 +39,7 @@ const getSimilarMovies = async (
     movieId: string,
     page?: number,
 ): Promise<Media[]> => {
-    const url = parseTemplate(routes.movies.byId.similar).expand({
+    const url = apiRoutes.movies.byId.similar.expand({
         id: movieId,
         page: page ?? 1,
     });
@@ -50,7 +49,7 @@ const getSimilarMovies = async (
 };
 
 const getMovieCredits = async (movieId: string): Promise<Credits> => {
-    const url = parseTemplate(routes.movies.byId.credits).expand({
+    const url = apiRoutes.movies.byId.credits.expand({
         id: movieId,
     });
     return await TMDBApi.get<CreditsDto>(url).then((r) =>

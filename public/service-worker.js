@@ -35,6 +35,8 @@ const activateEvent = () => {
 };
 activateEvent();
 
+const EXCLUDED_URIS = ['chrome-extension', 'ip.lore-le.ch'];
+
 const cloneCache = async (e) => {
     const req = e.request;
     const res = await fetch(req);
@@ -43,7 +45,7 @@ const cloneCache = async (e) => {
     const url = req.url;
     const cache = caches.open(CACHE_NAME);
 
-    if (!url.includes('chrome-extension') && req.method !== 'POST') {
+    if (!url.includes(EXCLUDED_URIS) && req.method !== 'POST') {
         cache.then((c) => c.put(req, resClone));
     }
 

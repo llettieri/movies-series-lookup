@@ -1,4 +1,4 @@
-import { routes } from '@/config/routes';
+import { apiRoutes } from '@/config/api-routes';
 import { MediaCreditsDto } from '@/models/dto/media-credits-dto';
 import { MovieDto } from '@/models/dto/movie-dto';
 import { PersonDto } from '@/models/dto/person-dto';
@@ -12,10 +12,9 @@ import {
     parsePersonDto,
     parseTVShowDto,
 } from '@/services/parse-service';
-import { parseTemplate } from 'url-template';
 
 const getPersonDetails = async (personId: string): Promise<Person> => {
-    const url = parseTemplate(routes.person.byId.details).expand({
+    const url = apiRoutes.person.byId.details.expand({
         id: personId,
     });
     return await TMDBApi.get<PersonDto>(url).then((r) =>
@@ -24,7 +23,7 @@ const getPersonDetails = async (personId: string): Promise<Person> => {
 };
 
 const getPersonMovies = async (personId: string): Promise<Media[]> => {
-    const url = parseTemplate(routes.person.byId.movieCredits).expand({
+    const url = apiRoutes.person.byId.movieCredits.expand({
         id: personId,
     });
     return await TMDBApi.get<MediaCreditsDto<MovieDto>>(url).then((r) => {
@@ -40,7 +39,7 @@ const getPersonMovies = async (personId: string): Promise<Media[]> => {
 };
 
 const getPersonTVShows = async (personId: string): Promise<TVShow[]> => {
-    const url = parseTemplate(routes.person.byId.tvCredits).expand({
+    const url = apiRoutes.person.byId.tvCredits.expand({
         id: personId,
     });
     return await TMDBApi.get<MediaCreditsDto<TVShowDto>>(url).then((r) => {

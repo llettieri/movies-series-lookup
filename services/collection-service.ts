@@ -1,15 +1,14 @@
-import { routes } from '@/config/routes';
+import { apiRoutes } from '@/config/api-routes';
 import { Collection } from '@/models/collection';
 import { CollectionDto } from '@/models/dto/collection-dto';
 import { parseCollectionDto } from '@/services/parse-service';
-import { parseTemplate } from 'url-template';
 
 import { TMDBApi } from './api';
 
 const getCollectionDetails = async (
     collectionId: string,
 ): Promise<Collection> => {
-    const url = parseTemplate(routes.collection.byId.details).expand({
+    const url = apiRoutes.collection.byId.details.expand({
         id: collectionId,
     });
 

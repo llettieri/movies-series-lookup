@@ -1,6 +1,6 @@
 'use server';
 
-import { routes } from '@/config/routes';
+import { apiRoutes } from '@/config/api-routes';
 import TMDBRequestTokenDto from '@/models/dto/tmdb-authentication-dto';
 import { TMDBApi } from '@/services/api';
 import dayjs from 'dayjs';
@@ -38,7 +38,7 @@ const decrypt = async (token: string): Promise<UserPayload | null> => {
 const createSession = async (locale: string): Promise<void> => {
     const user = crypto.randomUUID();
     const reqToken = await TMDBApi.get<TMDBRequestTokenDto>(
-        routes.authentication.token.new,
+        apiRoutes.authentication.token.new,
     );
     const expires = dayjs().add(12, 'h').toDate();
     const session = await encrypt({

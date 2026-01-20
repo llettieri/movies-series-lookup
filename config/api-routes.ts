@@ -1,3 +1,5 @@
+import { parseTemplate } from 'url-template';
+
 const base = {
     authentication: 'https://api.themoviedb.org/3/authentication',
     collection: 'https://api.themoviedb.org/3/collection',
@@ -9,7 +11,7 @@ const base = {
     tv: 'https://api.themoviedb.org/3/tv',
 };
 
-export const routes = {
+export const apiRoutes = {
     authentication: {
         guest: {
             new: `${base.authentication}/guest_session/new`,
@@ -23,90 +25,96 @@ export const routes = {
             /**
              * Params: id
              */
-            details: `${base.collection}/{id}`,
+            details: parseTemplate(`${base.collection}/{id}`),
         },
     },
     country: `${base.ipApi}`,
     /**
      * Params: size
      */
-    images: 'https://image.tmdb.org/t/p/{size}',
+    images: parseTemplate('https://image.tmdb.org/t/p/{size}'),
     movies: {
         byId: {
             /**
              * Params: id
              */
-            details: `${base.movies}/{id}`,
+            details: parseTemplate(`${base.movies}/{id}`),
             /**
              * Params: id
              *
              * QueryParams: page
              */
-            similar: `${base.movies}/{id}/similar{?page}`,
+            similar: parseTemplate(`${base.movies}/{id}/similar{?page}`),
             /**
              * Params: id
              */
-            credits: `${base.movies}/{id}/credits`,
+            credits: parseTemplate(`${base.movies}/{id}/credits`),
             /**
              * Params: id
              */
-            watchProviders: `${base.movies}/{id}/watch/providers`,
+            watchProviders: parseTemplate(
+                `${base.movies}/{id}/watch/providers`,
+            ),
         },
         /**
          * QueryParams: page
          */
-        popular: `${base.movies}/popular{?page,region}`,
+        popular: parseTemplate(`${base.movies}/popular{?page,region}`),
         /**
          * QueryParams: page, region
          */
-        nowPlaying: `${base.movies}/now_playing{?page,region}`,
+        nowPlaying: parseTemplate(`${base.movies}/now_playing{?page,region}`),
     },
     person: {
         byId: {
             /**
              * Params: id
              */
-            details: `${base.person}/{id}`,
+            details: parseTemplate(`${base.person}/{id}`),
             /**
              * Params: id
              */
-            movieCredits: `${base.person}/{id}/movie_credits`,
+            movieCredits: parseTemplate(`${base.person}/{id}/movie_credits`),
             /**
              * Params: id
              */
-            tvCredits: `${base.person}/{id}}/tv_credits`,
+            tvCredits: parseTemplate(`${base.person}/{id}}/tv_credits`),
         },
     },
     search: {
         /**
          * QueryParams: query
          */
-        multi: `${base.search}/multi{?query}`,
+        multi: parseTemplate(`${base.search}/multi{?query}`),
     },
     tv: {
         byId: {
             /**
              * Params: id
              */
-            details: `${base.tv}/{id}}`,
+            details: parseTemplate(`${base.tv}/{id}}`),
             /**
              * Params: id
              *
              * QueryParams: page
              */
-            similar: `${base.tv}/{id}/similar{?page}`,
+            similar: parseTemplate(`${base.tv}/{id}/similar{?page}`),
             /**
              * Params: id
              */
-            aggregateCredits: `${base.tv}/{id}/aggregate_credits`,
+            aggregateCredits: parseTemplate(
+                `${base.tv}/{id}/aggregate_credits`,
+            ),
             /**
              * Params: id
              */
-            watchProviders: `${base.tv}/{id}/watch/providers`,
+            watchProviders: parseTemplate(`${base.tv}/{id}/watch/providers`),
         },
         /**
          * QueryParams: page, sort_by, watch_region, with_watch_monetization_types, air_date.gte, air_date.lte
          */
-        discover: `${base.discover}/tv{?page,sort_by,watch_region,with_watch_monetization_types,air_date.gte,air_date.lte}`,
+        discover: parseTemplate(
+            `${base.discover}/tv{?page,sort_by,watch_region,with_watch_monetization_types,air_date.gte,air_date.lte}`,
+        ),
     },
 };

@@ -1,4 +1,4 @@
-import { routes } from '@/config/routes';
+import { apiRoutes } from '@/config/api-routes';
 import { Credits } from '@/models/credits';
 import { CountryProvidersDto } from '@/models/dto/country-providers-dto';
 import { CreditsDto } from '@/models/dto/credits-dto';
@@ -15,11 +15,10 @@ import {
     parseTVShowDto,
 } from '@/services/parse-service';
 import dayjs from 'dayjs';
-import { parseTemplate } from 'url-template';
 
 /* eslint-disable camelcase */
 const getPopularShows = async (locale: string): Promise<TVShow[]> => {
-    const url = parseTemplate(routes.tv.discover).expand({
+    const url = apiRoutes.tv.discover.expand({
         watch_region: locale,
         with_watch_monetization_types: 'flatrate|free|ads|rent|buy',
     });
@@ -32,7 +31,7 @@ const getPopularShows = async (locale: string): Promise<TVShow[]> => {
 const getAiringTodayShows = async (locale: string): Promise<TVShow[]> => {
     const today = dayjs().format('YYYY-MM-DD');
 
-    const url = parseTemplate(routes.tv.discover).expand({
+    const url = apiRoutes.tv.discover.expand({
         watch_region: locale,
         with_watch_monetization_types: 'flatrate|free|ads|rent|buy',
         'air_date.gte': today,
@@ -44,21 +43,21 @@ const getAiringTodayShows = async (locale: string): Promise<TVShow[]> => {
 };
 
 const getTVShowDetails = async (showId: string): Promise<TVShow> => {
-    const url = parseTemplate(routes.tv.byId.details).expand({ id: showId });
+    const url = apiRoutes.tv.byId.details.expand({ id: showId });
     return await TMDBApi.get<TVShowDto>(url).then((r) =>
         parseTVShowDto(r.data),
     );
 };
 
 const getSimilarTVShows = async (showId: string): Promise<TVShow[]> => {
-    const url = parseTemplate(routes.tv.byId.similar).expand({ id: showId });
+    const url = apiRoutes.tv.byId.similar.expand({ id: showId });
     return await TMDBApi.get<ListDto<TVShowDto>>(url).then((r) =>
         r.data.results.map(parseTVShowDto),
     );
 };
 
 const getTVShowsCredits = async (showId: string): Promise<Credits> => {
-    const url = parseTemplate(routes.tv.byId.aggregateCredits).expand({
+    const url = apiRoutes.tv.byId.aggregateCredits.expand({
         id: showId,
     });
     return await TMDBApi.get<CreditsDto>(url).then((r) =>
@@ -70,7 +69,7 @@ const getTVShowWatchProviders = async (
     showId: string,
     locale: string,
 ): Promise<ProviderGroup | undefined> => {
-    const url = parseTemplate(routes.tv.byId.watchProviders).expand({
+    const url = apiRoutes.tv.byId.watchProviders.expand({
         id: showId,
     });
 

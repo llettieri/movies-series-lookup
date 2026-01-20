@@ -1,6 +1,5 @@
 import { ImageLoaderProps } from 'next/image';
-import { routes } from '@/config/routes';
-import { parseTemplate } from 'url-template';
+import { apiRoutes } from '@/config/api-routes';
 
 export type Scope = 'poster' | 'logo' | 'backdrop' | 'profile';
 
@@ -67,14 +66,14 @@ const parseProfileWidth = (width: number): string => {
 
 const parseWidth = (scope: Scope, width: number): string => {
     switch (scope) {
-        case 'poster':
-            return parsePosterWidth(width);
-        case 'logo':
-            return parseLogoWidth(width);
-        case 'backdrop':
-            return parseBackdropWidth(width);
-        case 'profile':
-            return parseProfileWidth(width);
+    case 'poster':
+        return parsePosterWidth(width);
+    case 'logo':
+        return parseLogoWidth(width);
+    case 'backdrop':
+        return parseBackdropWidth(width);
+    case 'profile':
+        return parseProfileWidth(width);
     }
 };
 
@@ -83,7 +82,7 @@ const tmdbLoader = ({
     src,
     width,
 }: TMDBLoaderProps & ImageLoaderProps): string => {
-    const baseUrl = parseTemplate(routes.images).expand({
+    const baseUrl = apiRoutes.images.expand({
         size: parseWidth(scope, width),
     });
     const url = new URL(`${baseUrl}${src}`);
