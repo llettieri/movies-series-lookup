@@ -14,7 +14,7 @@ RUN corepack enable pnpm
 COPY package.json pnpm-lock.yaml ./
 RUN pnpm i --frozen-lockfile
 COPY . .
-RUN pnpm run build
+RUN pnpm build
 
 # Production Stage
 FROM node:24-slim AS runner

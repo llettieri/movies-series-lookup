@@ -26,5 +26,5 @@ jobs:
           node-version: ${{ inputs.node-version }}
           cache: "pnpm"
       - run: pnpm i
-      - run: pnpm run prettier-check
-      - run: pnpm run lint
+      - run: pnpm prettier-check
+      - run: pnpm lint
