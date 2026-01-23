@@ -12,11 +12,6 @@
         "create-env": "if [ ! -f .env ]; then echo \"$(cat .env.example)\" > .env; else echo \"Attention the .env file already exists!\"; fi"
     },
     "dependencies": {
-        "next": "^16",
-        "react": "^19",
-        "react-dom": "^19"
-    },
-    "devDependencies": {
         "@tailwindcss/postcss": "^4",
         "@types/lodash.debounce": "^4",
         "@types/node": "^24",
@@ -24,29 +19,39 @@
         "@types/react-dom": "^19",
         "axios": "^1",
         "dayjs": "^1",
-        "eslint": "^9",
-        "eslint-config-next": "^16",
-        "eslint-config-prettier": "^10",
         "flowbite-react": "^0",
-        "import-sort-style-module": "^6",
-        "jiti": "^2",
         "jose": "^5",
         "lodash.debounce": "^4",
-        "postcss": "^8",
-        "prettier": "^3",
-        "prettier-plugin-import-sort": "^0",
-        "prettier-plugin-tailwindcss": "^0",
+        "next": "^16",
+        "react": "^19",
         "react-circular-progressbar": "^2",
+        "react-dom": "^19",
         "react-icons": "^5",
-        "sharp": "^0",
         "tailwindcss": "^4",
         "typescript": "^5",
         "url-template": "^3"
+    },
+    "devDependencies": {
+        "eslint": "^9",
+        "eslint-config-next": "^16",
+        "eslint-config-prettier": "^10",
+        "import-sort-style-module": "^6",
+        "jiti": "^2",
+        "postcss": "^8",
+        "prettier": "^3",
+        "prettier-plugin-import-sort": "^0",
+        "prettier-plugin-tailwindcss": "^0"
     },
     "importSort": {
         ".js, .jsx, .ts, .tsx": {
             "style": "module",
             "parser": "typescript"
         }
+    },
+    "packageManager": "pnpm@10.6.3+sha512.bb45e34d50a9a76e858a95837301bfb6bd6d35aea2c5d52094fa497a467c43f5c440103ce2511e9e0a2f89c3d6071baac3358fc68ac6fb75e2ceb3d2736065e6",
+    "pnpm": {
+        "onlyBuiltDependencies": [
+            "unrs-resolver"
+        ]
     }
 }
