@@ -35,7 +35,7 @@ const activateEvent = () => {
 };
 activateEvent();
 
-const EXCLUDED_URIS = ['chrome-extension', 'ip.lore-le.ch'];
+const EXCLUDED_URIS = ['chrome-extension', 'ip.lore-le.ch', 'cloudflare'];
 
 const cloneCache = async (e) => {
     const req = e.request;
