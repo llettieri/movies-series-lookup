@@ -4,11 +4,17 @@ FROM node:24-slim AS builder
 # Setting workdir
 WORKDIR /app
 
+# Setting up package manager
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+
+RUN corepack enable pnpm
+
 # Copying files and build
-COPY package*.json ./
-RUN npm ci
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm i --frozen-lockfile
 COPY . .
-RUN npm run build
+RUN pnpm build
 
 # Production Stage
 FROM node:24-slim AS runner

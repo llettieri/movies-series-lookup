@@ -34,14 +34,20 @@ Perfect for movie nights or quick recommendations!
 git clone https://github.com/llettieri/movies-series-lookup.git
 cd movies-series-lookup
 
+# Install node, version specified in .nvmrc file (requries nvm)
+nvm install
+
+# Enable pnpm with corepack
+corepack enable pnpm
+
 # Create local .env file (see .env.example)
-npm run create-env
+pnpm create-env
 
 # Install dependencies
-npm install
+pnpm install
 
 # Run development server
-npm run dev
+pnpm dev
 
 ```
 
