@@ -12,6 +12,7 @@
         "create-env": "if [ ! -f .env ]; then echo \"$(cat .env.example)\" > .env; else echo \"Attention the .env file already exists!\"; fi"
     },
     "dependencies": {
+        "@radix-ui/react-navigation-menu": "^1",
         "@radix-ui/react-slot": "^1",
         "@tailwindcss/postcss": "^4",
         "@types/lodash.debounce": "^4",
