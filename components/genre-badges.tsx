@@ -11,7 +11,7 @@ export const GenreBadges = ({ genres }: GenreBadgesProps): ReactNode => {
         <div className="my-2 flex flex-row-reverse gap-3">
             {genres.map((genre: Genre) => (
                 <Badge
-                    className="bg-primary hover:bg-primary text-standard cursor-pointer"
+                    className="bg-primary hover:bg-primary text-foreground cursor-pointer"
                     key={genre.id}
                 >
                     {genre.name}

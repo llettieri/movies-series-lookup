@@ -16,7 +16,7 @@ interface SearchHintProps {
 
 const alertTheme: CustomFlowbiteTheme['alert'] = {
     color: {
-        purple: 'bg-primary border-primary-tint text-standard',
+        purple: 'bg-primary border-primary-tint text-foreground',
     },
 };
 

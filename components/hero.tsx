@@ -13,7 +13,7 @@ export const Hero = (): ReactNode => {
                     alt={'Videofiles'}
                     loading="eager"
                 />
-                <h2 className="text-standard uppercase">
+                <h2 className="text-foreground uppercase">
                     Welcome to your Movies / Series lookup
                 </h2>
             </div>

@@ -18,15 +18,20 @@
         "@types/react": "^19",
         "@types/react-dom": "^19",
         "axios": "^1",
+        "class-variance-authority": "^0",
+        "clsx": "^2",
         "dayjs": "^1",
         "flowbite-react": "^0",
         "jose": "^5",
         "lodash.debounce": "^4",
+        "lucide-react": "^0",
         "next": "^16",
+        "next-themes": "^0",
         "react": "^19",
         "react-circular-progressbar": "^2",
         "react-dom": "^19",
         "react-icons": "^5",
+        "tailwind-merge": "^3",
         "tailwindcss": "^4",
         "typescript": "^5",
         "url-template": "^3"
@@ -40,7 +45,8 @@
         "postcss": "^8",
         "prettier": "^3",
         "prettier-plugin-import-sort": "^0",
-        "prettier-plugin-tailwindcss": "^0"
+        "prettier-plugin-tailwindcss": "^0",
+        "tw-animate-css": "^1"
     },
     "importSort": {
         ".js, .jsx, .ts, .tsx": {

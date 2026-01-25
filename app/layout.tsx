@@ -9,7 +9,7 @@ import { SessionProvider } from '@/components/session-provider';
 import { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import React, { ReactNode, Suspense } from 'react';
-import { ThemeInit } from '@/.flowbite-react/init';
+import { ThemeProvider } from '@/components/theme-provider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -18,23 +18,29 @@ export const viewport: Viewport = { width: 'device-width', initialScale: 1 };
 
 export default function RootLayout({ children }: LayoutProps<'/'>): ReactNode {
     return (
-        <html lang="en">
-            <body className={`${inter.className} bg-neutral overflow-hidden`}>
+        <html lang="en" suppressHydrationWarning>
+            <body className={inter.className}>
                 <SessionProvider />
                 <ServiceWorker />
-                <ThemeInit />
-                <div className="flex h-dvh flex-col overflow-hidden">
-                    <NavigationBar />
+                <ThemeProvider
+                    attribute="class"
+                    defaultTheme="dark"
+                    enableSystem
+                    disableTransitionOnChange
+                >
+                    <div className="flex h-dvh flex-col overflow-hidden">
+                        <NavigationBar />
 
-                    <div className="flex flex-1 flex-col overflow-auto overscroll-y-none">
-                        <main className="bg-dark flex-1 p-5 sm:p-10">
-                            <Suspense fallback={<Loading />}>
-                                {children}
-                            </Suspense>
-                        </main>
-                        <Footer />
+                        <div className="flex flex-1 flex-col overflow-auto overscroll-y-none">
+                            <main className="bg-background flex-1 p-5 sm:p-10">
+                                <Suspense fallback={<Loading />}>
+                                    {children}
+                                </Suspense>
+                            </main>
+                            <Footer />
+                        </div>
                     </div>
-                </div>
+                </ThemeProvider>
             </body>
         </html>
     );
