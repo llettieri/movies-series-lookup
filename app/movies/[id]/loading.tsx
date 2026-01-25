@@ -13,7 +13,10 @@ export default function MovieLoadingPage(): ReactNode {
                         <Skeleton className="aspect-auto h-[300] w-full md:h-[490]" />
                     </div>
                     <SkeletonBadges />
-                    <Skeleton className="mb-8 h-10 w-2/3" />
+                    <div className="mb-8 flex flex-col gap-1">
+                        <Skeleton className="h-10 w-full md:w-2/3" />
+                        <Skeleton className="h-10 w-2/3 md:hidden" />
+                    </div>
                     <Skeleton className="mb-6 h-7 w-56" />
 
                     <div className="grid gap-2">

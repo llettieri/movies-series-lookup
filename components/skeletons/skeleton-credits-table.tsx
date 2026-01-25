@@ -1,42 +1,7 @@
-import { PersonCard } from '@/components/cards/person-card';
-import React, { ReactNode, Suspense } from 'react';
+import React, { ReactNode } from 'react';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
-import { SkeletonCardVerticalList } from '@/components/skeletons/skeleton-card-vertical-list';
 import { SkeletonCard } from '@/components/skeletons/skeleton-card';
-
-// interface GroupedCrewComponentProps {
-//     groupedCrew: Map<string, Person[]>;
-// }
-//
-// const GroupedCrewComponent = ({
-//     groupedCrew,
-// }: GroupedCrewComponentProps): ReactNode => {
-//     const groups: ReactNode[] = [];
-//     groupedCrew.forEach((people, department) =>
-//         groups.push(
-//             <div key={department} className="mb-2">
-//                 <h2
-//                     className="text-foreground mb-0!"
-//                     id={department.toLowerCase()}
-//                 >
-//                     {department}
-//                 </h2>
-//                 <ul className="flex flex-col flex-wrap gap-4">
-//                     {people.map((p) => {
-//                         const mappedJobs = p.jobs?.map((j) => j.name);
-//                         return (
-//                             <li key={`crew-${p.id}-${mappedJobs?.join('-')}`}>
-//                                 <PersonCard person={p} size="small" />
-//                             </li>
-//                         );
-//                     })}
-//                 </ul>
-//             </div>,
-//         ),
-//     );
-//     return <>{groups}</>;
-// };
 
 interface SkeletonCreditsTableProps {
     title: string;

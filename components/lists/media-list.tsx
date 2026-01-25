@@ -5,14 +5,18 @@ import React, { ReactNode } from 'react';
 
 interface MediaListProps {
     title?: string;
-    mediaCallback: () => Promise<Media[]>;
+    mediaCallback?: () => Promise<Media[]>;
+    medias?: Media[];
 }
 
 export const MediaList = async ({
     title,
     mediaCallback,
+    medias = [],
 }: MediaListProps): Promise<ReactNode> => {
-    const medias = await mediaCallback();
+    if (mediaCallback) {
+        medias = await mediaCallback();
+    }
 
     if (!medias.length) {
         return null;

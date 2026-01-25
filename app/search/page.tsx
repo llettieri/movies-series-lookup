@@ -4,8 +4,7 @@ import { MediaList } from '@/components/lists/media-list';
 import { PeopleList } from '@/components/lists/people-list';
 import { SearchBar } from '@/components/search-bar';
 import { SearchResult } from '@/models/search-result';
-import React, { ReactNode, Suspense } from 'react';
-import { SkeletonList } from '@/components/skeletons/skeleton-list';
+import React, { ReactNode } from 'react';
 
 type SearchParams = { query: string | undefined };
 
@@ -13,49 +12,41 @@ export default async function SearchPage({
     searchParams,
 }: PageProps<'/search'>): Promise<ReactNode> {
     const { query } = (await searchParams) as SearchParams;
-    const isQueryEmpty = query === undefined || query.trim() === '';
 
-    let result: Promise<SearchResult> | null = null;
-    let total = 0;
+    let result: SearchResult | undefined = undefined;
 
-    if (!isQueryEmpty) {
-        result = search(query);
-        total = (await result).total;
+    if (query && query.trim()) {
+        result = await search(query);
     }
 
     return (
         <>
             <Hero />
-            <SearchBar totalResults={total} />
-
-            {isQueryEmpty || result == null ? (
-                <></>
-            ) : (
-                <Suspense fallback={<SkeletonList title="Results" />}>
-                    <>
+            <SearchBar totalResults={result?.total} />
+            {result && (
+                <>
+                    {result.medias.length > 0 && (
                         <div className="pt-2">
                             <MediaList
                                 title="Media results"
-                                mediaCallback={async () =>
-                                    (await result).medias
-                                }
+                                medias={result.medias}
                             />
                         </div>
+                    )}
+                    {result.people.length > 0 && (
                         <div className="pt-2">
                             <PeopleList
                                 title="Person results"
-                                peopleCallback={async () =>
-                                    (await result).people
-                                }
+                                people={result.people}
                             />
                         </div>
-                    </>
-                </Suspense>
-            )}
-            {!total && query !== '' && (
-                <h1 className="text-foreground mx-auto my-16 w-64 text-center">
-                    No results...
-                </h1>
+                    )}
+                    {result?.total === 0 && query !== '' && (
+                        <h1 className="text-standard mx-auto my-16 w-64 text-center">
+                            No results...
+                        </h1>
+                    )}
+                </>
             )}
         </>
     );

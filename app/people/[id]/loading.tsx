@@ -7,7 +7,7 @@ export default function PeopleLoadingPage(): ReactNode {
         <>
             <div className="container mx-auto max-w-4xl py-6">
                 <div className="px-3">
-                    <Skeleton className="mx-auto mb-4 block aspect-auto h-[500] w-80" />
+                    <Skeleton className="mx-auto mb-4 block aspect-auto h-[300] w-50 md:h-[500] md:w-80" />
                     <Skeleton className="mb-8 h-10 w-2/3" />
                     <div className="grid gap-2">
                         <Skeleton className="h-4" />
