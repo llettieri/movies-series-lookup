@@ -24,7 +24,6 @@
         "clsx": "^2",
         "dayjs": "^1",
         "embla-carousel-react": "^8",
-        "flowbite-react": "^0",
         "embla-carousel-wheel-gestures": "^8",
         "jose": "^5",
         "lodash.debounce": "^4",
