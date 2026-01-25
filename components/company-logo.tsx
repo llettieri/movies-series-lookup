@@ -3,20 +3,20 @@ import { TMDBImage } from '@/components/image';
 import Link from 'next/link';
 
 interface CompanyLogoProps {
-    externalLink: string;
+    externalLink?: string;
     alt: string;
     image: string;
 }
 
 export default function CompanyLogo({
-    externalLink,
+    externalLink = '',
     alt,
     image,
 }: CompanyLogoProps): ReactNode {
     return (
         <Link
             href={externalLink}
-            target="_blank"
+            target={externalLink ? '_blank' : '_self'}
             className="my-auto"
             rel="noreferrer"
         >
