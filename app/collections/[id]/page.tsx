@@ -4,7 +4,7 @@ import { getCollectionDetails } from '@/services/collection-service';
 import { Metadata } from 'next';
 import React, { ReactNode, Suspense } from 'react';
 import { TMDBImage } from '@/components/image';
-import { SkeletonList } from '@/components/skeletons/skeleton-list';
+import { SkeletonCardVerticalList } from '@/components/skeletons/skeleton-card-vertical-list';
 
 export const generateMetadata = async ({
     params,

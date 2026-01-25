@@ -14,7 +14,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import React, { ReactNode, Suspense } from 'react';
 import { TMDBImage } from '@/components/image';
-import { SkeletonList } from '@/components/skeletons/skeleton-list';
+import { SkeletonCardVerticalList } from '@/components/skeletons/skeleton-card-vertical-list';
 
 export const generateMetadata = async ({
     params,
@@ -46,55 +46,51 @@ export default async function MoviePage({
         <>
             <div className="container mx-auto max-w-4xl py-6">
                 <div className="px-3">
-                    <Suspense>
-                        <div className="relative">
-                            <TMDBImage
-                                src={image}
-                                width={width}
-                                height={width / 1.5}
-                                className="mx-auto rounded-md"
-                                alt="Movie Wallpaper"
-                                scope={movie.backdrop ? 'backdrop' : 'poster'}
-                                loading="eager"
-                            />
-                            <Rating value={movie.averageVote} />
-                        </div>
-                        <GenreBadges genres={movie.genres} />
+                    <div className="relative">
+                        <TMDBImage
+                            src={image}
+                            width={width}
+                            height={width / 1.5}
+                            className="mx-auto rounded-md"
+                            alt="Movie Wallpaper"
+                            scope={movie.backdrop ? 'backdrop' : 'poster'}
+                            loading="eager"
+                        />
+                        <Rating value={movie.averageVote} />
+                    </div>
+                    <GenreBadges genres={movie.genres} />
 
-                        <h1>
-                            {movie.homepage ? (
-                                <a
-                                    href={movie.homepage}
-                                    target="_blank"
-                                    className="underline"
-                                    rel="noreferrer"
-                                >
-                                    {movie.title} ({movie.runtime}min)
-                                </a>
-                            ) : (
-                                `${movie.title} (${movie.runtime}min)`
-                            )}
-                        </h1>
-                        {movie.collection ? (
-                            <Link
-                                href={`/collections/${movie.collection.id}`}
-                                prefetch
+                    <h1>
+                        {movie.homepage ? (
+                            <a
+                                href={movie.homepage}
+                                target="_blank"
+                                className="underline"
+                                rel="noreferrer"
                             >
-                                <h2 className="text-secondary">
-                                    {movie.collection.name}
-                                </h2>
-                            </Link>
-                        ) : null}
-                        <p className="mt-4 text-sm">{movie.overview}</p>
-                        <p className="mt-6 text-sm">
-                            Release Date:{' '}
-                            <span className="text-secondary font-bold">
-                                {dayjs(movie.releaseDate).format(
-                                    'MMMM DD, YYYY',
-                                )}
-                            </span>
-                        </p>
-                    </Suspense>
+                                {movie.title} ({movie.runtime}min)
+                            </a>
+                        ) : (
+                            `${movie.title} (${movie.runtime}min)`
+                        )}
+                    </h1>
+                    {movie.collection ? (
+                        <Link
+                            href={`/collections/${movie.collection.id}`}
+                            prefetch
+                        >
+                            <h2 className="text-secondary">
+                                {movie.collection.name}
+                            </h2>
+                        </Link>
+                    ) : null}
+                    <p className="mt-4 text-sm">{movie.overview}</p>
+                    <p className="mt-6 text-sm">
+                        Release Date:{' '}
+                        <span className="text-secondary font-bold">
+                            {dayjs(movie.releaseDate).format('MMMM DD, YYYY')}
+                        </span>
+                    </p>
                     {credits.cast.length > 0 && (
                         <CreditsList
                             cast={credits.cast}
@@ -104,7 +100,11 @@ export default async function MoviePage({
                 </div>
             </div>
             <div className="pt-2">
-                <Suspense fallback={<SkeletonList title="Similar Movies" />}>
+                <Suspense
+                    fallback={
+                        <SkeletonCardVerticalList title="Similar Movies" />
+                    }
+                >
                     <MediaList
                         title="Similar Movies"
                         mediaCallback={() => similarMoviesPromise}

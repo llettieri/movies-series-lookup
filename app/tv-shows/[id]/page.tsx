@@ -15,6 +15,7 @@ import dayjs from 'dayjs';
 import { Metadata } from 'next';
 import React, { ReactNode, Suspense } from 'react';
 import { TMDBImage } from '@/components/image';
+import { SkeletonCardVerticalList } from '@/components/skeletons/skeleton-card-vertical-list';
 
 export const generateMetadata = async ({
     params,
@@ -91,14 +92,14 @@ export default async function TVShowPage({
                         <p className="mt-4 text-sm">{overview}</p>
                         <p className="mt-4 text-sm">
                             Release Date:{' '}
-                            <span className="text-secondary-text font-bold">
+                            <span className="text-secondary font-bold">
                                 {dayjs(releaseDate).format('MMMM DD, YYYY')}
                             </span>
                         </p>
                         {lastAirDate ? (
                             <p className="text-sm">
                                 Last Aired:{' '}
-                                <span className="text-secondary-text font-bold">
+                                <span className="text-secondary font-bold">
                                     {dayjs(lastAirDate).format('MMMM DD, YYYY')}
                                 </span>
                             </p>
@@ -162,10 +163,16 @@ export default async function TVShowPage({
             </div>
             <Suspense>
                 <div className="pt-2">
-                    <MediaList
-                        title="Similar Shows"
-                        mediaCallback={() => similarShowsPromise}
-                    />
+                    <Suspense
+                        fallback={
+                            <SkeletonCardVerticalList title="Similar Shows" />
+                        }
+                    >
+                        <MediaList
+                            title="Similar Shows"
+                            mediaCallback={() => getSimilarTVShows(showId)}
+                        />
+                    </Suspense>
                 </div>
             </Suspense>
         </>

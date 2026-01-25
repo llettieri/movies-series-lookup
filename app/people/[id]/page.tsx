@@ -10,7 +10,7 @@ import dayjs from 'dayjs';
 import { Metadata } from 'next';
 import React, { ReactNode, Suspense } from 'react';
 import { TMDBImage } from '@/components/image';
-import { SkeletonList } from '@/components/skeletons/skeleton-list';
+import { SkeletonCardVerticalList } from '@/components/skeletons/skeleton-card-vertical-list';
 
 export const generateMetadata = async ({
     params,
@@ -50,7 +50,7 @@ export default async function PersonPage({
                         src={portrait}
                         width={600 / 1.5}
                         height={600}
-                        className="mx-auto block h-auto w-auto rounded-md"
+                        className="mx-auto mb-4 block h-auto w-auto rounded-md"
                         alt="person Wallpaper"
                         scope="profile"
                         loading="eager"
@@ -74,7 +74,7 @@ export default async function PersonPage({
                     <p className="mt-4 text-sm">{biography}</p>
                     <p className="mt-5 text-sm">
                         Birthday:{' '}
-                        <span className="text-secondary-text font-bold">
+                        <span className="text-secondary font-bold">
                             {dayjs(birthday).format('MMMM DD, YYYY')}
                         </span>
                     </p>
@@ -90,7 +90,9 @@ export default async function PersonPage({
             </div>
             <div className="pt-2">
                 <Suspense
-                    fallback={<SkeletonList title={`${pronoun} Movies`} />}
+                    fallback={
+                        <SkeletonCardVerticalList title={`${pronoun} Movies`} />
+                    }
                 >
                     <MediaList
                         title={`${pronoun} Movies`}
@@ -99,7 +101,11 @@ export default async function PersonPage({
                 </Suspense>
 
                 <Suspense
-                    fallback={<SkeletonList title={`${pronoun} TV Shows`} />}
+                    fallback={
+                        <SkeletonCardVerticalList
+                            title={`${pronoun} TV Shows`}
+                        />
+                    }
                 >
                     <MediaList
                         title={`${pronoun} TV Shows`}
