@@ -14,7 +14,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import React, { ReactNode, Suspense } from 'react';
 import { TMDBImage } from '@/components/image';
-import { SkeletonCardVerticalList } from '@/components/skeletons/skeleton-card-vertical-list';
+import { SkeletonList } from '@/components/skeletons/skeleton-list';
 
 export const generateMetadata = async ({
     params,
@@ -33,7 +33,6 @@ export default async function MoviePage({
 }: PageProps<'/movies/[id]'>): Promise<ReactNode> {
     const movieId = (await params).id;
     const movie = await getMovieDetails(movieId);
-    const similarMoviesPromise = getSimilarMovies(movieId);
     const credits = await getMovieCredits(movieId);
     const image = movie.backdrop ?? movie.poster;
     const width = movie.backdrop ? 1000 : 500;
@@ -100,14 +99,10 @@ export default async function MoviePage({
                 </div>
             </div>
             <div className="pt-2">
-                <Suspense
-                    fallback={
-                        <SkeletonCardVerticalList title="Similar Movies" />
-                    }
-                >
+                <Suspense fallback={<SkeletonList title="Similar Movies" />}>
                     <MediaList
                         title="Similar Movies"
-                        mediaCallback={() => similarMoviesPromise}
+                        mediaCallback={() => getSimilarMovies(movieId)}
                     />
                 </Suspense>
             </div>

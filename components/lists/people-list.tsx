@@ -5,15 +5,18 @@ import React, { ReactNode } from 'react';
 
 interface PeopleListProps {
     title: string;
-    peopleCallback: () => Promise<Person[]>;
-    isLoading?: boolean;
+    peopleCallback?: () => Promise<Person[]>;
+    people?: Person[];
 }
 
 export const PeopleList = async ({
     title,
     peopleCallback,
+    people = [],
 }: PeopleListProps): Promise<ReactNode> => {
-    const people = await peopleCallback();
+    if (peopleCallback) {
+        people = await peopleCallback();
+    }
 
     if (!people.length) {
         return null;

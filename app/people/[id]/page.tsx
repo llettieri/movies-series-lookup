@@ -10,7 +10,7 @@ import dayjs from 'dayjs';
 import { Metadata } from 'next';
 import React, { ReactNode, Suspense } from 'react';
 import { TMDBImage } from '@/components/image';
-import { SkeletonCardVerticalList } from '@/components/skeletons/skeleton-card-vertical-list';
+import { SkeletonList } from '@/components/skeletons/skeleton-list';
 
 export const generateMetadata = async ({
     params,
@@ -32,8 +32,6 @@ export default async function PersonPage({
     const personId = (await params).id;
     const { biography, birthday, deathday, gender, homepage, name, portrait } =
         await getPersonDetails(personId);
-    const movieCreditsPromise = getPersonMovies(personId);
-    const showCreditsPromise = getPersonTVShows(personId);
     let pronoun: string = 'The';
 
     if (gender === Gender.FEMALE) {
@@ -74,7 +72,7 @@ export default async function PersonPage({
                     <p className="mt-4 text-sm">{biography}</p>
                     <p className="mt-5 text-sm">
                         Birthday:{' '}
-                        <span className="text-secondary font-bold">
+                        <span className="text-secondary-text font-bold">
                             {dayjs(birthday).format('MMMM DD, YYYY')}
                         </span>
                     </p>
@@ -90,26 +88,20 @@ export default async function PersonPage({
             </div>
             <div className="pt-2">
                 <Suspense
-                    fallback={
-                        <SkeletonCardVerticalList title={`${pronoun} Movies`} />
-                    }
+                    fallback={<SkeletonList title={`${pronoun} Movies`} />}
                 >
                     <MediaList
                         title={`${pronoun} Movies`}
-                        mediaCallback={() => movieCreditsPromise}
+                        mediaCallback={() => getPersonMovies(personId)}
                     />
                 </Suspense>
 
                 <Suspense
-                    fallback={
-                        <SkeletonCardVerticalList
-                            title={`${pronoun} TV Shows`}
-                        />
-                    }
+                    fallback={<SkeletonList title={`${pronoun} TV Shows`} />}
                 >
                     <MediaList
                         title={`${pronoun} TV Shows`}
-                        mediaCallback={() => showCreditsPromise}
+                        mediaCallback={() => getPersonTVShows(personId)}
                     />
                 </Suspense>
             </div>

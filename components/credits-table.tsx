@@ -1,7 +1,7 @@
 import { PersonCard } from '@/components/cards/person-card';
 import { MediaType } from '@/models/media-type';
 import { Person } from '@/models/person';
-import React, { ReactNode, Suspense } from 'react';
+import React, { ReactNode } from 'react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
@@ -78,36 +78,32 @@ export const CreditsTable = ({
                 </Button>
             </div>
             <div className="container mx-auto grid grid-cols-1 gap-8 px-2 py-5 md:grid-cols-2 md:px-0">
-                <Suspense>
-                    <div>
-                        <h1 className="text-foreground mx-auto mb-3 w-fit md:w-full">
-                            {title} Cast{' '}
-                            <span className="text-tag font-light">
-                                ({cast.length})
-                            </span>
-                        </h1>
-                        <ul className="flex flex-col justify-center gap-4 md:justify-start">
-                            {cast.map((p) => (
-                                <li key={`cast-${p.id}`}>
-                                    <PersonCard size="small" person={p} />
-                                </li>
-                            ))}
-                        </ul>
+                <div>
+                    <h1 className="text-foreground mx-auto mb-3 w-fit md:w-full">
+                        {title} Cast{' '}
+                        <span className="text-tag font-light">
+                            ({cast.length})
+                        </span>
+                    </h1>
+                    <ul className="flex flex-col justify-center gap-4 md:justify-start">
+                        {cast.map((p) => (
+                            <li key={`cast-${p.id}`}>
+                                <PersonCard size="small" person={p} />
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+                <div>
+                    <h1 className="text-foreground mx-auto mb-3 w-fit md:w-full">
+                        {title} Crew{' '}
+                        <span className="text-tag font-light">
+                            ({crew.length})
+                        </span>
+                    </h1>
+                    <div className="flex flex-col justify-center gap-4 md:justify-start">
+                        <GroupedCrewComponent groupedCrew={groupedCrew} />
                     </div>
-                </Suspense>
-                <Suspense>
-                    <div>
-                        <h1 className="text-foreground mx-auto mb-3 w-fit md:w-full">
-                            {title} Crew{' '}
-                            <span className="text-tag font-light">
-                                ({crew.length})
-                            </span>
-                        </h1>
-                        <div className="flex flex-col justify-center gap-4 md:justify-start">
-                            <GroupedCrewComponent groupedCrew={groupedCrew} />
-                        </div>
-                    </div>
-                </Suspense>
+                </div>
             </div>
         </>
     );
