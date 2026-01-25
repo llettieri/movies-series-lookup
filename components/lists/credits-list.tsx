@@ -1,8 +1,15 @@
 import { PersonCard } from '@/components/cards/person-card';
-import { HorizontalListBase } from '@/components/lists/horizontal-list-base';
 import { Person } from '@/models/person';
 import Link from 'next/link';
 import React, { ReactNode } from 'react';
+
+import {
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+    CarouselNext,
+    CarouselPrevious,
+} from '@/components/ui/carousel';
 
 interface CreditsListProps {
     cast: Person[];
@@ -14,25 +21,36 @@ export const CreditsList = ({
     baseRoute,
 }: CreditsListProps): ReactNode => {
     return (
-        <HorizontalListBase title="Credits">
-            <>
+        <Carousel
+            opts={{
+                align: 'start',
+                dragFree: true,
+            }}
+        >
+            <h3 className="mt-8">Credits</h3>
+            <CarouselContent className="md:m-4">
                 {cast.slice(0, 10).map((p) => (
-                    <li key={p.id}>
+                    <CarouselItem key={p.id} className="basis-3/5 md:basis-1/4">
                         <PersonCard person={p} size="normal" />
-                    </li>
+                    </CarouselItem>
                 ))}
-                <li className="flex items-center">
+
+                <CarouselItem className="flex basis-3/5 items-center md:basis-1/4">
                     <Link
                         href={`${baseRoute}/credits`}
-                        className="hover:scale-105"
                         prefetch
+                        className="duration-150 hover:scale-105"
                     >
                         <p className="w-32 text-center text-lg">
                             View more {'->'}
                         </p>
                     </Link>
-                </li>
-            </>
-        </HorizontalListBase>
+                </CarouselItem>
+            </CarouselContent>
+
+            <CarouselPrevious variant="icon" />
+
+            <CarouselNext variant="icon" />
+        </Carousel>
     );
 };
