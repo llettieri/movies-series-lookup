@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { TMDBImage } from '@/components/image';
+import Link from 'next/link';
 
 interface CompanyLogoProps {
     externalLink: string;
@@ -13,7 +14,7 @@ export default function CompanyLogo({
     image,
 }: CompanyLogoProps): ReactNode {
     return (
-        <a
+        <Link
             href={externalLink}
             target="_blank"
             className="my-auto"
@@ -27,6 +28,6 @@ export default function CompanyLogo({
                 className="h-auto w-auto"
                 scope="logo"
             />
-        </a>
+        </Link>
     );
 }
