@@ -4,6 +4,16 @@ import debounce from 'lodash.debounce';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { ChangeEvent, ReactNode } from 'react';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
+import {
+    InputGroup,
+    InputGroupAddon,
+    InputGroupInput,
+} from '@/components/ui/input-group';
+import { Search } from 'lucide-react';
+
+interface SearchBarProps {
+    totalResults?: number;
+}
 
 const debouncedSearch = debounce(
     (query: string, router: AppRouterInstance): void =>
@@ -11,23 +21,32 @@ const debouncedSearch = debounce(
     500,
 );
 
-const SearchBar = (): ReactNode => {
+const SearchBar = ({ totalResults }: SearchBarProps): ReactNode => {
     const router = useRouter();
     const searchParams = useSearchParams();
     const query = searchParams.get('query') ?? '';
 
     return (
-        <input
-            type="text"
-            placeholder="Search..."
-            autoFocus={true}
-            name="query"
-            defaultValue={query}
-            onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                debouncedSearch(event.target.value, router)
-            }
-            className="bg-neutral mx-auto mt-16 block w-80 rounded-md border-0 p-2 shadow-md outline-none"
-        />
+        <InputGroup className="mx-auto w-80">
+            <InputGroupInput
+                name="query"
+                type="search"
+                autoFocus={true}
+                placeholder="Search..."
+                defaultValue={query}
+                onInput={(event: ChangeEvent<HTMLInputElement>) =>
+                    debouncedSearch(event.target.value, router)
+                }
+            />
+            <InputGroupAddon>
+                <Search />
+            </InputGroupAddon>
+            {totalResults && (
+                <InputGroupAddon align="inline-end">
+                    {totalResults} results
+                </InputGroupAddon>
+            )}
+        </InputGroup>
     );
 };
 

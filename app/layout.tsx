@@ -4,12 +4,10 @@ import { Footer } from '@/components/footer';
 import Loading from '@/components/loading';
 import { Meta } from '@/components/meta';
 import { NavigationBar } from '@/components/navigation-bar';
-import { ServiceWorker } from '@/components/service-worker';
-import { SessionProvider } from '@/components/session-provider';
 import { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import React, { ReactNode, Suspense } from 'react';
-import { ThemeProvider } from '@/components/theme-provider';
+import { Providers } from '@/components/providers/providers';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -20,14 +18,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>): ReactNode {
     return (
         <html lang="en" suppressHydrationWarning>
             <body className={inter.className}>
-                <SessionProvider />
-                <ServiceWorker />
-                <ThemeProvider
-                    attribute="class"
-                    defaultTheme="dark"
-                    enableSystem
-                    disableTransitionOnChange
-                >
+                <Providers>
                     <div className="flex h-dvh flex-col overflow-hidden">
                         <NavigationBar />
 
@@ -40,7 +31,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>): ReactNode {
                             <Footer />
                         </div>
                     </div>
-                </ThemeProvider>
+                </Providers>
             </body>
         </html>
     );

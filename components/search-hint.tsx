@@ -1,9 +1,9 @@
 'use client';
 
-import { Alert, Kbd } from 'flowbite-react';
-import { CustomFlowbiteTheme } from 'flowbite-react/types';
 import React, { ReactNode } from 'react';
-import { IoAlertCircleOutline } from 'react-icons/io5';
+import { Kbd } from '@/components/ui/kbd';
+import { Alert, AlertTitle } from '@/components/ui/alert';
+import { InfoIcon } from 'lucide-react';
 
 interface OperatingSystem {
     name?: string;
@@ -14,30 +14,18 @@ interface SearchHintProps {
     os: OperatingSystem;
 }
 
-const alertTheme: CustomFlowbiteTheme['alert'] = {
-    color: {
-        purple: 'bg-primary border-primary-tint text-foreground',
-    },
-};
-
 export const SearchHint = ({ os }: SearchHintProps): ReactNode => {
+    const isMac = os.name?.toLowerCase().includes('mac');
+    const actionKbd = isMac ? 'Cmd' : 'Ctrl';
+
     return (
-        <Alert
-            theme={alertTheme}
-            color="purple"
-            icon={IoAlertCircleOutline}
-            withBorderAccent
-        >
-            <span>
+        <Alert className="max-w-md">
+            <InfoIcon />
+            <AlertTitle>
                 Please press{' '}
-                {os.name?.toLowerCase().includes('mac') ? (
-                    <Kbd className="text-primary">Cmd</Kbd>
-                ) : (
-                    <Kbd className="text-primary">Ctrl</Kbd>
-                )}{' '}
-                + <Kbd className="text-primary">F</Kbd> to search for an
-                individual person.
-            </span>
+                <Kbd className="text-foreground">{actionKbd} + F</Kbd> to search
+                for an individual person.
+            </AlertTitle>
         </Alert>
     );
 };

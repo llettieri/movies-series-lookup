@@ -23,7 +23,7 @@ export default async function SearchPage({
     return (
         <>
             <Hero />
-            <SearchBar />
+            <SearchBar totalResults={result?.total} />
             <Suspense fallback={<Loading />}>
                 {result && (
                     <>
