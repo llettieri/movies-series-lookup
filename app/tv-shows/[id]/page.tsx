@@ -46,7 +46,7 @@ export default async function TVShowPage({
         seasonsCount,
         title,
     } = await getTVShowDetails(showId);
-    const similarShows = await getSimilarTVShows(showId);
+    const similarShowsPromise = getSimilarTVShows(showId);
     const credits = await getTVShowsCredits(showId);
     const providerGroup = await getTVShowWatchProviders(showId, locale);
     const image = backdrop ?? poster;
@@ -111,12 +111,12 @@ export default async function TVShowPage({
                         )}
                         <div className="container mx-auto flex gap-4 align-middle">
                             <p className="text-md leading-[10]">Networks: </p>
-                            {networks.map((network) => (
+                            {networks.map(({ homepage, id, logo, name }) => (
                                 <CompanyLogo
-                                    key={network.id}
-                                    image={network.logo}
-                                    alt={network.name}
-                                    externalLink={network.homepage}
+                                    key={id}
+                                    image={logo}
+                                    alt={name}
+                                    externalLink={homepage}
                                 />
                             ))}
                         </div>
@@ -128,11 +128,11 @@ export default async function TVShowPage({
                                     </p>
                                     <div className="flex gap-4">
                                         {providerGroup.providers.map(
-                                            (provider) => (
+                                            ({ id, logo, name }) => (
                                                 <CompanyLogo
-                                                    key={provider.id}
-                                                    image={provider.logo}
-                                                    alt={provider.name}
+                                                    key={id}
+                                                    image={logo}
+                                                    alt={name}
                                                     externalLink={
                                                         providerGroup.link
                                                     }
@@ -160,16 +160,14 @@ export default async function TVShowPage({
                     </Suspense>
                 </div>
             </div>
-            {similarShows.length > 0 && (
-                <Suspense>
-                    <div className="pt-2">
-                        <MediaList
-                            title="Similar Shows"
-                            medias={similarShows}
-                        />
-                    </div>
-                </Suspense>
-            )}
+            <Suspense>
+                <div className="pt-2">
+                    <MediaList
+                        title="Similar Shows"
+                        mediaCallback={() => similarShowsPromise}
+                    />
+                </div>
+            </Suspense>
         </>
     );
 }

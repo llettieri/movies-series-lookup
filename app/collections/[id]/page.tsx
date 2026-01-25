@@ -2,8 +2,9 @@ import { MediaList } from '@/components/lists/media-list';
 import { Meta } from '@/components/meta';
 import { getCollectionDetails } from '@/services/collection-service';
 import { Metadata } from 'next';
-import React, { ReactNode } from 'react';
+import React, { ReactNode, Suspense } from 'react';
 import { TMDBImage } from '@/components/image';
+import { SkeletonList } from '@/components/skeletons/skeleton-list';
 
 export const generateMetadata = async ({
     params,
@@ -39,7 +40,10 @@ export default async function CollectionPage({
                     <p className="mt-4 text-sm">{overview}</p>
                 </div>
             </div>
-            <MediaList title="Movies" medias={parts} />
+            <Suspense fallback={<SkeletonList title="Movies" />}>
+                {/* eslint-disable-next-line require-await */}
+                <MediaList title="Movies" mediaCallback={async () => parts} />
+            </Suspense>
         </>
     );
 }

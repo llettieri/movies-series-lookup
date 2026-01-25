@@ -14,6 +14,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import React, { ReactNode, Suspense } from 'react';
 import { TMDBImage } from '@/components/image';
+import { SkeletonList } from '@/components/skeletons/skeleton-list';
 
 export const generateMetadata = async ({
     params,
@@ -32,7 +33,7 @@ export default async function MoviePage({
 }: PageProps<'/movies/[id]'>): Promise<ReactNode> {
     const movieId = (await params).id;
     const movie = await getMovieDetails(movieId);
-    const similarMovies = await getSimilarMovies(movieId);
+    const similarMoviesPromise = getSimilarMovies(movieId);
     const credits = await getMovieCredits(movieId);
     const image = movie.backdrop ?? movie.poster;
     const width = movie.backdrop ? 1000 : 500;
@@ -44,8 +45,8 @@ export default async function MoviePage({
     return (
         <>
             <div className="container mx-auto max-w-4xl py-6">
-                <Suspense>
-                    <div className="px-3">
+                <div className="px-3">
+                    <Suspense>
                         <div className="relative">
                             <TMDBImage
                                 src={image}
@@ -93,19 +94,22 @@ export default async function MoviePage({
                                 )}
                             </span>
                         </p>
-                        {credits.cast.length > 0 && (
-                            <CreditsList
-                                cast={credits.cast}
-                                baseRoute={`/movies/${movieId}`}
-                            />
-                        )}
-                    </div>
-                </Suspense>
+                    </Suspense>
+                    {credits.cast.length > 0 && (
+                        <CreditsList
+                            cast={credits.cast}
+                            baseRoute={`/movies/${movieId}`}
+                        />
+                    )}
+                </div>
             </div>
             <div className="pt-2">
-                {similarMovies.length > 0 ? (
-                    <MediaList title="Similar Movies" medias={similarMovies} />
-                ) : null}
+                <Suspense fallback={<SkeletonList title="Similar Movies" />}>
+                    <MediaList
+                        title="Similar Movies"
+                        mediaCallback={() => similarMoviesPromise}
+                    />
+                </Suspense>
             </div>
         </>
     );

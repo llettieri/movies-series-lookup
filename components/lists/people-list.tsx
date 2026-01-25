@@ -1,23 +1,25 @@
 import { PersonCard } from '@/components/cards/person-card';
 import { VerticalListBase } from '@/components/lists/vertical-list-base';
-import Loading from '@/components/loading';
 import { Person } from '@/models/person';
 import React, { ReactNode } from 'react';
 
 interface PeopleListProps {
     title: string;
-    people: Person[];
+    peopleCallback: () => Promise<Person[]>;
     isLoading?: boolean;
 }
 
-export const PeopleList = ({
+export const PeopleList = async ({
     title,
-    people,
-    isLoading,
-}: PeopleListProps): ReactNode => {
-    return isLoading ? (
-        <Loading />
-    ) : (
+    peopleCallback,
+}: PeopleListProps): Promise<ReactNode> => {
+    const people = await peopleCallback();
+
+    if (!people.length) {
+        return null;
+    }
+
+    return (
         <VerticalListBase title={title}>
             <>
                 {people.map((p) => (

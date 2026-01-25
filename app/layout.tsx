@@ -1,12 +1,11 @@
 import './globals.css';
 
 import { Footer } from '@/components/footer';
-import Loading from '@/components/loading';
 import { Meta } from '@/components/meta';
 import { NavigationBar } from '@/components/navigation-bar';
 import { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
-import React, { ReactNode, Suspense } from 'react';
+import React, { ReactNode } from 'react';
 import { Providers } from '@/components/providers/providers';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -24,9 +23,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>): ReactNode {
 
                         <div className="flex flex-1 flex-col overflow-auto overscroll-y-none">
                             <main className="bg-background flex-1 p-5 sm:p-10">
-                                <Suspense fallback={<Loading />}>
-                                    {children}
-                                </Suspense>
+                                {children}
                             </main>
                             <Footer />
                         </div>

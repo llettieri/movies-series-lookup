@@ -8,8 +8,9 @@ import {
 } from '@/services/person-service';
 import dayjs from 'dayjs';
 import { Metadata } from 'next';
-import React, { ReactNode } from 'react';
+import React, { ReactNode, Suspense } from 'react';
 import { TMDBImage } from '@/components/image';
+import { SkeletonList } from '@/components/skeletons/skeleton-list';
 
 export const generateMetadata = async ({
     params,
@@ -31,8 +32,8 @@ export default async function PersonPage({
     const personId = (await params).id;
     const { biography, birthday, deathday, gender, homepage, name, portrait } =
         await getPersonDetails(personId);
-    const movieCredits = await getPersonMovies(personId);
-    const showCredits = await getPersonTVShows(personId);
+    const movieCreditsPromise = getPersonMovies(personId);
+    const showCreditsPromise = getPersonTVShows(personId);
     let pronoun: string = 'The';
 
     if (gender === Gender.FEMALE) {
@@ -88,18 +89,23 @@ export default async function PersonPage({
                 </div>
             </div>
             <div className="pt-2">
-                {movieCredits.length > 0 ? (
+                <Suspense
+                    fallback={<SkeletonList title={`${pronoun} Movies`} />}
+                >
                     <MediaList
                         title={`${pronoun} Movies`}
-                        medias={movieCredits}
+                        mediaCallback={() => movieCreditsPromise}
                     />
-                ) : null}
-                {showCredits.length > 0 ? (
+                </Suspense>
+
+                <Suspense
+                    fallback={<SkeletonList title={`${pronoun} TV Shows`} />}
+                >
                     <MediaList
                         title={`${pronoun} TV Shows`}
-                        medias={showCredits}
+                        mediaCallback={() => showCreditsPromise}
                     />
-                ) : null}
+                </Suspense>
             </div>
         </>
     );

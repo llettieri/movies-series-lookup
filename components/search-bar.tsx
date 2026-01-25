@@ -21,7 +21,7 @@ const debouncedSearch = debounce(
     500,
 );
 
-const SearchBar = ({ totalResults }: SearchBarProps): ReactNode => {
+const SearchBar = ({ totalResults = 0 }: SearchBarProps): ReactNode => {
     const router = useRouter();
     const searchParams = useSearchParams();
     const query = searchParams.get('query') ?? '';
@@ -41,7 +41,7 @@ const SearchBar = ({ totalResults }: SearchBarProps): ReactNode => {
             <InputGroupAddon>
                 <Search />
             </InputGroupAddon>
-            {totalResults && (
+            {totalResults !== 0 && (
                 <InputGroupAddon align="inline-end">
                     {totalResults} results
                 </InputGroupAddon>
