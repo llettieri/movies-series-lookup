@@ -1,8 +1,8 @@
 'use client';
 
-import { Button } from '@/components/button';
 import React, { ReactNode, useEffect, useRef, useState } from 'react';
-import { IoChevronBackOutline, IoChevronForwardOutline } from 'react-icons/io5';
+import { Button } from '@/components/ui/button';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface HorizontalListBaseProps {
     children: ReactNode;
@@ -55,23 +55,25 @@ export const HorizontalListBase = ({
             </ul>
 
             <Button
-                title="Next"
                 onClick={(): void => scroll(200)}
                 variant="icon"
-                icon={<IoChevronForwardOutline size="2em" />}
+                size="icon-lg"
                 className={`absolute top-1/2 right-3 ${
                     showNext ? '' : 'hidden'
                 }`}
-            />
+            >
+                <ChevronRight />
+            </Button>
             <Button
-                title="Previous"
                 onClick={(): void => scroll(-200)}
                 variant="icon"
-                icon={<IoChevronBackOutline size="2em" />}
+                size="icon-lg"
                 className={`absolute top-1/2 left-3 transition-none ${
                     showPrevious ? '' : 'hidden'
                 }`}
-            />
+            >
+                <ChevronLeft />
+            </Button>
         </div>
     );
 };
