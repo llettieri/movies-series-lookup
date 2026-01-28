@@ -115,7 +115,7 @@ const parsePersonDto = (dto: PersonDto): Person => {
             : dto.roles?.map(parseRoleDto),
         deathday: dto.deathday,
         gender: dto.gender,
-        homepage: dto.deathday,
+        homepage: dto.homepage,
         id: dto.id,
         name: dto.name,
         portrait: dto.profile_path ?? FALLBACK_IMAGE,

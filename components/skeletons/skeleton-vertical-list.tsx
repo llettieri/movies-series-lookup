@@ -7,7 +7,7 @@ interface SkeletonListProps {
     itemCount?: number;
 }
 
-export const SkeletonList = ({
+export const SkeletonVerticalList = ({
     title,
     itemCount = 10,
 }: SkeletonListProps): ReactNode => {

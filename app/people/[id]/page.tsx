@@ -10,7 +10,7 @@ import dayjs from 'dayjs';
 import { Metadata } from 'next';
 import React, { ReactNode, Suspense } from 'react';
 import { TMDBImage } from '@/components/image';
-import { SkeletonList } from '@/components/skeletons/skeleton-list';
+import { SkeletonVerticalList } from '@/components/skeletons/skeleton-vertical-list';
 
 export const generateMetadata = async ({
     params,
@@ -72,14 +72,14 @@ export default async function PersonPage({
                     <p className="mt-4 text-sm">{biography}</p>
                     <p className="mt-5 text-sm">
                         Birthday:{' '}
-                        <span className="text-secondary-text font-bold">
+                        <span className="text-secondary font-bold">
                             {dayjs(birthday).format('MMMM DD, YYYY')}
                         </span>
                     </p>
                     {deathday ? (
                         <p className="text-sm">
                             Death:{' '}
-                            <span className="font-bold">
+                            <span className="text-secondary font-bold">
                                 {dayjs(deathday).format('MMMM DD, YYYY')}
                             </span>
                         </p>
@@ -88,7 +88,9 @@ export default async function PersonPage({
             </div>
             <div className="pt-2">
                 <Suspense
-                    fallback={<SkeletonList title={`${pronoun} Movies`} />}
+                    fallback={
+                        <SkeletonVerticalList title={`${pronoun} Movies`} />
+                    }
                 >
                     <MediaList
                         title={`${pronoun} Movies`}
@@ -97,7 +99,9 @@ export default async function PersonPage({
                 </Suspense>
 
                 <Suspense
-                    fallback={<SkeletonList title={`${pronoun} TV Shows`} />}
+                    fallback={
+                        <SkeletonVerticalList title={`${pronoun} TV Shows`} />
+                    }
                 >
                     <MediaList
                         title={`${pronoun} TV Shows`}

@@ -15,7 +15,7 @@ import dayjs from 'dayjs';
 import { Metadata } from 'next';
 import React, { ReactNode, Suspense } from 'react';
 import { TMDBImage } from '@/components/image';
-import { SkeletonList } from '@/components/skeletons/skeleton-list';
+import { SkeletonVerticalList } from '@/components/skeletons/skeleton-vertical-list';
 
 export const generateMetadata = async ({
     params,
@@ -157,7 +157,9 @@ export default async function TVShowPage({
                 </div>
             </div>
             <div className="pt-2">
-                <Suspense fallback={<SkeletonList title="Similar Shows" />}>
+                <Suspense
+                    fallback={<SkeletonVerticalList title="Similar Shows" />}
+                >
                     <MediaList
                         title="Similar Shows"
                         mediaCallback={() => getSimilarTVShows(showId)}
