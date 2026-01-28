@@ -39,6 +39,7 @@ export default async function CollectionPage({
                     <p className="mt-4 text-sm">{overview}</p>
                 </div>
             </div>
+
             <MediaList title="Movies" medias={parts} />
         </>
     );

@@ -2,7 +2,7 @@
 
 import { ReactNode, useEffect } from 'react';
 
-export const ServiceWorker = (): ReactNode => {
+export const ServiceWorkerProvider = (): ReactNode => {
     useEffect(() => {
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/service-worker.js');

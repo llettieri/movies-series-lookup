@@ -10,10 +10,10 @@ export const Hero = (): ReactNode => {
                     src={'/media_illustration.svg'}
                     width={200}
                     height={200}
-                    alt={'Videofiles'}
+                    alt="Videofiles"
                     loading="eager"
                 />
-                <h2 className="text-standard uppercase">
+                <h2 className="text-foreground uppercase">
                     Welcome to your Movies / Series lookup
                 </h2>
             </div>

@@ -1,6 +1,12 @@
 import { CardBase, CardSize } from '@/components/cards/card-base';
 import { Person } from '@/models/person';
 import React, { ReactNode } from 'react';
+import {
+    CardContent,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from '@/components/ui/card';
 
 interface PersonCardProps {
     person: Person;
@@ -28,31 +34,45 @@ export const PersonCard = ({ person, size }: PersonCardProps): ReactNode => {
             alt={person.name}
         >
             {size === 'normal' ? (
-                <div className="flex max-h-72 flex-1 flex-col overflow-hidden px-6 py-2 text-ellipsis">
-                    <h3 className="text-standard!">{person.name}</h3>
-                    {person.roles ? (
-                        <h4 className="text-standard! mb-1 line-clamp-6 overflow-hidden font-medium!">
-                            {mappedRoles.join(', ')}
-                        </h4>
-                    ) : (
-                        <p className="mb-1 text-base">{person.department}</p>
-                    )}
+                <div className="flex max-h-72 flex-1 flex-col justify-between gap-3">
+                    <CardHeader>
+                        <CardTitle className="text-xl font-bold">
+                            {person.name}
+                        </CardTitle>
+                    </CardHeader>
+                    <CardFooter className="text-ellipsis">
+                        {person.roles ? (
+                            <h4 className="text-foreground mb-1 line-clamp-4 overflow-hidden font-medium">
+                                {mappedRoles.join(', ')}
+                            </h4>
+                        ) : (
+                            <p className="text-foreground mb-1 line-clamp-4 overflow-hidden font-medium">
+                                {person.department}
+                            </p>
+                        )}
+                    </CardFooter>
                 </div>
             ) : (
                 <div
                     className="flex flex-col justify-center"
                     id={person.name.replace(' ', '-').toLowerCase()}
                 >
-                    <h4 className="text-standard!">{person.name}</h4>
-                    {person.roles ? (
-                        <h5 className="text-standard! line-clamp-1 overflow-hidden">
-                            {mappedRoles.join(', ')}
-                        </h5>
-                    ) : (
-                        <h5 className="text-standard! line-clamp-1 overflow-hidden">
-                            {mappedJobs.join(', ')}
-                        </h5>
-                    )}
+                    <CardHeader className="px-0">
+                        <CardTitle className="font-bold">
+                            {person.name}
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent className="px-0">
+                        {person.roles ? (
+                            <h5 className="text-foreground! line-clamp-1 overflow-hidden">
+                                {mappedRoles.join(', ')}
+                            </h5>
+                        ) : (
+                            <h5 className="text-foreground! line-clamp-1 overflow-hidden">
+                                {mappedJobs.join(', ')}
+                            </h5>
+                        )}
+                    </CardContent>
                 </div>
             )}
         </CardBase>

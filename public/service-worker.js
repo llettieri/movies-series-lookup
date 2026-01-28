@@ -37,26 +37,31 @@ activateEvent();
 
 const EXCLUDED_URIS = ['chrome-extension', 'ip.lore-le.ch', 'cloudflare'];
 
-const cloneCache = async (e) => {
-    const req = e.request;
-    const res = await fetch(req);
+const cloneCache = async (request) => {
+    const res = await fetch(request);
     const resClone = res.clone();
 
-    const url = req.url;
     const cache = caches.open(CACHE_NAME);
 
-    if (!url.includes(EXCLUDED_URIS) && req.method !== 'POST') {
-        cache.then((c) => c.put(req, resClone));
-    }
+    cache.then((c) => c.put(request, resClone));
 
     return res;
 };
 
 const fetchEvent = () => {
     self.addEventListener('fetch', (e) => {
+        const request = e.request;
+        const isExcluded =
+            request.method === 'POST' ||
+            EXCLUDED_URIS.some((uri) => request.url.includes(uri));
+
+        if (isExcluded) {
+            return;
+        }
+
         e.respondWith(
-            cloneCache(e)
-                .catch(() => caches.match(e.request))
+            cloneCache(request)
+                .catch(() => caches.match(request))
                 .then((r) => r),
         );
     });

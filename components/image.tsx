@@ -28,6 +28,7 @@ const TMDBImage = (
                     scope: imageProps.scope,
                 })
             }
+            loading="eager"
         />
     );
 };

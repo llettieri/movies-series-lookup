@@ -8,7 +8,8 @@ import {
     getAiringTodayShows,
     getPopularShows,
 } from '@/services/tv-show-service';
-import React, { ReactNode } from 'react';
+import React, { ReactNode, Suspense } from 'react';
+import { SkeletonVerticalList } from '@/components/skeletons/skeleton-vertical-list';
 
 export type CollectionType = 'movies' | 'tvshows';
 export type ListType = 'popular' | 'nowPlaying';
@@ -53,17 +54,18 @@ export default async function HomePage({
             },
         },
     };
+    const title = MediaData[collection][listType].title;
 
     return (
         <>
-            <div>
-                <Hero />
-                <HomeSubNavigation />
-            </div>
-            <MediaList
-                medias={await MediaData[collection][listType].data}
-                title={MediaData[collection][listType].title}
-            />
+            <Hero />
+            <HomeSubNavigation />
+            <Suspense fallback={<SkeletonVerticalList title={title} />}>
+                <MediaList
+                    title={title}
+                    mediaCallback={() => MediaData[collection][listType].data}
+                />
+            </Suspense>
         </>
     );
 }

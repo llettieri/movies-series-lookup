@@ -1,4 +1,3 @@
-import withFlowbiteReact from 'flowbite-react/plugin/nextjs';
 import { NextConfig } from 'next';
 import { version } from './package.json';
 import { writeFileSync } from 'node:fs';
@@ -13,4 +12,4 @@ const nextConfig: NextConfig = {
     output: 'standalone',
 };
 
-export default withFlowbiteReact(nextConfig);
+export default nextConfig;
