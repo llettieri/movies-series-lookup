@@ -45,7 +45,7 @@ importers:
         specifier: ^8
         version: 8.6.0(react@19.2.3)
       embla-carousel-wheel-gestures:
-        specifier: ^8.1.0
+        specifier: ^8
         version: 8.1.0(embla-carousel@8.6.0)
       jose:
         specifier: ^5
