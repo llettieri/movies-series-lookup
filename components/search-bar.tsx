@@ -10,9 +10,10 @@ import {
     InputGroupInput,
 } from '@/components/ui/input-group';
 import { Search } from 'lucide-react';
+import { SearchResult } from '@/models/search-result';
 
 interface SearchBarProps {
-    totalResults?: number;
+    result: SearchResult;
 }
 
 const debouncedSearch = debounce(
@@ -21,10 +22,11 @@ const debouncedSearch = debounce(
     500,
 );
 
-const SearchBar = ({ totalResults = 0 }: SearchBarProps): ReactNode => {
+const SearchBar = ({ result }: SearchBarProps): ReactNode => {
     const router = useRouter();
     const searchParams = useSearchParams();
     const query = searchParams.get('query') ?? '';
+    const { total } = result;
 
     return (
         <InputGroup className="mx-auto w-80">
@@ -41,9 +43,9 @@ const SearchBar = ({ totalResults = 0 }: SearchBarProps): ReactNode => {
             <InputGroupAddon>
                 <Search />
             </InputGroupAddon>
-            {totalResults !== 0 && (
+            {total > 0 && (
                 <InputGroupAddon align="inline-end">
-                    {totalResults} results
+                    {total} results
                 </InputGroupAddon>
             )}
         </InputGroup>

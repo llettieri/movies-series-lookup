@@ -9,7 +9,7 @@ import {
     getPopularShows,
 } from '@/services/tv-show-service';
 import React, { ReactNode, Suspense } from 'react';
-import { SkeletonList } from '@/components/skeletons/skeleton-list';
+import { SkeletonVerticalList } from '@/components/skeletons/skeleton-vertical-list';
 
 export type CollectionType = 'movies' | 'tvshows';
 export type ListType = 'popular' | 'nowPlaying';
@@ -60,7 +60,7 @@ export default async function HomePage({
         <>
             <Hero />
             <HomeSubNavigation />
-            <Suspense fallback={<SkeletonList title={title} />}>
+            <Suspense fallback={<SkeletonVerticalList title={title} />}>
                 <MediaList
                     title={title}
                     mediaCallback={() => MediaData[collection][listType].data}

@@ -14,7 +14,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import React, { ReactNode, Suspense } from 'react';
 import { TMDBImage } from '@/components/image';
-import { SkeletonList } from '@/components/skeletons/skeleton-list';
+import { SkeletonVerticalList } from '@/components/skeletons/skeleton-vertical-list';
 
 export const generateMetadata = async ({
     params,
@@ -99,7 +99,9 @@ export default async function MoviePage({
                 </div>
             </div>
             <div className="pt-2">
-                <Suspense fallback={<SkeletonList title="Similar Movies" />}>
+                <Suspense
+                    fallback={<SkeletonVerticalList title="Similar Movies" />}
+                >
                     <MediaList
                         title="Similar Movies"
                         mediaCallback={() => getSimilarMovies(movieId)}

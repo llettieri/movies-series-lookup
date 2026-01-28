@@ -1,10 +1,10 @@
 import { search } from '@/app/search/actions';
 import { Hero } from '@/components/hero';
-import { MediaList } from '@/components/lists/media-list';
-import { PeopleList } from '@/components/lists/people-list';
 import { SearchBar } from '@/components/search-bar';
-import { SearchResult } from '@/models/search-result';
-import React, { ReactNode } from 'react';
+import { EMPTY_SEARCH_RESULT, SearchResult } from '@/models/search-result';
+import React, { ReactNode, Suspense } from 'react';
+import { SearchResults } from '@/components/search-results';
+import { SkeletonVerticalList } from '@/components/skeletons/skeleton-vertical-list';
 
 type SearchParams = { query: string | undefined };
 
@@ -13,41 +13,23 @@ export default async function SearchPage({
 }: PageProps<'/search'>): Promise<ReactNode> {
     const { query } = (await searchParams) as SearchParams;
 
-    let result: SearchResult | undefined = undefined;
+    const searchCallback = (): Promise<SearchResult> => {
+        if (query?.trim()) {
+            return search(query);
+        }
 
-    if (query && query.trim()) {
-        result = await search(query);
-    }
+        return new Promise<SearchResult>((resolve) =>
+            resolve(EMPTY_SEARCH_RESULT),
+        );
+    };
 
     return (
         <>
             <Hero />
-            <SearchBar totalResults={result?.total} />
-            {result && (
-                <>
-                    {result.medias.length > 0 && (
-                        <div className="pt-2">
-                            <MediaList
-                                title="Media results"
-                                medias={result.medias}
-                            />
-                        </div>
-                    )}
-                    {result.people.length > 0 && (
-                        <div className="pt-2">
-                            <PeopleList
-                                title="Person results"
-                                people={result.people}
-                            />
-                        </div>
-                    )}
-                    {result?.total === 0 && query !== '' && (
-                        <h1 className="text-standard mx-auto my-16 w-64 text-center">
-                            No results...
-                        </h1>
-                    )}
-                </>
-            )}
+            <SearchBar result={await searchCallback()} />
+            <Suspense fallback={<SkeletonVerticalList title="Media results" />}>
+                <SearchResults resultCallback={searchCallback} query={query} />
+            </Suspense>
         </>
     );
 }
