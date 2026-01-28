@@ -1,7 +1,6 @@
 import { GenreBadges } from '@/components/genre-badges';
 import { CreditsList } from '@/components/lists/credits-list';
 import { MediaList } from '@/components/lists/media-list';
-import Loading from '@/components/loading';
 import { Meta } from '@/components/meta';
 import { Rating } from '@/components/rating';
 import {
@@ -36,10 +35,6 @@ export default async function MoviePage({
     const credits = await getMovieCredits(movieId);
     const image = movie.backdrop ?? movie.poster;
     const width = movie.backdrop ? 1000 : 500;
-
-    if (!movie) {
-        return <Loading />;
-    }
 
     return (
         <>

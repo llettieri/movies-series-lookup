@@ -193,7 +193,7 @@ function CarouselPrevious({
             variant={variant}
             size={size}
             className={cn(
-                'absolute rounded-full',
+                'absolute rounded-full disabled:hidden',
                 orientation === 'horizontal'
                     ? 'top-1/2 left-3'
                     : '-top-12 left-1/2 rotate-90',
@@ -223,7 +223,7 @@ function CarouselNext({
             variant={variant}
             size={size}
             className={cn(
-                'absolute rounded-full',
+                'absolute rounded-full disabled:hidden',
                 orientation === 'horizontal'
                     ? 'top-1/2 right-3'
                     : '-bottom-12 left-1/2 rotate-90',
