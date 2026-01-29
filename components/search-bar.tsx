@@ -2,7 +2,7 @@
 
 import debounce from 'lodash.debounce';
 import { useRouter, useSearchParams } from 'next/navigation';
-import React, { ChangeEvent, ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import {
     InputGroup,
@@ -36,9 +36,9 @@ const SearchBar = ({ result }: SearchBarProps): ReactNode => {
                 autoFocus={true}
                 placeholder="Search..."
                 defaultValue={query}
-                onInput={(event: ChangeEvent<HTMLInputElement>) =>
-                    debouncedSearch(event.target.value, router)
-                }
+                onChange={(event) => {
+                    debouncedSearch(event.target.value, router);
+                }}
             />
             <InputGroupAddon>
                 <Search />
