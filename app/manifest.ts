@@ -12,7 +12,6 @@ export default function Manifest(): MetadataRoute.Manifest {
         background_color: '#4c3165',
         theme_color: '#3F324C',
         lang: 'en',
-
         display_override: [
             'fullscreen',
             'minimal-ui',

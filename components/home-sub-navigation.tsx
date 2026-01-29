@@ -1,12 +1,12 @@
 'use client';
 
 import { CollectionType, ListType } from '@/app/page';
-import { Button } from '@/components/button';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import React, { ReactNode } from 'react';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 export const HomeSubNavigation = (): ReactNode => {
-    const router = useRouter();
     const searchParams = useSearchParams();
     const collection =
         (searchParams.get('collection') as CollectionType) ?? 'movies';
@@ -16,55 +16,49 @@ export const HomeSubNavigation = (): ReactNode => {
         <>
             <div className="container mx-auto mt-4 flex w-72 justify-center gap-6 align-middle">
                 <Button
-                    title="Movies"
-                    onClick={(): void =>
-                        router.replace(
-                            `?collection=movies&listType=${listType}`,
-                            { scroll: false },
-                        )
-                    }
+                    asChild
                     className={`flex-1 ${
                         collection === 'movies' ? 'underline' : ''
                     }`}
-                />
+                >
+                    <Link href={`?collection=movies&listType=${listType}`}>
+                        Movies
+                    </Link>
+                </Button>
                 <Button
-                    title="TV Series"
-                    onClick={(): void =>
-                        router.replace(
-                            `?collection=tvshows&listType=${listType}`,
-                            { scroll: false },
-                        )
-                    }
+                    asChild
                     className={`flex-1 ${
                         collection === 'tvshows' ? 'underline' : ''
                     }`}
-                />
+                >
+                    <Link href={`?collection=tvshows&listType=${listType}`}>
+                        TV Series
+                    </Link>
+                </Button>
             </div>
             <div className="container mx-auto mt-4 flex w-72 justify-center gap-6 align-middle">
                 <Button
-                    title="Popular"
-                    onClick={(): void =>
-                        router.replace(
-                            `?collection=${collection}&listType=popular`,
-                            { scroll: false },
-                        )
-                    }
+                    asChild
                     className={`flex-1 ${
                         listType === 'popular' ? 'underline' : ''
                     }`}
-                />
+                >
+                    <Link href={`?collection=${collection}&listType=popular`}>
+                        Popular
+                    </Link>
+                </Button>
                 <Button
-                    title="Now Playing"
-                    onClick={(): void =>
-                        router.replace(
-                            `?collection=${collection}&listType=nowPlaying`,
-                            { scroll: false },
-                        )
-                    }
+                    asChild
                     className={`flex-1 ${
                         listType === 'nowPlaying' ? 'underline' : ''
                     }`}
-                />
+                >
+                    <Link
+                        href={`?collection=${collection}&listType=nowPlaying`}
+                    >
+                        Now Playing
+                    </Link>
+                </Button>
             </div>
         </>
     );

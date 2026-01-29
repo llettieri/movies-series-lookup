@@ -1,23 +1,28 @@
 import { MediaCard } from '@/components/cards/media-card';
 import { VerticalListBase } from '@/components/lists/vertical-list-base';
-import Loading from '@/components/loading';
 import { Media } from '@/models/media';
 import React, { ReactNode } from 'react';
 
 interface MediaListProps {
     title?: string;
-    medias: Media[];
-    isLoading?: boolean;
+    mediaCallback?: () => Promise<Media[]>;
+    medias?: Media[];
 }
 
-export const MediaList = ({
+export const MediaList = async ({
     title,
-    medias,
-    isLoading,
-}: MediaListProps): ReactNode => {
-    return isLoading ? (
-        <Loading />
-    ) : (
+    mediaCallback,
+    medias = [],
+}: MediaListProps): Promise<ReactNode> => {
+    if (mediaCallback) {
+        medias = await mediaCallback();
+    }
+
+    if (!medias.length) {
+        return null;
+    }
+
+    return (
         <VerticalListBase title={title}>
             <>
                 {medias.map((m) => (

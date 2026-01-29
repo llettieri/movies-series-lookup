@@ -8,8 +8,9 @@ import {
 } from '@/services/person-service';
 import dayjs from 'dayjs';
 import { Metadata } from 'next';
-import React, { ReactNode } from 'react';
+import React, { ReactNode, Suspense } from 'react';
 import { TMDBImage } from '@/components/image';
+import { SkeletonVerticalList } from '@/components/skeletons/skeleton-vertical-list';
 
 export const generateMetadata = async ({
     params,
@@ -31,8 +32,6 @@ export default async function PersonPage({
     const personId = (await params).id;
     const { biography, birthday, deathday, gender, homepage, name, portrait } =
         await getPersonDetails(personId);
-    const movieCredits = await getPersonMovies(personId);
-    const showCredits = await getPersonTVShows(personId);
     let pronoun: string = 'The';
 
     if (gender === Gender.FEMALE) {
@@ -49,7 +48,7 @@ export default async function PersonPage({
                         src={portrait}
                         width={600 / 1.5}
                         height={600}
-                        className="mx-auto block h-auto w-auto rounded-md"
+                        className="mx-auto mb-4 block h-auto w-auto rounded-md"
                         alt="person Wallpaper"
                         scope="profile"
                         loading="eager"
@@ -73,14 +72,14 @@ export default async function PersonPage({
                     <p className="mt-4 text-sm">{biography}</p>
                     <p className="mt-5 text-sm">
                         Birthday:{' '}
-                        <span className="text-secondary-text font-bold">
+                        <span className="text-secondary font-bold">
                             {dayjs(birthday).format('MMMM DD, YYYY')}
                         </span>
                     </p>
                     {deathday ? (
                         <p className="text-sm">
                             Death:{' '}
-                            <span className="font-bold">
+                            <span className="text-secondary font-bold">
                                 {dayjs(deathday).format('MMMM DD, YYYY')}
                             </span>
                         </p>
@@ -88,18 +87,27 @@ export default async function PersonPage({
                 </div>
             </div>
             <div className="pt-2">
-                {movieCredits.length > 0 ? (
+                <Suspense
+                    fallback={
+                        <SkeletonVerticalList title={`${pronoun} Movies`} />
+                    }
+                >
                     <MediaList
                         title={`${pronoun} Movies`}
-                        medias={movieCredits}
+                        mediaCallback={() => getPersonMovies(personId)}
                     />
-                ) : null}
-                {showCredits.length > 0 ? (
+                </Suspense>
+
+                <Suspense
+                    fallback={
+                        <SkeletonVerticalList title={`${pronoun} TV Shows`} />
+                    }
+                >
                     <MediaList
                         title={`${pronoun} TV Shows`}
-                        medias={showCredits}
+                        mediaCallback={() => getPersonTVShows(personId)}
                     />
-                ) : null}
+                </Suspense>
             </div>
         </>
     );
