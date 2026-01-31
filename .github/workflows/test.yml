@@ -1,5 +1,8 @@
 name: Test
 
+permissions:
+  contents: read
+
 on:
   workflow_call:
     inputs:
@@ -19,14 +22,12 @@ jobs:
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
-        with:
-          cache: true
 
       - name: Linting checks
         uses: actions/setup-node@v6
         with:
           node-version: ${{ inputs.node-version }}
           cache: "pnpm"
-      - run: pnpm i
+      - run: pnpm install
       - run: pnpm prettier-check
       - run: pnpm lint
