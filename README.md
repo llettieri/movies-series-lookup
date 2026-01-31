@@ -6,18 +6,19 @@ entertainment options effortlessly.
 ## 🚀 Features
 
 - 🔍 **Smart Search**: Find movies and series by title, genre, or keywords
-- 📺 **Rich Details**: Posters, ratings, cast, trailers, and synopses
+- 📺 **Rich Details**: Posters, ratings, cast, and synopses
 - 📱 **Responsive Design**: Perfect on mobile, tablet, and desktop
 - ⚡ **Fast Loading**: Optimized with Next.js App Router and server-side rendering
-- 🎨 **Beautiful UI**: Tailwind CSS + Flowbite React components
+- 🎨 **Beautiful UI**: shadcn/ui components with Tailwindcss
 
 ## 🛠 Tech Stack
 
-| Frontend       | Backend            | Tools               |
-|----------------|--------------------|---------------------|
-| Next.js 16.1.1 | Next.js API Routes | TypeScript          |
-| React 19+      | Server Components  | Tailwind CSS        |
-| Flowbite React | App Router         | ESLint    /Prettier |
+| Frontend    | Backend            | Tools           |
+|-------------|--------------------|-----------------|
+| Next.js 16+ | Next.js API Routes | TypeScript      |
+| React 19+   | Server Components  | Tailwind CSS    |
+| shadcn/ui   | App Router         | ESLint/Prettier |
+|             |                    | pnpm            |
 
 ## 🎯 Motivation
 
@@ -34,8 +35,9 @@ Perfect for movie nights or quick recommendations!
 git clone https://github.com/llettieri/movies-series-lookup.git
 cd movies-series-lookup
 
-# Install node, version specified in .nvmrc file (requries nvm)
+# Install node, version specified in .nvmrc file (requires nvm)
 nvm install
+nvm use
 
 # Enable pnpm with corepack
 corepack enable pnpm
@@ -66,12 +68,16 @@ TMDB_API_KEY=your_api_key_here
 
 ## 📁 Project Structure
 
+Here the most important directories:
+
 ```
-├── app/                 # Next.js 16 App Router
-├── components/          # Reusable UI components
-├── lib/                 # Utilities & API helpers
-├── public/              # Static assets
-└── tsconfig.json        # TypeScript + Next.js config
+├── app/            # Next.js App Router
+├── components/     # Reusable UI components
+├── config/         # Various config
+├── lib/            # Utilities & API helpers
+├── models/         # Data models
+├── public/         # Static assets
+└── services/       # Services / API calls
 ```
 
 ## 🤝 Contributing
