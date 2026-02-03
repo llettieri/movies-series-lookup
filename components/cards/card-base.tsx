@@ -4,6 +4,7 @@ import Link from 'next/link';
 import React, { ReactNode } from 'react';
 import { FALLBACK_IMAGE, TMDBImage } from '@/components/image';
 import { Card } from '@/components/ui/card';
+import { AspectRatio } from '@/components/ui/aspect-ratio';
 
 export type CardSize = 'normal' | 'small';
 
@@ -24,16 +25,17 @@ export const CardBase = ({
 }: CardBaseProps): ReactNode => {
     if (size === 'normal') {
         return (
-            <Link href={link}>
+            <Link href={link} scroll={false}>
                 <Card className="md:hover:drop-s h-full w-48 transition-transform duration-150 md:hover:scale-105">
-                    <TMDBImage
-                        src={image ?? FALLBACK_IMAGE}
-                        alt={alt}
-                        className="relative aspect-auto object-contain"
-                        width={200}
-                        height={300}
-                        scope="poster"
-                    />
+                    <AspectRatio ratio={9 / 16}>
+                        <TMDBImage
+                            src={image ?? FALLBACK_IMAGE}
+                            alt={alt}
+                            className="object-cover"
+                            scope="poster"
+                            fill
+                        />
+                    </AspectRatio>
                     <div className="flex h-full flex-col justify-between gap-3 py-2">
                         {children}
                     </div>
@@ -42,16 +44,19 @@ export const CardBase = ({
         );
     } else {
         return (
-            <Link href={link}>
+            <Link href={link} scroll={false}>
                 <Card className="flex-row items-center transition-transform duration-150 md:hover:scale-105 md:hover:drop-shadow-lg">
-                    <TMDBImage
-                        src={image ?? FALLBACK_IMAGE}
-                        alt={alt}
-                        width={200}
-                        height={200}
-                        className="h-full max-h-24 w-24 shrink-0 object-cover"
-                        scope="profile"
-                    />
+                    <div className="h-full w-30 shrink-0">
+                        <AspectRatio ratio={1 / 1}>
+                            <TMDBImage
+                                src={image ?? FALLBACK_IMAGE}
+                                alt={alt}
+                                className="object-cover"
+                                scope="profile"
+                                fill
+                            />
+                        </AspectRatio>
+                    </div>
                     <div className="mx-4 my-2 flex w-full flex-col">
                         {children}
                     </div>

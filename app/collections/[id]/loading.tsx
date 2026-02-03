@@ -1,15 +1,16 @@
 import React, { ReactNode } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { SkeletonCardVerticalList } from '@/components/skeletons/skeleton-card-vertical-list';
+import { AspectRatio } from '@/components/ui/aspect-ratio';
 
 export default function CollectionLoadingPage(): ReactNode {
     return (
         <>
             <div className="container mx-auto max-w-4xl py-6">
                 <div className="px-3">
-                    <div className="relative">
-                        <Skeleton className="aspect-auto h-[490] w-full" />
-                    </div>
+                    <AspectRatio ratio={16 / 9} asChild>
+                        <Skeleton className="aspect-auto h-full w-full" />
+                    </AspectRatio>
                     <Skeleton className="mt-4 h-10 w-2/3" />
 
                     <div className="mt-4 grid gap-2">

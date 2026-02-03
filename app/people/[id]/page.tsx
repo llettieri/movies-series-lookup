@@ -11,6 +11,7 @@ import { Metadata } from 'next';
 import React, { ReactNode, Suspense } from 'react';
 import { TMDBImage } from '@/components/image';
 import { SkeletonVerticalList } from '@/components/skeletons/skeleton-vertical-list';
+import { AspectRatio } from '@/components/ui/aspect-ratio';
 
 export const generateMetadata = async ({
     params,
@@ -44,16 +45,17 @@ export default async function PersonPage({
         <>
             <div className="container mx-auto max-w-4xl py-6">
                 <div className="px-3">
-                    <TMDBImage
-                        src={portrait}
-                        width={600 / 1.5}
-                        height={600}
-                        className="mx-auto mb-4 block h-auto w-auto rounded-md"
-                        alt="person Wallpaper"
-                        scope="profile"
-                        loading="eager"
-                    />
-
+                    <div className="mx-auto mb-4 block max-w-70 md:max-w-sm">
+                        <AspectRatio ratio={9 / 16}>
+                            <TMDBImage
+                                src={portrait}
+                                className="rounded-md object-cover"
+                                alt={`${name} portrait image`}
+                                scope="profile"
+                                fill
+                            />
+                        </AspectRatio>
+                    </div>
                     <h1>
                         {homepage ? (
                             <a
@@ -68,7 +70,6 @@ export default async function PersonPage({
                             name
                         )}
                     </h1>
-
                     <p className="mt-4 text-sm">{biography}</p>
                     <p className="mt-5 text-sm">
                         Birthday:{' '}

@@ -8,6 +8,7 @@ import {
     CardTitle,
 } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
+import { AspectRatio } from '@/components/ui/aspect-ratio';
 
 interface SkeletonCardProps {
     size: CardSize;
@@ -17,7 +18,9 @@ export const SkeletonCard = ({ size }: SkeletonCardProps): ReactNode => {
     if (size === 'normal') {
         return (
             <Card className="md:hover:drop-s h-full w-48">
-                <Skeleton className="h-70 rounded-b-none" />
+                <AspectRatio ratio={9 / 16}>
+                    <Skeleton className="h-full w-full rounded-b-none object-cover" />
+                </AspectRatio>
                 <div className="flex h-40 flex-col justify-between gap-3 py-2">
                     <CardHeader>
                         <Skeleton className="h-5" />
@@ -33,7 +36,11 @@ export const SkeletonCard = ({ size }: SkeletonCardProps): ReactNode => {
 
     return (
         <Card className="flex-row items-center">
-            <Skeleton className="aspect-square h-24 w-24 rounded-r-none object-cover" />
+            <div className="h-full w-30 shrink-0">
+                <AspectRatio ratio={1 / 1}>
+                    <Skeleton className="h-full w-full rounded-r-none object-cover" />
+                </AspectRatio>
+            </div>
 
             <div className="mx-4 my-2 flex w-full flex-col">
                 <CardHeader className="px-0">

@@ -17,7 +17,7 @@ const TMDBImage = (
 
     return isFallback ? (
         // eslint-disable-next-line jsx-a11y/alt-text
-        <Image unoptimized={true} {...imageProps} />
+        <Image unoptimized={true} {...imageProps} loading="eager" />
     ) : (
         // eslint-disable-next-line jsx-a11y/alt-text
         <Image

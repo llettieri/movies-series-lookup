@@ -4,6 +4,7 @@ import { getCollectionDetails } from '@/services/collection-service';
 import { Metadata } from 'next';
 import React, { ReactNode } from 'react';
 import { TMDBImage } from '@/components/image';
+import { AspectRatio } from '@/components/ui/aspect-ratio';
 
 export const generateMetadata = async ({
     params,
@@ -21,20 +22,21 @@ export default async function CollectionPage({
     const { backdrop, name, overview, parts, poster } =
         await getCollectionDetails(collectionId);
     const image = backdrop ?? poster;
-
+    const ratio = backdrop ? 16 / 9 : 9 / 16;
     return (
         <>
             <div className="container mx-auto max-w-4xl py-6">
                 <div className="px-3">
-                    <TMDBImage
-                        src={image}
-                        width={1000}
-                        height={600}
-                        className="rounded-md"
-                        alt="collection Wallpaper"
-                        scope={backdrop ? 'backdrop' : 'poster'}
-                        loading="eager"
-                    />
+                    <AspectRatio ratio={ratio} asChild>
+                        <TMDBImage
+                            src={image}
+                            className="rounded-md object-cover"
+                            alt={`${name} backdrop image`}
+                            scope={backdrop ? 'backdrop' : 'poster'}
+                            fill
+                        />
+                    </AspectRatio>
+
                     <h1 className="mt-4">{name}</h1>
                     <p className="mt-4 text-sm">{overview}</p>
                 </div>

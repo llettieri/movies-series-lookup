@@ -16,6 +16,7 @@ import { Metadata } from 'next';
 import React, { ReactNode, Suspense } from 'react';
 import { TMDBImage } from '@/components/image';
 import { SkeletonVerticalList } from '@/components/skeletons/skeleton-vertical-list';
+import { AspectRatio } from '@/components/ui/aspect-ratio';
 
 export const generateMetadata = async ({
     params,
@@ -50,22 +51,21 @@ export default async function TVShowPage({
     const credits = await getTVShowsCredits(showId);
     const providerGroup = await getTVShowWatchProviders(showId, locale);
     const image = backdrop ?? poster;
-    const width = backdrop ? 1000 : 500;
 
     return (
         <>
             <div className="container mx-auto max-w-4xl py-6">
                 <div className="px-3">
-                    <div className="relative flex justify-center">
-                        <TMDBImage
-                            src={image}
-                            width={width}
-                            height={600}
-                            className="rounded-md"
-                            alt="show Wallpaper"
-                            scope={backdrop ? 'backdrop' : 'poster'}
-                            loading="eager"
-                        />
+                    <div className="relative">
+                        <AspectRatio ratio={16 / 9}>
+                            <TMDBImage
+                                src={image}
+                                className="rounded-md object-cover"
+                                alt={`${title} backdrop image`}
+                                scope={backdrop ? 'backdrop' : 'poster'}
+                                fill
+                            />
+                        </AspectRatio>
                         <Rating value={Math.round(averageVote)} />
                     </div>
                     <GenreBadges genres={genres} />

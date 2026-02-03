@@ -14,6 +14,7 @@ import Link from 'next/link';
 import React, { ReactNode, Suspense } from 'react';
 import { TMDBImage } from '@/components/image';
 import { SkeletonVerticalList } from '@/components/skeletons/skeleton-vertical-list';
+import { AspectRatio } from '@/components/ui/aspect-ratio';
 
 export const generateMetadata = async ({
     params,
@@ -31,58 +32,66 @@ export default async function MoviePage({
     params,
 }: PageProps<'/movies/[id]'>): Promise<ReactNode> {
     const movieId = (await params).id;
-    const movie = await getMovieDetails(movieId);
+    const {
+        averageVote,
+        backdrop,
+        collection,
+        genres,
+        homepage,
+        overview,
+        poster,
+        releaseDate,
+        runtime,
+        title,
+    } = await getMovieDetails(movieId);
     const credits = await getMovieCredits(movieId);
-    const image = movie.backdrop ?? movie.poster;
-    const width = movie.backdrop ? 1000 : 500;
+    const image = backdrop ?? poster;
 
     return (
         <>
             <div className="container mx-auto max-w-4xl py-6">
                 <div className="px-3">
                     <div className="relative">
-                        <TMDBImage
-                            src={image}
-                            width={width}
-                            height={width / 1.5}
-                            className="mx-auto rounded-md"
-                            alt="Movie Wallpaper"
-                            scope={movie.backdrop ? 'backdrop' : 'poster'}
-                            loading="eager"
-                        />
-                        <Rating value={movie.averageVote} />
+                        <AspectRatio ratio={16 / 9}>
+                            <TMDBImage
+                                src={image}
+                                className="rounded-md object-cover"
+                                alt={`${title} backdrop image`}
+                                scope={backdrop ? 'backdrop' : 'poster'}
+                                fill
+                            />
+                        </AspectRatio>
+
+                        <Rating value={averageVote} />
                     </div>
-                    <GenreBadges genres={movie.genres} />
+                    <GenreBadges genres={genres} />
 
                     <h1>
-                        {movie.homepage ? (
+                        {homepage ? (
                             <a
-                                href={movie.homepage}
+                                href={homepage}
                                 target="_blank"
                                 className="underline"
                                 rel="noreferrer"
                             >
-                                {movie.title} ({movie.runtime}min)
+                                {title} ({runtime}min)
                             </a>
                         ) : (
-                            `${movie.title} (${movie.runtime}min)`
+                            `${title} (${runtime}min)`
                         )}
                     </h1>
-                    {movie.collection ? (
-                        <Link
-                            href={`/collections/${movie.collection.id}`}
-                            prefetch
-                        >
+                    {collection ? (
+                        <Link href={`/collections/${collection.id}`} prefetch>
                             <h2 className="text-secondary">
-                                {movie.collection.name}
+                                {collection.name}
                             </h2>
                         </Link>
                     ) : null}
-                    <p className="mt-4 text-sm">{movie.overview}</p>
+                    <p className="mt-4 text-sm">{overview}</p>
                     <p className="mt-6 text-sm">
                         Release Date:{' '}
                         <span className="text-secondary font-bold">
-                            {dayjs(movie.releaseDate).format('MMMM DD, YYYY')}
+                            {dayjs(releaseDate).format('MMMM DD, YYYY')}
                         </span>
                     </p>
                     {credits.cast.length > 0 && (

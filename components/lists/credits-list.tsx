@@ -45,6 +45,7 @@ export const CreditsList = ({
                     <Link
                         href={`${baseRoute}/credits`}
                         prefetch
+                        scroll={false}
                         className="duration-150 hover:scale-105"
                     >
                         <p className="w-32 text-center text-lg">
