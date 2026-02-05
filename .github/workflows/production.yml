@@ -13,3 +13,4 @@ jobs:
     uses: ./.github/workflows/build-and-deploy.yml
     with:
       environment: "Production"
+    secrets: inherit

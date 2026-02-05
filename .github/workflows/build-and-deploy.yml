@@ -13,6 +13,13 @@ on:
         required: false
         default: false
         type: boolean
+    secrets:
+      USER:
+        required: true
+      PWD:
+        required: true
+      DEPLOY_WEBHOOK_URL:
+        required: true
 
 env:
   REPO: docker.nexus.themcbrothers.net
