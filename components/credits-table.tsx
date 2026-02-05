@@ -2,8 +2,7 @@ import { PersonCard } from '@/components/cards/person-card';
 import { MediaType } from '@/models/media-type';
 import { Person } from '@/models/person';
 import React, { ReactNode } from 'react';
-import { Button } from '@/components/ui/button';
-import Link from 'next/link';
+import { GoBackButton } from '@/components/go-back-button';
 
 interface GroupedCrewComponentProps {
     groupedCrew: Map<string, Person[]>;
@@ -39,14 +38,12 @@ const GroupedCrewComponent = ({
 };
 
 interface CreditsTableProps {
-    link: string;
     cast: Person[];
     crew: Person[];
     type: MediaType;
 }
 
 export const CreditsTable = ({
-    link,
     cast,
     crew,
     type,
@@ -73,9 +70,7 @@ export const CreditsTable = ({
     return (
         <>
             <div className="container mx-auto flex justify-center p-8">
-                <Button asChild className="w-64">
-                    <Link href={link}>Go back</Link>
-                </Button>
+                <GoBackButton />
             </div>
             <div className="container mx-auto grid grid-cols-1 gap-8 px-2 py-5 md:grid-cols-2 md:px-0">
                 <div>

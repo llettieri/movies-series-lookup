@@ -54,6 +54,7 @@ export default async function MoviePage({
                     <div className="relative">
                         <AspectRatio ratio={16 / 9}>
                             <TMDBImage
+                                id="backdrop"
                                 src={image}
                                 className="rounded-md object-cover"
                                 alt={`${title} backdrop image`}
@@ -66,7 +67,7 @@ export default async function MoviePage({
                     </div>
                     <GenreBadges genres={genres} />
 
-                    <h1>
+                    <h1 id="title">
                         {homepage ? (
                             <a
                                 href={homepage}
@@ -82,13 +83,15 @@ export default async function MoviePage({
                     </h1>
                     {collection ? (
                         <Link href={`/collections/${collection.id}`} prefetch>
-                            <h2 className="text-secondary">
+                            <h2 id="collection" className="text-secondary">
                                 {collection.name}
                             </h2>
                         </Link>
                     ) : null}
-                    <p className="mt-4 text-sm">{overview}</p>
-                    <p className="mt-6 text-sm">
+                    <p id="description" className="mt-4 text-sm">
+                        {overview}
+                    </p>
+                    <p id="release-date" className="mt-6 text-sm">
                         Release Date:{' '}
                         <span className="text-secondary font-bold">
                             {dayjs(releaseDate).format('MMMM DD, YYYY')}

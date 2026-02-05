@@ -38,12 +38,7 @@ export default async function TVShowCreditsPage({
                     <SearchHint os={os}></SearchHint>
                 </div>
             ) : null}
-            <CreditsTable
-                link={`/tv-shows/${showId}`}
-                cast={cast}
-                crew={crew}
-                type={MediaType.TV}
-            />
+            <CreditsTable cast={cast} crew={crew} type={MediaType.TV} />
         </>
     );
 }

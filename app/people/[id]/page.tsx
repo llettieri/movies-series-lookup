@@ -48,6 +48,7 @@ export default async function PersonPage({
                     <div className="mx-auto mb-4 block max-w-70 md:max-w-sm">
                         <AspectRatio ratio={9 / 16}>
                             <TMDBImage
+                                id="portrait"
                                 src={portrait}
                                 className="rounded-md object-cover"
                                 alt={`${name} portrait image`}
@@ -56,7 +57,7 @@ export default async function PersonPage({
                             />
                         </AspectRatio>
                     </div>
-                    <h1>
+                    <h1 id="name">
                         {homepage ? (
                             <a
                                 href={homepage}
@@ -70,15 +71,17 @@ export default async function PersonPage({
                             name
                         )}
                     </h1>
-                    <p className="mt-4 text-sm">{biography}</p>
-                    <p className="mt-5 text-sm">
+                    <p id="description" className="mt-4 text-sm">
+                        {biography}
+                    </p>
+                    <p id="birthday" className="mt-5 text-sm">
                         Birthday:{' '}
                         <span className="text-secondary font-bold">
                             {dayjs(birthday).format('MMMM DD, YYYY')}
                         </span>
                     </p>
                     {deathday ? (
-                        <p className="text-sm">
+                        <p id="deathday" className="text-sm">
                             Death:{' '}
                             <span className="text-secondary font-bold">
                                 {dayjs(deathday).format('MMMM DD, YYYY')}

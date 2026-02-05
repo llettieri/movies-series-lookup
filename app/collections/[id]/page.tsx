@@ -29,6 +29,7 @@ export default async function CollectionPage({
                 <div className="px-3">
                     <AspectRatio ratio={ratio} asChild>
                         <TMDBImage
+                            id="backdrop"
                             src={image}
                             className="rounded-md object-cover"
                             alt={`${name} backdrop image`}
@@ -37,8 +38,12 @@ export default async function CollectionPage({
                         />
                     </AspectRatio>
 
-                    <h1 className="mt-4">{name}</h1>
-                    <p className="mt-4 text-sm">{overview}</p>
+                    <h1 id="name" className="mt-4">
+                        {name}
+                    </h1>
+                    <p id="description" className="mt-4 text-sm">
+                        {overview}
+                    </p>
                 </div>
             </div>
 

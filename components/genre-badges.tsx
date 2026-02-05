@@ -8,7 +8,10 @@ interface GenreBadgesProps {
 
 export const GenreBadges = ({ genres }: GenreBadgesProps): ReactNode => {
     return (
-        <div className="mt-2 mb-4 flex gap-3 overflow-auto md:flex-row-reverse">
+        <div
+            id="genres"
+            className="mt-2 mb-4 flex gap-3 overflow-auto md:flex-row-reverse"
+        >
             {genres.map((genre: Genre) => (
                 <Badge key={genre.id}>{genre.name}</Badge>
             ))}

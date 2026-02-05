@@ -9,7 +9,7 @@ interface SkeletonListProps {
 
 export const SkeletonVerticalList = ({
     title,
-    itemCount = 10,
+    itemCount = 20,
 }: SkeletonListProps): ReactNode => {
     return (
         <VerticalListBase title={title}>

@@ -35,12 +35,7 @@ export default async function MovieCreditsPage({
                     <SearchHint os={os}></SearchHint>
                 </div>
             ) : null}
-            <CreditsTable
-                link={`/movies/${movieId}`}
-                cast={cast}
-                crew={crew}
-                type={MediaType.MOVIE}
-            />
+            <CreditsTable cast={cast} crew={crew} type={MediaType.MOVIE} />
         </>
     );
 }

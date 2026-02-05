@@ -59,6 +59,7 @@ export default async function TVShowPage({
                     <div className="relative">
                         <AspectRatio ratio={16 / 9}>
                             <TMDBImage
+                                id="backdrop"
                                 src={image}
                                 className="rounded-md object-cover"
                                 alt={`${title} backdrop image`}
@@ -70,7 +71,7 @@ export default async function TVShowPage({
                     </div>
                     <GenreBadges genres={genres} />
 
-                    <h1>
+                    <h1 id="title">
                         {homepage ? (
                             <a
                                 href={homepage}
@@ -84,16 +85,20 @@ export default async function TVShowPage({
                             title
                         )}
                     </h1>
-                    <h2 className="text-secondary">({seasonsCount} Seasons)</h2>
-                    <p className="mt-4 text-sm">{overview}</p>
-                    <p className="mt-4 text-sm">
+                    <h2 id="season-info" className="text-secondary">
+                        ({seasonsCount} Seasons)
+                    </h2>
+                    <p id="description" className="mt-4 text-sm">
+                        {overview}
+                    </p>
+                    <p id="release-date" className="mt-4 text-sm">
                         Release Date:{' '}
                         <span className="text-secondary font-bold">
                             {dayjs(releaseDate).format('MMMM DD, YYYY')}
                         </span>
                     </p>
                     {lastAirDate ? (
-                        <p className="text-sm">
+                        <p id="last-aired" className="text-sm">
                             Last Aired:{' '}
                             <span className="text-secondary font-bold">
                                 {dayjs(lastAirDate).format('MMMM DD, YYYY')}
@@ -106,7 +111,10 @@ export default async function TVShowPage({
                             baseRoute={`/tv-shows/${showId}`}
                         />
                     )}
-                    <div className="container mx-auto flex gap-4 align-middle">
+                    <div
+                        id="networks"
+                        className="container mx-auto flex gap-4 align-middle"
+                    >
                         <p className="text-md leading-[10]">Networks: </p>
                         {networks.map(({ homepage, id, logo, name }) => (
                             <CompanyLogo
@@ -118,7 +126,7 @@ export default async function TVShowPage({
                         ))}
                     </div>
                     {providerGroup ? (
-                        <div className="container mx-auto">
+                        <div id="watch-providers" className="container mx-auto">
                             <div className="flex flex-wrap items-center gap-4 align-middle">
                                 <p className="text-md w-auto">
                                     Watch Providers:{' '}

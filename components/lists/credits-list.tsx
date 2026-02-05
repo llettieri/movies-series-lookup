@@ -12,6 +12,7 @@ import {
     CarouselPrevious,
 } from '@/components/ui/carousel';
 import { WheelGesturesPlugin } from 'embla-carousel-wheel-gestures';
+import { ArrowRight } from 'lucide-react';
 
 interface CreditsListProps {
     cast: Person[];
@@ -24,6 +25,7 @@ export const CreditsList = ({
 }: CreditsListProps): ReactNode => {
     return (
         <Carousel
+            id="credits"
             opts={{
                 align: 'start',
                 dragFree: true,
@@ -45,11 +47,10 @@ export const CreditsList = ({
                     <Link
                         href={`${baseRoute}/credits`}
                         prefetch
-                        scroll={false}
                         className="duration-150 hover:scale-105"
                     >
-                        <p className="w-32 text-center text-lg">
-                            View more {'->'}
+                        <p className="flex w-32 items-center gap-2 text-center text-lg">
+                            View more <ArrowRight />
                         </p>
                     </Link>
                 </CarouselItem>
