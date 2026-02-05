@@ -4,10 +4,12 @@ import { SkeletonBadges } from '@/components/skeletons/skeleton-badge';
 import { SkeletonCardCarousel } from '@/components/skeletons/skeleton-card-carousel';
 import { SkeletonCardVerticalList } from '@/components/skeletons/skeleton-card-vertical-list';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
+import { ScrollToTop } from '@/components/scroll-to-top';
 
 export default function MovieLoadingPage(): ReactNode {
     return (
         <>
+            <ScrollToTop />
             <div className="container mx-auto max-w-4xl py-6">
                 <div className="px-3">
                     <AspectRatio ratio={16 / 9}>

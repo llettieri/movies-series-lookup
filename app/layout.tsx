@@ -18,10 +18,13 @@ export default function RootLayout({ children }: LayoutProps<'/'>): ReactNode {
         <html lang="en" suppressHydrationWarning>
             <body className={inter.className}>
                 <Providers>
-                    <div className="flex h-dvh flex-col overflow-hidden">
+                    <div className="flex h-dvh flex-col">
                         <NavigationBar />
 
-                        <div className="flex flex-1 flex-col overflow-auto overscroll-y-none">
+                        <div
+                            id="scrollable-content"
+                            className="flex flex-1 flex-col overflow-auto overscroll-y-none"
+                        >
                             <main className="bg-background flex-1 p-5 sm:p-10">
                                 {children}
                             </main>

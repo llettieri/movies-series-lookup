@@ -25,7 +25,7 @@ export const CardBase = ({
 }: CardBaseProps): ReactNode => {
     if (size === 'normal') {
         return (
-            <Link href={link} scroll={false}>
+            <Link href={link}>
                 <Card className="md:hover:drop-s h-full w-48 transition-transform duration-150 md:hover:scale-105">
                     <AspectRatio ratio={9 / 16}>
                         <TMDBImage
@@ -44,7 +44,7 @@ export const CardBase = ({
         );
     } else {
         return (
-            <Link href={link} scroll={false}>
+            <Link href={link}>
                 <Card className="flex-row items-center transition-transform duration-150 md:hover:scale-105 md:hover:drop-shadow-lg">
                     <div className="h-full w-30 shrink-0">
                         <AspectRatio ratio={1 / 1}>

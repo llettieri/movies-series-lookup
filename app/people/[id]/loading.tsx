@@ -2,10 +2,12 @@ import React, { ReactNode } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { SkeletonCardVerticalList } from '@/components/skeletons/skeleton-card-vertical-list';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
+import { ScrollToTop } from '@/components/scroll-to-top';
 
 export default function PeopleLoadingPage(): ReactNode {
     return (
         <>
+            <ScrollToTop />
             <div className="container mx-auto max-w-4xl py-6">
                 <div className="px-3">
                     <div className="mx-auto mb-4 block max-w-70 md:max-w-sm">
