@@ -73,26 +73,27 @@ const getTVShowWatchProviders = async (
         id: showId,
     });
 
-    return await TMDBApi.get<WatchProvidersDto>(url).then((r) => {
-        const rawCountryProviders: Map<string, CountryProvidersDto> = new Map(
-            Object.entries(r.data.results),
-        );
-        const countryProviders: Map<string, ProviderGroup> = new Map();
-        rawCountryProviders.forEach((value, key) => {
-            const providers: Provider[] = [
-                ...(value.buy?.map(parseProviderDto) ?? []),
-                ...(value.flatrate?.map(parseProviderDto) ?? []),
-                ...(value.free?.map(parseProviderDto) ?? []),
-            ];
-            providers.sort((a, b) => a.displayPriority - b.displayPriority);
-            countryProviders.set(key, {
-                link: value.link,
-                providers,
+    return await TMDBApi.get<WatchProvidersDto>(url)
+        .then((r) => {
+            const rawCountryProviders: Map<string, CountryProvidersDto> =
+                new Map(Object.entries(r.data.results));
+            const countryProviders: Map<string, ProviderGroup> = new Map();
+            rawCountryProviders.forEach((value, key) => {
+                const providers: Provider[] = [
+                    ...(value.buy?.map(parseProviderDto) ?? []),
+                    ...(value.flatrate?.map(parseProviderDto) ?? []),
+                    ...(value.free?.map(parseProviderDto) ?? []),
+                ];
+                providers.sort((a, b) => a.displayPriority - b.displayPriority);
+                countryProviders.set(key, {
+                    link: value.link,
+                    providers,
+                });
             });
-        });
 
-        return countryProviders.get(locale);
-    });
+            return countryProviders.get(locale);
+        })
+        .catch(() => undefined);
 };
 
 export {
