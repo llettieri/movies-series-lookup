@@ -42,7 +42,7 @@ const parseNetworkDto = (dto: NetworkDto): Network => {
 const parseMovieDto = (dto: MovieDto): Media => {
     return {
         averageVote: dto.vote_average * 10,
-        backdrop: dto.backdrop_path,
+        backdrop: dto.backdrop_path ?? FALLBACK_IMAGE,
         collection: dto.belongs_to_collection,
         genres: dto.genres,
         homepage: dto.homepage,
@@ -92,7 +92,7 @@ const parseMultiMediaDto = (dto: MultiMediaDto): Media => {
     const type = dto.media_type as MediaType;
     return {
         averageVote: dto.vote_average * 10,
-        backdrop: dto.backdrop_path,
+        backdrop: dto.backdrop_path ?? FALLBACK_IMAGE,
         collection: undefined,
         genres: [],
         homepage: '',

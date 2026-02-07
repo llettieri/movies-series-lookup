@@ -46,14 +46,15 @@ export default async function PersonPage({
             <div className="container mx-auto max-w-4xl py-6">
                 <div className="px-3">
                     <div className="mx-auto mb-4 block max-w-70 md:max-w-sm">
-                        <AspectRatio ratio={9 / 16}>
+                        <AspectRatio ratio={2 / 3}>
                             <TMDBImage
                                 id="portrait"
                                 src={portrait}
                                 className="rounded-md object-cover"
                                 alt={`${name} portrait image`}
-                                scope="profile"
+                                scope="poster"
                                 fill
+                                sizes="(min-width: 64rem) 80rem, (min-width: 48rem) 31.25rem, 18.75rem"
                             />
                         </AspectRatio>
                     </div>

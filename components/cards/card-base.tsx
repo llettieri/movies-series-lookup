@@ -27,13 +27,14 @@ export const CardBase = ({
         return (
             <Link href={link}>
                 <Card className="md:hover:drop-s h-full w-48 transition-transform duration-150 md:hover:scale-105">
-                    <AspectRatio ratio={9 / 16}>
+                    <AspectRatio ratio={2 / 3}>
                         <TMDBImage
                             src={image ?? FALLBACK_IMAGE}
                             alt={alt}
                             className="object-cover"
                             scope="poster"
                             fill
+                            sizes="(min-width: 48rem) 31.25rem, 11.563rem"
                         />
                     </AspectRatio>
                     <div className="flex h-full flex-col justify-between gap-3 py-2">
@@ -54,6 +55,7 @@ export const CardBase = ({
                                 className="object-cover"
                                 scope="profile"
                                 fill
+                                sizes="(min-width: 48rem) 154px, 92px"
                             />
                         </AspectRatio>
                     </div>

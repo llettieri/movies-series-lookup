@@ -39,13 +39,11 @@ export default async function MoviePage({
         genres,
         homepage,
         overview,
-        poster,
         releaseDate,
         runtime,
         title,
     } = await getMovieDetails(movieId);
     const credits = await getMovieCredits(movieId);
-    const image = backdrop ?? poster;
 
     return (
         <>
@@ -55,11 +53,12 @@ export default async function MoviePage({
                         <AspectRatio ratio={16 / 9}>
                             <TMDBImage
                                 id="backdrop"
-                                src={image}
+                                src={backdrop}
                                 className="rounded-md object-cover"
                                 alt={`${title} backdrop image`}
-                                scope={backdrop ? 'backdrop' : 'poster'}
+                                scope="backdrop"
                                 fill
+                                sizes="(min-width: 48rem) 80rem, 18.75rem"
                             />
                         </AspectRatio>
 

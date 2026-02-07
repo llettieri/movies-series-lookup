@@ -65,6 +65,7 @@ export default async function TVShowPage({
                                 alt={`${title} backdrop image`}
                                 scope={backdrop ? 'backdrop' : 'poster'}
                                 fill
+                                sizes="(min-width: 48rem) 80rem, 18.75rem"
                             />
                         </AspectRatio>
                         <Rating value={Math.round(averageVote)} />

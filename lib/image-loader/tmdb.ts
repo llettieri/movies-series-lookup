@@ -3,78 +3,52 @@ import { apiRoutes } from '@/config/api-routes';
 
 export type Scope = 'poster' | 'logo' | 'backdrop' | 'profile';
 
+// TMDB supported width map
+const TMDB_WIDTH_MAPS: Record<
+    Scope,
+    Array<{ threshold: number; size: string }>
+> = {
+    poster: [
+        { threshold: 780, size: 'w780' },
+        { threshold: 500, size: 'w500' },
+        { threshold: 342, size: 'w342' },
+        { threshold: 185, size: 'w185' },
+        { threshold: 154, size: 'w154' },
+        { threshold: 92, size: 'w92' },
+        { threshold: 0, size: 'original' },
+    ],
+    logo: [
+        { threshold: 500, size: 'w500' },
+        { threshold: 300, size: 'w300' },
+        { threshold: 185, size: 'w185' },
+        { threshold: 154, size: 'w154' },
+        { threshold: 92, size: 'w92' },
+        { threshold: 45, size: 'w45' },
+        { threshold: 0, size: 'original' },
+    ],
+    backdrop: [
+        { threshold: 1280, size: 'w1280' },
+        { threshold: 780, size: 'w780' },
+        { threshold: 300, size: 'w300' },
+        { threshold: 0, size: 'original' },
+    ],
+    profile: [
+        { threshold: 185, size: 'w185' },
+        { threshold: 45, size: 'w45' },
+        { threshold: 0, size: 'original' },
+    ],
+};
+
 interface TMDBLoaderProps {
     scope: Scope;
 }
-
-const parsePosterWidth = (width: number): string => {
-    if (width > 780) {
-        return 'w780';
-    } else if (width > 500) {
-        return 'w500';
-    } else if (width > 342) {
-        return 'w342';
-    } else if (width > 185) {
-        return 'w185';
-    } else if (width > 154) {
-        return 'w154';
-    } else if (width > 92) {
-        return 'w92';
-    } else {
-        return 'original';
-    }
-};
-const parseLogoWidth = (width: number): string => {
-    if (width > 500) {
-        return 'w500';
-    } else if (width > 300) {
-        return 'w300';
-    } else if (width > 185) {
-        return 'w185';
-    } else if (width > 154) {
-        return 'w154';
-    } else if (width > 92) {
-        return 'w92';
-    } else if (width > 45) {
-        return 'w45';
-    } else {
-        return 'original';
-    }
-};
-const parseBackdropWidth = (width: number): string => {
-    if (width > 1280) {
-        return 'w1280';
-    } else if (width > 780) {
-        return 'w780';
-    } else if (width > 300) {
-        return 'w300';
-    } else {
-        return 'original';
-    }
-};
-const parseProfileWidth = (width: number): string => {
-    if (width > 632) {
-        return 'h632';
-    } else if (width > 185) {
-        return 'w185';
-    } else if (width > 45) {
-        return 'w45';
-    } else {
-        return 'original';
-    }
-};
-
 const parseWidth = (scope: Scope, width: number): string => {
-    switch (scope) {
-        case 'poster':
-            return parsePosterWidth(width);
-        case 'logo':
-            return parseLogoWidth(width);
-        case 'backdrop':
-            return parseBackdropWidth(width);
-        case 'profile':
-            return parseProfileWidth(width);
-    }
+    const sizes = TMDB_WIDTH_MAPS[scope];
+
+    return sizes.reduceRight(
+        (acc, { threshold, size }) => (width > threshold ? size : acc),
+        'original',
+    );
 };
 
 const tmdbLoader = ({

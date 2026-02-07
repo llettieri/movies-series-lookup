@@ -4,7 +4,7 @@ import { MediaType } from '@/models/media-type';
 
 export interface Media {
     averageVote: number;
-    backdrop?: string;
+    backdrop: string;
     collection?: SimpleCollection;
     genres: Genre[];
     homepage?: string;
