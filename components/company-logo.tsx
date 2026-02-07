@@ -9,11 +9,11 @@ interface CompanyLogoProps {
 }
 
 export default function CompanyLogo({
-    externalLink = '',
+    externalLink,
     alt,
     image,
 }: CompanyLogoProps): ReactNode {
-    return (
+    return externalLink ? (
         <Link
             href={externalLink}
             target={externalLink ? '_blank' : '_self'}
@@ -23,11 +23,20 @@ export default function CompanyLogo({
             <TMDBImage
                 src={image}
                 alt={alt}
-                width={50}
-                height={25}
+                width={60}
+                height={30}
                 className="h-auto w-auto"
                 scope="logo"
             />
         </Link>
+    ) : (
+        <TMDBImage
+            src={image}
+            alt={alt}
+            width={60}
+            height={30}
+            className="h-auto w-auto"
+            scope="logo"
+        />
     );
 }

@@ -1,10 +1,11 @@
 import React, { ReactNode } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
-import { SkeletonBadges } from '@/components/skeletons/skeleton-badge';
-import { SkeletonCardCarousel } from '@/components/skeletons/skeleton-card-carousel';
-import { SkeletonCardVerticalList } from '@/components/skeletons/skeleton-card-vertical-list';
+import { BadgesSkeleton } from '@/components/skeletons/badges-skeleton';
+import { CardCarouselSkeleton } from '@/components/skeletons/card-carousel-skeleton';
+import { CardVerticalListSkeleton } from '@/components/skeletons/card-vertical-list-skeleton';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { ScrollToTop } from '@/components/scroll-to-top';
+import { WatchProvidersSkeleton } from '@/components/skeletons/watch-providers-skeleton';
 
 export default function TVShowLoadingPage(): ReactNode {
     return (
@@ -15,7 +16,7 @@ export default function TVShowLoadingPage(): ReactNode {
                     <AspectRatio ratio={16 / 9}>
                         <Skeleton className="aspect-auto h-full w-full" />
                     </AspectRatio>
-                    <SkeletonBadges />
+                    <BadgesSkeleton />
                     <div className="mb-8 flex flex-col gap-1">
                         <Skeleton className="h-10 w-full md:w-2/3" />
                         <Skeleton className="h-10 w-2/3 md:hidden" />
@@ -34,34 +35,18 @@ export default function TVShowLoadingPage(): ReactNode {
                         <p className="text-sm">Last Aired:</p>
                         <Skeleton className="h-4 w-20" />
                     </div>
-                    <SkeletonCardCarousel />
-                    <div className="container mx-auto flex items-center gap-4 align-middle">
-                        <p className="text-md leading-[10]">Networks:</p>
+                    <CardCarouselSkeleton />
+                    <div className="mt-8 flex w-full items-center gap-4">
+                        <p className="text-md">Networks:</p>
                         {Array.from({ length: 3 }).map((value, index) => (
                             <Skeleton key={index} className="h-8 w-16" />
                         ))}
                     </div>
-                    <div className="container mx-auto flex items-center gap-4 align-middle">
-                        <p className="text-md">Watch Providers:</p>
-                        {Array.from({ length: 3 }).map((value, index) => (
-                            <Skeleton key={index} className="h-12 w-12" />
-                        ))}
-                    </div>
-                    <p className="mt-6 text-sm">
-                        JustWatch makes it easy to find out where you can
-                        legally watch your favorite movies & TV shows online.
-                        Visit{' '}
-                        <span className="underline">
-                            <a target="_blank" href="https://www.justwatch.com">
-                                JustWatch
-                            </a>
-                        </span>{' '}
-                        for more information.
-                    </p>{' '}
+                    <WatchProvidersSkeleton />
                 </div>
             </div>
             <div className="pt-2">
-                <SkeletonCardVerticalList title="Similar Shows" />
+                <CardVerticalListSkeleton title="Similar Shows" />
             </div>
         </>
     );

@@ -4,7 +4,7 @@ import { SearchBar } from '@/components/search-bar';
 import { EMPTY_SEARCH_RESULT, SearchResult } from '@/models/search-result';
 import React, { ReactNode, Suspense } from 'react';
 import { SearchResults } from '@/components/search-results';
-import { SkeletonVerticalList } from '@/components/skeletons/skeleton-vertical-list';
+import { CardVerticalListSkeleton } from '@/components/skeletons/card-vertical-list-skeleton';
 
 type SearchParams = { query: string | undefined };
 
@@ -27,7 +27,9 @@ export default async function SearchPage({
         <>
             <Hero />
             <SearchBar result={await searchCallback()} />
-            <Suspense fallback={<SkeletonVerticalList title="Media results" />}>
+            <Suspense
+                fallback={<CardVerticalListSkeleton title="Media results" />}
+            >
                 <SearchResults resultCallback={searchCallback} query={query} />
             </Suspense>
         </>

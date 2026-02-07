@@ -23,9 +23,14 @@ export const CreditsList = ({
     cast,
     baseRoute,
 }: CreditsListProps): ReactNode => {
+    if (!cast) {
+        return null;
+    }
+
     return (
         <Carousel
             id="credits"
+            className="mb-16"
             opts={{
                 align: 'start',
                 dragFree: true,

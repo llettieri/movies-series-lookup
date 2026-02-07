@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { SkeletonCreditsTable } from '@/components/skeletons/skeleton-credits-table';
+import { CreditsTableSkeleton } from '@/components/skeletons/credits-table-skeleton';
 import { ScrollToTop } from '@/components/scroll-to-top';
 
 export default function MovieCreditsLoadingPage(): ReactNode {
@@ -7,7 +7,7 @@ export default function MovieCreditsLoadingPage(): ReactNode {
         <>
             <ScrollToTop />
             <div className="container mx-auto hidden h-12 md:block"></div>
-            <SkeletonCreditsTable title="Movie" />
+            <CreditsTableSkeleton title="Movie" />
         </>
     );
 }

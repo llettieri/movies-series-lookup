@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
-import { SkeletonCardVerticalList } from '@/components/skeletons/skeleton-card-vertical-list';
+import { CardVerticalListSkeleton } from '@/components/skeletons/card-vertical-list-skeleton';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { ScrollToTop } from '@/components/scroll-to-top';
 
@@ -34,7 +34,7 @@ export default function PeopleLoadingPage(): ReactNode {
                 </div>
             </div>
             <div className="pt-2">
-                <SkeletonCardVerticalList title="Their Movies" />
+                <CardVerticalListSkeleton title="Their Movies" />
             </div>
         </>
     );

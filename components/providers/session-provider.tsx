@@ -20,18 +20,13 @@ export const SessionProvider = (): ReactNode => {
             .then((r) => {
                 let countryCode = FALLBACK_COUNTRY_CODE;
 
-                if (r?.status === HttpStatusCode.Ok) {
+                if (r.status === HttpStatusCode.Ok) {
                     countryCode = r.data.countryCode;
                 }
 
                 return createSession(countryCode);
             })
-            .catch((e) => {
-                // eslint-disable-next-line
-                console.error(
-                    'Something went wrong with checking your location: %s',
-                    e,
-                );
+            .catch(() => {
                 return createSession(FALLBACK_COUNTRY_CODE);
             });
     }, []);

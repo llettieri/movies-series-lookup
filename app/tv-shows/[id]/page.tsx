@@ -4,19 +4,20 @@ import { CreditsList } from '@/components/lists/credits-list';
 import { MediaList } from '@/components/lists/media-list';
 import { Meta } from '@/components/meta';
 import { Rating } from '@/components/rating';
-import { getLocale } from '@/services/session-service';
 import {
     getSimilarTVShows,
     getTVShowDetails,
     getTVShowsCredits,
-    getTVShowWatchProviders,
 } from '@/services/tv-show-service';
 import dayjs from 'dayjs';
 import { Metadata } from 'next';
 import React, { ReactNode, Suspense } from 'react';
 import { TMDBImage } from '@/components/image';
-import { SkeletonVerticalList } from '@/components/skeletons/skeleton-vertical-list';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
+import { WatchProviders } from '@/components/watch-providers';
+import { MediaType } from '@/models/media-type';
+import { WatchProvidersSkeleton } from '@/components/skeletons/watch-providers-skeleton';
+import { CardVerticalListSkeleton } from '@/components/skeletons/card-vertical-list-skeleton';
 
 export const generateMetadata = async ({
     params,
@@ -33,7 +34,6 @@ export const generateMetadata = async ({
 export default async function TVShowPage({
     params,
 }: PageProps<'/tv-shows/[id]'>): Promise<ReactNode> {
-    const locale = await getLocale();
     const showId = (await params).id;
     const {
         averageVote,
@@ -43,14 +43,11 @@ export default async function TVShowPage({
         lastAirDate,
         networks,
         overview,
-        poster,
         releaseDate,
         seasonsCount,
         title,
     } = await getTVShowDetails(showId);
     const credits = await getTVShowsCredits(showId);
-    const providerGroup = await getTVShowWatchProviders(showId, locale);
-    const image = backdrop ?? poster;
 
     return (
         <>
@@ -60,10 +57,10 @@ export default async function TVShowPage({
                         <AspectRatio ratio={16 / 9}>
                             <TMDBImage
                                 id="backdrop"
-                                src={image}
+                                src={backdrop}
                                 className="rounded-md object-cover"
                                 alt={`${title} backdrop image`}
-                                scope={backdrop ? 'backdrop' : 'poster'}
+                                scope="backdrop"
                                 fill
                                 sizes="(min-width: 48rem) 80rem, 18.75rem"
                             />
@@ -106,17 +103,16 @@ export default async function TVShowPage({
                             </span>
                         </p>
                     ) : null}
-                    {credits.cast.length > 0 && (
-                        <CreditsList
-                            cast={credits.cast}
-                            baseRoute={`/tv-shows/${showId}`}
-                        />
-                    )}
+
+                    <CreditsList
+                        cast={credits.cast}
+                        baseRoute={`/tv-shows/${showId}`}
+                    />
                     <div
                         id="networks"
-                        className="container mx-auto flex gap-4 align-middle"
+                        className="mt-8 flex w-full items-center gap-4"
                     >
-                        <p className="text-md leading-[10]">Networks: </p>
+                        <p className="text-md w-auto">Networks: </p>
                         {networks.map(({ homepage, id, logo, name }) => (
                             <CompanyLogo
                                 key={id}
@@ -126,48 +122,19 @@ export default async function TVShowPage({
                             />
                         ))}
                     </div>
-                    {providerGroup ? (
-                        <div id="watch-providers" className="container mx-auto">
-                            <div className="flex flex-wrap items-center gap-4 align-middle">
-                                <p className="text-md w-auto">
-                                    Watch Providers:{' '}
-                                </p>
-                                <div className="flex gap-4">
-                                    {providerGroup.providers.map(
-                                        ({ id, logo, name }) => (
-                                            <CompanyLogo
-                                                key={id}
-                                                image={logo}
-                                                alt={name}
-                                                externalLink={
-                                                    providerGroup.link
-                                                }
-                                            />
-                                        ),
-                                    )}
-                                </div>
-                            </div>
-                            <p className="mt-6 text-sm">
-                                JustWatch makes it easy to find out where you
-                                can legally watch your favorite movies & TV
-                                shows online. Visit{' '}
-                                <span className="underline">
-                                    <a
-                                        target="_blank"
-                                        href="https://www.justwatch.com"
-                                    >
-                                        JustWatch
-                                    </a>
-                                </span>{' '}
-                                for more information.
-                            </p>
-                        </div>
-                    ) : null}
+                    <Suspense fallback={<WatchProvidersSkeleton />}>
+                        <WatchProviders
+                            mediaId={showId}
+                            mediaType={MediaType.TV}
+                        />
+                    </Suspense>
                 </div>
             </div>
             <div className="pt-2">
                 <Suspense
-                    fallback={<SkeletonVerticalList title="Similar Shows" />}
+                    fallback={
+                        <CardVerticalListSkeleton title="Similar Shows" />
+                    }
                 >
                     <MediaList
                         title="Similar Shows"

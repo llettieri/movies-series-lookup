@@ -13,8 +13,11 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import React, { ReactNode, Suspense } from 'react';
 import { TMDBImage } from '@/components/image';
-import { SkeletonVerticalList } from '@/components/skeletons/skeleton-vertical-list';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
+import { WatchProviders } from '@/components/watch-providers';
+import { MediaType } from '@/models/media-type';
+import { WatchProvidersSkeleton } from '@/components/skeletons/watch-providers-skeleton';
+import { CardVerticalListSkeleton } from '@/components/skeletons/card-vertical-list-skeleton';
 
 export const generateMetadata = async ({
     params,
@@ -96,17 +99,23 @@ export default async function MoviePage({
                             {dayjs(releaseDate).format('MMMM DD, YYYY')}
                         </span>
                     </p>
-                    {credits.cast.length > 0 && (
-                        <CreditsList
-                            cast={credits.cast}
-                            baseRoute={`/movies/${movieId}`}
-                        />
-                    )}
+                    <CreditsList
+                        cast={credits.cast}
+                        baseRoute={`/movies/${movieId}`}
+                    />
                 </div>
+                <Suspense fallback={<WatchProvidersSkeleton />}>
+                    <WatchProviders
+                        mediaId={movieId}
+                        mediaType={MediaType.MOVIE}
+                    />
+                </Suspense>
             </div>
             <div className="pt-2">
                 <Suspense
-                    fallback={<SkeletonVerticalList title="Similar Movies" />}
+                    fallback={
+                        <CardVerticalListSkeleton title="Similar Movies" />
+                    }
                 >
                     <MediaList
                         title="Similar Movies"

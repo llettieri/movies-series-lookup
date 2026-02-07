@@ -1,10 +1,11 @@
 import React, { ReactNode } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
-import { SkeletonBadges } from '@/components/skeletons/skeleton-badge';
-import { SkeletonCardCarousel } from '@/components/skeletons/skeleton-card-carousel';
-import { SkeletonCardVerticalList } from '@/components/skeletons/skeleton-card-vertical-list';
+import { BadgesSkeleton } from '@/components/skeletons/badges-skeleton';
+import { CardCarouselSkeleton } from '@/components/skeletons/card-carousel-skeleton';
+import { CardVerticalListSkeleton } from '@/components/skeletons/card-vertical-list-skeleton';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { ScrollToTop } from '@/components/scroll-to-top';
+import { WatchProvidersSkeleton } from '@/components/skeletons/watch-providers-skeleton';
 
 export default function MovieLoadingPage(): ReactNode {
     return (
@@ -15,7 +16,7 @@ export default function MovieLoadingPage(): ReactNode {
                     <AspectRatio ratio={16 / 9}>
                         <Skeleton className="aspect-auto h-full w-full" />
                     </AspectRatio>
-                    <SkeletonBadges />
+                    <BadgesSkeleton />
                     <div className="mb-8 flex flex-col gap-1">
                         <Skeleton className="h-10 w-full md:w-2/3" />
                         <Skeleton className="h-10 w-2/3 md:hidden" />
@@ -31,11 +32,12 @@ export default function MovieLoadingPage(): ReactNode {
                         <p className="text-sm">Release Date:</p>
                         <Skeleton className="h-4 w-20" />
                     </div>
-                    <SkeletonCardCarousel />
+                    <CardCarouselSkeleton />
+                    <WatchProvidersSkeleton />
                 </div>
             </div>
             <div className="pt-2">
-                <SkeletonCardVerticalList title="Similar Movies" />
+                <CardVerticalListSkeleton title="Similar Movies" />
             </div>
         </>
     );

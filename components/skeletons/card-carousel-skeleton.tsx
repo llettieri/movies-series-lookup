@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { SkeletonCard } from '@/components/skeletons/skeleton-card';
+import { CardSkeleton } from '@/components/skeletons/card-skeleton';
 import {
     Carousel,
     CarouselContent,
@@ -12,11 +12,12 @@ interface SkeletonCardCarouselProps {
     itemCount?: number;
 }
 
-export const SkeletonCardCarousel = ({
+export const CardCarouselSkeleton = ({
     itemCount = 10,
 }: SkeletonCardCarouselProps): ReactNode => {
     return (
         <Carousel
+            className="mb-16"
             opts={{
                 align: 'start',
                 active: false,
@@ -26,10 +27,10 @@ export const SkeletonCardCarousel = ({
             <CarouselContent className="md:m-4">
                 {Array.from({ length: itemCount }).map((value, index) => (
                     <CarouselItem
-                        key={index}
+                        key={`carousel-item-${index}`}
                         className="xs:basis-1/2 basis-9/12 sm:basis-2/5 md:basis-4/12 lg:basis-1/4"
                     >
-                        <SkeletonCard size="normal" />
+                        <CardSkeleton size="normal" />
                     </CarouselItem>
                 ))}
             </CarouselContent>

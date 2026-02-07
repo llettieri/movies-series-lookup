@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
-import { SkeletonCard } from '@/components/skeletons/skeleton-card';
+import { CardSkeleton } from '@/components/skeletons/card-skeleton';
 
 interface SkeletonCreditsTableProps {
     title: string;
@@ -9,7 +9,7 @@ interface SkeletonCreditsTableProps {
     departmentCount?: number;
 }
 
-export const SkeletonCreditsTable = ({
+export const CreditsTableSkeleton = ({
     title,
     itemCount = 30,
     departmentCount = 3,
@@ -33,8 +33,8 @@ export const SkeletonCreditsTable = ({
                     <ul className="flex flex-col justify-center gap-4 md:justify-start">
                         {Array.from({ length: itemCount }).map(
                             (value, index) => (
-                                <li key={index}>
-                                    <SkeletonCard size="small" />
+                                <li key={`card-${index}`}>
+                                    <CardSkeleton size="small" />
                                 </li>
                             ),
                         )}
@@ -50,7 +50,10 @@ export const SkeletonCreditsTable = ({
                     <div className="flex flex-col justify-center gap-4 md:justify-start">
                         {Array.from({ length: departmentCount }).map(
                             (value, index) => (
-                                <div key={index} className="mb-2">
+                                <div
+                                    key={`department-${index}`}
+                                    className="mb-2"
+                                >
                                     <Skeleton className="mb-2 h-8 w-24" />
 
                                     <ul className="flex flex-col flex-wrap gap-4">
@@ -61,7 +64,7 @@ export const SkeletonCreditsTable = ({
                                         }).map((value, index) => {
                                             return (
                                                 <li key={index}>
-                                                    <SkeletonCard size="small" />
+                                                    <CardSkeleton size="small" />
                                                 </li>
                                             );
                                         })}

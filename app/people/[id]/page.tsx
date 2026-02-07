@@ -10,8 +10,8 @@ import dayjs from 'dayjs';
 import { Metadata } from 'next';
 import React, { ReactNode, Suspense } from 'react';
 import { TMDBImage } from '@/components/image';
-import { SkeletonVerticalList } from '@/components/skeletons/skeleton-vertical-list';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
+import { CardVerticalListSkeleton } from '@/components/skeletons/card-vertical-list-skeleton';
 
 export const generateMetadata = async ({
     params,
@@ -94,7 +94,7 @@ export default async function PersonPage({
             <div className="pt-2">
                 <Suspense
                     fallback={
-                        <SkeletonVerticalList title={`${pronoun} Movies`} />
+                        <CardVerticalListSkeleton title={`${pronoun} Movies`} />
                     }
                 >
                     <MediaList
@@ -105,7 +105,9 @@ export default async function PersonPage({
 
                 <Suspense
                     fallback={
-                        <SkeletonVerticalList title={`${pronoun} TV Shows`} />
+                        <CardVerticalListSkeleton
+                            title={`${pronoun} TV Shows`}
+                        />
                     }
                 >
                     <MediaList
