@@ -19,7 +19,7 @@
         "@types/node": "^24.10.11",
         "@types/react": "^19.2.13",
         "@types/react-dom": "^19.2.3",
-        "axios": "^1.13.4",
+        "axios": "^1.13.5",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
         "dayjs": "^1.11.19",
