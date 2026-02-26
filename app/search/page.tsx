@@ -6,16 +6,16 @@ import React, { ReactNode, Suspense } from 'react';
 import { SearchResults } from '@/components/search-results';
 import { CardVerticalListSkeleton } from '@/components/skeletons/card-vertical-list-skeleton';
 
-type SearchParams = { query: string | undefined };
+type SearchParams = { query: string | undefined; page: number | undefined };
 
 export default async function SearchPage({
     searchParams,
 }: PageProps<'/search'>): Promise<ReactNode> {
-    const { query } = (await searchParams) as SearchParams;
+    const { query, page } = (await searchParams) as SearchParams;
 
     const searchCallback = (): Promise<SearchResult> => {
         if (query?.trim()) {
-            return search(query);
+            return search(query, page);
         }
 
         return new Promise<SearchResult>((resolve) =>

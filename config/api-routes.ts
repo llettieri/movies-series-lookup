@@ -83,9 +83,9 @@ export const apiRoutes = {
     },
     search: {
         /**
-         * QueryParams: query
+         * QueryParams: query, page
          */
-        multi: parseTemplate(`${base.search}/multi{?query}`),
+        multi: parseTemplate(`${base.search}/multi{?query,page}`),
     },
     tv: {
         byId: {

@@ -1,35 +1,30 @@
 'use server';
 
-import { MultiMediaDto } from '@/models/dto/multi-media-dto';
-import { PersonDto } from '@/models/dto/person-dto';
-import { MediaType } from '@/models/media-type';
 import { SearchResult } from '@/models/search-result';
-import { parseMultiMediaDto, parsePersonDto } from '@/services/parse-service';
+import { parseSearchItemDto } from '@/services/parse-service';
 import { multiSearch } from '@/services/search-service';
 
-export async function search(query: string): Promise<SearchResult> {
+/* eslint-disable camelcase */
+export async function search(
+    query: string,
+    page: number = 1,
+): Promise<SearchResult> {
     if (query == '') {
         return {
-            medias: [],
-            people: [],
+            items: [],
             total: 0,
+            pages: 1,
         };
     }
 
-    const { results } = await multiSearch(query);
-
-    const medias = results.filter(
-        (m) => m.media_type !== MediaType.PERSON,
-    ) as MultiMediaDto[];
-    const people = results.filter(
-        (m) => m.media_type === MediaType.PERSON,
-    ) as PersonDto[];
-
-    const total = medias.length + people.length;
+    const { results, total_pages, total_results } = await multiSearch(
+        query,
+        page,
+    );
 
     return {
-        medias: medias.map(parseMultiMediaDto),
-        people: people.map(parsePersonDto),
-        total,
+        items: results.map(parseSearchItemDto),
+        total: total_results,
+        pages: total_pages,
     };
 }

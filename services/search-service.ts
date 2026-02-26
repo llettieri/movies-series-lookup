@@ -6,8 +6,9 @@ import { TMDBApi } from '@/services/api';
 
 const multiSearch = async (
     query: string,
+    page: number,
 ): Promise<ListDto<MultiMediaDto | PersonDto>> => {
-    const url = apiRoutes.search.multi.expand({ query });
+    const url = apiRoutes.search.multi.expand({ query, page });
 
     return await TMDBApi.get<ListDto<MultiMediaDto | PersonDto>>(url).then(
         (r) => r.data,
