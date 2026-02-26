@@ -1,7 +1,6 @@
 import CompanyLogo from '@/components/company-logo';
 import { GenreBadges } from '@/components/genre-badges';
-import { CreditsList } from '@/components/lists/credits-list';
-import { MediaList } from '@/components/lists/media-list';
+import { CreditsCarousel } from '@/components/lists/credits-carousel';
 import { Meta } from '@/components/meta';
 import { Rating } from '@/components/rating';
 import {
@@ -15,9 +14,9 @@ import React, { ReactNode, Suspense } from 'react';
 import { TMDBImage } from '@/components/image';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { WatchProviders } from '@/components/watch-providers';
-import { MediaType } from '@/models/media-type';
 import { WatchProvidersSkeleton } from '@/components/skeletons/watch-providers-skeleton';
 import { CardVerticalListSkeleton } from '@/components/skeletons/card-vertical-list-skeleton';
+import { ItemList } from '@/components/lists/item-list';
 
 export const generateMetadata = async ({
     params,
@@ -104,7 +103,7 @@ export default async function TVShowPage({
                         </p>
                     ) : null}
 
-                    <CreditsList
+                    <CreditsCarousel
                         cast={credits.cast}
                         baseRoute={`/tv-shows/${showId}`}
                     />
@@ -123,10 +122,7 @@ export default async function TVShowPage({
                         ))}
                     </div>
                     <Suspense fallback={<WatchProvidersSkeleton />}>
-                        <WatchProviders
-                            mediaId={showId}
-                            mediaType={MediaType.TV}
-                        />
+                        <WatchProviders mediaId={showId} type="movie" />
                     </Suspense>
                 </div>
             </div>
@@ -136,9 +132,9 @@ export default async function TVShowPage({
                         <CardVerticalListSkeleton title="Similar Shows" />
                     }
                 >
-                    <MediaList
+                    <ItemList
                         title="Similar Shows"
-                        mediaCallback={() => getSimilarTVShows(showId)}
+                        loadItems={() => getSimilarTVShows(showId)}
                     />
                 </Suspense>
             </div>

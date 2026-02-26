@@ -1,10 +1,10 @@
-import { MediaList } from '@/components/lists/media-list';
 import { Meta } from '@/components/meta';
 import { getCollectionDetails } from '@/services/collection-service';
 import { Metadata } from 'next';
 import React, { ReactNode } from 'react';
 import { TMDBImage } from '@/components/image';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
+import { ItemList } from '@/components/lists/item-list';
 
 export const generateMetadata = async ({
     params,
@@ -48,7 +48,7 @@ export default async function CollectionPage({
                 </div>
             </div>
 
-            <MediaList title="Movies" medias={parts} />
+            <ItemList title="Movies" items={parts} />
         </>
     );
 }

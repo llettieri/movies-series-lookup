@@ -2,30 +2,33 @@ import React, { ReactNode } from 'react';
 import CompanyLogo from '@/components/company-logo';
 import { getLocale } from '@/services/session-service';
 import { getTVShowWatchProviders } from '@/services/tv-show-service';
-import { MediaType } from '@/models/media-type';
 import { ProviderGroup } from '@/models/provider-group';
 import { getMovieWatchProviders } from '@/services/movie-service';
+import { ItemType } from '@/models/base';
 
 const mediaProvidersMap: Record<
-    MediaType,
+    ItemType,
     (mediaId: string, locale: string) => Promise<ProviderGroup | undefined>
 > = {
     tv: (mediaId, locale) => getTVShowWatchProviders(mediaId, locale),
     movie: (mediaId, locale) => getMovieWatchProviders(mediaId, locale),
     person: () => new Promise(() => undefined),
+    provider: () => new Promise(() => undefined),
+    network: () => new Promise(() => undefined),
+    collection: () => new Promise(() => undefined),
 };
 
 interface WatchProvidersProps {
     mediaId: string;
-    mediaType: MediaType;
+    type: ItemType;
 }
 
 export const WatchProviders = async ({
     mediaId,
-    mediaType,
+    type,
 }: WatchProvidersProps): Promise<ReactNode> => {
     const locale = await getLocale();
-    const providerGroup = await mediaProvidersMap[mediaType](mediaId, locale);
+    const providerGroup = await mediaProvidersMap[type](mediaId, locale);
 
     if (!providerGroup) {
         return null;

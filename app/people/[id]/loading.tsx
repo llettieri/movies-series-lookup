@@ -11,7 +11,7 @@ export default function PeopleLoadingPage(): ReactNode {
             <div className="container mx-auto max-w-4xl py-6">
                 <div className="px-3">
                     <div className="mx-auto mb-4 block max-w-70 md:max-w-sm">
-                        <AspectRatio ratio={9 / 16}>
+                        <AspectRatio ratio={2 / 3}>
                             <Skeleton className="h-full w-full object-cover" />
                         </AspectRatio>
                     </div>

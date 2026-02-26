@@ -1,3 +1,5 @@
+import { Item } from '@/models/base';
+
 export enum Gender {
     UNDEFINED,
     FEMALE,
@@ -10,14 +12,13 @@ export interface Job {
     episodeCount: number;
 }
 
-export interface Person {
+export interface Person extends Item {
     biography: string;
     birthday: string;
     deathday?: string;
     department?: string;
     gender: Gender;
     homepage?: string;
-    id: string;
     jobs?: Job[];
     name: string;
     portrait: string;

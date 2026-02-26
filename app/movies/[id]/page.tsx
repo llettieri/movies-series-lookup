@@ -1,6 +1,5 @@
 import { GenreBadges } from '@/components/genre-badges';
-import { CreditsList } from '@/components/lists/credits-list';
-import { MediaList } from '@/components/lists/media-list';
+import { CreditsCarousel } from '@/components/lists/credits-carousel';
 import { Meta } from '@/components/meta';
 import { Rating } from '@/components/rating';
 import {
@@ -15,9 +14,9 @@ import React, { ReactNode, Suspense } from 'react';
 import { TMDBImage } from '@/components/image';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { WatchProviders } from '@/components/watch-providers';
-import { MediaType } from '@/models/media-type';
 import { WatchProvidersSkeleton } from '@/components/skeletons/watch-providers-skeleton';
 import { CardVerticalListSkeleton } from '@/components/skeletons/card-vertical-list-skeleton';
+import { ItemList } from '@/components/lists/item-list';
 
 export const generateMetadata = async ({
     params,
@@ -99,16 +98,13 @@ export default async function MoviePage({
                             {dayjs(releaseDate).format('MMMM DD, YYYY')}
                         </span>
                     </p>
-                    <CreditsList
+                    <CreditsCarousel
                         cast={credits.cast}
                         baseRoute={`/movies/${movieId}`}
                     />
                 </div>
                 <Suspense fallback={<WatchProvidersSkeleton />}>
-                    <WatchProviders
-                        mediaId={movieId}
-                        mediaType={MediaType.MOVIE}
-                    />
+                    <WatchProviders mediaId={movieId} type="movie" />
                 </Suspense>
             </div>
             <div className="pt-2">
@@ -117,9 +113,9 @@ export default async function MoviePage({
                         <CardVerticalListSkeleton title="Similar Movies" />
                     }
                 >
-                    <MediaList
+                    <ItemList
                         title="Similar Movies"
-                        mediaCallback={() => getSimilarMovies(movieId)}
+                        loadItems={() => getSimilarMovies(movieId)}
                     />
                 </Suspense>
             </div>

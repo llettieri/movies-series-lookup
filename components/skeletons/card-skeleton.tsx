@@ -18,7 +18,7 @@ export const CardSkeleton = ({ size }: SkeletonCardProps): ReactNode => {
     if (size === 'normal') {
         return (
             <Card className="md:hover:drop-s h-full w-48">
-                <AspectRatio ratio={9 / 16}>
+                <AspectRatio ratio={2 / 3}>
                     <Skeleton className="h-full w-full rounded-b-none object-cover" />
                 </AspectRatio>
                 <div className="flex h-40 flex-col justify-between gap-3 py-2">

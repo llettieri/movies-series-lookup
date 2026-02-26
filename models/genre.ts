@@ -1,4 +1,5 @@
-export interface Genre {
-    id: string;
+import { Item } from '@/models/base';
+
+export interface Genre extends Item {
     name: string;
 }

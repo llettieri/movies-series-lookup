@@ -1,5 +1,4 @@
 'use client';
-import { PersonCard } from '@/components/cards/person-card';
 import { Person } from '@/models/person';
 import Link from 'next/link';
 import React, { ReactNode } from 'react';
@@ -13,13 +12,14 @@ import {
 } from '@/components/ui/carousel';
 import { WheelGesturesPlugin } from 'embla-carousel-wheel-gestures';
 import { ArrowRight } from 'lucide-react';
+import { ItemCard } from '@/components/cards/item-card';
 
 interface CreditsListProps {
     cast: Person[];
     baseRoute: string;
 }
 
-export const CreditsList = ({
+export const CreditsCarousel = ({
     cast,
     baseRoute,
 }: CreditsListProps): ReactNode => {
@@ -44,7 +44,7 @@ export const CreditsList = ({
                         key={p.id}
                         className="xs:basis-1/2 basis-9/12 sm:basis-2/5 md:basis-4/12 lg:basis-1/4"
                     >
-                        <PersonCard person={p} size="normal" />
+                        <ItemCard item={p} size="normal" />
                     </CarouselItem>
                 ))}
 

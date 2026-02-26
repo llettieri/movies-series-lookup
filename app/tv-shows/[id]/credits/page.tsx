@@ -1,7 +1,6 @@
 import { CreditsTable } from '@/components/credits-table';
 import { Meta } from '@/components/meta';
 import { SearchHint } from '@/components/search-hint';
-import { MediaType } from '@/models/media-type';
 import {
     getTVShowDetails,
     getTVShowsCredits,
@@ -38,7 +37,7 @@ export default async function TVShowCreditsPage({
                     <SearchHint os={os}></SearchHint>
                 </div>
             ) : null}
-            <CreditsTable cast={cast} crew={crew} type={MediaType.TV} />
+            <CreditsTable cast={cast} crew={crew} type="tv" />
         </>
     );
 }

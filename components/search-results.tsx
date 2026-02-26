@@ -1,7 +1,6 @@
 import { ReactNode } from 'react';
 import { SearchResult } from '@/models/search-result';
-import { PeopleList } from '@/components/lists/people-list';
-import { MediaList } from '@/components/lists/media-list';
+import { ItemList } from '@/components/lists/item-list';
 
 interface SearchResultsProps {
     resultCallback: () => Promise<SearchResult>;
@@ -16,14 +15,9 @@ export const SearchResults = async ({
 
     return (
         <>
-            {result.medias.length > 0 && (
+            {result.items.length > 0 && (
                 <div className="pt-2">
-                    <MediaList title="Media results" medias={result.medias} />
-                </div>
-            )}
-            {result.people.length > 0 && (
-                <div className="pt-2">
-                    <PeopleList title="Person results" people={result.people} />
+                    <ItemList title="Your results" items={result.items} />
                 </div>
             )}
             {result?.total === 0 && query.trim() && (

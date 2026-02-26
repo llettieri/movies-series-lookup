@@ -9,12 +9,12 @@ import { JobDto, PersonDto, RoleDto } from '@/models/dto/person-dto';
 import { ProviderDto } from '@/models/dto/provider-dto';
 import { TVShowDto } from '@/models/dto/tv-show-dto';
 import { Media } from '@/models/media';
-import { MediaType } from '@/models/media-type';
 import { Network } from '@/models/network';
 import { Job, Person } from '@/models/person';
 import { Provider } from '@/models/provider';
 import { TVShow } from '@/models/tv-show';
 import { FALLBACK_IMAGE } from '@/components/image';
+import { ItemType } from '@/models/base';
 
 const parseRoleDto = (dto: RoleDto): Job => {
     return {
@@ -32,10 +32,11 @@ const parseJobDto = (dto: JobDto): Job => {
 
 const parseNetworkDto = (dto: NetworkDto): Network => {
     return {
-        id: dto.id,
-        name: dto.name,
         homepage: dto.homepage,
+        id: dto.id,
         logo: dto.logo_path,
+        name: dto.name,
+        type: 'network',
     };
 };
 
@@ -47,12 +48,12 @@ const parseMovieDto = (dto: MovieDto): Media => {
         genres: dto.genres,
         homepage: dto.homepage,
         id: dto.id,
-        mediaType: MediaType.MOVIE,
         overview: dto.overview,
         poster: dto.poster_path ?? FALLBACK_IMAGE,
         releaseDate: dto.release_date,
         runtime: dto.runtime,
         title: dto.title,
+        type: 'movie',
     };
 };
 
@@ -61,35 +62,36 @@ const parseTVShowDto = (dto: TVShowDto): TVShow => {
         averageVote: dto.vote_average * 10,
         backdrop: dto.backdrop_path ?? FALLBACK_IMAGE,
         collection: undefined,
+        episodeCount: dto.number_of_episodes,
         genres: dto.genres,
         homepage: dto.homepage,
         id: dto.id,
-        mediaType: MediaType.TV,
+        inProduction: dto.in_production,
+        lastAirDate: dto.last_air_date ?? undefined,
+        networks: dto.networks?.map(parseNetworkDto) ?? [],
         overview: dto.overview,
         poster: dto.poster_path ?? FALLBACK_IMAGE,
         releaseDate: dto.first_air_date,
-        lastAirDate: dto.last_air_date ?? undefined,
-        networks: dto.networks?.map(parseNetworkDto) ?? [],
         seasonsCount: dto.number_of_seasons,
-        inProduction: dto.in_production,
-        episodeCount: dto.number_of_episodes,
         title: dto.name,
+        type: 'tv',
     };
 };
 
 const parseCollectionDto = (dto: CollectionDto): Collection => {
     return {
+        backdrop: dto.backdrop_path,
         id: dto.id,
         name: dto.name,
         overview: dto.overview,
-        poster: dto.poster_path ?? FALLBACK_IMAGE,
-        backdrop: dto.backdrop_path,
         parts: dto.parts.map(parseMultiMediaDto),
+        poster: dto.poster_path ?? FALLBACK_IMAGE,
+        type: 'collection',
     };
 };
 
 const parseMultiMediaDto = (dto: MultiMediaDto): Media => {
-    const type = dto.media_type as MediaType;
+    const type = dto.media_type as ItemType;
     return {
         averageVote: dto.vote_average * 10,
         backdrop: dto.backdrop_path ?? FALLBACK_IMAGE,
@@ -97,12 +99,12 @@ const parseMultiMediaDto = (dto: MultiMediaDto): Media => {
         genres: [],
         homepage: '',
         id: dto.id,
-        mediaType: type,
         overview: dto.overview,
         poster: dto.poster_path ?? FALLBACK_IMAGE,
         releaseDate: dto.release_date ?? dto.first_air_date,
         runtime: undefined,
         title: dto.title ?? dto.name ?? '',
+        type: type,
     };
 };
 
@@ -123,6 +125,7 @@ const parsePersonDto = (dto: PersonDto): Person => {
         jobs: dto.job
             ? [{ name: dto.job, episodeCount: Number.NaN }]
             : dto.jobs?.map(parseJobDto),
+        type: 'person',
     };
 };
 
@@ -135,11 +138,21 @@ const parseCreditsDto = (dto: CreditsDto): Credits => {
 
 const parseProviderDto = (dto: ProviderDto): Provider => {
     return {
-        id: dto.provider_id,
         displayPriority: dto.display_priority,
-        name: dto.provider_name,
+        id: dto.provider_id.toString(),
         logo: dto.logo_path,
+        name: dto.provider_name,
+        type: 'provider',
     };
+};
+
+const parseSearchItemDto = (dto: MultiMediaDto | PersonDto): Media | Person => {
+    switch (dto.media_type) {
+        case 'person':
+            return parsePersonDto(dto as PersonDto);
+        default:
+            return parseMultiMediaDto(dto as MultiMediaDto);
+    }
 };
 
 export {
@@ -150,4 +163,5 @@ export {
     parsePersonDto,
     parseCreditsDto,
     parseProviderDto,
+    parseSearchItemDto,
 };

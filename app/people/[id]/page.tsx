@@ -1,4 +1,3 @@
-import { MediaList } from '@/components/lists/media-list';
 import { Meta } from '@/components/meta';
 import { Gender } from '@/models/person';
 import {
@@ -12,6 +11,7 @@ import React, { ReactNode, Suspense } from 'react';
 import { TMDBImage } from '@/components/image';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { CardVerticalListSkeleton } from '@/components/skeletons/card-vertical-list-skeleton';
+import { ItemList } from '@/components/lists/item-list';
 
 export const generateMetadata = async ({
     params,
@@ -97,9 +97,9 @@ export default async function PersonPage({
                         <CardVerticalListSkeleton title={`${pronoun} Movies`} />
                     }
                 >
-                    <MediaList
+                    <ItemList
                         title={`${pronoun} Movies`}
-                        mediaCallback={() => getPersonMovies(personId)}
+                        loadItems={() => getPersonMovies(personId)}
                     />
                 </Suspense>
 
@@ -110,9 +110,9 @@ export default async function PersonPage({
                         />
                     }
                 >
-                    <MediaList
+                    <ItemList
                         title={`${pronoun} TV Shows`}
-                        mediaCallback={() => getPersonTVShows(personId)}
+                        loadItems={() => getPersonTVShows(personId)}
                     />
                 </Suspense>
             </div>

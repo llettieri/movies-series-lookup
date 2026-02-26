@@ -1,19 +1,58 @@
+import React, { ReactNode } from 'react';
 import { CardBase, CardSize } from '@/components/cards/card-base';
 import { Person } from '@/models/person';
-import React, { ReactNode } from 'react';
+import { Media } from '@/models/media';
+import { Item } from '@/models/base';
 import {
     CardContent,
     CardFooter,
     CardHeader,
     CardTitle,
 } from '@/components/ui/card';
+import dayjs from 'dayjs';
+
+interface MediaCardProps {
+    media: Media;
+    size: CardSize;
+}
 
 interface PersonCardProps {
     person: Person;
     size: CardSize;
 }
 
-export const PersonCard = ({ person, size }: PersonCardProps): ReactNode => {
+interface ItemCardProps {
+    item: Item;
+    size: CardSize;
+}
+
+const MediaCard = ({ media, size }: MediaCardProps): ReactNode => {
+    return (
+        <CardBase
+            link={`/${
+                media.type === 'movie' ? 'movies' : 'tv-shows'
+            }/${media.id}`}
+            image={media.poster}
+            alt={media.title}
+            size={size}
+        >
+            <CardHeader>
+                <CardTitle className="line-clamp-4 text-xl font-bold text-ellipsis">
+                    {media.title}
+                </CardTitle>
+            </CardHeader>
+            <CardFooter>
+                <p className="mb-1 text-base">
+                    {media.releaseDate
+                        ? dayjs(media.releaseDate).format('MMMM DD, YYYY')
+                        : 'Unknown'}
+                </p>
+            </CardFooter>
+        </CardBase>
+    );
+};
+
+const PersonCard = ({ person, size }: PersonCardProps): ReactNode => {
     const image = person.portrait;
 
     const getCountString = (count: number): string =>
@@ -78,3 +117,16 @@ export const PersonCard = ({ person, size }: PersonCardProps): ReactNode => {
         </CardBase>
     );
 };
+
+const ItemCard = ({ item, size }: ItemCardProps): ReactNode => {
+    switch (item.type) {
+        case 'person':
+            return <PersonCard person={item as Person} size={size} />;
+        case 'tv':
+            return <MediaCard media={item as Media} size={size} />;
+        case 'movie':
+            return <MediaCard media={item as Media} size={size} />;
+    }
+};
+
+export { ItemCard };

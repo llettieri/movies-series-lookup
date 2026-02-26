@@ -5,7 +5,7 @@ interface VerticalListBaseProps {
     children: ReactNode;
 }
 
-export const VerticalListBase = ({
+export const ListBase = ({
     children,
     title,
 }: VerticalListBaseProps): ReactNode => {

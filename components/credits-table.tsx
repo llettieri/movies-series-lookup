@@ -1,8 +1,8 @@
-import { PersonCard } from '@/components/cards/person-card';
-import { MediaType } from '@/models/media-type';
 import { Person } from '@/models/person';
 import React, { ReactNode } from 'react';
 import { GoBackButton } from '@/components/go-back-button';
+import { ItemCard } from '@/components/cards/item-card';
+import { ItemType } from '@/models/base';
 
 interface GroupedCrewComponentProps {
     groupedCrew: Map<string, Person[]>;
@@ -26,7 +26,7 @@ const GroupedCrewComponent = ({
                         const mappedJobs = p.jobs?.map((j) => j.name);
                         return (
                             <li key={`crew-${p.id}-${mappedJobs?.join('-')}`}>
-                                <PersonCard person={p} size="small" />
+                                <ItemCard item={p} size="small" />
                             </li>
                         );
                     })}
@@ -40,7 +40,7 @@ const GroupedCrewComponent = ({
 interface CreditsTableProps {
     cast: Person[];
     crew: Person[];
-    type: MediaType;
+    type: ItemType;
 }
 
 export const CreditsTable = ({
@@ -48,7 +48,7 @@ export const CreditsTable = ({
     crew,
     type,
 }: CreditsTableProps): ReactNode => {
-    const title = type === MediaType.MOVIE ? 'Movie' : 'TV Show';
+    const title = type === 'movie' ? 'Movie' : 'TV Show';
     const groupedCrew: Map<string, Person[]> = new Map();
 
     crew.forEach((person) => {
@@ -83,7 +83,7 @@ export const CreditsTable = ({
                     <ul className="flex flex-col justify-center gap-4 md:justify-start">
                         {cast.map((p) => (
                             <li key={`cast-${p.id}`}>
-                                <PersonCard size="small" person={p} />
+                                <ItemCard size="small" item={p} />
                             </li>
                         ))}
                     </ul>

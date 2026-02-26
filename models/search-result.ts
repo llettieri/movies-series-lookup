@@ -1,14 +1,12 @@
-import { Media } from '@/models/media';
 import { Person } from '@/models/person';
+import { Media } from '@/models/media';
 
 export interface SearchResult {
-    medias: Media[];
-    people: Person[];
+    items: (Media | Person)[];
     total: number;
 }
 
 export const EMPTY_SEARCH_RESULT: SearchResult = {
-    medias: [],
-    people: [],
+    items: [],
     total: 0,
 };

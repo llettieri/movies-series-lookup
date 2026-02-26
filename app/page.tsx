@@ -1,6 +1,5 @@
 import { Hero } from '@/components/hero';
 import { HomeSubNavigation } from '@/components/home-sub-navigation';
-import { MediaList } from '@/components/lists/media-list';
 import { Media } from '@/models/media';
 import { getLatestMovies, getPopularMovies } from '@/services/movie-service';
 import { getLocale } from '@/services/session-service';
@@ -10,6 +9,7 @@ import {
 } from '@/services/tv-show-service';
 import React, { ReactNode, Suspense } from 'react';
 import { CardVerticalListSkeleton } from '@/components/skeletons/card-vertical-list-skeleton';
+import { ItemList } from '@/components/lists/item-list';
 
 export type CollectionType = 'movies' | 'tvshows';
 export type ListType = 'popular' | 'nowPlaying';
@@ -61,9 +61,9 @@ export default async function HomePage({
             <Hero />
             <HomeSubNavigation />
             <Suspense fallback={<CardVerticalListSkeleton title={title} />}>
-                <MediaList
+                <ItemList
                     title={title}
-                    mediaCallback={() => MediaData[collection][listType].data}
+                    loadItems={() => MediaData[collection][listType].data}
                 />
             </Suspense>
         </>
