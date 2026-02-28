@@ -17,11 +17,14 @@ export const generateMetadata = async ({
     params,
 }: PageProps<'/people/[id]'>): Promise<Metadata> => {
     const personId = (await params).id;
-    const person = await getPersonDetails(personId);
+    const { name, type, roles, biography } = await getPersonDetails(personId);
 
     return Meta({
-        title: `${person.name} | Details`,
-        keywords: 'person details biography movies tv-shows',
+        title: `${name} | Details`,
+        description: biography,
+        keywords: [name, type, roles?.map((role) => role.name)]
+            .filter((keyword) => keyword != undefined)
+            .join(', '),
     });
 };
 

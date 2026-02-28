@@ -22,11 +22,15 @@ export const generateMetadata = async ({
     params,
 }: PageProps<'/tv-shows/[id]'>): Promise<Metadata> => {
     const showId = (await params).id;
-    const show = await getTVShowDetails(showId);
+    const { title, type, overview, collection } =
+        await getTVShowDetails(showId);
 
     return Meta({
-        title: `${show.title} | Details`,
-        keywords: 'tv-show media streaming details',
+        title: `${title} | Details`,
+        description: overview,
+        keywords: [title, type, collection?.name]
+            .filter((keyword) => keyword != undefined)
+            .join(', '),
     });
 };
 

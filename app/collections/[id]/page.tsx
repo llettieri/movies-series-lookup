@@ -10,9 +10,13 @@ export const generateMetadata = async ({
     params,
 }: PageProps<'/collections/[id]'>): Promise<Metadata> => {
     const collectionId = (await params).id;
-    const { name } = await getCollectionDetails(collectionId);
+    const { name, overview, type } = await getCollectionDetails(collectionId);
 
-    return Meta({ title: `${name} | Details` });
+    return Meta({
+        title: `${name} | Details`,
+        description: overview,
+        keywords: [name, type].join(', '),
+    });
 };
 
 export default async function CollectionPage({

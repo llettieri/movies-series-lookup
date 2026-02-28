@@ -14,11 +14,15 @@ export const generateMetadata = async ({
     params,
 }: PageProps<'/tv-shows/[id]/credits'>): Promise<Metadata> => {
     const showId = (await params).id;
-    const { title } = await getTVShowDetails(showId);
+    const { title, type, overview, collection } =
+        await getTVShowDetails(showId);
 
     return Meta({
         title: `${title} | Credits`,
-        keywords: 'tv-show media streaming credits cast crew',
+        description: overview,
+        keywords: [title, type, collection?.name]
+            .filter((keyword) => keyword != undefined)
+            .join(', '),
     });
 };
 
