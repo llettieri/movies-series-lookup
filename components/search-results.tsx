@@ -1,7 +1,6 @@
 import { ReactNode } from 'react';
 import { SearchResult } from '@/models/search-result';
 import { ItemList } from '@/components/lists/item-list';
-import { PaginateResults } from '@/components/paginate-results';
 
 interface SearchResultsProps {
     resultCallback: () => Promise<SearchResult>;
@@ -19,7 +18,6 @@ export const SearchResults = async ({
             {result.items.length > 0 && (
                 <div className="flex flex-col gap-8 pt-2">
                     <ItemList title="Your results" items={result.items} />
-                    <PaginateResults pages={result.pages} />
                 </div>
             )}
             {result?.total === 0 && query.trim() && (
@@ -27,7 +25,6 @@ export const SearchResults = async ({
                     No results...
                 </h1>
             )}
-            <div className="container mx-auto max-w-7xl"></div>
         </>
     );
 };

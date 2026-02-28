@@ -2,7 +2,7 @@
 
 import debounce from 'lodash.debounce';
 import { useRouter, useSearchParams } from 'next/navigation';
-import React, { ReactNode } from 'react';
+import React, { ReactNode, use } from 'react';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import {
     InputGroup,
@@ -13,7 +13,7 @@ import { Search } from 'lucide-react';
 import { SearchResult } from '@/models/search-result';
 
 interface SearchBarProps {
-    result: SearchResult;
+    resultPromise: Promise<SearchResult>;
 }
 
 const debouncedSearch = debounce(
@@ -22,7 +22,8 @@ const debouncedSearch = debounce(
     500,
 );
 
-const SearchBar = ({ result }: SearchBarProps): ReactNode => {
+const SearchBar = ({ resultPromise }: SearchBarProps): ReactNode => {
+    const result = use(resultPromise);
     const router = useRouter();
     const searchParams = useSearchParams();
     const query = searchParams.get('query') ?? '';

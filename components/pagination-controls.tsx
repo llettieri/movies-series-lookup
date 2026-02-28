@@ -8,38 +8,49 @@ import {
     PaginationNext,
     PaginationPrevious,
 } from '@/components/ui/pagination';
-import { ReactNode, useCallback } from 'react';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { ReactNode, use, useCallback, useMemo } from 'react';
+import { useSearchParams } from 'next/navigation';
+import useIsMobile from '@/hooks/use-is-mobile';
 
-interface PaginateResultsProps {
-    pages: number;
+interface PaginationControlsProps {
+    totalPagesPromise: Promise<number>;
 }
 
-const PaginateResults = ({ pages }: PaginateResultsProps): ReactNode => {
-    const pathname = usePathname();
+const PaginationControls = ({
+    totalPagesPromise,
+}: PaginationControlsProps): ReactNode => {
+    const totalPages = use<number>(totalPagesPromise);
     const searchParams = useSearchParams();
     const currentPage = Number(searchParams.get('page') ?? '1');
+    const { isMobile } = useIsMobile();
 
     const buildLink = useCallback(
         (newPage: number) => {
             const newSearchParams = new URLSearchParams(searchParams);
             newSearchParams.set('page', String(newPage));
-            return `${pathname}?${newSearchParams.toString()}`;
+            return `?${newSearchParams.toString()}`;
         },
-        [searchParams, pathname],
+        [searchParams],
     );
 
+    const maxVisible = useMemo(() => {
+        if (isMobile) {
+            return 3;
+        }
+
+        return 5;
+    }, [isMobile]);
+
     // If there is only one page no need to display
-    if (pages <= 1) {
+    if (totalPages <= 1) {
         return null;
     }
 
     const renderPageNumbers = (): ReactNode[] => {
         const pageItems: ReactNode[] = [];
-        const maxVisible = 5;
 
         let start = Math.max(1, currentPage - Math.floor(maxVisible / 2));
-        const end = Math.min(pages, start + maxVisible - 1);
+        const end = Math.min(totalPages, start + maxVisible - 1);
 
         if (end - start < maxVisible - 1)
             start = Math.max(1, end - maxVisible + 1);
@@ -51,7 +62,11 @@ const PaginateResults = ({ pages }: PaginateResultsProps): ReactNode => {
                 </PaginationItem>,
             );
             if (start > 2)
-                pageItems.push(<PaginationEllipsis key="ellipsis-start" />);
+                pageItems.push(
+                    <PaginationItem key="ellipsis-start">
+                        <PaginationEllipsis />
+                    </PaginationItem>,
+                );
         }
 
         for (let i = start; i <= end; i++) {
@@ -67,13 +82,19 @@ const PaginateResults = ({ pages }: PaginateResultsProps): ReactNode => {
             );
         }
 
-        if (end < pages) {
-            if (end < pages - 1)
-                pageItems.push(<PaginationEllipsis key="ellipsis-end" />);
+        if (end < totalPages) {
+            if (end < totalPages - 1) {
+                pageItems.push(
+                    <PaginationItem key="ellipsis-end">
+                        <PaginationEllipsis />
+                    </PaginationItem>,
+                );
+            }
+
             pageItems.push(
                 <PaginationItem key="end">
-                    <PaginationLink href={buildLink(pages)}>
-                        {pages}
+                    <PaginationLink href={buildLink(totalPages)}>
+                        {totalPages}
                     </PaginationLink>
                 </PaginationItem>,
             );
@@ -83,7 +104,7 @@ const PaginateResults = ({ pages }: PaginateResultsProps): ReactNode => {
     };
 
     return (
-        <Pagination>
+        <Pagination className="mt-8">
             <PaginationContent>
                 <PaginationItem>
                     <PaginationPrevious
@@ -97,11 +118,11 @@ const PaginateResults = ({ pages }: PaginateResultsProps): ReactNode => {
                 <PaginationItem>
                     <PaginationNext
                         href={
-                            currentPage < pages
+                            currentPage < totalPages
                                 ? buildLink(currentPage + 1)
                                 : '#'
                         }
-                        aria-disabled={currentPage >= pages}
+                        aria-disabled={currentPage >= totalPages}
                     />
                 </PaginationItem>
             </PaginationContent>
@@ -109,4 +130,4 @@ const PaginateResults = ({ pages }: PaginateResultsProps): ReactNode => {
     );
 };
 
-export { PaginateResults };
+export { PaginationControls };

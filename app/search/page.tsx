@@ -5,6 +5,7 @@ import { EMPTY_SEARCH_RESULT, SearchResult } from '@/models/search-result';
 import React, { ReactNode, Suspense } from 'react';
 import { SearchResults } from '@/components/search-results';
 import { CardVerticalListSkeleton } from '@/components/skeletons/card-vertical-list-skeleton';
+import { PaginationControls } from '@/components/pagination-controls';
 
 type SearchParams = { query: string | undefined; page: number | undefined };
 
@@ -26,12 +27,17 @@ export default async function SearchPage({
     return (
         <>
             <Hero />
-            <SearchBar result={await searchCallback()} />
+            <SearchBar resultPromise={searchCallback().then((r) => r)} />
             <Suspense
                 fallback={<CardVerticalListSkeleton title="Media results" />}
             >
                 <SearchResults resultCallback={searchCallback} query={query} />
             </Suspense>
+            <PaginationControls
+                totalPagesPromise={searchCallback().then(
+                    (result) => result.pages,
+                )}
+            />
         </>
     );
 }
