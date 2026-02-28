@@ -1,0 +1,13 @@
+# Secrets
+.env*
+*.pem
+*.key
+*credentials*
+*secrets*
+terraform.tfvars
+# Data
+*.sql
+*.dump
+*.csv
+logs/
+*prod*
