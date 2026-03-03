@@ -3,6 +3,7 @@ import './globals.css';
 import { Footer } from '@/components/footer';
 import { Meta } from '@/components/meta';
 import { NavigationBar } from '@/components/navigation-bar';
+import { PullToRefresh } from '@/components/pull-to-refresh';
 import { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import React, { ReactNode } from 'react';
@@ -25,6 +26,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>): ReactNode {
                             id="scrollable-content"
                             className="flex flex-1 flex-col overflow-auto overscroll-y-none"
                         >
+                            <PullToRefresh />
                             <main className="bg-background flex-1 p-5 sm:p-10">
                                 {children}
                             </main>
