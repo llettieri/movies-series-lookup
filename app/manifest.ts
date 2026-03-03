@@ -3,31 +3,14 @@ import { MetadataRoute } from 'next';
 
 export default function Manifest(): MetadataRoute.Manifest {
     return {
-        name: 'Movies and Series Lookup',
-        short_name: 'Movies and Series',
-        description: 'Browse your favourite movies and series',
-        scope: '/',
-        start_url: '/',
-        id: '/',
         background_color: '#4c3165',
-        theme_color: '#3F324C',
-        lang: 'en',
+        categories: ['entertainment', 'lifestyle'],
+        description: 'Browse your favourite movies and series',
+        display: 'standalone',
         display_override: [
             'fullscreen',
             'minimal-ui',
             'window-controls-overlay',
-        ],
-        display: 'standalone',
-        orientation: 'portrait',
-        protocol_handlers: [
-            {
-                protocol: 'web+collection',
-                url: '/?collection=%s',
-            },
-            {
-                protocol: 'web+listType',
-                url: '/?listType=%s',
-            },
         ],
         icons: [
             {
@@ -41,5 +24,26 @@ export default function Manifest(): MetadataRoute.Manifest {
                 type: 'image/png',
             },
         ],
+        id: '/',
+        lang: 'en',
+        launch_handler: {
+            client_mode: ['focus-existing', 'navigate-existing', 'auto'],
+        },
+        name: 'Movies and Series Lookup',
+        orientation: 'portrait',
+        protocol_handlers: [
+            {
+                protocol: 'web+collection',
+                url: '/?collection=%s',
+            },
+            {
+                protocol: 'web+listType',
+                url: '/?listType=%s',
+            },
+        ],
+        scope: '/',
+        short_name: 'Movies and Series',
+        start_url: '/',
+        theme_color: '#3F324C',
     };
 }

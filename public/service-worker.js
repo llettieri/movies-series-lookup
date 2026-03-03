@@ -19,12 +19,13 @@ const activateEvent = () => {
         event.waitUntil(
             caches
                 .keys()
-                .then((cacheNames) =>
-                    Promise.all(
-                        cacheNames
-                            .filter((name) => name !== CACHE_NAME)
-                            .map((name) => caches.delete(name)),
-                    ),
+                .then(
+                    async (cacheNames) =>
+                        await Promise.all(
+                            cacheNames
+                                .filter((name) => name !== CACHE_NAME)
+                                .map((name) => caches.delete(name)),
+                        ),
                 ),
         );
 
