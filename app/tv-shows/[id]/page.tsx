@@ -113,7 +113,7 @@ export default async function TVShowPage({
                     />
                     <div
                         id="networks"
-                        className="mt-8 flex w-full items-center gap-4"
+                        className="mt-8 flex w-full flex-wrap items-center gap-4"
                     >
                         <p className="text-md w-auto">Networks: </p>
                         {networks.map(({ homepage, id, logo, name }) => (

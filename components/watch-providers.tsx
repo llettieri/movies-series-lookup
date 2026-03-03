@@ -38,7 +38,7 @@ export const WatchProviders = async ({
         <div id="watch-providers" className="mt-4 w-full">
             <div className="flex flex-wrap items-center gap-4 align-middle">
                 <p className="text-md w-auto">Watch Providers: </p>
-                <div className="flex gap-4">
+                <div className="flex flex-wrap gap-4">
                     {providerGroup.providers.map(({ id, logo, name }) => (
                         <CompanyLogo
                             key={id}
