@@ -1,5 +1,6 @@
 export type ItemType =
     | 'collection'
+    | 'genre'
     | 'movie'
     | 'network'
     | 'person'

@@ -78,7 +78,7 @@ export const apiRoutes = {
             /**
              * Params: id
              */
-            tvCredits: parseTemplate(`${base.person}/{id}}/tv_credits`),
+            tvCredits: parseTemplate(`${base.person}/{id}/tv_credits`),
         },
     },
     search: {
@@ -92,7 +92,7 @@ export const apiRoutes = {
             /**
              * Params: id
              */
-            details: parseTemplate(`${base.tv}/{id}}`),
+            details: parseTemplate(`${base.tv}/{id}`),
             /**
              * Params: id
              *
