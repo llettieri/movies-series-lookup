@@ -18,6 +18,7 @@ entertainment options effortlessly.
 | Next.js 16+ | Next.js API Routes | TypeScript      |
 | React 19+   | Server Components  | Tailwind CSS    |
 | shadcn/ui   | App Router         | ESLint/Prettier |
+|             |                    | Vitest + MSW    |
 |             |                    | pnpm            |
 
 ## 🎯 Motivation
@@ -74,10 +75,12 @@ Here the most important directories:
 ├── app/            # Next.js App Router
 ├── components/     # Reusable UI components
 ├── config/         # Various config
+├── hooks/          # Custom React hooks
 ├── lib/            # Utilities & API helpers
-├── models/         # Data models
+├── models/         # Data models & DTOs
 ├── public/         # Static assets
-└── services/       # Services / API calls
+├── services/       # Services / API calls
+└── tests/          # Test fixtures, MSW handlers & setup
 ```
 
 ## 🤝 Contributing

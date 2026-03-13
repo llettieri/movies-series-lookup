@@ -9,6 +9,9 @@ pnpm dev              # Start Next.js dev server
 pnpm build            # Production build (also writes version.json)
 pnpm lint             # ESLint with auto-fix
 pnpm prettier-write   # Format all files
+pnpm test             # Run tests in watch mode
+pnpm test:run         # Run tests once (CI)
+pnpm test:coverage    # Run tests with coverage report
 ```
 
 ## Environment Setup
@@ -59,3 +62,4 @@ TMDb API → Axios (TMDBApi w/ Bearer token) → /services → DTO parsers → S
 | `/hooks`                | Custom React hooks                                               |
 | `/lib`                  | Utilities (TMDB image loader, etc.)                              |
 | `/config`               | API route templates                                              |
+| `/tests`                | Vitest setup, MSW handlers, and DTO fixtures                     |
