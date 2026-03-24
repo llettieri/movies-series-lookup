@@ -1,0 +1,93 @@
+// @vitest-environment jsdom
+import React from 'react';
+import { describe, it, expect } from 'vitest';
+import { render, screen } from '@testing-library/react';
+import { ItemCard } from '@/components/cards/item-card';
+import type { Media } from '@/models/media';
+import type { Person } from '@/models/person';
+
+const movieItem: Media = {
+    averageVote: 75,
+    backdrop: '/backdrop.jpg',
+    collection: undefined,
+    genres: [],
+    homepage: '',
+    id: 'movie-1',
+    overview: 'An overview.',
+    poster: '/poster.jpg',
+    releaseDate: '2024-01-15',
+    runtime: 120,
+    title: 'Test Movie',
+    type: 'movie',
+};
+
+const tvItem: Media = {
+    ...movieItem,
+    id: 'show-1',
+    title: 'Test Show',
+    type: 'tv',
+};
+
+const personItem: Person = {
+    biography: 'A bio.',
+    birthday: '1990-01-01',
+    deathday: '',
+    department: 'Acting',
+    gender: 2,
+    homepage: '',
+    id: 'person-1',
+    jobs: undefined,
+    name: 'Test Person',
+    portrait: '/profile.jpg',
+    roles: [{ name: 'Hero', episodeCount: NaN }],
+    type: 'person',
+};
+
+describe('ItemCard — movie', () => {
+    it('renders the movie title', () => {
+        render(<ItemCard item={movieItem} size="normal" />);
+        expect(screen.getByText('Test Movie')).toBeInTheDocument();
+    });
+
+    it('links to the movie detail page', () => {
+        render(<ItemCard item={movieItem} size="normal" />);
+        const link = screen.getByRole('link');
+        expect(link).toHaveAttribute('href', '/movies/movie-1');
+    });
+
+    it('renders the poster image with alt text', () => {
+        render(<ItemCard item={movieItem} size="normal" />);
+        expect(screen.getByAltText('Test Movie')).toBeInTheDocument();
+    });
+});
+
+describe('ItemCard — TV show', () => {
+    it('renders the show title', () => {
+        render(<ItemCard item={tvItem} size="normal" />);
+        expect(screen.getByText('Test Show')).toBeInTheDocument();
+    });
+
+    it('links to the TV show detail page', () => {
+        render(<ItemCard item={tvItem} size="normal" />);
+        const link = screen.getByRole('link');
+        expect(link).toHaveAttribute('href', '/tv-shows/show-1');
+    });
+});
+
+describe('ItemCard — person', () => {
+    it('renders the person name', () => {
+        render(<ItemCard item={personItem} size="normal" />);
+        expect(screen.getByText('Test Person')).toBeInTheDocument();
+    });
+
+    it('links to the person detail page', () => {
+        render(<ItemCard item={personItem} size="normal" />);
+        const link = screen.getByRole('link');
+        expect(link).toHaveAttribute('href', '/people/person-1');
+    });
+
+    it('renders the portrait image with alt text', () => {
+        render(<ItemCard item={personItem} size="normal" />);
+        expect(screen.getByAltText('Test Person')).toBeInTheDocument();
+    });
+});
