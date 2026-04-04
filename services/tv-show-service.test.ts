@@ -4,8 +4,11 @@ import {
     getPopularShows,
     getSimilarTVShows,
     getTVShowDetails,
-    getTVShowsCredits,
+    getTVShowCredits,
     getTVShowWatchProviders,
+    getTVShowSeasonDetails,
+    getTVShowSeasonCredits,
+    getTVShowSeasonWatchProviders,
 } from '@/services/tv-show-service';
 
 describe('getTVShowDetails', () => {
@@ -13,7 +16,7 @@ describe('getTVShowDetails', () => {
         const result = await getTVShowDetails('show-1');
         expect(result.id).toBe('show-1');
         expect(result.title).toBe('Test Show');
-        expect(result.type).toBe('tv');
+        expect(result.type).toBe('show');
         expect(result.averageVote).toBe(82);
     });
 });
@@ -22,7 +25,7 @@ describe('getPopularShows', () => {
     it('returns an array of parsed TV shows', async () => {
         const result = await getPopularShows('US');
         expect(result).toHaveLength(1);
-        expect(result[0].type).toBe('tv');
+        expect(result[0].type).toBe('show');
     });
 });
 
@@ -42,7 +45,7 @@ describe('getSimilarTVShows', () => {
 
 describe('getTVShowsCredits', () => {
     it('returns cast and crew arrays', async () => {
-        const result = await getTVShowsCredits('show-1');
+        const result = await getTVShowCredits('show-1');
         expect(result.cast).toHaveLength(1);
         expect(result.crew).toHaveLength(1);
     });
@@ -57,6 +60,37 @@ describe('getTVShowWatchProviders', () => {
 
     it('returns undefined when locale is not in results', async () => {
         const result = await getTVShowWatchProviders('show-1', 'FR');
+        expect(result).toBeUndefined();
+    });
+});
+
+describe('getTVShowSeasonDetails', () => {
+    it('returns a parsed season model', async () => {
+        const result = await getTVShowSeasonDetails('show-1', 1);
+        expect(result.id).toBe('season-1');
+        expect(result.type).toBe('showSeason');
+        expect(result.averageVote).toBe(80);
+        expect(result.episodeCount).toBe(2);
+    });
+});
+
+describe('getTVShowSeasonCredits', () => {
+    it('returns cast and crew arrays', async () => {
+        const result = await getTVShowSeasonCredits('show-1', 1);
+        expect(result.cast).toHaveLength(1);
+        expect(result.crew).toHaveLength(1);
+    });
+});
+
+describe('getTVShowSeasonWatchProviders', () => {
+    it('returns providers for the given locale', async () => {
+        const result = await getTVShowSeasonWatchProviders('show-1', 1, 'US');
+        expect(result).toBeDefined();
+        expect(result!.providers[0].name).toBe('Netflix');
+    });
+
+    it('returns undefined when locale is not in results', async () => {
+        const result = await getTVShowSeasonWatchProviders('show-1', 1, 'FR');
         expect(result).toBeUndefined();
     });
 });

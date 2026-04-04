@@ -41,7 +41,7 @@ describe('CreditsTable — movie', () => {
             <CreditsTable
                 cast={[castMember]}
                 crew={[crewMember]}
-                type="movie"
+                title="Movie"
             />,
         );
         expect(screen.getByText(/Movie Cast/i)).toBeInTheDocument();
@@ -52,38 +52,38 @@ describe('CreditsTable — movie', () => {
             <CreditsTable
                 cast={[castMember]}
                 crew={[crewMember]}
-                type="movie"
+                title="Movie"
             />,
         );
         expect(screen.getByText(/Movie Crew/i)).toBeInTheDocument();
     });
 
     it('shows cast count', () => {
-        render(<CreditsTable cast={[castMember]} crew={[]} type="movie" />);
+        render(<CreditsTable cast={[castMember]} crew={[]} title="Movie" />);
         expect(screen.getByText('(1)')).toBeInTheDocument();
     });
 
     it('renders cast member names', () => {
-        render(<CreditsTable cast={[castMember]} crew={[]} type="movie" />);
+        render(<CreditsTable cast={[castMember]} crew={[]} title="Movie" />);
         expect(screen.getByText('Test Actor')).toBeInTheDocument();
     });
 
     it('renders crew member names', () => {
-        render(<CreditsTable cast={[]} crew={[crewMember]} type="movie" />);
+        render(<CreditsTable cast={[]} crew={[crewMember]} title="Movie" />);
         expect(screen.getByText('Test Director')).toBeInTheDocument();
     });
 });
 
 describe('CreditsTable — TV show', () => {
     it('renders "TV Show Cast" heading', () => {
-        render(<CreditsTable cast={[]} crew={[]} type="tv" />);
+        render(<CreditsTable cast={[]} crew={[]} title="TV Show" />);
         expect(screen.getByText(/TV Show Cast/i)).toBeInTheDocument();
     });
 });
 
 describe('CreditsTable — empty state', () => {
     it('renders with empty cast and crew without crashing', () => {
-        render(<CreditsTable cast={[]} crew={[]} type="movie" />);
+        render(<CreditsTable cast={[]} crew={[]} title="Movie" />);
         // Both cast and crew show (0), so there are two matching spans
         const counts = screen.getAllByText('(0)');
         expect(counts.length).toBeGreaterThanOrEqual(1);

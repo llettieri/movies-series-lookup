@@ -1,7 +1,11 @@
 /* eslint-disable camelcase */
 import { http, HttpResponse } from 'msw';
 import { movieFixture, movieListFixture } from '../fixtures/movie';
-import { tvShowFixture, tvShowListFixture } from '../fixtures/tv-show';
+import {
+    tvShowFixture,
+    tvShowListFixture,
+    tvShowSeasonFixture,
+} from '../fixtures/tv-show';
 import { personFixture, creditsFixture } from '../fixtures/person';
 import { collectionFixture } from '../fixtures/collection';
 import { watchProvidersFixture } from '../fixtures/watch-providers';
@@ -45,6 +49,15 @@ export const handlers = [
     ),
     http.get(`${TMDB}/tv/:id/watch/providers`, () =>
         HttpResponse.json(watchProvidersFixture),
+    ),
+    http.get(`${TMDB}/tv/:id/season/:seasonNumber/aggregate_credits`, () =>
+        HttpResponse.json(creditsFixture),
+    ),
+    http.get(`${TMDB}/tv/:id/season/:seasonNumber/watch/providers`, () =>
+        HttpResponse.json(watchProvidersFixture),
+    ),
+    http.get(`${TMDB}/tv/:id/season/:seasonNumber`, () =>
+        HttpResponse.json(tvShowSeasonFixture),
     ),
     http.get(`${TMDB}/tv/:id`, () => HttpResponse.json(tvShowFixture)),
 

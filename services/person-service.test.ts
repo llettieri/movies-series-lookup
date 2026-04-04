@@ -26,6 +26,6 @@ describe('getPersonTVShows', () => {
     it('returns a deduplicated array of parsed TV shows', async () => {
         const result = await getPersonTVShows('person-1');
         expect(result.length).toBeGreaterThan(0);
-        expect(result[0].type).toBe('tv');
+        expect(result[0].type).toBe('show');
     });
 });

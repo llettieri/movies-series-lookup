@@ -8,15 +8,16 @@ import {
     parsePersonDto,
     parseProviderDto,
     parseTVShowDto,
+    parseTVShowSeasonDto,
 } from '@/services/parse-service';
-import { movieFixture } from '../tests/fixtures/movie';
-import { tvShowFixture } from '../tests/fixtures/tv-show';
+import { movieFixture } from '@/tests/fixtures/movie';
+import { tvShowFixture, tvShowSeasonFixture } from '@/tests/fixtures/tv-show';
 import {
     creditsFixture,
     crewPersonFixture,
     personFixture,
-} from '../tests/fixtures/person';
-import { collectionFixture } from '../tests/fixtures/collection';
+} from '@/tests/fixtures/person';
+import { collectionFixture } from '@/tests/fixtures/collection';
 
 // ─── parseMovieDto ────────────────────────────────────────────────────────────
 
@@ -93,7 +94,7 @@ describe('parseTVShowDto', () => {
         expect(result.episodeCount).toBe(24);
         expect(result.seasonsCount).toBe(2);
         expect(result.inProduction).toBe(true);
-        expect(result.type).toBe('tv');
+        expect(result.type).toBe('show');
     });
 
     it('multiplies vote_average by 10', () => {
@@ -124,6 +125,55 @@ describe('parseTVShowDto', () => {
     it('collection is always undefined for TV shows', () => {
         const result = parseTVShowDto(tvShowFixture);
         expect(result.collection).toBeUndefined();
+    });
+
+    it('parses embedded seasons array', () => {
+        const result = parseTVShowDto(tvShowFixture);
+        expect(result.seasons).toHaveLength(1);
+        expect(result.seasons[0].type).toBe('showSeason');
+        expect(result.seasons[0].episodeCount).toBe(10);
+        expect(result.seasons[0].seasonNumber).toBe(1);
+    });
+});
+
+// ─── parseTVShowSeasonDto ─────────────────────────────────────────────────────
+
+describe('parseTVShowSeasonDto', () => {
+    it('maps all fields from the DTO', () => {
+        const result = parseTVShowSeasonDto(tvShowSeasonFixture, 'show-1');
+
+        expect(result.id).toBe('season-1');
+        expect(result.title).toBe('Season 1');
+        expect(result.overview).toBe('A test season overview.');
+        expect(result.releaseDate).toBe('2023-03-01');
+        expect(result.seasonNumber).toBe(1);
+        expect(result.showId).toBe('show-1');
+        expect(result.type).toBe('showSeason');
+    });
+
+    it('multiplies vote_average by 10', () => {
+        const result = parseTVShowSeasonDto(tvShowSeasonFixture, 'show-1');
+        expect(result.averageVote).toBe(80); // 8.0 * 10
+    });
+
+    it('falls back to FALLBACK_IMAGE when poster_path is missing', () => {
+        const result = parseTVShowSeasonDto(
+            { ...tvShowSeasonFixture, poster_path: undefined },
+            'show-1',
+        );
+        expect(result.poster).toBe('/fallback.png');
+    });
+
+    it('parses networks', () => {
+        const result = parseTVShowSeasonDto(tvShowSeasonFixture, 'show-1');
+        expect(result.networks).toHaveLength(1);
+        expect(result.networks[0].name).toBe('HBO');
+        expect(result.networks[0].type).toBe('network');
+    });
+
+    it('sets episodeCount from episodes array length', () => {
+        const result = parseTVShowSeasonDto(tvShowSeasonFixture, 'show-1');
+        expect(result.episodeCount).toBe(2); // episodes: [{}, {}]
     });
 });
 
@@ -262,11 +312,11 @@ describe('parseMultiMediaDto', () => {
         expect(result.title).toBe('Test Movie');
     });
 
-    it('maps tv media_type using name field', () => {
+    it('maps show media_type using name field', () => {
         const dto = {
             backdrop_path: '/b.jpg',
-            id: 'tv-1',
-            media_type: 'tv',
+            id: 'show-1',
+            media_type: 'show',
             name: 'TV Show Name',
             overview: 'overview',
             poster_path: '/p.jpg',
@@ -274,7 +324,7 @@ describe('parseMultiMediaDto', () => {
             first_air_date: '2023-01-01',
         };
         const result = parseMultiMediaDto(dto);
-        expect(result.type).toBe('tv');
+        expect(result.type).toBe('show');
         expect(result.title).toBe('TV Show Name');
     });
 
