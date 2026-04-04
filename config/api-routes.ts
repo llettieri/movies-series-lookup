@@ -109,6 +109,26 @@ export const apiRoutes = {
              * Params: id
              */
             watchProviders: parseTemplate(`${base.tv}/{id}/watch/providers`),
+            season: {
+                /**
+                 * Params: showId, seasonNumber
+                 */
+                details: parseTemplate(
+                    `${base.tv}/{showId}/season/{seasonNumber}`,
+                ),
+                /**
+                 * Params: showId, seasonNumber
+                 */
+                aggregateCredits: parseTemplate(
+                    `${base.tv}/{showId}/season/{seasonNumber}/aggregate_credits`,
+                ),
+                /**
+                 * Params: showId, seasonNumber
+                 */
+                watchProviders: parseTemplate(
+                    `${base.tv}/{showId}/season/{seasonNumber}/watch/providers`,
+                ),
+            },
         },
         /**
          * QueryParams: page, sort_by, watch_region, with_watch_monetization_types, air_date.gte, air_date.lte

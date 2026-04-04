@@ -7,12 +7,16 @@ import { MultiMediaDto } from '@/models/dto/multi-media-dto';
 import { NetworkDto } from '@/models/dto/network-dto';
 import { JobDto, PersonDto, RoleDto } from '@/models/dto/person-dto';
 import { ProviderDto } from '@/models/dto/provider-dto';
-import { TVShowDto } from '@/models/dto/tv-show-dto';
+import {
+    ReducedTVShowSeasonDto,
+    TVShowDto,
+    TVShowSeasonDto,
+} from '@/models/dto/tv-show-dto';
 import { Media } from '@/models/media';
 import { Network } from '@/models/network';
 import { Job, Person } from '@/models/person';
 import { Provider } from '@/models/provider';
-import { TVShow } from '@/models/tv-show';
+import { ReducedTVShowSeason, TVShow, TVShowSeason } from '@/models/tv-show';
 import { FALLBACK_IMAGE } from '@/components/image';
 import { ItemType } from '@/models/base';
 
@@ -72,9 +76,55 @@ const parseTVShowDto = (dto: TVShowDto): TVShow => {
         overview: dto.overview,
         poster: dto.poster_path ?? FALLBACK_IMAGE,
         releaseDate: dto.first_air_date,
+        seasons:
+            dto.seasons?.map((season) =>
+                parseReducedTVShowSeasonDto(season, dto.id),
+            ) ?? [],
         seasonsCount: dto.number_of_seasons,
         title: dto.name,
-        type: 'tv',
+        type: 'show',
+    };
+};
+
+const parseReducedTVShowSeasonDto = (
+    dto: ReducedTVShowSeasonDto,
+    showId: string,
+): ReducedTVShowSeason => {
+    return {
+        averageVote: dto.vote_average * 10,
+        backdrop: FALLBACK_IMAGE,
+        episodeCount: dto.episode_count,
+        genres: [],
+        id: dto.id,
+        overview: dto.overview,
+        poster: dto.poster_path ?? FALLBACK_IMAGE,
+        releaseDate: dto.air_date,
+        seasonNumber: dto.season_number,
+        showId: showId,
+        title: dto.name,
+        type: 'showSeason',
+    };
+};
+
+const parseTVShowSeasonDto = (
+    dto: TVShowSeasonDto,
+    showId: string,
+): TVShowSeason => {
+    return {
+        averageVote: dto.vote_average * 10,
+        backdrop: FALLBACK_IMAGE, // TODO: handle episodes
+        episodeCount: dto.episodes.length,
+        episodes: dto.episodes,
+        genres: [],
+        id: dto.id,
+        networks: dto.networks?.map(parseNetworkDto) ?? [],
+        overview: dto.overview,
+        poster: dto.poster_path ?? FALLBACK_IMAGE,
+        releaseDate: dto.air_date,
+        seasonNumber: dto.season_number,
+        showId: showId,
+        title: dto.name,
+        type: 'showSeason',
     };
 };
 
@@ -91,7 +141,12 @@ const parseCollectionDto = (dto: CollectionDto): Collection => {
 };
 
 const parseMultiMediaDto = (dto: MultiMediaDto): Media => {
-    const type = dto.media_type as ItemType;
+    let type = dto.media_type as ItemType;
+
+    if (dto.media_type === 'tv') {
+        type = 'show';
+    }
+
     return {
         averageVote: dto.vote_average * 10,
         backdrop: dto.backdrop_path ?? FALLBACK_IMAGE,
@@ -148,16 +203,17 @@ const parseProviderDto = (dto: ProviderDto): Provider => {
 
 const parseSearchItemDto = (dto: MultiMediaDto | PersonDto): Media | Person => {
     switch (dto.media_type) {
-        case 'person':
-            return parsePersonDto(dto as PersonDto);
-        default:
-            return parseMultiMediaDto(dto as MultiMediaDto);
+    case 'person':
+        return parsePersonDto(dto as PersonDto);
+    default:
+        return parseMultiMediaDto(dto as MultiMediaDto);
     }
 };
 
 export {
     parseMovieDto,
     parseTVShowDto,
+    parseTVShowSeasonDto,
     parseCollectionDto,
     parseMultiMediaDto,
     parsePersonDto,
