@@ -159,7 +159,7 @@ describe('parsePersonDto', () => {
         const result = parsePersonDto(personFixture); // character: 'Test Character'
         expect(result.roles).toHaveLength(1);
         expect(result.roles![0].name).toBe('Test Character');
-        // episodeCount is NaN when built from the character string field (no episode count available)
+        // episodeCount is NaN when built from the character string field (no episodes count available)
         expect(result.roles![0].episodeCount).toBeNaN();
     });
 

@@ -203,10 +203,10 @@ const parseProviderDto = (dto: ProviderDto): Provider => {
 
 const parseSearchItemDto = (dto: MultiMediaDto | PersonDto): Media | Person => {
     switch (dto.media_type) {
-    case 'person':
-        return parsePersonDto(dto as PersonDto);
-    default:
-        return parseMultiMediaDto(dto as MultiMediaDto);
+        case 'person':
+            return parsePersonDto(dto as PersonDto);
+        default:
+            return parseMultiMediaDto(dto as MultiMediaDto);
     }
 };
 

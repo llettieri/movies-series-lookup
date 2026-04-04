@@ -38,7 +38,7 @@ export default async function MovieCreditsPage({
                     <SearchHint os={os}></SearchHint>
                 </div>
             ) : null}
-            <CreditsTable cast={cast} crew={crew} type="movie" />
+            <CreditsTable cast={cast} crew={crew} title="Movie" />
         </>
     );
 }

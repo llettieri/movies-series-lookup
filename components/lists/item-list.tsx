@@ -3,17 +3,17 @@ import { ListBase } from '@/components/lists/list-base';
 import { ItemCard } from '@/components/cards/item-card';
 import { Item } from '@/models/base';
 
-interface ItemListProps {
+interface ItemListProps<I> {
     title: string;
-    loadItems?: () => Promise<Item[]>;
-    items?: Item[];
+    loadItems?: () => Promise<I[]>;
+    items?: I[];
 }
 
-export const ItemList = async ({
+export const ItemList = async <I extends Item>({
     title,
     loadItems,
     items = [],
-}: ItemListProps): Promise<ReactNode> => {
+}: ItemListProps<I>): Promise<ReactNode> => {
     if (loadItems) {
         items = await loadItems();
     }

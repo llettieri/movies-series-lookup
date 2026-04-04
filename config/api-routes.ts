@@ -33,7 +33,7 @@ export const apiRoutes = {
      * Params: size
      */
     images: parseTemplate('https://image.tmdb.org/t/p/{size}'),
-    movies: {
+    movie: {
         byId: {
             /**
              * Params: id

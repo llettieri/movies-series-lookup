@@ -5,7 +5,6 @@ import {
     NavigationMenuItem,
     NavigationMenuLink,
     NavigationMenuList,
-    NavigationMenuViewport,
 } from '@/components/ui/navigation-menu';
 import Link from 'next/link';
 import { Search } from 'lucide-react';
@@ -24,27 +23,23 @@ export const NavigationBar = (): ReactNode => {
                                 <Link href="/">Movies & Series Lookup</Link>
                             </NavigationMenuLink>
                         </NavigationMenuItem>
-
                         <NavigationMenuIndicator />
                     </NavigationMenuList>
                     <NavigationMenuList>
                         <NavigationMenuItem>
-                            <NavigationMenuLink
-                                asChild
-                                className="flex-row items-center text-xl"
-                            >
+                            <NavigationMenuLink asChild className="text-xl">
                                 <Link href="/search">
-                                    <Search className="size-6 flex-1 md:size-[1em]" />
-                                    <span className="hidden sm:inline">
-                                        Search
-                                    </span>
+                                    <div className="flex flex-row items-center gap-1">
+                                        <Search className="size-6 flex-1 md:size-[1em]" />
+                                        <span className="hidden sm:inline">
+                                            Search
+                                        </span>
+                                    </div>
                                 </Link>
                             </NavigationMenuLink>
                         </NavigationMenuItem>
                         <NavigationMenuIndicator />
                     </NavigationMenuList>
-
-                    <NavigationMenuViewport />
                 </NavigationMenu>
             </div>
         </div>

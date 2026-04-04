@@ -10,11 +10,12 @@ export default function NotFound(): ReactNode {
     return (
         <div className="flex h-full flex-col items-center justify-center gap-20 py-16">
             <Image
-                className="mx-auto block"
+                className="mx-auto block h-auto w-auto"
                 src="/not_found.svg"
                 width={500}
                 height={250}
                 alt="404 Not found!"
+                loading="eager"
             />
             <span>
                 It looks like you&#39;re searching for something, that

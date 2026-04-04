@@ -88,7 +88,10 @@ export default async function MoviePage({
                     </h1>
                     {collection ? (
                         <Link href={`/collections/${collection.id}`} prefetch>
-                            <h2 id="collection" className="text-secondary">
+                            <h2
+                                id="collection"
+                                className="text-secondary underline"
+                            >
                                 {collection.name}
                             </h2>
                         </Link>

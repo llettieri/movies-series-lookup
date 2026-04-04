@@ -10,10 +10,12 @@ import {
     CardTitle,
 } from '@/components/ui/card';
 import dayjs from 'dayjs';
+import { TVShowSeason } from '@/models/tv-show';
 
 interface MediaCardProps {
     media: Media;
     size: CardSize;
+    link: string;
 }
 
 interface PersonCardProps {
@@ -21,17 +23,15 @@ interface PersonCardProps {
     size: CardSize;
 }
 
-interface ItemCardProps {
-    item: Item;
+interface ItemCardProps<I> {
+    item: I;
     size: CardSize;
 }
 
-const MediaCard = ({ media, size }: MediaCardProps): ReactNode => {
+const MediaCard = ({ media, size, link }: MediaCardProps): ReactNode => {
     return (
         <CardBase
-            link={`/${
-                media.type === 'movie' ? 'movies' : 'tv-shows'
-            }/${media.id}`}
+            link={link}
             image={media.poster}
             alt={media.title}
             size={size}
@@ -118,14 +118,40 @@ const PersonCard = ({ person, size }: PersonCardProps): ReactNode => {
     );
 };
 
-const ItemCard = ({ item, size }: ItemCardProps): ReactNode => {
+const ItemCard = <I extends Item>({
+    item,
+    size,
+}: ItemCardProps<I>): ReactNode => {
     switch (item.type) {
         case 'person':
-            return <PersonCard person={item as Person} size={size} />;
-        case 'tv':
-            return <MediaCard media={item as Media} size={size} />;
+            return (
+                <PersonCard person={item as unknown as Person} size={size} />
+            );
+        case 'show':
+            return (
+                <MediaCard
+                    media={item as unknown as Media}
+                    size={size}
+                    link={`/tv-shows/${item.id}`}
+                />
+            );
+        case 'showSeason':
+            const season = item as unknown as TVShowSeason;
+            return (
+                <MediaCard
+                    media={item as unknown as Media}
+                    size={size}
+                    link={`/tv-shows/${season.showId}/seasons/${season.seasonNumber}`}
+                />
+            );
         case 'movie':
-            return <MediaCard media={item as Media} size={size} />;
+            return (
+                <MediaCard
+                    media={item as unknown as Media}
+                    size={size}
+                    link={`/movies/${item.id}`}
+                />
+            );
     }
 };
 
