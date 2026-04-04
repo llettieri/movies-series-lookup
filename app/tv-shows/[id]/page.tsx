@@ -1,12 +1,12 @@
 import CompanyLogo from '@/components/company-logo';
 import { GenreBadges } from '@/components/genre-badges';
-import { CreditsCarousel } from '@/components/lists/credits-carousel';
+import { ItemCarousel } from '@/components/lists/item-carousel';
 import { Meta } from '@/components/meta';
 import { Rating } from '@/components/rating';
 import {
     getSimilarTVShows,
+    getTVShowCredits,
     getTVShowDetails,
-    getTVShowsCredits,
 } from '@/services/tv-show-service';
 import dayjs from 'dayjs';
 import { Metadata } from 'next';
@@ -48,9 +48,10 @@ export default async function TVShowPage({
         overview,
         releaseDate,
         seasonsCount,
+        seasons,
         title,
     } = await getTVShowDetails(showId);
-    const credits = await getTVShowsCredits(showId);
+    const credits = await getTVShowCredits(showId);
 
     return (
         <>
@@ -86,7 +87,10 @@ export default async function TVShowPage({
                             title
                         )}
                     </h1>
-                    <h2 id="season-info" className="text-secondary">
+                    <h2
+                        id="seasons-overview"
+                        className="text-secondary underline"
+                    >
                         ({seasonsCount} Seasons)
                     </h2>
                     <p id="description" className="mt-4 text-sm">
@@ -107,9 +111,15 @@ export default async function TVShowPage({
                         </p>
                     ) : null}
 
-                    <CreditsCarousel
-                        cast={credits.cast}
-                        baseRoute={`/tv-shows/${showId}`}
+                    <ItemCarousel
+                        title="Seasons"
+                        items={seasons}
+                        link={`/tv-shows/${showId}}/seasons`}
+                    />
+                    <ItemCarousel
+                        title="Credits"
+                        items={credits.cast}
+                        link={`/tv-shows/${showId}/credits`}
                     />
                     <div
                         id="networks"
@@ -126,7 +136,7 @@ export default async function TVShowPage({
                         ))}
                     </div>
                     <Suspense fallback={<WatchProvidersSkeleton />}>
-                        <WatchProviders mediaId={showId} type="movie" />
+                        <WatchProviders mediaId={showId} type="show" />
                     </Suspense>
                 </div>
             </div>

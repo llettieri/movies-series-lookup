@@ -1,5 +1,5 @@
 import { GenreBadges } from '@/components/genre-badges';
-import { CreditsCarousel } from '@/components/lists/credits-carousel';
+import { ItemCarousel } from '@/components/lists/item-carousel';
 import { Meta } from '@/components/meta';
 import { Rating } from '@/components/rating';
 import {
@@ -105,9 +105,10 @@ export default async function MoviePage({
                             {dayjs(releaseDate).format('MMMM DD, YYYY')}
                         </span>
                     </p>
-                    <CreditsCarousel
-                        cast={credits.cast}
-                        baseRoute={`/movies/${movieId}`}
+                    <ItemCarousel
+                        title="Credits"
+                        items={credits.cast}
+                        link={`/movies/${movieId}/credits`}
                     />
                 </div>
                 <Suspense fallback={<WatchProvidersSkeleton />}>
