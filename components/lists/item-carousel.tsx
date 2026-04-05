@@ -32,7 +32,7 @@ export const ItemCarousel = <I extends Item>({
     return (
         <Carousel
             id={title.toLowerCase()}
-            className="mb-16"
+            className="mt-8 mb-16"
             opts={{
                 align: 'start',
                 dragFree: true,

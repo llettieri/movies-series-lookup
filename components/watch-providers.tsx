@@ -18,6 +18,7 @@ const mediaProvidersMap: Record<
         getTVShowWatchProviders(mediaId, locale),
     showSeason: (mediaId: string, locale: string, seasonNumber: number) =>
         getTVShowSeasonWatchProviders(mediaId, seasonNumber, locale),
+    showSeasonEpisode: () => new Promise(() => undefined),
     movie: (mediaId: string, locale: string) =>
         getMovieWatchProviders(mediaId, locale),
 };

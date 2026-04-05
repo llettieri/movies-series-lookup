@@ -10,7 +10,7 @@ import {
     CardTitle,
 } from '@/components/ui/card';
 import dayjs from 'dayjs';
-import { TVShowSeason } from '@/models/tv-show';
+import { TVShowSeason, TVShowSeasonEpisode } from '@/models/tv-show';
 
 interface MediaCardProps {
     media: Media;
@@ -124,13 +124,13 @@ const ItemCard = <I extends Item>({
 }: ItemCardProps<I>): ReactNode => {
     switch (item.type) {
         case 'person':
-            return (
-                <PersonCard person={item as unknown as Person} size={size} />
-            );
+            const person = item as unknown as Person;
+            return <PersonCard person={person} size={size} />;
         case 'show':
+            const show = item as unknown as Media;
             return (
                 <MediaCard
-                    media={item as unknown as Media}
+                    media={show}
                     size={size}
                     link={`/tv-shows/${item.id}`}
                 />
@@ -144,10 +144,20 @@ const ItemCard = <I extends Item>({
                     link={`/tv-shows/${season.showId}/seasons/${season.seasonNumber}`}
                 />
             );
-        case 'movie':
+        case 'showSeasonEpisode':
+            const episode = item as unknown as TVShowSeasonEpisode;
             return (
                 <MediaCard
-                    media={item as unknown as Media}
+                    media={episode}
+                    size={size}
+                    link={`/tv-shows/${episode.showId}/seasons/${episode.seasonNumber}/episodes/${episode.episodeNumber}`}
+                />
+            );
+        case 'movie':
+            const movie = item as unknown as Media;
+            return (
+                <MediaCard
+                    media={movie}
                     size={size}
                     link={`/movies/${item.id}`}
                 />

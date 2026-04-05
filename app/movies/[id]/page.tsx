@@ -99,21 +99,21 @@ export default async function MoviePage({
                     <p id="description" className="mt-4 text-sm">
                         {overview}
                     </p>
-                    <p id="release-date" className="mt-6 text-sm">
+                    <p id="release-date" className="text-md mt-6">
                         Release Date:{' '}
-                        <span className="text-secondary font-bold">
+                        <span className="text-secondary tex-sm font-bold">
                             {dayjs(releaseDate).format('MMMM DD, YYYY')}
                         </span>
                     </p>
+                    <Suspense fallback={<WatchProvidersSkeleton />}>
+                        <WatchProviders mediaId={movieId} type="movie" />
+                    </Suspense>
                     <ItemCarousel
                         title="Credits"
                         items={credits.cast}
                         link={`/movies/${movieId}/credits`}
                     />
                 </div>
-                <Suspense fallback={<WatchProvidersSkeleton />}>
-                    <WatchProviders mediaId={movieId} type="movie" />
-                </Suspense>
             </div>
             <div className="pt-2">
                 <Suspense

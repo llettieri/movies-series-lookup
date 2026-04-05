@@ -1,7 +1,7 @@
 'use client';
 
 import { apiRoutes } from '@/config/api-routes';
-import { TMDBApi } from '@/services/api';
+import { Api } from '@/services/api';
 import { createSession } from '@/services/session-service';
 import { ReactNode, useEffect } from 'react';
 import { HttpStatusCode } from 'axios';
@@ -16,7 +16,7 @@ interface GeoDataDto {
 
 export const SessionProvider = (): ReactNode => {
     useEffect(() => {
-        TMDBApi.get<GeoDataDto>(apiRoutes.country)
+        Api.get<GeoDataDto>(apiRoutes.country)
             .then((r) => {
                 let countryCode = FALLBACK_COUNTRY_CODE;
 

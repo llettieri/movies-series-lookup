@@ -32,8 +32,8 @@ export default function MovieLoadingPage(): ReactNode {
                         <p className="text-sm">Release Date:</p>
                         <Skeleton className="h-4 w-20" />
                     </div>
-                    <CardCarouselSkeleton />
                     <WatchProvidersSkeleton />
+                    <CardCarouselSkeleton title="Credits" />
                 </div>
             </div>
             <div className="pt-2">
