@@ -1,4 +1,8 @@
-export type MediaItemType = 'movie' | 'show' | 'showSeason';
+export type MediaItemType =
+    | 'movie'
+    | 'show'
+    | 'showSeason'
+    | 'showSeasonEpisode';
 
 export type ItemType =
     | MediaItemType

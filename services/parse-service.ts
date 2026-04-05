@@ -11,12 +11,18 @@ import {
     ReducedTVShowSeasonDto,
     TVShowDto,
     TVShowSeasonDto,
+    TVShowSeasonEpisodeDto,
 } from '@/models/dto/tv-show-dto';
 import { Media } from '@/models/media';
 import { Network } from '@/models/network';
 import { Job, Person } from '@/models/person';
 import { Provider } from '@/models/provider';
-import { ReducedTVShowSeason, TVShow, TVShowSeason } from '@/models/tv-show';
+import {
+    ReducedTVShowSeason,
+    TVShow,
+    TVShowSeason,
+    TVShowSeasonEpisode,
+} from '@/models/tv-show';
 import { FALLBACK_IMAGE } from '@/components/image';
 import { ItemType } from '@/models/base';
 
@@ -112,9 +118,9 @@ const parseTVShowSeasonDto = (
 ): TVShowSeason => {
     return {
         averageVote: dto.vote_average * 10,
-        backdrop: FALLBACK_IMAGE, // TODO: handle episodes
+        backdrop: FALLBACK_IMAGE,
         episodeCount: dto.episodes.length,
-        episodes: dto.episodes,
+        episodes: dto.episodes.map(parseTVShowSeasonEpisodeDto),
         genres: [],
         id: dto.id,
         networks: dto.networks?.map(parseNetworkDto) ?? [],
@@ -125,6 +131,27 @@ const parseTVShowSeasonDto = (
         showId: showId,
         title: dto.name,
         type: 'showSeason',
+    };
+};
+
+const parseTVShowSeasonEpisodeDto = (
+    dto: TVShowSeasonEpisodeDto,
+): TVShowSeasonEpisode => {
+    return {
+        averageVote: dto.vote_average * 10,
+        backdrop: dto.still_path ?? FALLBACK_IMAGE,
+        episodeNumber: dto.episode_number,
+        episodeType: dto.episode_type,
+        genres: [],
+        id: dto.id,
+        overview: dto.overview,
+        poster: dto.still_path ?? FALLBACK_IMAGE,
+        releaseDate: dto.air_date,
+        runtime: dto.runtime,
+        seasonNumber: dto.season_number,
+        showId: dto.show_id,
+        title: dto.name,
+        type: 'showSeasonEpisode',
     };
 };
 
@@ -214,6 +241,7 @@ export {
     parseMovieDto,
     parseTVShowDto,
     parseTVShowSeasonDto,
+    parseTVShowSeasonEpisodeDto,
     parseCollectionDto,
     parseMultiMediaDto,
     parsePersonDto,

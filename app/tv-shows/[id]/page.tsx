@@ -87,25 +87,22 @@ export default async function TVShowPage({
                             title
                         )}
                     </h1>
-                    <h2
-                        id="seasons-overview"
-                        className="text-secondary underline"
-                    >
+                    <h2 id="seasons-overview" className="text-secondary">
                         ({seasonsCount} Seasons)
                     </h2>
                     <p id="description" className="mt-4 text-sm">
                         {overview}
                     </p>
-                    <p id="release-date" className="mt-4 text-sm">
+                    <p id="release-date" className="text-md mt-4">
                         Release Date:{' '}
-                        <span className="text-secondary font-bold">
+                        <span className="text-secondary text-sm font-bold">
                             {dayjs(releaseDate).format('MMMM DD, YYYY')}
                         </span>
                     </p>
                     {lastAirDate ? (
-                        <p id="last-aired" className="text-sm">
+                        <p id="last-aired" className="text-md">
                             Last Aired:{' '}
-                            <span className="text-secondary font-bold">
+                            <span className="text-secondary text-sm font-bold">
                                 {dayjs(lastAirDate).format('MMMM DD, YYYY')}
                             </span>
                         </p>
@@ -114,16 +111,11 @@ export default async function TVShowPage({
                     <ItemCarousel
                         title="Seasons"
                         items={seasons}
-                        link={`/tv-shows/${showId}}/seasons`}
-                    />
-                    <ItemCarousel
-                        title="Credits"
-                        items={credits.cast}
-                        link={`/tv-shows/${showId}/credits`}
+                        link={`${showId}}/seasons`}
                     />
                     <div
                         id="networks"
-                        className="mt-8 flex w-full flex-wrap items-center gap-4"
+                        className="flex w-full flex-wrap items-center gap-4"
                     >
                         <p className="text-md w-auto">Networks: </p>
                         {networks.map(({ homepage, id, logo, name }) => (
@@ -138,6 +130,11 @@ export default async function TVShowPage({
                     <Suspense fallback={<WatchProvidersSkeleton />}>
                         <WatchProviders mediaId={showId} type="show" />
                     </Suspense>
+                    <ItemCarousel
+                        title="Credits"
+                        items={credits.cast}
+                        link={`${showId}/credits`}
+                    />
                 </div>
             </div>
             <div className="pt-2">

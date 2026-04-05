@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 import { CreditsTableSkeleton } from '@/components/skeletons/credits-table-skeleton';
 import { ScrollToTop } from '@/components/scroll-to-top';
 
-export default function TVShowSeasonCreditsLoadingPage(): ReactNode {
+export default function TVShowSeasonEpisodeCreditsLoadingPage(): ReactNode {
     return (
         <>
             <ScrollToTop />

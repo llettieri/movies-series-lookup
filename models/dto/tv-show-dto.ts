@@ -21,7 +21,7 @@ interface TVShowDto {
 
 interface TVShowSeasonDto {
     air_date: string;
-    episodes: Record<string, never>[];
+    episodes: TVShowSeasonEpisodeDto[];
     id: string;
     name: string;
     networks: NetworkDto[] | null;
@@ -42,4 +42,24 @@ interface ReducedTVShowSeasonDto {
     vote_average: number;
 }
 
-export type { TVShowDto, TVShowSeasonDto, ReducedTVShowSeasonDto };
+interface TVShowSeasonEpisodeDto {
+    air_date: string;
+    episode_number: number;
+    episode_type: string;
+    id: string;
+    name: string;
+    overview: string;
+    production_code: string;
+    runtime: number;
+    season_number: number;
+    show_id: string;
+    still_path: string;
+    vote_average: number;
+}
+
+export type {
+    TVShowDto,
+    TVShowSeasonDto,
+    ReducedTVShowSeasonDto,
+    TVShowSeasonEpisodeDto,
+};

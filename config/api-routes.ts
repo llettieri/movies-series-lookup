@@ -128,6 +128,20 @@ export const apiRoutes = {
                 watchProviders: parseTemplate(
                     `${base.tv}/{showId}/season/{seasonNumber}/watch/providers`,
                 ),
+                episode: {
+                    /**
+                     * Params: showId, seasonNumber, episodeNumber
+                     */
+                    details: parseTemplate(
+                        `${base.tv}/{showId}/season/{seasonNumber}/episode/{episodeNumber}`,
+                    ),
+                    /**
+                     * Params: showId, seasonNumber, episodeNumber
+                     */
+                    credits: parseTemplate(
+                        `${base.tv}/{showId}/season/{seasonNumber}/episode/{episodeNumber}/credits`,
+                    ),
+                },
             },
         },
         /**

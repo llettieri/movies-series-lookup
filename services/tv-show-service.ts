@@ -3,17 +3,22 @@ import { Credits } from '@/models/credits';
 import { CountryProvidersDto } from '@/models/dto/country-providers-dto';
 import { CreditsDto } from '@/models/dto/credits-dto';
 import { ListDto } from '@/models/dto/list-dto';
-import { TVShowDto, TVShowSeasonDto } from '@/models/dto/tv-show-dto';
+import {
+    TVShowDto,
+    TVShowSeasonDto,
+    TVShowSeasonEpisodeDto,
+} from '@/models/dto/tv-show-dto';
 import { WatchProvidersDto } from '@/models/dto/watch-providers-dto';
 import { Provider } from '@/models/provider';
 import { ProviderGroup } from '@/models/provider-group';
-import { TVShow, TVShowSeason } from '@/models/tv-show';
+import { TVShow, TVShowSeason, TVShowSeasonEpisode } from '@/models/tv-show';
 import { TMDBApi } from '@/services/api';
 import {
     parseCreditsDto,
     parseProviderDto,
     parseTVShowDto,
     parseTVShowSeasonDto,
+    parseTVShowSeasonEpisodeDto,
 } from '@/services/parse-service';
 import dayjs from 'dayjs';
 
@@ -73,6 +78,21 @@ const getTVShowSeasonCredits = async (
     const url = apiRoutes.tv.byId.season.aggregateCredits.expand({
         showId,
         seasonNumber,
+    });
+    return await TMDBApi.get<CreditsDto>(url).then((r) =>
+        parseCreditsDto(r.data),
+    );
+};
+
+const getTVShowSeasonEpisodeCredits = async (
+    showId: string,
+    seasonNumber: number,
+    episodeNumber: number,
+): Promise<Credits> => {
+    const url = apiRoutes.tv.byId.season.episode.credits.expand({
+        showId,
+        seasonNumber,
+        episodeNumber,
     });
     return await TMDBApi.get<CreditsDto>(url).then((r) =>
         parseCreditsDto(r.data),
@@ -156,14 +176,31 @@ const getTVShowSeasonDetails = async (
     );
 };
 
+const getTVShowSeasonEpisodeDetails = async (
+    showId: string,
+    seasonNumber: number,
+    episodeNumber: number,
+): Promise<TVShowSeasonEpisode> => {
+    const url = apiRoutes.tv.byId.season.episode.details.expand({
+        showId,
+        seasonNumber,
+        episodeNumber,
+    });
+    return await TMDBApi.get<TVShowSeasonEpisodeDto>(url).then((r) =>
+        parseTVShowSeasonEpisodeDto(r.data),
+    );
+};
+
 export {
     getPopularShows,
     getAiringTodayShows,
     getTVShowDetails,
     getTVShowSeasonDetails,
+    getTVShowSeasonEpisodeDetails,
     getSimilarTVShows,
     getTVShowCredits,
     getTVShowSeasonCredits,
+    getTVShowSeasonEpisodeCredits,
     getTVShowWatchProviders,
     getTVShowSeasonWatchProviders,
 };

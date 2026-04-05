@@ -3,8 +3,8 @@ import { Meta } from '@/components/meta';
 import { SearchHint } from '@/components/search-hint';
 import {
     getTVShowDetails,
-    getTVShowSeasonCredits,
-    getTVShowSeasonDetails,
+    getTVShowSeasonEpisodeCredits,
+    getTVShowSeasonEpisodeDetails,
 } from '@/services/tv-show-service';
 import { Metadata } from 'next';
 import { headers } from 'next/headers';
@@ -13,19 +13,21 @@ import React, { ReactNode } from 'react';
 
 export const generateMetadata = async ({
     params,
-}: PageProps<'/tv-shows/[id]/seasons/[seasonNumber]/credits'>): Promise<Metadata> => {
+}: PageProps<'/tv-shows/[id]/seasons/[seasonNumber]/episodes/[episodeNumber]/credits'>): Promise<Metadata> => {
     const showId = (await params).id;
     const seasonNumber = Number((await params).seasonNumber);
+    const episodeNumber = Number((await params).episodeNumber);
 
-    const { title, type, overview } = await getTVShowSeasonDetails(
+    const { title, type, overview } = await getTVShowSeasonEpisodeDetails(
         showId,
         seasonNumber,
+        episodeNumber,
     );
     const { title: showTitle, overview: showOverview } =
         await getTVShowDetails(showId);
 
     return Meta({
-        title: `${showTitle} | S${seasonNumber} | Credits`,
+        title: `${showTitle} | S${seasonNumber}:E${episodeNumber} | Credits`,
         description: overview || showOverview,
         keywords: [showTitle, title, type]
             .filter((keyword) => keyword != undefined)
@@ -33,14 +35,19 @@ export const generateMetadata = async ({
     });
 };
 
-export default async function TVShowSeasonCreditsPage({
+export default async function TVShowSeasonEpisodeCreditsPage({
     params,
-}: PageProps<'/tv-shows/[id]/seasons/[seasonNumber]/credits'>): Promise<ReactNode> {
+}: PageProps<'/tv-shows/[id]/seasons/[seasonNumber]/episodes/[episodeNumber]/credits'>): Promise<ReactNode> {
     const readyOnlyHeaders = await headers();
     const { os, device } = userAgent({ headers: readyOnlyHeaders });
     const showId = (await params).id;
     const seasonNumber = Number((await params).seasonNumber);
-    const { cast, crew } = await getTVShowSeasonCredits(showId, seasonNumber);
+    const episodeNumber = Number((await params).episodeNumber);
+    const { cast, crew } = await getTVShowSeasonEpisodeCredits(
+        showId,
+        seasonNumber,
+        episodeNumber,
+    );
 
     return (
         <>
@@ -49,7 +56,7 @@ export default async function TVShowSeasonCreditsPage({
                     <SearchHint os={os}></SearchHint>
                 </div>
             ) : null}
-            <CreditsTable cast={cast} crew={crew} title="Season" />
+            <CreditsTable cast={cast} crew={crew} title="Episode" />
         </>
     );
 }

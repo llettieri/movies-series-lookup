@@ -10,6 +10,11 @@ interface TVShow extends Media {
     seasonsCount: number;
 }
 
+interface TVShowSeason extends ReducedTVShowSeason {
+    episodes: TVShowSeasonEpisode[];
+    networks: Network[];
+}
+
 interface ReducedTVShowSeason extends Media {
     episodeCount: number;
     seasonNumber: number;
@@ -17,9 +22,11 @@ interface ReducedTVShowSeason extends Media {
     type: 'showSeason';
 }
 
-interface TVShowSeason extends ReducedTVShowSeason {
-    episodes: Record<string, never>[];
-    networks: Network[];
+interface TVShowSeasonEpisode extends Media {
+    episodeNumber: number;
+    seasonNumber: number;
+    episodeType: string;
+    showId: string;
 }
 
-export type { TVShow, TVShowSeason, ReducedTVShowSeason };
+export type { TVShow, TVShowSeason, ReducedTVShowSeason, TVShowSeasonEpisode };

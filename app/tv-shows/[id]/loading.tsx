@@ -35,7 +35,7 @@ export default function TVShowLoadingPage(): ReactNode {
                         <p className="text-sm">Last Aired:</p>
                         <Skeleton className="h-4 w-20" />
                     </div>
-                    <CardCarouselSkeleton />
+                    <CardCarouselSkeleton title="Seasons" />
                     <div className="mt-8 flex w-full items-center gap-4">
                         <p className="text-md">Networks:</p>
                         {Array.from({ length: 3 }).map((value, index) => (
@@ -43,6 +43,7 @@ export default function TVShowLoadingPage(): ReactNode {
                         ))}
                     </div>
                     <WatchProvidersSkeleton />
+                    <CardCarouselSkeleton title="Credits" />
                 </div>
             </div>
             <div className="pt-2">

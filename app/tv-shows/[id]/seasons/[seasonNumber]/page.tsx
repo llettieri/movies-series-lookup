@@ -32,7 +32,7 @@ export const generateMetadata = async ({
         await getTVShowDetails(showId);
 
     return Meta({
-        title: `${showTitle} | ${title} | Details`,
+        title: `${showTitle} | S${seasonNumber} | Details`,
         description: overview || showOverview,
         keywords: [showTitle, title, type]
             .filter((keyword) => keyword != undefined)
@@ -54,6 +54,7 @@ export default async function TVShowSeasonPage({
         overview,
         releaseDate,
         networks,
+        episodes,
     } = await getTVShowSeasonDetails(showId, seasonNumber);
     const credits = await getTVShowSeasonCredits(showId, seasonNumber);
 
@@ -90,18 +91,12 @@ export default async function TVShowSeasonPage({
                     <p id="description" className="mt-4 text-sm">
                         {overview}
                     </p>
-                    <p id="release-date" className="mt-4 text-sm">
+                    <p id="release-date" className="text-md mt-4">
                         Release Date:{' '}
-                        <span className="text-secondary font-bold">
+                        <span className="text-secondary text-sm font-bold">
                             {dayjs(releaseDate).format('MMMM DD, YYYY')}
                         </span>
                     </p>
-
-                    <ItemCarousel
-                        title="Credits"
-                        items={credits.cast}
-                        link={`/tv-shows/${showId}/seasons/${seasonNumber}/credits`}
-                    />
                     <div
                         id="networks"
                         className="mt-8 flex w-full flex-wrap items-center gap-4"
@@ -123,13 +118,18 @@ export default async function TVShowSeasonPage({
                             type="showSeason"
                         />
                     </Suspense>
+                    <ItemCarousel
+                        title="Credits"
+                        items={credits.cast}
+                        link={`${seasonNumber}/credits`}
+                    />
                 </div>
             </div>
             <div className="pt-2">
                 <Suspense
                     fallback={<CardVerticalListSkeleton title="Episodes" />}
                 >
-                    <ItemList title="Episodes" items={[]} />
+                    <ItemList title="Episodes" items={episodes} />
                 </Suspense>
             </div>
         </>
