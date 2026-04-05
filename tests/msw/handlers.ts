@@ -4,6 +4,7 @@ import { movieFixture, movieListFixture } from '../fixtures/movie';
 import {
     tvShowFixture,
     tvShowListFixture,
+    tvShowSeasonEpisodeFixture,
     tvShowSeasonFixture,
 } from '../fixtures/tv-show';
 import { personFixture, creditsFixture } from '../fixtures/person';
@@ -58,6 +59,13 @@ export const handlers = [
     ),
     http.get(`${TMDB}/tv/:id/season/:seasonNumber`, () =>
         HttpResponse.json(tvShowSeasonFixture),
+    ),
+    http.get(
+        `${TMDB}/tv/:id/season/:seasonNumber/episode/:episodeNumber/credits`,
+        () => HttpResponse.json(creditsFixture),
+    ),
+    http.get(`${TMDB}/tv/:id/season/:seasonNumber/episode/:episodeNumber`, () =>
+        HttpResponse.json(tvShowSeasonEpisodeFixture),
     ),
     http.get(`${TMDB}/tv/:id`, () => HttpResponse.json(tvShowFixture)),
 

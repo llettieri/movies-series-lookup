@@ -1,11 +1,14 @@
 // @vitest-environment jsdom
 import React from 'react';
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { ItemCard } from '@/components/cards/item-card';
 import type { Media } from '@/models/media';
 import type { Person } from '@/models/person';
-import type { ReducedTVShowSeason } from '@/models/tv-show';
+import type {
+    ReducedTVShowSeason,
+    TVShowSeasonEpisode,
+} from '@/models/tv-show';
 
 const movieItem: Media = {
     averageVote: 75,
@@ -37,6 +40,17 @@ const showSeasonItem: ReducedTVShowSeason = {
     seasonNumber: 1,
     showId: 'show-1',
     episodeCount: 10,
+};
+
+const showSeasonEpisodeItem: TVShowSeasonEpisode = {
+    ...tvItem,
+    id: 'episode-1',
+    title: 'Pilot',
+    type: 'showSeasonEpisode',
+    episodeNumber: 1,
+    episodeType: 'standard',
+    seasonNumber: 1,
+    showId: 'show-1',
 };
 
 const personItem: Person = {
@@ -95,6 +109,22 @@ describe('ItemCard — TV show season', () => {
         render(<ItemCard item={showSeasonItem} size="normal" />);
         const link = screen.getByRole('link');
         expect(link).toHaveAttribute('href', '/tv-shows/show-1/seasons/1');
+    });
+});
+
+describe('ItemCard — TV show season episode', () => {
+    it('renders the episode title', () => {
+        render(<ItemCard item={showSeasonEpisodeItem} size="normal" />);
+        expect(screen.getByText('Pilot')).toBeInTheDocument();
+    });
+
+    it('links to the episode detail page', () => {
+        render(<ItemCard item={showSeasonEpisodeItem} size="normal" />);
+        const link = screen.getByRole('link');
+        expect(link).toHaveAttribute(
+            'href',
+            '/tv-shows/show-1/seasons/1/episodes/1',
+        );
     });
 });
 

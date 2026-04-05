@@ -9,9 +9,14 @@ import {
     parseProviderDto,
     parseTVShowDto,
     parseTVShowSeasonDto,
+    parseTVShowSeasonEpisodeDto,
 } from '@/services/parse-service';
 import { movieFixture } from '@/tests/fixtures/movie';
-import { tvShowFixture, tvShowSeasonFixture } from '@/tests/fixtures/tv-show';
+import {
+    tvShowFixture,
+    tvShowSeasonEpisodeFixture,
+    tvShowSeasonFixture,
+} from '@/tests/fixtures/tv-show';
 import {
     creditsFixture,
     crewPersonFixture,
@@ -174,6 +179,30 @@ describe('parseTVShowSeasonDto', () => {
     it('sets episodeCount from episodes array length', () => {
         const result = parseTVShowSeasonDto(tvShowSeasonFixture, 'show-1');
         expect(result.episodeCount).toBe(2); // episodes: [{}, {}]
+    });
+});
+
+// ─── parseTVShowSeasonEpisodeDto ─────────────────────────────────────────────────────
+
+describe('parseTVShowSeasonEpisodeDto', () => {
+    it('maps all fields from the DTO', () => {
+        const result = parseTVShowSeasonEpisodeDto(tvShowSeasonEpisodeFixture);
+
+        expect(result.id).toBe('episode-1');
+        expect(result.title).toBe('Pilot');
+        expect(result.overview).toBe('A test episode overview.');
+        expect(result.releaseDate).toBe('2023-03-01');
+        expect(result.seasonNumber).toBe(1);
+        expect(result.episodeNumber).toBe(1);
+        expect(result.episodeType).toBe('standard');
+        expect(result.showId).toBe('show-1');
+        expect(result.type).toBe('showSeasonEpisode');
+    });
+
+    it('multiplies vote_average by 10', () => {
+        const result = parseTVShowSeasonEpisodeDto(tvShowSeasonEpisodeFixture);
+
+        expect(result.averageVote).toBe(80); // 8.0 * 10
     });
 });
 

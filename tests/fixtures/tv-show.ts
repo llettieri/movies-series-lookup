@@ -3,8 +3,24 @@ import type {
     ReducedTVShowSeasonDto,
     TVShowDto,
     TVShowSeasonDto,
+    TVShowSeasonEpisodeDto,
 } from '@/models/dto/tv-show-dto';
 import type { ListDto } from '@/models/dto/list-dto';
+
+export const tvShowSeasonEpisodeFixture: TVShowSeasonEpisodeDto = {
+    air_date: '2023-03-01',
+    episode_number: 1,
+    episode_type: 'standard',
+    id: 'episode-1',
+    name: 'Pilot',
+    overview: 'A test episode overview.',
+    production_code: 'TEST',
+    runtime: 30,
+    season_number: 1,
+    show_id: 'show-1',
+    still_path: '/episode-still.jpg',
+    vote_average: 8.0,
+};
 
 export const reducedTVShowSeasonFixture: ReducedTVShowSeasonDto = {
     air_date: '2023-03-01',
@@ -19,7 +35,7 @@ export const reducedTVShowSeasonFixture: ReducedTVShowSeasonDto = {
 
 export const tvShowSeasonFixture: TVShowSeasonDto = {
     air_date: '2023-03-01',
-    episodes: [{}, {}],
+    episodes: [tvShowSeasonEpisodeFixture, tvShowSeasonEpisodeFixture],
     id: 'season-1',
     name: 'Season 1',
     networks: [

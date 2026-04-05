@@ -9,6 +9,8 @@ import {
     getTVShowSeasonDetails,
     getTVShowSeasonCredits,
     getTVShowSeasonWatchProviders,
+    getTVShowSeasonEpisodeDetails,
+    getTVShowSeasonEpisodeCredits,
 } from '@/services/tv-show-service';
 
 describe('getTVShowDetails', () => {
@@ -43,7 +45,7 @@ describe('getSimilarTVShows', () => {
     });
 });
 
-describe('getTVShowsCredits', () => {
+describe('getTVShowCredits', () => {
     it('returns cast and crew arrays', async () => {
         const result = await getTVShowCredits('show-1');
         expect(result.cast).toHaveLength(1);
@@ -92,5 +94,26 @@ describe('getTVShowSeasonWatchProviders', () => {
     it('returns undefined when locale is not in results', async () => {
         const result = await getTVShowSeasonWatchProviders('show-1', 1, 'FR');
         expect(result).toBeUndefined();
+    });
+});
+
+describe('getTVShowSeasonEpisodeDetails', () => {
+    it('returns a parsed episode model', async () => {
+        const result = await getTVShowSeasonEpisodeDetails('show-1', 1, 1);
+        expect(result.id).toBe('episode-1');
+        expect(result.type).toBe('showSeasonEpisode');
+        expect(result.averageVote).toBe(80);
+        expect(result.showId).toBe('show-1');
+        expect(result.seasonNumber).toBe(1);
+        expect(result.episodeNumber).toBe(1);
+        expect(result.episodeType).toBe('standard');
+    });
+});
+
+describe('getTVShowSeasonEpisodeCredits', () => {
+    it('returns cast and crew arrays', async () => {
+        const result = await getTVShowSeasonEpisodeCredits('show-1', 1, 1);
+        expect(result.cast).toHaveLength(1);
+        expect(result.crew).toHaveLength(1);
     });
 });

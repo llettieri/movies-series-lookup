@@ -111,7 +111,7 @@ export default async function MoviePage({
                     <ItemCarousel
                         title="Credits"
                         items={credits.cast}
-                        link={`/movies/${movieId}/credits`}
+                        link={`${movieId}/credits`}
                     />
                 </div>
             </div>
