@@ -6,6 +6,7 @@ import axios, {
     InternalAxiosRequestConfig,
 } from 'axios';
 import { notFound } from 'next/navigation';
+import { setupCache } from 'axios-cache-interceptor';
 
 const responseErrorHandler = (error: AxiosError): Promise<never> => {
     const response = error.response;
@@ -22,7 +23,9 @@ const responseErrorHandler = (error: AxiosError): Promise<never> => {
     return Promise.reject(error);
 };
 
-const TMDBApi: AxiosInstance = axios.create();
+const TMDBApi: AxiosInstance = setupCache(axios.create(), {
+    ttl: 5 * 60 * 1000,
+});
 
 TMDBApi.interceptors.request.use((request: InternalAxiosRequestConfig) => {
     request.headers.setAuthorization(`Bearer ${process.env.TMDB_API_KEY}`);
@@ -35,7 +38,7 @@ TMDBApi.interceptors.response.use(
     responseErrorHandler,
 );
 
-const Api: AxiosInstance = axios.create();
+const Api: AxiosInstance = setupCache(axios.create(), { ttl: 10 * 60 * 1000 });
 
 Api.interceptors.response.use(
     (response: AxiosResponse) => response,
