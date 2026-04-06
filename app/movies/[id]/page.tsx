@@ -101,7 +101,7 @@ export default async function MoviePage({
                     </p>
                     <p id="release-date" className="text-md mt-6">
                         Release Date:{' '}
-                        <span className="text-secondary tex-sm font-bold">
+                        <span className="text-secondary text-sm font-bold">
                             {dayjs(releaseDate).format('MMMM DD, YYYY')}
                         </span>
                     </p>
