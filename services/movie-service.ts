@@ -16,7 +16,7 @@ import { CountryProvidersDto } from '@/models/dto/country-providers-dto';
 import { Provider } from '@/models/provider';
 
 const getLatestMovies = async (locale: string): Promise<Media[]> => {
-    const url = apiRoutes.movies.nowPlaying.expand({
+    const url = apiRoutes.movie.nowPlaying.expand({
         page: 1,
         region: locale,
     });
@@ -26,7 +26,7 @@ const getLatestMovies = async (locale: string): Promise<Media[]> => {
 };
 
 const getPopularMovies = async (locale: string): Promise<Media[]> => {
-    const url = apiRoutes.movies.popular.expand({
+    const url = apiRoutes.movie.popular.expand({
         page: 1,
         region: locale,
     });
@@ -36,7 +36,7 @@ const getPopularMovies = async (locale: string): Promise<Media[]> => {
 };
 
 const getMovieDetails = async (movieId: string): Promise<Media> => {
-    const url = apiRoutes.movies.byId.details.expand({
+    const url = apiRoutes.movie.byId.details.expand({
         id: movieId,
     });
 
@@ -47,7 +47,7 @@ const getSimilarMovies = async (
     movieId: string,
     page?: number,
 ): Promise<Media[]> => {
-    const url = apiRoutes.movies.byId.similar.expand({
+    const url = apiRoutes.movie.byId.similar.expand({
         id: movieId,
         page: page ?? 1,
     });
@@ -57,7 +57,7 @@ const getSimilarMovies = async (
 };
 
 const getMovieCredits = async (movieId: string): Promise<Credits> => {
-    const url = apiRoutes.movies.byId.credits.expand({
+    const url = apiRoutes.movie.byId.credits.expand({
         id: movieId,
     });
     return await TMDBApi.get<CreditsDto>(url).then((r) =>
@@ -69,7 +69,7 @@ const getMovieWatchProviders = async (
     movieId: string,
     locale: string,
 ): Promise<ProviderGroup | undefined> => {
-    const url = apiRoutes.movies.byId.watchProviders.expand({
+    const url = apiRoutes.movie.byId.watchProviders.expand({
         id: movieId,
     });
 

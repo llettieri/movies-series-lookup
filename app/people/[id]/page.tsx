@@ -78,16 +78,16 @@ export default async function PersonPage({
                     <p id="description" className="mt-4 text-sm">
                         {biography}
                     </p>
-                    <p id="birthday" className="mt-5 text-sm">
+                    <p id="birthday" className="text-md mt-5">
                         Birthday:{' '}
-                        <span className="text-secondary font-bold">
+                        <span className="text-secondary text-sm font-bold">
                             {dayjs(birthday).format('MMMM DD, YYYY')}
                         </span>
                     </p>
                     {deathday ? (
-                        <p id="deathday" className="text-sm">
+                        <p id="deathday" className="text-md">
                             Death:{' '}
-                            <span className="text-secondary font-bold">
+                            <span className="text-secondary text-sm font-bold">
                                 {dayjs(deathday).format('MMMM DD, YYYY')}
                             </span>
                         </p>

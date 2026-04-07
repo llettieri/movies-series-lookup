@@ -1,34 +1,45 @@
 import React, { ReactNode } from 'react';
 import CompanyLogo from '@/components/company-logo';
 import { getLocale } from '@/services/session-service';
-import { getTVShowWatchProviders } from '@/services/tv-show-service';
+import {
+    getTVShowSeasonWatchProviders,
+    getTVShowWatchProviders,
+} from '@/services/tv-show-service';
 import { ProviderGroup } from '@/models/provider-group';
 import { getMovieWatchProviders } from '@/services/movie-service';
-import { ItemType } from '@/models/base';
+import { MediaItemType } from '@/models/base';
 
 const mediaProvidersMap: Record<
-    ItemType,
-    (mediaId: string, locale: string) => Promise<ProviderGroup | undefined>
+    MediaItemType,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (...args: any[]) => Promise<ProviderGroup | undefined>
 > = {
-    tv: (mediaId, locale) => getTVShowWatchProviders(mediaId, locale),
-    movie: (mediaId, locale) => getMovieWatchProviders(mediaId, locale),
-    person: () => new Promise(() => undefined),
-    provider: () => new Promise(() => undefined),
-    network: () => new Promise(() => undefined),
-    collection: () => new Promise(() => undefined),
+    show: (mediaId: string, locale: string) =>
+        getTVShowWatchProviders(mediaId, locale),
+    showSeason: (mediaId: string, locale: string, seasonNumber: number) =>
+        getTVShowSeasonWatchProviders(mediaId, seasonNumber, locale),
+    showSeasonEpisode: () => new Promise(() => undefined),
+    movie: (mediaId: string, locale: string) =>
+        getMovieWatchProviders(mediaId, locale),
 };
 
 interface WatchProvidersProps {
     mediaId: string;
-    type: ItemType;
+    seasonNumber?: number;
+    type: MediaItemType;
 }
 
 export const WatchProviders = async ({
     mediaId,
+    seasonNumber,
     type,
 }: WatchProvidersProps): Promise<ReactNode> => {
     const locale = await getLocale();
-    const providerGroup = await mediaProvidersMap[type](mediaId, locale);
+    const providerGroup = await mediaProvidersMap[type](
+        mediaId,
+        locale,
+        seasonNumber,
+    );
 
     if (!providerGroup) {
         return null;

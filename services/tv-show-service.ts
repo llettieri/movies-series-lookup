@@ -3,16 +3,22 @@ import { Credits } from '@/models/credits';
 import { CountryProvidersDto } from '@/models/dto/country-providers-dto';
 import { CreditsDto } from '@/models/dto/credits-dto';
 import { ListDto } from '@/models/dto/list-dto';
-import { TVShowDto } from '@/models/dto/tv-show-dto';
+import {
+    TVShowDto,
+    TVShowSeasonDto,
+    TVShowSeasonEpisodeDto,
+} from '@/models/dto/tv-show-dto';
 import { WatchProvidersDto } from '@/models/dto/watch-providers-dto';
 import { Provider } from '@/models/provider';
 import { ProviderGroup } from '@/models/provider-group';
-import { TVShow } from '@/models/tv-show';
+import { TVShow, TVShowSeason, TVShowSeasonEpisode } from '@/models/tv-show';
 import { TMDBApi } from '@/services/api';
 import {
     parseCreditsDto,
     parseProviderDto,
     parseTVShowDto,
+    parseTVShowSeasonDto,
+    parseTVShowSeasonEpisodeDto,
 } from '@/services/parse-service';
 import dayjs from 'dayjs';
 
@@ -56,9 +62,37 @@ const getSimilarTVShows = async (showId: string): Promise<TVShow[]> => {
     );
 };
 
-const getTVShowsCredits = async (showId: string): Promise<Credits> => {
+const getTVShowCredits = async (showId: string): Promise<Credits> => {
     const url = apiRoutes.tv.byId.aggregateCredits.expand({
         id: showId,
+    });
+    return await TMDBApi.get<CreditsDto>(url).then((r) =>
+        parseCreditsDto(r.data),
+    );
+};
+
+const getTVShowSeasonCredits = async (
+    showId: string,
+    seasonNumber: number,
+): Promise<Credits> => {
+    const url = apiRoutes.tv.byId.season.aggregateCredits.expand({
+        showId,
+        seasonNumber,
+    });
+    return await TMDBApi.get<CreditsDto>(url).then((r) =>
+        parseCreditsDto(r.data),
+    );
+};
+
+const getTVShowSeasonEpisodeCredits = async (
+    showId: string,
+    seasonNumber: number,
+    episodeNumber: number,
+): Promise<Credits> => {
+    const url = apiRoutes.tv.byId.season.episode.credits.expand({
+        showId,
+        seasonNumber,
+        episodeNumber,
     });
     return await TMDBApi.get<CreditsDto>(url).then((r) =>
         parseCreditsDto(r.data),
@@ -96,11 +130,77 @@ const getTVShowWatchProviders = async (
         .catch(() => undefined);
 };
 
+const getTVShowSeasonWatchProviders = async (
+    showId: string,
+    seasonNumber: number,
+    locale: string,
+): Promise<ProviderGroup | undefined> => {
+    const url = apiRoutes.tv.byId.season.watchProviders.expand({
+        showId,
+        seasonNumber,
+    });
+
+    return await TMDBApi.get<WatchProvidersDto>(url)
+        .then((r) => {
+            const rawCountryProviders: Map<string, CountryProvidersDto> =
+                new Map(Object.entries(r.data.results));
+            const countryProviders: Map<string, ProviderGroup> = new Map();
+            rawCountryProviders.forEach((value, key) => {
+                const providers: Provider[] = [
+                    ...(value.buy?.map(parseProviderDto) ?? []),
+                    ...(value.flatrate?.map(parseProviderDto) ?? []),
+                    ...(value.free?.map(parseProviderDto) ?? []),
+                ];
+                providers.sort((a, b) => a.displayPriority - b.displayPriority);
+                countryProviders.set(key, {
+                    link: value.link,
+                    providers,
+                });
+            });
+
+            return countryProviders.get(locale);
+        })
+        .catch(() => undefined);
+};
+
+const getTVShowSeasonDetails = async (
+    showId: string,
+    seasonNumber: number,
+): Promise<TVShowSeason> => {
+    const url = apiRoutes.tv.byId.season.details.expand({
+        showId,
+        seasonNumber,
+    });
+    return await TMDBApi.get<TVShowSeasonDto>(url).then((r) =>
+        parseTVShowSeasonDto(r.data, showId),
+    );
+};
+
+const getTVShowSeasonEpisodeDetails = async (
+    showId: string,
+    seasonNumber: number,
+    episodeNumber: number,
+): Promise<TVShowSeasonEpisode> => {
+    const url = apiRoutes.tv.byId.season.episode.details.expand({
+        showId,
+        seasonNumber,
+        episodeNumber,
+    });
+    return await TMDBApi.get<TVShowSeasonEpisodeDto>(url).then((r) =>
+        parseTVShowSeasonEpisodeDto(r.data),
+    );
+};
+
 export {
     getPopularShows,
     getAiringTodayShows,
     getTVShowDetails,
+    getTVShowSeasonDetails,
+    getTVShowSeasonEpisodeDetails,
     getSimilarTVShows,
-    getTVShowsCredits,
+    getTVShowCredits,
+    getTVShowSeasonCredits,
+    getTVShowSeasonEpisodeCredits,
     getTVShowWatchProviders,
+    getTVShowSeasonWatchProviders,
 };

@@ -1,11 +1,16 @@
+export type MediaItemType =
+    | 'movie'
+    | 'show'
+    | 'showSeason'
+    | 'showSeasonEpisode';
+
 export type ItemType =
+    | MediaItemType
     | 'collection'
     | 'genre'
-    | 'movie'
     | 'network'
     | 'person'
-    | 'provider'
-    | 'tv';
+    | 'provider';
 
 export interface Item {
     id: string;

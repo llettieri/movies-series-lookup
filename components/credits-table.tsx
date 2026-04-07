@@ -2,7 +2,6 @@ import { Person } from '@/models/person';
 import React, { ReactNode } from 'react';
 import { GoBackButton } from '@/components/go-back-button';
 import { ItemCard } from '@/components/cards/item-card';
-import { ItemType } from '@/models/base';
 
 interface GroupedCrewComponentProps {
     groupedCrew: Map<string, Person[]>;
@@ -40,15 +39,14 @@ const GroupedCrewComponent = ({
 interface CreditsTableProps {
     cast: Person[];
     crew: Person[];
-    type: ItemType;
+    title: string;
 }
 
 export const CreditsTable = ({
     cast,
     crew,
-    type,
+    title,
 }: CreditsTableProps): ReactNode => {
-    const title = type === 'movie' ? 'Movie' : 'TV Show';
     const groupedCrew: Map<string, Person[]> = new Map();
 
     crew.forEach((person) => {

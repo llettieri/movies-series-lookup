@@ -1,12 +1,12 @@
 import CompanyLogo from '@/components/company-logo';
 import { GenreBadges } from '@/components/genre-badges';
-import { CreditsCarousel } from '@/components/lists/credits-carousel';
+import { ItemCarousel } from '@/components/lists/item-carousel';
 import { Meta } from '@/components/meta';
 import { Rating } from '@/components/rating';
 import {
     getSimilarTVShows,
+    getTVShowCredits,
     getTVShowDetails,
-    getTVShowsCredits,
 } from '@/services/tv-show-service';
 import dayjs from 'dayjs';
 import { Metadata } from 'next';
@@ -48,9 +48,10 @@ export default async function TVShowPage({
         overview,
         releaseDate,
         seasonsCount,
+        seasons,
         title,
     } = await getTVShowDetails(showId);
-    const credits = await getTVShowsCredits(showId);
+    const credits = await getTVShowCredits(showId);
 
     return (
         <>
@@ -86,34 +87,35 @@ export default async function TVShowPage({
                             title
                         )}
                     </h1>
-                    <h2 id="season-info" className="text-secondary">
+                    <h2 id="seasons-overview" className="text-secondary">
                         ({seasonsCount} Seasons)
                     </h2>
                     <p id="description" className="mt-4 text-sm">
                         {overview}
                     </p>
-                    <p id="release-date" className="mt-4 text-sm">
+                    <p id="release-date" className="text-md mt-4">
                         Release Date:{' '}
-                        <span className="text-secondary font-bold">
+                        <span className="text-secondary text-sm font-bold">
                             {dayjs(releaseDate).format('MMMM DD, YYYY')}
                         </span>
                     </p>
                     {lastAirDate ? (
-                        <p id="last-aired" className="text-sm">
+                        <p id="last-aired" className="text-md">
                             Last Aired:{' '}
-                            <span className="text-secondary font-bold">
+                            <span className="text-secondary text-sm font-bold">
                                 {dayjs(lastAirDate).format('MMMM DD, YYYY')}
                             </span>
                         </p>
                     ) : null}
 
-                    <CreditsCarousel
-                        cast={credits.cast}
-                        baseRoute={`/tv-shows/${showId}`}
+                    <ItemCarousel
+                        title="Seasons"
+                        items={seasons}
+                        link={`${showId}}/seasons`}
                     />
                     <div
                         id="networks"
-                        className="mt-8 flex w-full flex-wrap items-center gap-4"
+                        className="flex w-full flex-wrap items-center gap-4"
                     >
                         <p className="text-md w-auto">Networks: </p>
                         {networks.map(({ homepage, id, logo, name }) => (
@@ -126,8 +128,13 @@ export default async function TVShowPage({
                         ))}
                     </div>
                     <Suspense fallback={<WatchProvidersSkeleton />}>
-                        <WatchProviders mediaId={showId} type="movie" />
+                        <WatchProviders mediaId={showId} type="show" />
                     </Suspense>
+                    <ItemCarousel
+                        title="Credits"
+                        items={credits.cast}
+                        link={`${showId}/credits`}
+                    />
                 </div>
             </div>
             <div className="pt-2">

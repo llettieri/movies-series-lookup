@@ -1,5 +1,4 @@
 'use client';
-import { Person } from '@/models/person';
 import Link from 'next/link';
 import React, { ReactNode } from 'react';
 
@@ -13,33 +12,36 @@ import {
 import { WheelGesturesPlugin } from 'embla-carousel-wheel-gestures';
 import { ArrowRight } from 'lucide-react';
 import { ItemCard } from '@/components/cards/item-card';
+import { Item } from '@/models/base';
 
-interface CreditsListProps {
-    cast: Person[];
-    baseRoute: string;
+interface CreditsListProps<I> {
+    title: string;
+    items: I[];
+    link: string;
 }
 
-export const CreditsCarousel = ({
-    cast,
-    baseRoute,
-}: CreditsListProps): ReactNode => {
-    if (!cast) {
+export const ItemCarousel = <I extends Item>({
+    title,
+    items,
+    link,
+}: CreditsListProps<I>): ReactNode => {
+    if (!items || items.length == 0) {
         return null;
     }
 
     return (
         <Carousel
-            id="credits"
-            className="mb-16"
+            id={title.toLowerCase()}
+            className="mt-8 mb-16"
             opts={{
                 align: 'start',
                 dragFree: true,
             }}
             plugins={[WheelGesturesPlugin({ forceWheelAxis: 'x' })]}
         >
-            <h3 className="mt-8">Credits</h3>
+            <h3 className="mt-8">{title}</h3>
             <CarouselContent className="md:m-4">
-                {cast.slice(0, 10).map((p) => (
+                {items.slice(0, 10).map((p) => (
                     <CarouselItem
                         key={p.id}
                         className="xs:basis-1/2 basis-9/12 sm:basis-2/5 md:basis-4/12 lg:basis-1/4"
@@ -50,7 +52,7 @@ export const CreditsCarousel = ({
 
                 <CarouselItem className="xs:basis-1/2 flex basis-9/12 items-center sm:basis-2/5 md:basis-4/12 lg:basis-1/4">
                     <Link
-                        href={`${baseRoute}/credits`}
+                        href={link}
                         prefetch
                         className="duration-150 hover:scale-105"
                     >

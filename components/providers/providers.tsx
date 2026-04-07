@@ -12,14 +12,7 @@ export const Providers = ({ children }: ProvidersProps): ReactNode => {
         <>
             <SessionProvider />
             <ServiceWorkerProvider />
-            <ThemeProvider
-                attribute="class"
-                defaultTheme="dark"
-                enableSystem
-                disableTransitionOnChange
-            >
-                {children}
-            </ThemeProvider>
+            <ThemeProvider>{children}</ThemeProvider>
         </>
     );
 };

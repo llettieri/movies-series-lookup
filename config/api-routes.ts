@@ -33,7 +33,7 @@ export const apiRoutes = {
      * Params: size
      */
     images: parseTemplate('https://image.tmdb.org/t/p/{size}'),
-    movies: {
+    movie: {
         byId: {
             /**
              * Params: id
@@ -109,6 +109,40 @@ export const apiRoutes = {
              * Params: id
              */
             watchProviders: parseTemplate(`${base.tv}/{id}/watch/providers`),
+            season: {
+                /**
+                 * Params: showId, seasonNumber
+                 */
+                details: parseTemplate(
+                    `${base.tv}/{showId}/season/{seasonNumber}`,
+                ),
+                /**
+                 * Params: showId, seasonNumber
+                 */
+                aggregateCredits: parseTemplate(
+                    `${base.tv}/{showId}/season/{seasonNumber}/aggregate_credits`,
+                ),
+                /**
+                 * Params: showId, seasonNumber
+                 */
+                watchProviders: parseTemplate(
+                    `${base.tv}/{showId}/season/{seasonNumber}/watch/providers`,
+                ),
+                episode: {
+                    /**
+                     * Params: showId, seasonNumber, episodeNumber
+                     */
+                    details: parseTemplate(
+                        `${base.tv}/{showId}/season/{seasonNumber}/episode/{episodeNumber}`,
+                    ),
+                    /**
+                     * Params: showId, seasonNumber, episodeNumber
+                     */
+                    credits: parseTemplate(
+                        `${base.tv}/{showId}/season/{seasonNumber}/episode/{episodeNumber}/credits`,
+                    ),
+                },
+            },
         },
         /**
          * QueryParams: page, sort_by, watch_region, with_watch_monetization_types, air_date.gte, air_date.lte

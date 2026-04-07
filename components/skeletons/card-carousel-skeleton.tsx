@@ -9,10 +9,12 @@ import {
 } from '@/components/ui/carousel';
 
 interface SkeletonCardCarouselProps {
+    title: string;
     itemCount?: number;
 }
 
 export const CardCarouselSkeleton = ({
+    title,
     itemCount = 10,
 }: SkeletonCardCarouselProps): ReactNode => {
     return (
@@ -23,7 +25,7 @@ export const CardCarouselSkeleton = ({
                 active: false,
             }}
         >
-            <h3 className="mt-8">Credits</h3>
+            <h3 className="mt-8">{title}</h3>
             <CarouselContent className="md:m-4">
                 {Array.from({ length: itemCount }).map((value, index) => (
                     <CarouselItem

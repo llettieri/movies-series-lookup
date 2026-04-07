@@ -1,13 +1,11 @@
 import React, { ReactNode } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { BadgesSkeleton } from '@/components/skeletons/badges-skeleton';
-import { CardCarouselSkeleton } from '@/components/skeletons/card-carousel-skeleton';
 import { CardVerticalListSkeleton } from '@/components/skeletons/card-vertical-list-skeleton';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { ScrollToTop } from '@/components/scroll-to-top';
-import { WatchProvidersSkeleton } from '@/components/skeletons/watch-providers-skeleton';
 
-export default function MovieLoadingPage(): ReactNode {
+export default function TVShowSeasonsLoadingPage(): ReactNode {
     return (
         <>
             <ScrollToTop />
@@ -21,23 +19,15 @@ export default function MovieLoadingPage(): ReactNode {
                         <Skeleton className="h-10 w-full md:w-2/3" />
                         <Skeleton className="h-10 w-2/3 md:hidden" />
                     </div>
-                    <Skeleton className="mb-6 h-7 w-56" />
-
                     <div className="grid gap-2">
                         <Skeleton className="h-4" />
                         <Skeleton className="h-4" />
                         <Skeleton className="h-4 w-2/3" />
                     </div>
-                    <div className="mt-6 flex items-center gap-1">
-                        <p className="text-sm">Release Date:</p>
-                        <Skeleton className="h-4 w-20" />
-                    </div>
-                    <WatchProvidersSkeleton />
-                    <CardCarouselSkeleton title="Credits" />
                 </div>
             </div>
             <div className="pt-2">
-                <CardVerticalListSkeleton title="Similar Movies" />
+                <CardVerticalListSkeleton title="Seasons" />
             </div>
         </>
     );

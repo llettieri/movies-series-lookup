@@ -6,7 +6,13 @@ import { ThemeProvider as NextThemesProvider } from 'next-themes';
 
 export const ThemeProvider = ({
     children,
-    ...props
 }: React.ComponentProps<typeof NextThemesProvider>): ReactNode => (
-    <NextThemesProvider {...props}>{children}</NextThemesProvider>
+    <NextThemesProvider
+        attribute="class"
+        defaultTheme="dark"
+        enableSystem
+        disableTransitionOnChange
+    >
+        {children}
+    </NextThemesProvider>
 );

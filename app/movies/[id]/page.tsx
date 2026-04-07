@@ -1,5 +1,5 @@
 import { GenreBadges } from '@/components/genre-badges';
-import { CreditsCarousel } from '@/components/lists/credits-carousel';
+import { ItemCarousel } from '@/components/lists/item-carousel';
 import { Meta } from '@/components/meta';
 import { Rating } from '@/components/rating';
 import {
@@ -88,7 +88,10 @@ export default async function MoviePage({
                     </h1>
                     {collection ? (
                         <Link href={`/collections/${collection.id}`} prefetch>
-                            <h2 id="collection" className="text-secondary">
+                            <h2
+                                id="collection"
+                                className="text-secondary underline"
+                            >
                                 {collection.name}
                             </h2>
                         </Link>
@@ -96,20 +99,21 @@ export default async function MoviePage({
                     <p id="description" className="mt-4 text-sm">
                         {overview}
                     </p>
-                    <p id="release-date" className="mt-6 text-sm">
+                    <p id="release-date" className="text-md mt-6">
                         Release Date:{' '}
-                        <span className="text-secondary font-bold">
+                        <span className="text-secondary text-sm font-bold">
                             {dayjs(releaseDate).format('MMMM DD, YYYY')}
                         </span>
                     </p>
-                    <CreditsCarousel
-                        cast={credits.cast}
-                        baseRoute={`/movies/${movieId}`}
+                    <Suspense fallback={<WatchProvidersSkeleton />}>
+                        <WatchProviders mediaId={movieId} type="movie" />
+                    </Suspense>
+                    <ItemCarousel
+                        title="Credits"
+                        items={credits.cast}
+                        link={`${movieId}/credits`}
                     />
                 </div>
-                <Suspense fallback={<WatchProvidersSkeleton />}>
-                    <WatchProviders mediaId={movieId} type="movie" />
-                </Suspense>
             </div>
             <div className="pt-2">
                 <Suspense
