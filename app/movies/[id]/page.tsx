@@ -1,7 +1,6 @@
-import { GenreBadges } from '@/components/genre-badges';
+import { DetailLayout } from '@/components/detail-layout';
 import { ItemCarousel } from '@/components/lists/item-carousel';
 import { Meta } from '@/components/meta';
-import { Rating } from '@/components/rating';
 import {
     getMovieCredits,
     getMovieDetails,
@@ -11,8 +10,6 @@ import dayjs from 'dayjs';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import React, { ReactNode, Suspense } from 'react';
-import { TMDBImage } from '@/components/image';
-import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { WatchProviders } from '@/components/watch-providers';
 import { WatchProvidersSkeleton } from '@/components/skeletons/watch-providers-skeleton';
 import { CardVerticalListSkeleton } from '@/components/skeletons/card-vertical-list-skeleton';
@@ -45,88 +42,61 @@ export default async function MoviePage({
         genres,
         homepage,
         overview,
+        poster,
         releaseDate,
         runtime,
         title,
     } = await getMovieDetails(movieId);
     const credits = await getMovieCredits(movieId);
 
+    const releaseDateRow = releaseDate
+        ? {
+              label: 'Release Date',
+              value: dayjs(releaseDate).format('MMMM DD, YYYY'),
+          }
+        : null;
+    const runtimeRow = runtime
+        ? { label: 'Runtime', value: `${runtime} min` }
+        : null;
+
     return (
         <>
-            <div className="container mx-auto max-w-4xl py-6">
-                <div className="px-3">
-                    <div className="relative">
-                        <AspectRatio ratio={16 / 9}>
-                            <TMDBImage
-                                id="backdrop"
-                                src={backdrop}
-                                className="rounded-md object-cover"
-                                alt={`${title} backdrop image`}
-                                scope="backdrop"
-                                fill
-                                sizes="(min-width: 48rem) 80rem, 18.75rem"
-                            />
-                        </AspectRatio>
-
-                        <Rating value={averageVote} />
-                    </div>
-                    <GenreBadges genres={genres} />
-
-                    <h1 id="title">
-                        {homepage ? (
-                            <a
-                                href={homepage}
-                                target="_blank"
-                                className="underline"
-                                rel="noreferrer"
-                            >
-                                {title} ({runtime}min)
-                            </a>
-                        ) : (
-                            `${title} (${runtime}min)`
-                        )}
-                    </h1>
-                    {collection ? (
+            <DetailLayout
+                backdrop={backdrop}
+                image={poster}
+                imageAspect="portrait"
+                alt={`${title} poster`}
+                title={title}
+                subtitle={
+                    collection ? (
                         <Link href={`/collections/${collection.id}`} prefetch>
-                            <h2
-                                id="collection"
-                                className="text-secondary underline"
-                            >
-                                {collection.name}
-                            </h2>
+                            {collection.name}
                         </Link>
-                    ) : null}
-                    <p id="description" className="mt-4 text-sm">
-                        {overview}
-                    </p>
-                    <p id="release-date" className="text-md mt-6">
-                        Release Date:{' '}
-                        <span className="text-secondary text-sm font-bold">
-                            {dayjs(releaseDate).format('MMMM DD, YYYY')}
-                        </span>
-                    </p>
-                    <Suspense fallback={<WatchProvidersSkeleton />}>
-                        <WatchProviders mediaId={movieId} type="movie" />
-                    </Suspense>
-                    <ItemCarousel
-                        title="Credits"
-                        items={credits.cast}
-                        link={`${movieId}/credits`}
-                    />
-                </div>
-            </div>
-            <div className="pt-2">
-                <Suspense
-                    fallback={
-                        <CardVerticalListSkeleton title="Similar Movies" />
-                    }
-                >
-                    <ItemList
-                        title="Similar Movies"
-                        loadItems={() => getSimilarMovies(movieId)}
-                    />
+                    ) : undefined
+                }
+                rating={averageVote}
+                genres={genres}
+                homepage={homepage}
+                description={overview}
+                metadata={[releaseDateRow, runtimeRow]}
+            >
+                <Suspense fallback={<WatchProvidersSkeleton />}>
+                    <WatchProviders mediaId={movieId} type="movie" />
                 </Suspense>
-            </div>
+                <ItemCarousel
+                    title="Credits"
+                    items={credits.cast}
+                    link={`${movieId}/credits`}
+                />
+            </DetailLayout>
+            <Suspense
+                fallback={<CardVerticalListSkeleton title="Similar Movies" />}
+            >
+                <ItemList
+                    title="Similar Movies"
+                    loadItems={() => getSimilarMovies(movieId)}
+                />
+            </Suspense>
         </>
     );
 }
