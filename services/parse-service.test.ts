@@ -62,12 +62,12 @@ describe('parseMovieDto', () => {
         expect(result.backdrop).toBe('/backdrop.jpg');
     });
 
-    it('falls back to FALLBACK_IMAGE when backdrop_path is missing', () => {
+    it('sets backdrop to null when backdrop_path is missing', () => {
         const result = parseMovieDto({
             ...movieFixture,
             backdrop_path: undefined,
         });
-        expect(result.backdrop).toBe('/fallback.png');
+        expect(result.backdrop).toBeNull();
     });
 
     it('includes belongs_to_collection', () => {
@@ -139,6 +139,14 @@ describe('parseTVShowDto', () => {
         expect(result.seasons[0].episodeCount).toBe(10);
         expect(result.seasons[0].seasonNumber).toBe(1);
     });
+
+    it('sets backdrop to null when backdrop_path is missing', () => {
+        const result = parseTVShowDto({
+            ...tvShowFixture,
+            backdrop_path: undefined,
+        });
+        expect(result.backdrop).toBeNull();
+    });
 });
 
 // ─── parseTVShowSeasonDto ─────────────────────────────────────────────────────
@@ -180,6 +188,11 @@ describe('parseTVShowSeasonDto', () => {
         const result = parseTVShowSeasonDto(tvShowSeasonFixture, 'show-1');
         expect(result.episodeCount).toBe(2); // episodes: [{}, {}]
     });
+
+    it('backdrop is always null (TVShowSeason has no backdrop_path in the DTO)', () => {
+        const result = parseTVShowSeasonDto(tvShowSeasonFixture, 'show-1');
+        expect(result.backdrop).toBeNull();
+    });
 });
 
 // ─── parseTVShowSeasonEpisodeDto ─────────────────────────────────────────────────────
@@ -203,6 +216,19 @@ describe('parseTVShowSeasonEpisodeDto', () => {
         const result = parseTVShowSeasonEpisodeDto(tvShowSeasonEpisodeFixture);
 
         expect(result.averageVote).toBe(80); // 8.0 * 10
+    });
+
+    it('uses still_path as backdrop when present', () => {
+        const result = parseTVShowSeasonEpisodeDto(tvShowSeasonEpisodeFixture);
+        expect(result.backdrop).toBe(tvShowSeasonEpisodeFixture.still_path);
+    });
+
+    it('sets backdrop to null when still_path is missing', () => {
+        const result = parseTVShowSeasonEpisodeDto({
+            ...tvShowSeasonEpisodeFixture,
+            still_path: undefined,
+        });
+        expect(result.backdrop).toBeNull();
     });
 });
 
@@ -298,6 +324,14 @@ describe('parseCollectionDto', () => {
         });
         expect(result.poster).toBe('/fallback.png');
     });
+
+    it('sets backdrop to null when backdrop_path is missing', () => {
+        const result = parseCollectionDto({
+            ...collectionFixture,
+            backdrop_path: undefined,
+        });
+        expect(result.backdrop).toBeNull();
+    });
 });
 
 // ─── parseProviderDto ─────────────────────────────────────────────────────────
@@ -366,5 +400,16 @@ describe('parseMultiMediaDto', () => {
         };
         const result = parseMultiMediaDto(dto);
         expect(result.title).toBe('');
+    });
+
+    it('sets backdrop to null when backdrop_path is missing', () => {
+        const dto = {
+            id: 'x',
+            media_type: 'movie',
+            overview: '',
+            vote_average: 0,
+        };
+        const result = parseMultiMediaDto(dto);
+        expect(result.backdrop).toBeNull();
     });
 });
