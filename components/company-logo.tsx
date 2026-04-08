@@ -8,12 +8,12 @@ interface CompanyLogoProps {
     image: string;
 }
 
-export default function CompanyLogo({
+const CompanyLogo = ({
     externalLink,
     alt,
     image,
-}: CompanyLogoProps): ReactNode {
-    return externalLink ? (
+}: CompanyLogoProps): ReactNode =>
+    externalLink ? (
         <Link
             href={externalLink}
             target={externalLink ? '_blank' : '_self'}
@@ -39,4 +39,5 @@ export default function CompanyLogo({
             scope="logo"
         />
     );
-}
+
+export { CompanyLogo };

@@ -16,7 +16,7 @@ interface CardBaseProps {
     size: CardSize;
 }
 
-export const CardBase = ({
+const CardBase = ({
     link,
     image,
     alt,
@@ -67,3 +67,5 @@ export const CardBase = ({
         );
     }
 };
+
+export { CardBase };

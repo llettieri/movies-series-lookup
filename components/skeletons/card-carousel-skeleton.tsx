@@ -13,7 +13,7 @@ interface SkeletonCardCarouselProps {
     itemCount?: number;
 }
 
-export const CardCarouselSkeleton = ({
+const CardCarouselSkeleton = ({
     title,
     itemCount = 10,
 }: SkeletonCardCarouselProps): ReactNode => {
@@ -42,3 +42,5 @@ export const CardCarouselSkeleton = ({
         </Carousel>
     );
 };
+
+export { CardCarouselSkeleton };

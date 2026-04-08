@@ -1,11 +1,11 @@
 import { search } from '@/app/search/actions';
 import { Hero } from '@/components/hero';
-import { SearchBar } from '@/components/search-bar';
+import { SearchBar } from '@/components/search/search-bar';
 import { EMPTY_SEARCH_RESULT, SearchResult } from '@/models/search-result';
 import React, { ReactNode, Suspense } from 'react';
-import { SearchResults } from '@/components/search-results';
 import { CardVerticalListSkeleton } from '@/components/skeletons/card-vertical-list-skeleton';
 import { PaginationControls } from '@/components/pagination-controls';
+import { SearchResults } from '@/components/search/search-results';
 
 type SearchParams = { query: string | undefined; page: number | undefined };
 

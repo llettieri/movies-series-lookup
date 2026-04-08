@@ -9,7 +9,7 @@ interface SkeletonCreditsTableProps {
     departmentCount?: number;
 }
 
-export const CreditsTableSkeleton = ({
+const CreditsTableSkeleton = ({
     title,
     itemCount = 30,
     departmentCount = 3,
@@ -78,3 +78,5 @@ export const CreditsTableSkeleton = ({
         </>
     );
 };
+
+export { CreditsTableSkeleton };

@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
 
-export const WatchProvidersSkeleton = (): ReactNode => {
+const WatchProvidersSkeleton = (): ReactNode => {
     return (
         <div id="watch-providers" className="mt-4 w-full">
             <div className="flex flex-wrap items-center gap-4 align-middle">
@@ -25,3 +25,5 @@ export const WatchProvidersSkeleton = (): ReactNode => {
         </div>
     );
 };
+
+export { WatchProvidersSkeleton };

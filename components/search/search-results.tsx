@@ -7,7 +7,7 @@ interface SearchResultsProps {
     query?: string;
 }
 
-export const SearchResults = async ({
+const SearchResults = async ({
     resultCallback,
     query = '',
 }: SearchResultsProps): Promise<ReactNode> => {
@@ -28,3 +28,5 @@ export const SearchResults = async ({
         </>
     );
 };
+
+export { SearchResults };

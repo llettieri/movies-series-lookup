@@ -7,7 +7,7 @@ interface ObfuscateTextProps {
     type: 'tel' | 'email';
 }
 
-export const ObfuscateSensibleText = ({
+const ObfuscateSensibleText = ({
     content,
     type,
 }: ObfuscateTextProps): ReactNode => {
@@ -31,3 +31,5 @@ export const ObfuscateSensibleText = ({
         </a>
     );
 };
+
+export { ObfuscateSensibleText };

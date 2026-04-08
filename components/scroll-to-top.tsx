@@ -7,7 +7,7 @@ import { ReactNode, useEffect } from 'react';
  *
  * TODO: Remove in a later state
  */
-export const ScrollToTop = (): ReactNode => {
+const ScrollToTop = (): ReactNode => {
     useEffect(() => {
         const container = document.getElementById('scrollable-content');
         container?.scrollTo({ top: 0, behavior: 'smooth' });
@@ -15,3 +15,5 @@ export const ScrollToTop = (): ReactNode => {
 
     return null;
 };
+
+export { ScrollToTop };

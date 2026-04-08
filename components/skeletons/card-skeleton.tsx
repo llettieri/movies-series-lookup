@@ -14,7 +14,7 @@ interface SkeletonCardProps {
     size: CardSize;
 }
 
-export const CardSkeleton = ({ size }: SkeletonCardProps): ReactNode => {
+const CardSkeleton = ({ size }: SkeletonCardProps): ReactNode => {
     if (size === 'normal') {
         return (
             <Card className="md:hover:drop-s h-full w-48">
@@ -55,3 +55,5 @@ export const CardSkeleton = ({ size }: SkeletonCardProps): ReactNode => {
         </Card>
     );
 };
+
+export { CardSkeleton };

@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { ReactNode } from 'react';
 
-export const Hero = (): ReactNode => {
+const Hero = (): ReactNode => {
     return (
         <div className="pb-10 text-center">
             <div className="mx-auto w-60">
@@ -20,3 +20,5 @@ export const Hero = (): ReactNode => {
         </div>
     );
 };
+
+export { Hero };

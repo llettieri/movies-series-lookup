@@ -6,7 +6,7 @@ interface MetaProps {
     title?: string;
 }
 
-export const Meta = ({
+const Meta = ({
     keywords = 'movie, tv, series, popular, tv-show, actors, collections',
     description = 'Browse your favourite movies and series',
     title = 'Movies & Series Lookup',
@@ -31,3 +31,5 @@ export const Meta = ({
     },
     title,
 });
+
+export { Meta };

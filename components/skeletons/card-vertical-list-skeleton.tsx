@@ -7,7 +7,7 @@ interface SkeletonCardVerticalListProps {
     itemCount?: number;
 }
 
-export const CardVerticalListSkeleton = ({
+const CardVerticalListSkeleton = ({
     title,
     itemCount = 20,
 }: SkeletonCardVerticalListProps): ReactNode => {
@@ -19,3 +19,5 @@ export const CardVerticalListSkeleton = ({
         </ListBase>
     );
 };
+
+export { CardVerticalListSkeleton };
