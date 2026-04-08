@@ -4,7 +4,7 @@ import { Item } from '@/models/base';
 
 export interface Media extends Item {
     averageVote: number;
-    backdrop: string;
+    backdrop: string | null;
     collection?: SimpleCollection;
     genres: Genre[];
     homepage?: string;

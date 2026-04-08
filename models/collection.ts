@@ -6,5 +6,5 @@ export interface Collection extends Item {
     overview: string;
     parts: Media[];
     poster: string;
-    backdrop?: string;
+    backdrop: string | null;
 }

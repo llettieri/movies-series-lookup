@@ -53,7 +53,7 @@ interface TVShowSeasonEpisodeDto {
     runtime: number;
     season_number: number;
     show_id: string;
-    still_path: string;
+    still_path?: string;
     vote_average: number;
 }
 
