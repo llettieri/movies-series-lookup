@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
 
-export const GoBackButton = (): ReactNode => {
+const GoBackButton = (): ReactNode => {
     const router = useRouter();
 
     return (
@@ -12,3 +12,5 @@ export const GoBackButton = (): ReactNode => {
         </Button>
     );
 };
+
+export { GoBackButton };

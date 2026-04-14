@@ -11,17 +11,20 @@ interface TMDBImageProps {
 }
 
 const TMDBImage = (
-    imageProps: Omit<ImageProps, 'loader'> & TMDBImageProps,
+    imageProps: Omit<ImageProps, 'loader' | 'src'> &
+        TMDBImageProps & { src: string | null },
 ): ReactElement => {
-    const isFallback = imageProps.src == FALLBACK_IMAGE;
+    const src = imageProps.src ?? FALLBACK_IMAGE;
+    const isFallback = src === FALLBACK_IMAGE;
 
     return isFallback ? (
         // eslint-disable-next-line jsx-a11y/alt-text
-        <Image unoptimized={true} {...imageProps} loading="eager" />
+        <Image unoptimized={true} {...imageProps} src={src} loading="eager" />
     ) : (
         // eslint-disable-next-line jsx-a11y/alt-text
         <Image
             {...imageProps}
+            src={src}
             loader={(props) =>
                 tmdbLoader({
                     ...props,

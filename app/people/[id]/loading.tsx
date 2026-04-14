@@ -1,41 +1,17 @@
 import React, { ReactNode } from 'react';
-import { Skeleton } from '@/components/ui/skeleton';
+import { DetailLayoutSkeleton } from '@/components/skeletons/detail-layout-skeleton';
 import { CardVerticalListSkeleton } from '@/components/skeletons/card-vertical-list-skeleton';
-import { AspectRatio } from '@/components/ui/aspect-ratio';
-import { ScrollToTop } from '@/components/scroll-to-top';
 
 export default function PeopleLoadingPage(): ReactNode {
     return (
         <>
-            <ScrollToTop />
-            <div className="container mx-auto max-w-4xl py-6">
-                <div className="px-3">
-                    <div className="mx-auto mb-4 block max-w-70 md:max-w-sm">
-                        <AspectRatio ratio={2 / 3}>
-                            <Skeleton className="h-full w-full object-cover" />
-                        </AspectRatio>
-                    </div>
-                    <Skeleton className="mb-8 h-10 w-2/3" />
-                    <div className="grid gap-2">
-                        <Skeleton className="h-4" />
-                        <Skeleton className="h-4 w-[96%]" />
-                        <Skeleton className="h-4 w-[98%]" />
-                        <Skeleton className="h-4" />
-                        <Skeleton className="h-4 w-[98%]" />
-                        <Skeleton className="h-4" />
-                        <Skeleton className="h-4 w-[96%]" />
-                        <Skeleton className="h-4" />
-                        <Skeleton className="h-4 w-4/5" />
-                    </div>
-                    <div className="mt-6 flex items-center gap-1">
-                        <p className="text-sm">Birthday:</p>
-                        <Skeleton className="h-4 w-20" />
-                    </div>
-                </div>
-            </div>
-            <div className="pt-2">
-                <CardVerticalListSkeleton title="Their Movies" />
-            </div>
+            <DetailLayoutSkeleton
+                backdrop={false}
+                subtitle={false}
+                genres={false}
+            />
+            <CardVerticalListSkeleton title="Their Movies" />
+            <CardVerticalListSkeleton title="Their TV Shows" />
         </>
     );
 }

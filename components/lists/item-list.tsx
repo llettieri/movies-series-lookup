@@ -9,7 +9,7 @@ interface ItemListProps<I> {
     items?: I[];
 }
 
-export const ItemList = async <I extends Item>({
+const ItemList = async <I extends Item>({
     title,
     loadItems,
     items = [],
@@ -34,3 +34,5 @@ export const ItemList = async <I extends Item>({
         </ListBase>
     );
 };
+
+export { ItemList };

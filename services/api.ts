@@ -1,12 +1,11 @@
 import axios, {
     AxiosError,
-    AxiosInstance,
     AxiosResponse,
     HttpStatusCode,
     InternalAxiosRequestConfig,
 } from 'axios';
 import { notFound } from 'next/navigation';
-import { setupCache } from 'axios-cache-interceptor';
+import { AxiosCacheInstance, setupCache } from 'axios-cache-interceptor';
 
 const responseErrorHandler = (error: AxiosError): Promise<never> => {
     const response = error.response;
@@ -23,7 +22,7 @@ const responseErrorHandler = (error: AxiosError): Promise<never> => {
     return Promise.reject(error);
 };
 
-const TMDBApi: AxiosInstance = setupCache(axios.create(), {
+const TMDBApi: AxiosCacheInstance = setupCache(axios.create(), {
     ttl: 5 * 60 * 1000,
 });
 
@@ -38,7 +37,9 @@ TMDBApi.interceptors.response.use(
     responseErrorHandler,
 );
 
-const Api: AxiosInstance = setupCache(axios.create(), { ttl: 10 * 60 * 1000 });
+const Api: AxiosCacheInstance = setupCache(axios.create(), {
+    ttl: 10 * 60 * 1000,
+});
 
 Api.interceptors.response.use(
     (response: AxiosResponse) => response,

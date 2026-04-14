@@ -1,6 +1,6 @@
 import { CreditsTable } from '@/components/credits-table';
 import { Meta } from '@/components/meta';
-import { SearchHint } from '@/components/search-hint';
+import { SearchHint } from '@/components/search/search-hint';
 import {
     getTVShowDetails,
     getTVShowSeasonEpisodeCredits,

@@ -4,7 +4,7 @@ import * as React from 'react';
 import { ReactNode } from 'react';
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
 
-export const ThemeProvider = ({
+const ThemeProvider = ({
     children,
 }: React.ComponentProps<typeof NextThemesProvider>): ReactNode => (
     <NextThemesProvider
@@ -16,3 +16,5 @@ export const ThemeProvider = ({
         {children}
     </NextThemesProvider>
 );
+
+export { ThemeProvider };

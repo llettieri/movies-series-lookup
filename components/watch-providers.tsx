@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import CompanyLogo from '@/components/company-logo';
+import { CompanyLogo } from '@/components/company-logo';
 import { getLocale } from '@/services/session-service';
 import {
     getTVShowSeasonWatchProviders,
@@ -29,7 +29,7 @@ interface WatchProvidersProps {
     type: MediaItemType;
 }
 
-export const WatchProviders = async ({
+const WatchProviders = async ({
     mediaId,
     seasonNumber,
     type,
@@ -73,3 +73,5 @@ export const WatchProviders = async ({
         </div>
     );
 };
+
+export { WatchProviders };

@@ -3,7 +3,7 @@ import React, { Suspense, act } from 'react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { SearchBar } from '@/components/search-bar';
+import { SearchBar } from '@/components/search/search-bar';
 
 const mockRouter = { push: vi.fn(), replace: vi.fn(), back: vi.fn() };
 

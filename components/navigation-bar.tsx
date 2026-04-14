@@ -9,7 +9,7 @@ import {
 import Link from 'next/link';
 import { Search } from 'lucide-react';
 
-export const NavigationBar = (): ReactNode => {
+const NavigationBar = (): ReactNode => {
     return (
         <div className="bg-muted p-4 drop-shadow-2xl">
             <div className="container mx-auto">
@@ -45,3 +45,5 @@ export const NavigationBar = (): ReactNode => {
         </div>
     );
 };
+
+export { NavigationBar };

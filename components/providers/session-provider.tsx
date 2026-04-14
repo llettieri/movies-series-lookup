@@ -14,9 +14,11 @@ interface GeoDataDto {
     countryCode: string;
 }
 
-export const SessionProvider = (): ReactNode => {
+const SessionProvider = (): ReactNode => {
     useEffect(() => {
-        Api.get<GeoDataDto>(apiRoutes.country)
+        Api.get<GeoDataDto>(apiRoutes.country, {
+            cache: { interpretHeader: false },
+        })
             .then((r) => {
                 let countryCode = FALLBACK_COUNTRY_CODE;
 
@@ -33,3 +35,5 @@ export const SessionProvider = (): ReactNode => {
 
     return <></>;
 };
+
+export { SessionProvider };

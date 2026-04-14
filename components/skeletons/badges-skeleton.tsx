@@ -5,9 +5,7 @@ interface SkeletonBadgesProps {
     itemCount?: number;
 }
 
-export const BadgesSkeleton = ({
-    itemCount = 4,
-}: SkeletonBadgesProps): ReactNode => {
+const BadgesSkeleton = ({ itemCount = 4 }: SkeletonBadgesProps): ReactNode => {
     return (
         <div className="mt-2 mb-4 flex gap-3 overflow-auto md:flex-row-reverse">
             {Array.from({ length: itemCount }).map((value, index) => (
@@ -19,3 +17,5 @@ export const BadgesSkeleton = ({
         </div>
     );
 };
+
+export { BadgesSkeleton };

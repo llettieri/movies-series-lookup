@@ -53,7 +53,7 @@ const parseNetworkDto = (dto: NetworkDto): Network => {
 const parseMovieDto = (dto: MovieDto): Media => {
     return {
         averageVote: dto.vote_average * 10,
-        backdrop: dto.backdrop_path ?? FALLBACK_IMAGE,
+        backdrop: dto.backdrop_path ?? null,
         collection: dto.belongs_to_collection,
         genres: dto.genres,
         homepage: dto.homepage,
@@ -70,7 +70,7 @@ const parseMovieDto = (dto: MovieDto): Media => {
 const parseTVShowDto = (dto: TVShowDto): TVShow => {
     return {
         averageVote: dto.vote_average * 10,
-        backdrop: dto.backdrop_path ?? FALLBACK_IMAGE,
+        backdrop: dto.backdrop_path ?? null,
         collection: undefined,
         episodeCount: dto.number_of_episodes,
         genres: dto.genres,
@@ -98,7 +98,7 @@ const parseReducedTVShowSeasonDto = (
 ): ReducedTVShowSeason => {
     return {
         averageVote: dto.vote_average * 10,
-        backdrop: FALLBACK_IMAGE,
+        backdrop: null,
         episodeCount: dto.episode_count,
         genres: [],
         id: dto.id,
@@ -118,7 +118,7 @@ const parseTVShowSeasonDto = (
 ): TVShowSeason => {
     return {
         averageVote: dto.vote_average * 10,
-        backdrop: FALLBACK_IMAGE,
+        backdrop: null,
         episodeCount: dto.episodes.length,
         episodes: dto.episodes.map(parseTVShowSeasonEpisodeDto),
         genres: [],
@@ -139,7 +139,7 @@ const parseTVShowSeasonEpisodeDto = (
 ): TVShowSeasonEpisode => {
     return {
         averageVote: dto.vote_average * 10,
-        backdrop: dto.still_path ?? FALLBACK_IMAGE,
+        backdrop: dto.still_path ?? null,
         episodeNumber: dto.episode_number,
         episodeType: dto.episode_type,
         genres: [],
@@ -157,7 +157,7 @@ const parseTVShowSeasonEpisodeDto = (
 
 const parseCollectionDto = (dto: CollectionDto): Collection => {
     return {
-        backdrop: dto.backdrop_path,
+        backdrop: dto.backdrop_path ?? null,
         id: dto.id,
         name: dto.name,
         overview: dto.overview,
@@ -176,7 +176,7 @@ const parseMultiMediaDto = (dto: MultiMediaDto): Media => {
 
     return {
         averageVote: dto.vote_average * 10,
-        backdrop: dto.backdrop_path ?? FALLBACK_IMAGE,
+        backdrop: dto.backdrop_path ?? null,
         collection: undefined,
         genres: [],
         homepage: '',

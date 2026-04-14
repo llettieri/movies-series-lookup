@@ -7,7 +7,7 @@ interface ProvidersProps {
     children: ReactNode;
 }
 
-export const Providers = ({ children }: ProvidersProps): ReactNode => {
+const Providers = ({ children }: ProvidersProps): ReactNode => {
     return (
         <>
             <SessionProvider />
@@ -16,3 +16,5 @@ export const Providers = ({ children }: ProvidersProps): ReactNode => {
         </>
     );
 };
+
+export { Providers };

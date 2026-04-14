@@ -12,7 +12,10 @@ const MIN_REFRESH_VISIBLE_MS = 1500;
 const INDICATOR_HIDDEN_Y = -60;
 const INDICATOR_VISIBLE_Y = 16;
 
-function usePullToRefresh(): { pullDistance: number; isRefreshing: boolean } {
+const usePullToRefresh = (): {
+    pullDistance: number;
+    isRefreshing: boolean;
+} => {
     const router = useRouter();
     const { isMobile } = useIsMobile();
     const [isRefreshing, setIsRefreshing] = useState(false);
@@ -99,9 +102,9 @@ function usePullToRefresh(): { pullDistance: number; isRefreshing: boolean } {
     }, [router, isMobile]);
 
     return { pullDistance, isRefreshing };
-}
+};
 
-export function PullToRefresh(): ReactNode {
+const PullToRefresh = (): ReactNode => {
     const { pullDistance, isRefreshing } = usePullToRefresh();
 
     if (pullDistance === 0 && !isRefreshing) return null;
@@ -123,4 +126,6 @@ export function PullToRefresh(): ReactNode {
             </div>
         </div>
     );
-}
+};
+
+export { PullToRefresh };

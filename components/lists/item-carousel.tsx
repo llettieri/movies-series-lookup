@@ -14,13 +14,15 @@ import { ArrowRight } from 'lucide-react';
 import { ItemCard } from '@/components/cards/item-card';
 import { Item } from '@/models/base';
 
+const MAX_ITEMS_SHOWN = 10;
+
 interface CreditsListProps<I> {
     title: string;
     items: I[];
     link: string;
 }
 
-export const ItemCarousel = <I extends Item>({
+const ItemCarousel = <I extends Item>({
     title,
     items,
     link,
@@ -41,7 +43,7 @@ export const ItemCarousel = <I extends Item>({
         >
             <h3 className="mt-8">{title}</h3>
             <CarouselContent className="md:m-4">
-                {items.slice(0, 10).map((p) => (
+                {items.slice(0, MAX_ITEMS_SHOWN).map((p) => (
                     <CarouselItem
                         key={p.id}
                         className="xs:basis-1/2 basis-9/12 sm:basis-2/5 md:basis-4/12 lg:basis-1/4"
@@ -50,17 +52,19 @@ export const ItemCarousel = <I extends Item>({
                     </CarouselItem>
                 ))}
 
-                <CarouselItem className="xs:basis-1/2 flex basis-9/12 items-center sm:basis-2/5 md:basis-4/12 lg:basis-1/4">
-                    <Link
-                        href={link}
-                        prefetch
-                        className="duration-150 hover:scale-105"
-                    >
-                        <p className="flex w-32 items-center gap-2 text-center text-lg">
-                            View more <ArrowRight />
-                        </p>
-                    </Link>
-                </CarouselItem>
+                {items.length > MAX_ITEMS_SHOWN ? (
+                    <CarouselItem className="xs:basis-1/2 flex basis-9/12 items-center sm:basis-2/5 md:basis-4/12 lg:basis-1/4">
+                        <Link
+                            href={link}
+                            prefetch
+                            className="duration-150 hover:scale-105"
+                        >
+                            <p className="flex w-32 items-center gap-2 text-center text-lg">
+                                View more <ArrowRight />
+                            </p>
+                        </Link>
+                    </CarouselItem>
+                ) : null}
             </CarouselContent>
 
             <CarouselPrevious variant="icon" />
@@ -68,3 +72,5 @@ export const ItemCarousel = <I extends Item>({
         </Carousel>
     );
 };
+
+export { ItemCarousel };

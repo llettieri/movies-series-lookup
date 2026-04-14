@@ -14,7 +14,7 @@ interface SearchHintProps {
     os: OperatingSystem;
 }
 
-export const SearchHint = ({ os }: SearchHintProps): ReactNode => {
+const SearchHint = ({ os }: SearchHintProps): ReactNode => {
     const isMac = os.name?.toLowerCase().includes('mac');
     const actionKbd = isMac ? 'Cmd' : 'Ctrl';
 
@@ -29,3 +29,5 @@ export const SearchHint = ({ os }: SearchHintProps): ReactNode => {
         </Alert>
     );
 };
+
+export { SearchHint };

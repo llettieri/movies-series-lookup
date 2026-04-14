@@ -6,7 +6,7 @@ import React, { ReactNode } from 'react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
-export const HomeSubNavigation = (): ReactNode => {
+const HomeSubNavigation = (): ReactNode => {
     const searchParams = useSearchParams();
     const collection =
         (searchParams.get('collection') as CollectionType) ?? 'movies';
@@ -63,3 +63,5 @@ export const HomeSubNavigation = (): ReactNode => {
         </>
     );
 };
+
+export { HomeSubNavigation };

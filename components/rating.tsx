@@ -9,8 +9,8 @@ interface RatingProps {
     value?: number;
 }
 
-export function Rating({ value }: RatingProps): ReactNode {
-    return value ? (
+const Rating = ({ value }: RatingProps): ReactNode =>
+    value ? (
         <div id="rating" className="absolute top-1 right-1 w-24">
             <CircularProgressbar
                 value={value}
@@ -33,4 +33,5 @@ export function Rating({ value }: RatingProps): ReactNode {
             />
         </div>
     ) : null;
-}
+
+export { Rating };

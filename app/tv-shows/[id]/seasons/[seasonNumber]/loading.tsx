@@ -1,49 +1,24 @@
 import React, { ReactNode } from 'react';
-import { Skeleton } from '@/components/ui/skeleton';
+import { DetailLayoutSkeleton } from '@/components/skeletons/detail-layout-skeleton';
 import { CardCarouselSkeleton } from '@/components/skeletons/card-carousel-skeleton';
 import { CardVerticalListSkeleton } from '@/components/skeletons/card-vertical-list-skeleton';
-import { AspectRatio } from '@/components/ui/aspect-ratio';
-import { ScrollToTop } from '@/components/scroll-to-top';
 import { WatchProvidersSkeleton } from '@/components/skeletons/watch-providers-skeleton';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export default function TVShowSeasonLoadingPage(): ReactNode {
     return (
         <>
-            <ScrollToTop />
-            <div className="container mx-auto max-w-4xl py-6">
-                <div className="px-3">
-                    <div className="mx-auto mb-4 block max-w-70 md:max-w-sm">
-                        <AspectRatio ratio={2 / 3}>
-                            <Skeleton className="h-full w-full object-cover" />
-                        </AspectRatio>
-                    </div>
-                    <div className="mb-8 flex flex-col gap-1">
-                        <Skeleton className="h-10 w-full md:w-2/3" />
-                        <Skeleton className="h-10 w-2/3 md:hidden" />
-                    </div>
-                    <Skeleton className="mb-6 h-7 w-56" />
-                    <div className="grid gap-2">
-                        <Skeleton className="h-4" />
-                        <Skeleton className="h-4" />
-                        <Skeleton className="h-4 w-2/3" />
-                    </div>
-                    <div className="mt-6 flex items-center gap-1">
-                        <p className="text-sm">Release Date:</p>
-                        <Skeleton className="h-4 w-20" />
-                    </div>
-                    <div className="mt-8 flex w-full items-center gap-4">
-                        <p className="text-md">Networks:</p>
-                        {Array.from({ length: 3 }).map((value, index) => (
-                            <Skeleton key={index} className="h-8 w-16" />
-                        ))}
-                    </div>
-                    <WatchProvidersSkeleton />
-                    <CardCarouselSkeleton title="Credits" />
+            <DetailLayoutSkeleton backdrop={false} genres={false}>
+                <div className="mt-8 flex w-full items-center gap-4">
+                    <p className="text-md">Networks:</p>
+                    {Array.from({ length: 3 }).map((_, index) => (
+                        <Skeleton key={index} className="h-8 w-16" />
+                    ))}
                 </div>
-            </div>
-            <div className="pt-2">
-                <CardVerticalListSkeleton title="Episodes" />
-            </div>
+                <WatchProvidersSkeleton />
+                <CardCarouselSkeleton title="Credits" />
+            </DetailLayoutSkeleton>
+            <CardVerticalListSkeleton title="Episodes" />
         </>
     );
 }

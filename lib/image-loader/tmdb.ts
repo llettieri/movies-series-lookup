@@ -42,6 +42,7 @@ const TMDB_WIDTH_MAPS: Record<
 interface TMDBLoaderProps {
     scope: Scope;
 }
+
 const parseWidth = (scope: Scope, width: number): string => {
     const sizes = TMDB_WIDTH_MAPS[scope];
 

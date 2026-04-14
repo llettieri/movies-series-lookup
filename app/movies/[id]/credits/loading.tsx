@@ -6,7 +6,7 @@ export default function MovieCreditsLoadingPage(): ReactNode {
     return (
         <>
             <ScrollToTop />
-            <div className="container mx-auto hidden h-12 md:block"></div>
+            <div className="container mx-auto hidden h-12 md:block" />
             <CreditsTableSkeleton title="Movie" />
         </>
     );

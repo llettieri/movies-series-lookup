@@ -42,11 +42,7 @@ interface CreditsTableProps {
     title: string;
 }
 
-export const CreditsTable = ({
-    cast,
-    crew,
-    title,
-}: CreditsTableProps): ReactNode => {
+const CreditsTable = ({ cast, crew, title }: CreditsTableProps): ReactNode => {
     const groupedCrew: Map<string, Person[]> = new Map();
 
     crew.forEach((person) => {
@@ -101,3 +97,5 @@ export const CreditsTable = ({
         </>
     );
 };
+
+export { CreditsTable };

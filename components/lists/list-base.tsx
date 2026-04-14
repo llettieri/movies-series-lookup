@@ -5,10 +5,7 @@ interface VerticalListBaseProps {
     children: ReactNode;
 }
 
-export const ListBase = ({
-    children,
-    title,
-}: VerticalListBaseProps): ReactNode => {
+const ListBase = ({ children, title }: VerticalListBaseProps): ReactNode => {
     return (
         <div className="container mx-auto max-w-7xl">
             {title && (
@@ -20,3 +17,5 @@ export const ListBase = ({
         </div>
     );
 };
+
+export { ListBase };

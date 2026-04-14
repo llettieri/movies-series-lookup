@@ -6,7 +6,7 @@ interface GenreBadgesProps {
     genres: Genre[];
 }
 
-export const GenreBadges = ({ genres }: GenreBadgesProps): ReactNode => {
+const GenreBadges = ({ genres }: GenreBadgesProps): ReactNode => {
     return (
         <div
             id="genres"
@@ -18,3 +18,5 @@ export const GenreBadges = ({ genres }: GenreBadgesProps): ReactNode => {
         </div>
     );
 };
+
+export { GenreBadges };

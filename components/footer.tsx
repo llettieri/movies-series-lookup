@@ -24,7 +24,7 @@ const links: LinkProps[] = [
     },
 ];
 
-export const Footer = (): ReactNode => {
+const Footer = (): ReactNode => {
     const currentYear = dayjs().year();
 
     return (
@@ -65,3 +65,5 @@ export const Footer = (): ReactNode => {
         </footer>
     );
 };
+
+export { Footer };

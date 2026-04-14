@@ -1,29 +1,26 @@
+import { CompanyLogo } from '@/components/company-logo';
+import { DetailLayout } from '@/components/detail-layout';
+import { ItemCarousel } from '@/components/lists/item-carousel';
 import { Meta } from '@/components/meta';
 import {
     getTVShowDetails,
     getTVShowSeasonCredits,
     getTVShowSeasonDetails,
 } from '@/services/tv-show-service';
-import { Metadata } from 'next';
-import React, { ReactNode, Suspense } from 'react';
-import { AspectRatio } from '@/components/ui/aspect-ratio';
-import { TMDBImage } from '@/components/image';
-import { Rating } from '@/components/rating';
 import dayjs from 'dayjs';
-import CompanyLogo from '@/components/company-logo';
-import { WatchProvidersSkeleton } from '@/components/skeletons/watch-providers-skeleton';
+import { Metadata } from 'next';
+import Link from 'next/link';
+import React, { ReactNode, Suspense } from 'react';
 import { WatchProviders } from '@/components/watch-providers';
+import { WatchProvidersSkeleton } from '@/components/skeletons/watch-providers-skeleton';
 import { CardVerticalListSkeleton } from '@/components/skeletons/card-vertical-list-skeleton';
 import { ItemList } from '@/components/lists/item-list';
-import Link from 'next/link';
-import { ItemCarousel } from '@/components/lists/item-carousel';
 
 export const generateMetadata = async ({
     params,
 }: PageProps<'/tv-shows/[id]/seasons/[seasonNumber]'>): Promise<Metadata> => {
     const showId = (await params).id;
     const seasonNumber = Number((await params).seasonNumber);
-
     const { title, type, overview } = await getTVShowSeasonDetails(
         showId,
         seasonNumber,
@@ -58,80 +55,66 @@ export default async function TVShowSeasonPage({
     } = await getTVShowSeasonDetails(showId, seasonNumber);
     const credits = await getTVShowSeasonCredits(showId, seasonNumber);
 
+    const firstAiredRow = releaseDate
+        ? {
+              label: 'First Aired',
+              value: dayjs(releaseDate).format('MMMM DD, YYYY'),
+          }
+        : null;
     return (
         <>
-            <div className="container mx-auto max-w-4xl py-6">
-                <div className="px-3">
-                    <div className="relative mx-auto mb-4 block max-w-70 md:max-w-sm">
-                        <AspectRatio ratio={2 / 3}>
-                            <TMDBImage
-                                id="poster"
-                                src={poster}
-                                className="rounded-md object-cover"
-                                alt={`${title} poster image`}
-                                scope="poster"
-                                fill
-                                sizes="(min-width: 64rem) 80rem, (min-width: 48rem) 31.25rem, 18.75rem"
-                            />
-                        </AspectRatio>
-                        <Rating value={Math.round(averageVote)} />
-                    </div>
-                    <h1 id="title">
+            <DetailLayout
+                backdrop={null}
+                image={poster}
+                imageAspect="portrait"
+                alt={`${title} poster`}
+                title={
+                    <>
                         <Link
                             href={`/tv-shows/${showId}`}
                             className="underline"
                         >
                             {showTitle}
                         </Link>
-                        : {title}
-                    </h1>
-                    <h2 id="episodes-overview" className="text-secondary">
-                        ({episodeCount} Episodes)
-                    </h2>
-                    <p id="description" className="mt-4 text-sm">
-                        {overview}
-                    </p>
-                    <p id="release-date" className="text-md mt-4">
-                        Release Date:{' '}
-                        <span className="text-secondary text-sm font-bold">
-                            {dayjs(releaseDate).format('MMMM DD, YYYY')}
-                        </span>
-                    </p>
-                    <div
-                        id="networks"
-                        className="mt-8 flex w-full flex-wrap items-center gap-4"
-                    >
-                        <p className="text-md w-auto">Networks: </p>
-                        {networks.map(({ homepage, id, logo, name }) => (
-                            <CompanyLogo
-                                key={id}
-                                image={logo}
-                                alt={name}
-                                externalLink={homepage}
-                            />
-                        ))}
-                    </div>
-                    <Suspense fallback={<WatchProvidersSkeleton />}>
-                        <WatchProviders
-                            mediaId={showId}
-                            seasonNumber={seasonNumber}
-                            type="showSeason"
-                        />
-                    </Suspense>
-                    <ItemCarousel
-                        title="Credits"
-                        items={credits.cast}
-                        link={`${seasonNumber}/credits`}
-                    />
-                </div>
-            </div>
-            <div className="pt-2">
-                <Suspense
-                    fallback={<CardVerticalListSkeleton title="Episodes" />}
+                        {': '}
+                        {title}
+                    </>
+                }
+                subtitle={`${episodeCount} Episode${episodeCount !== 1 ? 's' : ''}`}
+                rating={averageVote}
+                description={overview}
+                metadata={[firstAiredRow]}
+            >
+                <div
+                    id="networks"
+                    className="mt-8 flex w-full flex-wrap items-center gap-4"
                 >
-                    <ItemList title="Episodes" items={episodes} />
+                    <p className="text-md w-auto">Networks: </p>
+                    {networks.map(({ homepage, id, logo, name }) => (
+                        <CompanyLogo
+                            key={id}
+                            image={logo}
+                            alt={name}
+                            externalLink={homepage}
+                        />
+                    ))}
+                </div>
+                <Suspense fallback={<WatchProvidersSkeleton />}>
+                    <WatchProviders
+                        mediaId={showId}
+                        seasonNumber={seasonNumber}
+                        type="showSeason"
+                    />
                 </Suspense>
-            </div>
+                <ItemCarousel
+                    title="Credits"
+                    items={credits.cast}
+                    link={`${seasonNumber}/credits`}
+                />
+            </DetailLayout>
+            <Suspense fallback={<CardVerticalListSkeleton title="Episodes" />}>
+                <ItemList title="Episodes" items={episodes} />
+            </Suspense>
         </>
     );
 }
