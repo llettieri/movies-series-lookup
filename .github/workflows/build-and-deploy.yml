@@ -22,7 +22,7 @@ on:
         required: true
 
 env:
-  REPO: docker.nexus.themcbrothers.net
+  REPO: registry.themcbrothers.net
   NAME: movies-series
 
 jobs:
@@ -54,8 +54,8 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            ${{env.REPO}}/${{env.NAME}}:latest
-            ${{env.REPO}}/${{env.NAME}}:${{github.ref_name}}
+            ${{env.REPO}}/docker-images/${{env.NAME}}:latest
+            ${{env.REPO}}/docker-images/${{env.NAME}}:${{github.ref_name}}
   deploy:
     runs-on: ubuntu-latest
     permissions:
