@@ -4,14 +4,9 @@ FROM node:24-slim AS builder
 # Setting workdir
 WORKDIR /app
 
-# Setting up package manager
-ENV PNPM_HOME="/pnpm"
-ENV PATH="$PNPM_HOME:$PATH"
-
-RUN corepack enable pnpm
-
 # Copying files and build
-COPY package.json pnpm-lock.yaml ./
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+RUN corepack enable && corepack prepare --activate
 RUN pnpm i --frozen-lockfile
 COPY . .
 RUN pnpm build
